@@ -1,0 +1,224 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for SeekrFlow — Platform API (agents, data engine, fine-tuning, deployments)
+  version: 1.0.0
+extends: openapi/seekr-llm-training-openapi.json
+x-generated: '2026-08-05'
+x-method: generated
+x-source: derived from openapi/seekr-llm-training-openapi.json — the harvested document is never mutated
+x-summary: Adds 0 untagged operations to a capability tag, marks 10 legacy-tagged operations, and flags 34 operations
+  Seekr itself tags Internal.
+actions:
+- target: $.info
+  description: Record where API Evangelist harvested this document and what surface it describes.
+  update:
+    x-apievangelist-profile: https://apis.io/provider/seekr/
+    x-apievangelist-source: 'https://docs.seekr.com/mcp (query_docs_filesystem_seekr: /openapi/llm-training.json)'
+    x-apievangelist-harvested: '2026-08-05'
+    x-api-surface: Platform API (agents, data engine, fine-tuning, deployments)
+    x-apievangelist-description: SeekrFlow Platform API (agents, data engine, fine-tuning, deployments). Authenticate
+      with an API key in the Authorization header with NO Bearer prefix; scope every request to a team with the
+      x-team-id header (omitting it targets the caller's personal workspace).
+- target: $.info
+  description: The published contact/termsOfService URLs use http:// and a generic support path; record the https
+    equivalents we verified.
+  update:
+    x-apievangelist-docs: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+    x-apievangelist-status-page: https://status.seekr.com/
+    x-apievangelist-changelog: https://docs.seekr.com/flow/changelog/seekr-managed/2026
+- target: $.paths['/v1/flow/agents/'].get
+  description: Seekr's own tag marks this operation 'agents v1 - legacy'; record that as a lifecycle hint and point
+    at the v2 path.
+  update:
+    x-apievangelist-lifecycle: legacy
+    x-apievangelist-successor-path: /v2/flow/agents/
+- target: $.paths['/v1/flow/agents/{agent_id}'].get
+  description: Seekr's own tag marks this operation 'agents v1 - legacy'; record that as a lifecycle hint and point
+    at the v2 path.
+  update:
+    x-apievangelist-lifecycle: legacy
+    x-apievangelist-successor-path: /v2/flow/agents/{agent_id}
+- target: $.paths['/v1/flow/agents/{agent_id}'].patch
+  description: Seekr's own tag marks this operation 'agents v1 - legacy'; record that as a lifecycle hint and point
+    at the v2 path.
+  update:
+    x-apievangelist-lifecycle: legacy
+    x-apievangelist-successor-path: /v2/flow/agents/{agent_id}
+- target: $.paths['/v1/flow/agents/{agent_id}'].delete
+  description: Seekr's own tag marks this operation 'agents v1 - legacy'; record that as a lifecycle hint and point
+    at the v2 path.
+  update:
+    x-apievangelist-lifecycle: legacy
+    x-apievangelist-successor-path: /v2/flow/agents/{agent_id}
+- target: $.paths['/v1/flow/agents/create'].post
+  description: Seekr's own tag marks this operation 'agents v1 - legacy'; record that as a lifecycle hint and point
+    at the v2 path.
+  update:
+    x-apievangelist-lifecycle: legacy
+    x-apievangelist-successor-path: /v2/flow/agents/create
+- target: $.paths['/v1/flow/agents/{agent_id}/update'].put
+  description: Seekr's own tag marks this operation 'agents v1 - legacy'; record that as a lifecycle hint and point
+    at the v2 path.
+  update:
+    x-apievangelist-lifecycle: legacy
+    x-apievangelist-successor-path: /v2/flow/agents/{agent_id}/update
+- target: $.paths['/v1/flow/agents/{agent_id}/promote'].put
+  description: Seekr's own tag marks this operation 'agents v1 - legacy'; record that as a lifecycle hint and point
+    at the v2 path.
+  update:
+    x-apievangelist-lifecycle: legacy
+    x-apievangelist-successor-path: /v2/flow/agents/{agent_id}/promote
+- target: $.paths['/v1/flow/agents/{agent_id}/demote'].put
+  description: Seekr's own tag marks this operation 'agents v1 - legacy'; record that as a lifecycle hint and point
+    at the v2 path.
+  update:
+    x-apievangelist-lifecycle: legacy
+    x-apievangelist-successor-path: /v2/flow/agents/{agent_id}/demote
+- target: $.paths['/v1/flow/agents/{agent_id}/diff'].patch
+  description: Seekr's own tag marks this operation 'agents v1 - legacy'; record that as a lifecycle hint and point
+    at the v2 path.
+  update:
+    x-apievangelist-lifecycle: legacy
+    x-apievangelist-successor-path: /v2/flow/agents/{agent_id}/diff
+- target: $.paths['/v1/flow/internal/agents/{agent_id}/update-status'].patch
+  description: Seekr's own tag marks this operation 'agents v1 - legacy'; record that as a lifecycle hint and point
+    at the v2 path.
+  update:
+    x-apievangelist-lifecycle: legacy
+    x-apievangelist-successor-path: /v2/flow/internal/agents/{agent_id}/update-status
+- target: $.paths['/v2/flow/internal/agents/{agent_id}/update-status'].patch
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/alignment/{alignment_job_id}/workflow-phase'].get
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow_internal/health'].get
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/evals/cases'].post
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/evals/cases'].get
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/evals/cases/{case_id}'].get
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/evals/cases/{case_id}'].put
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/evals/cases/{case_id}'].delete
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/feedback/upload'].post
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/feedback/images/{image_id}'].get
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/feedback/'].post
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/feedback/'].get
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/feedback/{feedback_id}'].get
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/feedback/{feedback_id}'].delete
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/feedback/{feedback_id}'].put
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/internal/images/{image_id}'].get
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/internal/images/{image_id}'].delete
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/internal/images/{image_id}/content'].get
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/internal/images'].post
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/fine-tunes/{fine_tune_id}/workflow-phase'].get
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/fine-tunes/{fine_tune_id}/demote-model'].get
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/fine-tunes/{fine_tune_id}/promote-model'].get
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/internal/finetune/{fine_tune_id}/status'].post
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/internal/health'].get
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/pricing/inference/serverless'].post
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/pricing/fine-tuning'].post
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/pricing/inference/dedicated'].post
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/internal/deployments/{deployment_id}'].get
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/internal/deployments/{deployment_id}/status'].post
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/internal/models'].get
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/internal/deployments'].get
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/internal/models/info'].get
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/internal/models/hf_revision'].get
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal
+- target: $.paths['/v1/flow/internal/explain/populate-index'].post
+  description: Seekr tags this operation 'internal' — flag it so public consumers do not build on it.
+  update:
+    x-apievangelist-audience: internal

@@ -1,0 +1,115 @@
+generated: '2026-08-05'
+method: searched
+source: https://docs.seekr.com/flow/reference/error-handling
+derived_from:
+- openapi/seekr-agents-openapi.json
+- openapi/seekr-explainability-openapi.json
+- openapi/seekr-llm-training-openapi.json
+- openapi/seekr-serving-openapi.json
+format: custom-json
+rfc9457: false
+summary: >-
+  Seekr documents a flat HTTP status-code table plus one JSON error envelope. It does not publish
+  a named error-code registry (no SEEKR_xxx codes), does not use application/problem+json, and
+  does not define a stable machine-readable `type` URI per error. Callers therefore branch on the
+  HTTP status and read the free-text `message`. Separately, the OpenAPI declares a 422
+  HTTPValidationError on 172 of the 212 operations — that is the dominant failure shape in
+  practice and it does NOT use the documented envelope.
+envelopes:
+- id: seekr-error-envelope
+  applies_to: documented business and transport errors
+  content_type: application/json
+  fields:
+    error: Short status name, e.g. "Bad Request".
+    message: Specific, developer-actionable reason. The field to log and surface.
+    status: Integer HTTP status, repeated in the body.
+    requestUrl: The URL that produced the error.
+    feedVersion: Envelope version string.
+  example_source: https://docs.seekr.com/flow/reference/error-handling
+- id: http-validation-error
+  applies_to: request-validation failures (HTTP 422)
+  content_type: application/json
+  schema: '#/components/schemas/HTTPValidationError'
+  fields:
+    detail: Array of ValidationError objects.
+  validation_error_fields:
+    loc: Array locating the offending field (path segments, body keys, array indices).
+    msg: Human-readable validation message.
+    type: Validation error type identifier.
+    input: The rejected input value.
+    ctx: Additional context object.
+  source: openapi/seekr-llm-training-openapi.json
+problems:
+- status: 200
+  title: Success
+  meaning: Successful request. Check the body for the response.
+- status: 201
+  title: Created
+  meaning: Resource created. Declared on 9 operations in the specs.
+  source: openapi
+- status: 202
+  title: Accepted
+  meaning: Request accepted for asynchronous processing. Declared on 1 operation.
+  source: openapi
+- status: 204
+  title: Success (No content)
+  meaning: Request completed with no body. Commonly returned by successful DELETE operations.
+- status: 400
+  title: Bad Request
+  meaning: >-
+    Missing required parameters, malformed request data, or bad format. Read the message field for
+    the specific reason.
+  remediation: Correct the request payload or query parameters and retry.
+- status: 401
+  title: Unauthorized
+  meaning: >-
+    No Authorization header, a wrongly formatted header, or an invalid Seekr API key.
+  remediation: >-
+    Send Authorization:<key> with NO Bearer prefix. Regenerate the key from My Account > API Key
+    in the SeekrFlow dashboard if it is not active.
+- status: 403
+  title: Forbidden
+  meaning: >-
+    The API key is valid but does not have permission for the method being called.
+  remediation: >-
+    Check the team scoping — resources belong to a team. Set x-team-id to the owning team, and
+    verify the caller's team role (admin/creator) allows the action.
+- status: 404
+  title: Not Found
+  meaning: The URL does not exist, or the resource is outside the caller's teams.
+  remediation: Verify the path and the active team.
+- status: 409
+  title: Conflict
+  meaning: Resource state conflict. Declared on 2 operations in the specs.
+  source: openapi
+- status: 422
+  title: Unprocessable Entity
+  meaning: >-
+    Request validation failed — missing required parameters, incorrect data types, or values that
+    do not meet validation requirements. The response includes detailed validation errors.
+  envelope: http-validation-error
+  frequency: declared on 172 of 212 operations
+  remediation: Read detail[].loc to find the offending field and detail[].msg for the rule broken.
+- status: 500
+  title: Internal Server Error
+  meaning: Unexpected server-side failure. Automatically triggers alerts that Seekr engineers respond to.
+  remediation: Retry with backoff; if persistent, contact Seekr support with the requestUrl.
+- status: 503
+  title: Service Unavailable
+  meaning: >-
+    Service temporarily unavailable. Documented as highly uncommon and preceded by a notice of
+    scheduled maintenance.
+  remediation: Retry with backoff. Check https://status.seekr.com/ for an active incident.
+gaps:
+- No named/stable error codes — only HTTP status plus free text.
+- No application/problem+json and no per-error type URI.
+- >-
+  The documented envelope example is drawn from a services-api.seekr.com URL, not from
+  flow.seekr.com, so the envelope's applicability to every SeekrFlow endpoint is asserted rather
+  than demonstrated.
+- >-
+  Only 400, 409 and 422 error responses are declared in the OpenAPI; 401/403/404/500/503 are
+  documented in prose but not modelled in the specs.
+cross_links:
+  conventions: conventions/seekr-conventions.yml
+  lifecycle: lifecycle/seekr-lifecycle.yml

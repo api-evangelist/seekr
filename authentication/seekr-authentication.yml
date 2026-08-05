@@ -1,0 +1,26 @@
+generated: '2026-08-05'
+method: derived
+source: openapi/seekr-agents-openapi.json, openapi/seekr-explainability-openapi.json, openapi/seekr-llm-training-openapi.json,
+  openapi/seekr-serving-openapi.json
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: APIKeyHeader
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+  sources:
+  - openapi/seekr-agents-openapi.json
+  - openapi/seekr-explainability-openapi.json
+  - openapi/seekr-llm-training-openapi.json
+  - openapi/seekr-serving-openapi.json
+- name: HTTPBearer
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/seekr-explainability-openapi.json

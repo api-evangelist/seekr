@@ -1,23 +1,252 @@
 aid: seekr
 name: Seekr
-description: 'Seekr is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Seekr Technologies builds explainable, auditable, sovereign AI for regulated industries and
+  high-stakes government missions. Its platform, SeekrFlow, is an end-to-end AI operating system
+  that covers document ingestion and AI-ready data preparation, vector databases and retrieval,
+  instruction / LoRA / DPO / GRPO / vision-language fine-tuning, model deployment,
+  OpenAI-compatible inference, and agent orchestration with tools — all wrapped in an
+  explainability layer that traces every response back to the retrieved chunks, tool calls, spans
+  and training examples that produced it. Companion products are SeekrGuard (third-party and
+  open-weight model evaluation and certification), SeekrGeo (multimodal geospatial intelligence)
+  and SeekrIntel (investigative entity mapping). SeekrFlow is reachable through a no-code web app,
+  the seekrai Python SDK, and a REST API at flow.seekr.com, and deploys to Seekr's cloud, a
+  customer cloud, on-premises, the edge or fully air-gapped environments.
+image: https://s48368.pcdn.co/wp-content/uploads/2025/10/Seekr-Thumbnail-OG-Image-1.png
 url: https://raw.githubusercontent.com/api-evangelist/seekr/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: enriched
+x-tier-reason: enrichment-pipeline-local-v1
 specificationVersion: '0.20'
 created: '2026-08-05'
 modified: '2026-08-05'
 tags:
-- Company
-apis: []
+- artificial-intelligence
+- generative-ai
+- agents
+- llm
+- fine-tuning
+- inference
+- rag
+- vector-database
+- explainability
+- ai-governance
+- model-evaluation
+- observability
+- geospatial-intelligence
+- defense
+- government
+- regulated-industries
+- mcp
+- agent-native
+apis:
+- name: SeekrFlow Platform API
+  description: >-
+    The core SeekrFlow control plane — agents (v1 and v2), custom tools, the AI-ready data engine
+    (file ingestion, data jobs, alignment / instruction-pair generation), vector databases and
+    chunk metadata, fine-tuning jobs, model deployments, projects, evaluations, feedback, pricing
+    estimates and audit events. 108 paths over an API-key-authenticated, team-scoped REST surface.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - agents
+  - fine-tuning
+  - rag
+  - vector-database
+  - data-engine
+  - deployments
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-llm-training-openapi.json
+  - type: Overlay
+    url: overlays/seekr-llm-training-overlay.yaml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+- name: SeekrFlow Agent Runtime API
+  description: >-
+    The runtime half of SeekrFlow agents — threads, messages, runs (including SSE streaming and a
+    Vercel AI SDK stream shape), run cancel and attach, uploaded custom Python functions used as
+    agent tools, and span-level observability over every model call and tool invocation.
+  humanURL: https://docs.seekr.com/flow/components/agents
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - agents
+  - observability
+  - streaming
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-agents-openapi.json
+  - type: Overlay
+    url: overlays/seekr-agents-overlay.yaml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+- name: SeekrFlow Explainability API
+  description: >-
+    Seekr's differentiating surface — context attribution (which retrieved sources influenced an
+    answer, from a stored run or an arbitrary response/context pair), training-data attribution
+    via a per-model influence index, and source tracing back to the exact chunk in the original
+    document.
+  humanURL: https://docs.seekr.com/flow/components/explainability
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - explainability
+  - ai-governance
+  - observability
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-explainability-openapi.json
+  - type: Overlay
+    url: overlays/seekr-explainability-overlay.yaml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+- name: SeekrFlow Inference & Serving API
+  description: >-
+    OpenAI-compatible inference — chat completions, completions, embeddings, rerank, score and
+    audio transcription — plus batch jobs, file handling for batches, model listing, engine
+    health/metrics and sleep/wake control for dedicated serving instances. Any OpenAI SDK can call
+    it by changing base_url.
+  humanURL: https://docs.seekr.com/flow/sdk/getting-started
+  baseURL: https://flow.seekr.com/v1/inference
+  tags:
+  - inference
+  - llm
+  - embeddings
+  - openai-compatible
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-serving-openapi.json
+  - type: Overlay
+    url: overlays/seekr-serving-overlay.yaml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- name: Seekr Documentation MCP Server
+  description: >-
+    A hosted, anonymous, read-only MCP server that gives an AI assistant direct access to the
+    SeekrFlow documentation and the four SeekrFlow OpenAPI specs, so the assistant can generate
+    working authenticated SeekrFlow code. Three tools — search_seekr,
+    query_docs_filesystem_seekr and submit_feedback — plus a packaged Agent Skill exposed as an
+    MCP resource. It is a documentation-plane server: it does not expose agent, fine-tuning or
+    inference actions.
+  humanURL: https://docs.seekr.com/flow/mcp
+  baseURL: https://docs.seekr.com/mcp
+  tags:
+  - mcp
+  - agent-native
+  - documentation
+  properties:
+  - type: MCPServer
+    url: mcp/seekr-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/seekr-tool-crosswalk.yml
+  - type: MCP
+    url: https://docs.seekr.com/mcp
+  - type: Documentation
+    url: https://docs.seekr.com/flow/mcp
+  - type: AgentCard
+    url: a2a/seekr-a2a.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgenticAccess
+  url: agentic-access/seekr-agentic-access.yml
+- type: TrustCenter
+  url: security/seekr-trust-center.yml
 - type: Website
-  url: https://forgeglobal.com/seekr_stock/
+  url: https://www.seekr.com/
+- type: DeveloperPortal
+  url: https://docs.seekr.com/
+- type: Documentation
+  url: https://docs.seekr.com/flow
+- type: APIReference
+  url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+- type: GettingStarted
+  url: https://docs.seekr.com/flow/sdk/getting-started
+- type: Support
+  url: https://www.seekr.com/contact-us/
+- type: Blog
+  url: https://www.seekr.com/resource-center/?type=blog
+- type: Pricing
+  url: https://www.seekr.com/pricing/
+- type: SignUp
+  url: https://apps.seekr.com/signup
+- type: Login
+  url: https://apps.seekr.com/login
+- type: TermsOfService
+  url: https://www.seekr.com/terms-conditions/
+- type: PrivacyPolicy
+  url: https://www.seekr.com/privacy-policy/
+- type: StatusPage
+  url: https://status.seekr.com/
+- type: ChangeLog
+  url: https://docs.seekr.com/flow/changelog/seekr-managed/2026
+- type: ChangeLog
+  url: changelog/seekr-changelog.yml
+- type: Deprecation
+  url: https://docs.seekr.com/flow/reference/getting-started-with-your-api#versioning
+- type: Lifecycle
+  url: lifecycle/seekr-lifecycle.yml
+- type: Compliance
+  url: https://www.seekr.com/security-compliance/
+- type: Conformance
+  url: conformance/seekr-conformance.yml
+- type: Authentication
+  url: authentication/seekr-authentication.yml
+- type: Conventions
+  url: conventions/seekr-conventions.yml
+- type: ErrorCatalog
+  url: errors/seekr-problem-types.yml
+- type: DataModel
+  url: data-model/seekr-data-model.yml
+- type: Packages
+  url: packages/seekr-packages.yml
+- type: SDKs
+  url: packages/seekr-packages.yml
+- type: MCPServer
+  url: mcp/seekr-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/seekr-tool-crosswalk.yml
+- type: AgentCard
+  url: a2a/seekr-a2a.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/seekr-llms.txt
+- type: WellKnown
+  url: well-known/seekr-well-known.yml
+- type: DomainSecurity
+  url: security/seekr-domain-security.yml
+- type: Overlay
+  url: overlays/seekr-llm-training-overlay.yaml
+- type: Overlay
+  url: overlays/seekr-agents-overlay.yaml
+- type: Overlay
+  url: overlays/seekr-explainability-overlay.yaml
+- type: Overlay
+  url: overlays/seekr-serving-overlay.yaml
+- type: LinkedIn
+  url: https://www.linkedin.com/company/seekrtechnologies/
+- type: YouTube
+  url: https://www.youtube.com/@seekrtechnologies
+- type: Twitter
+  url: https://x.com/seekrtechnology
+x-enrichment:
+  date: '2026-08-05'
+  status: enriched
+  artifacts_added: 38
+  pass: local-v1

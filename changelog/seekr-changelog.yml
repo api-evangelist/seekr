@@ -1,0 +1,115 @@
+generated: '2026-08-05'
+method: searched
+source: https://docs.seekr.com/flow/changelog/seekr-managed/2026
+also:
+- https://docs.seekr.com/flow/changelog/self-hosted/2026
+- https://docs.seekr.com/flow/changelog/seekr-managed/2025
+- https://docs.seekr.com/flow/changelog/seekr-managed/2024
+summary: >-
+  Seekr publishes two parallel dated changelogs — one for the Seekr-managed (SaaS) instance and
+  one for self-hosted installations. The managed changelog is release-note style, dated to the
+  day, and tagged Feature / Improvement / Fix / Deprecation. The self-hosted changelog carries an
+  explicit product version (e.g. 6.2026.0, 5.2.5). Each entry also marks which surfaces it lands
+  on (UI / API / SDK) and, where relevant, the minimum `seekrai` SDK version required.
+scheme:
+  managed: dated release notes, tagged (Feature | Improvement | Fix | Deprecation)
+  self_hosted: dated release notes with a product version string
+  api_versioning: URI path (v1, with v2 present for the agents resource)
+current:
+  self_hosted_version: 6.2026.0
+  self_hosted_version_date: '2026-07-17'
+  sdk_version: 0.33.0
+  spec_versions:
+    llm-training: 5.108.1
+    agents: 5.45.1
+    explainability: 5.17.1
+    serving: 0.1.0
+archive:
+  years: [2024, 2025, 2026]
+entries:
+- date: '2026-07-08'
+  tags: [Improvement]
+  highlights:
+  - Trace agent instructions as a context attribution source
+  - View snippets and full page content for web search sources
+  - Trace agent responses to MCP tool outputs
+- date: '2026-06-26'
+  tags: [Feature]
+  highlights:
+  - Summarize the metadata in a vector database
+- date: '2026-06-23'
+  tags: [Improvement, Fix, Deprecation]
+  breaking: true
+  highlights:
+  - Guide dataset generation with data job instructions
+  - Track alignment job progress in real time
+  - Platform improvements and fixes
+  - Context-grounded fine-tuning is deprecated
+  deprecation:
+    feature: context-grounded fine-tuning
+    announced: '2026-06-23'
+    removal: '2026-07-17'
+    guidance: Choose another fine-tuning method for new projects.
+- date: '2026-06-22'
+  tags: [Feature]
+  highlights:
+  - Score reinforcement tuning outputs with an LLM judge
+- date: '2026-06-19'
+  tags: [Feature]
+  highlights:
+  - Add, filter, and edit custom chunk metadata
+- date: '2026-06-12'
+  tags: [Feature]
+  highlights:
+  - Trace agent responses back to their source documents
+- date: '2026-06-09'
+  tags: [Feature]
+  highlights:
+  - Partially update agents and tools
+- date: '2026-05-28'
+  tags: [Improvement]
+  highlights:
+  - Control agent reasoning with effort levels and temperature
+- date: '2026-05-21'
+  tags: [Feature]
+  highlights:
+  - Edit agents directly in the UI
+- date: '2026-05-07'
+  tags: [Feature]
+  highlights:
+  - MCP connector support for agents
+- date: '2026-04-29'
+  tags: [Feature]
+  highlights:
+  - Role-based access control for team collaboration
+- date: '2026-04-08'
+  tags: [Feature]
+  highlights:
+  - Track file and vector database dependencies across your environment
+- date: '2026-04-02'
+  tags: [Feature]
+  highlights:
+  - Manage the full AI-ready data pipeline through a single job ID
+- date: '2026-03-12'
+  tags: [Feature, Improvement]
+  highlights:
+  - Create and manage tools from Agent Builder
+  - Trace agent responses to their sources
+  - Parallel tool execution for agents
+- date: '2026-02'
+  tags: [Feature]
+  highlights:
+  - Preference tuning (DPO)
+  - Reinforcement tuning reward functions
+- date: '2026-01'
+  tags: [Feature]
+  highlights:
+  - Vision-language fine-tuning
+  - Tools library
+  - Ingestion insights
+  - Multi-node fine-tuning
+self_hosted_entries:
+- {date: '2026-07-17', version: 6.2026.0, tags: [Improvement]}
+- {date: '2026-04-22', version: 5.2.5, tags: [Feature]}
+- {date: '2026-03-12', version: 5.2.5, tags: [Improvement]}
+- {date: '2026-02', version: 5.0.X, tags: [Improvement]}

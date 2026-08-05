@@ -1,0 +1,80 @@
+generated: '2026-08-05'
+method: searched
+source: live probe of every Seekr host on 2026-08-05
+summary: >-
+  Seekr publishes no /.well-known/security.txt, no OAuth/OIDC discovery documents and no
+  api-catalog on any host. The documentation host (docs.seekr.com, Mintlify-hosted) is the only
+  host with a populated /.well-known/ surface: an A2A agent card, an MCP server descriptor, and a
+  packaged Agent Skill. The API host flow.seekr.com answers 404 on every /.well-known/ path
+  probed, which is consistent with its API-key-only auth model (no OAuth, so no RFC 8414 / OIDC
+  discovery documents to publish).
+hosts:
+- host: https://docs.seekr.com
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 200
+    content_type: application/json
+    file: seekr-agent-card.json
+    note: A2A agent card — see a2a/seekr-a2a.yml for the graded manifest.
+  - path: /.well-known/mcp.json
+    status: 200
+    content_type: application/json
+    file: seekr-mcp.json
+    note: MCP server descriptor — authentication "none"; see mcp/seekr-mcp.yml.
+  - path: /.well-known/agent-skills/seekr/skill.md
+    status: 200
+    content_type: text/markdown
+    file: ../skills/seekr-seekrflow.md
+    note: Provider-published Agent Skill, saved verbatim under skills/.
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://flow.seekr.com
+  note: SeekrFlow API host (OpenAPI servers[] host).
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://www.seekr.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://seekr.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+other_machine_readable:
+- path: https://docs.seekr.com/llms.txt
+  status: 200
+  file: ../llms/seekr-llms.txt
+- path: https://www.seekr.com/llms.txt
+  status: 200
+  note: Marketing-site llms.txt (company/product overview, not the developer index).

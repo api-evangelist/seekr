@@ -1,0 +1,73 @@
+generated: '2026-08-05'
+method: searched
+source: >-
+  https://docs.seekr.com/.well-known/agent-skills/seekr/skill.md (provider-published, saved
+  verbatim) plus four API Evangelist skills generated from the harvested OpenAPI documents.
+skills:
+- file: seekr-seekrflow.md
+  name: Seekr
+  method: searched
+  provider_published: true
+  source: https://docs.seekr.com/.well-known/agent-skills/seekr/skill.md
+  mcp_resource: mintlify://skills/seekr
+  api: openapi/seekr-llm-training-openapi.json
+  description: >-
+    Seekr's own packaged Agent Skill, served verbatim from its documentation host and also exposed
+    as an MCP resource. Covers building, training, deploying and managing agents and models, with
+    an SDK-first quick reference. Saved byte-identical — not edited or extended.
+- file: seekr-rag-agent.md
+  name: Build and run a retrieval-grounded SeekrFlow agent
+  method: generated
+  api: openapi/seekr-llm-training-openapi.json
+  operations: [file_upload_v1_flow_files_put, create_vector_database_route_v1_flow_vectordb_post,
+    create_vector_database_ingestion_job_v1_flow_vectordb__database_id__ingestion_post,
+    get_vector_database_ingestion_job_v1_flow_vectordb__database_id__ingestion__job_id__get,
+    create_tool_v1_flow_tools_post, create_v1_flow_agents_create_post,
+    promote_v1_flow_agents__agent_id__promote_put, create_thread_endpoint_v1_threads_post,
+    run_agent_v1_threads__thread_id__runs_post,
+    get_run_endpoint_v1_threads__thread_id__runs__run_id__get,
+    list_messages_endpoint_v1_threads__thread_id__messages_get]
+- file: seekr-fine-tune-and-deploy.md
+  name: Turn documents into a fine-tuned, deployed SeekrFlow model
+  method: generated
+  api: openapi/seekr-llm-training-openapi.json
+  operations: [file_upload_v1_flow_files_put, ingest_files_v1_flow_ingestion_post,
+    submit_data_job_v1_flow_data_jobs_post,
+    add_files_to_data_job_v1_flow_data_jobs__data_job_id__add_files_post,
+    start_data_job_alignment_v1_flow_data_jobs__data_job_id__start_post,
+    get_data_job_v1_flow_data_jobs__data_job_id__get,
+    alignment_outputs_v1_flow_alignment__alignment_job_id__outputs_get,
+    generate_price_estimate_for_finetuning_v1_flow_pricing_fine_tuning_post,
+    fine_tune_v1_flow_fine_tune_post, get_fine_tune_v1_flow_fine_tunes__fine_tune_id__get,
+    fine_tune_workflow_phase_v1_flow_fine_tunes__fine_tune_id__workflow_phase_get,
+    promote_model_v1_flow_fine_tunes__fine_tune_id__promote_model_get,
+    deploy_v1_flow_deployments_post, promote_v1_flow_deployments__deployment_id__promote_put]
+- file: seekr-explain-a-response.md
+  name: Explain a SeekrFlow response — trace it to sources, spans and training data
+  method: generated
+  api: openapi/seekr-explainability-openapi.json
+  operations: [get_context_attribution_from_run_v1_explainability_context_attributor_from_run_post,
+    get_context_attribution_v1_explainability_context_attributor_post,
+    query_spans_v1_observability_spans_post, retrieve_span_v1_observability_spans__span_id__get,
+    create_index_v1_explainability_create_index_post,
+    populate_index_v1_explainability_populate_index_post,
+    populate_index_job_status_v1_explainability_populate_index_job_status_get,
+    get_influential_finetuning_data_v1_explainability_influential_finetuning_data_get,
+    get_influential_training_data_route_v1_flow_explain_models__model_id__influential_finetuning_data_get,
+    get_vector_database_chunk_v1_flow_vectordb__database_id__chunk__chunk_id__get]
+- file: seekr-inference.md
+  name: Run inference on SeekrFlow (chat, embeddings, rerank, transcription)
+  method: generated
+  api: openapi/seekr-serving-openapi.json
+  operations: [show_models_v1_models_get,
+    route_chat_completion_v1_inference_chat_completions_post,
+    route_completion_v1_inference_completions_post,
+    route_embeddings_v1_inference_embeddings_post, route_v1_rerank_v1_inference_rerank_post,
+    route_v1_score_v1_inference_score_post,
+    route_v1_audio_transcriptions_v1_inference_audio_transcriptions_post,
+    route_batches_v1_batches_post, route_list_batches_v1_batches_get,
+    route_get_batch_v1_batches__batch_id__get, route_cancel_batch_v1_batches__batch_id__delete,
+    health_v1_inference_health_get]
+note: >-
+  Every operationId in the generated skills was verified present in the harvested specs before the
+  skill was written. None were invented.

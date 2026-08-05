@@ -1,0 +1,259 @@
+# Seekr
+
+## Docs
+
+- [Access SeekrFlow](https://docs.seekr.com/flow/app/access-seekrflow.md): System requirements, account setup, and sign-in instructions for SeekrFlow.
+- [Agent Builder](https://docs.seekr.com/flow/app/agent-builder.md): Create and manage agents in the SeekrFlow user interface.
+- [Agents](https://docs.seekr.com/flow/app/agents.md): Create and manage agents in the SeekrFlow user interface.
+- [AI-Ready Data](https://docs.seekr.com/flow/app/ai-ready-data.md): Generate training data from your unstructured documents to fine-tune a model.
+- [Chat with an agent](https://docs.seekr.com/flow/app/chat-with-an-agent.md): Test agents in Agent Chat.
+- [Create a tool](https://docs.seekr.com/flow/app/create-a-tool.md): Build a new custom tool in the SeekrFlow Tool Library.
+- [Create an agent](https://docs.seekr.com/flow/app/create-an-agent.md): Build a new agent with models and tools in the SeekrFlow UI.
+- [Dashboard](https://docs.seekr.com/flow/app/dashboard.md): Your home screen for quick actions, recent work, and deployment stats.
+- [Data Engine](https://docs.seekr.com/flow/app/data-engine.md): Manage files, generate training datasets, and build vector stores for fine-tuning and retrieval.
+- [Deployments](https://docs.seekr.com/flow/app/deployments.md): Deploy and manage model endpoints for real-time inference from the SeekrFlow Deployment Dashboard.
+- [File Storage](https://docs.seekr.com/flow/app/file-storage.md): Upload, organize, and manage the source documents and system-generated files used across SeekrFlow.
+- [Fine-Tuning](https://docs.seekr.com/flow/app/fine-tuning.md): Create and manage fine-tuning projects and jobs through the SeekrFlow web interface.
+- [Manage agents](https://docs.seekr.com/flow/app/manage-agents.md): View, edit, activate, and deactivate agents in the SeekrFlow UI.
+- [Manage permissions](https://docs.seekr.com/flow/app/manage-permissions.md): Set up your organization, invite members, and manage team access in SeekrFlow.
+- [Manage tools](https://docs.seekr.com/flow/app/manage-tools.md): View, edit, clone, and delete tools in the SeekrFlow Tool Library.
+- [Model Development](https://docs.seekr.com/flow/app/model-development.md): Fine-tune, deploy, and browse base models in SeekrFlow.
+- [Model Library](https://docs.seekr.com/flow/app/model-library.md): Browse and deploy available base models for fine-tuning and inference.
+- [Playground](https://docs.seekr.com/flow/app/playground.md): Test models and agents in SeekrFlow.
+- [Storage](https://docs.seekr.com/flow/app/storage.md): Upload and manage source files, and create vector stores for retrieval and grounding.
+- [Test a model](https://docs.seekr.com/flow/app/test-a-model.md): Send prompts directly to models in Model Chat.
+- [Tool Library](https://docs.seekr.com/flow/app/tool-library.md): Create and manage tools for your agents in the SeekrFlow user interface.
+- [Understand a response](https://docs.seekr.com/flow/app/understand-a-response.md): Use source trace to see which sources influenced an agent's response.
+- [Vector Stores](https://docs.seekr.com/flow/app/vector-stores.md): Create semantic indexes from your documents to power retrieval, agents, and context-grounded fine-tuning.
+- [Release notes 2024](https://docs.seekr.com/flow/changelog/seekr-managed/2024.md)
+- [Release notes 2025](https://docs.seekr.com/flow/changelog/seekr-managed/2025.md)
+- [Release notes 2026](https://docs.seekr.com/flow/changelog/seekr-managed/2026.md)
+- [Release notes 2025](https://docs.seekr.com/flow/changelog/self-hosted/2025.md)
+- [Release notes 2026](https://docs.seekr.com/flow/changelog/self-hosted/2026.md)
+- [Components](https://docs.seekr.com/flow/components.md): Detailed overview of SeekrFlow's key components and architecture.
+- [Agents](https://docs.seekr.com/flow/components/agents.md): Configurable AI systems that reason through problems and execute tasks autonomously.
+- [Models](https://docs.seekr.com/flow/components/agents/models.md): Models that serve as the cognitive engine for agents.
+- [Tools](https://docs.seekr.com/flow/components/agents/tools.md)
+- [Content moderation](https://docs.seekr.com/flow/components/content-moderation.md): Evaluate text safety and brand risk with specialized moderation models.
+- [Data engine](https://docs.seekr.com/flow/components/data-engine.md): Transform raw content into structured, AI-ready datasets for training and retrieval.
+- [AI-ready data](https://docs.seekr.com/flow/components/data-engine/ai-ready-data.md): Generate structured training datasets from raw content for model fine-tuning.
+- [Storage](https://docs.seekr.com/flow/components/data-engine/storage.md): Upload files and create vector databases for training and retrieval workflows.
+- [Deployments](https://docs.seekr.com/flow/components/deployments.md): Launch, monitor, and manage model endpoints for real-time inference.
+- [Explainability](https://docs.seekr.com/flow/components/explainability.md): Understand model outputs by tracing responses to the sources and training data that influenced them.
+- [Context attribution](https://docs.seekr.com/flow/components/explainability/context-attribution.md): Identify which retrieved sources influenced an agent's response.
+- [Source tracing](https://docs.seekr.com/flow/components/explainability/source-tracing.md): Trace retrieved chunks to their exact location in the original source document.
+- [Training data attribution](https://docs.seekr.com/flow/components/explainability/training-data-attribution.md): Identify which training examples influenced a fine-tuned model's response.
+- [Fine-tuning](https://docs.seekr.com/flow/components/fine-tuning.md): Adapt pre-trained models to specific domains through automated dataset creation and training.
+- [Context-grounded fine-tuning](https://docs.seekr.com/flow/components/fine-tuning/context-grounded-fine-tuning.md): Train models to access and retrieve information from external knowledge bases during inference.
+- [Reinforcement tuning (GRPO)](https://docs.seekr.com/flow/components/fine-tuning/grpo.md): Uses reward functions to reinforce models toward higher-quality responses.
+- [Instruction fine-tuning](https://docs.seekr.com/flow/components/fine-tuning/instruction-fine-tuning.md): Train models on question-and-answer pairs to embed domain knowledge directly into model parameters.
+- [Low-rank adaptation (LoRA)](https://docs.seekr.com/flow/components/fine-tuning/lora.md): Parameter-efficient fine-tuning method that trains small adapter modules instead of all model weights.
+- [Preference tuning (DPO)](https://docs.seekr.com/flow/components/fine-tuning/preference-tuning.md): Align model outputs with human preferences by learning directly from response comparisons.
+- [Vision language tuning](https://docs.seekr.com/flow/components/fine-tuning/vision-language-tuning.md): Fine-tune vision-language models that reason across both images and text.
+- [Observability](https://docs.seekr.com/flow/components/observability.md): Monitor agent performance and investigate runs with span-level visibility.
+- [Connect to MCP Server](https://docs.seekr.com/flow/mcp.md): Connect your AI assistant to the SeekrFlow OpenAPI spec to generate working, authenticated code on demand.
+- [Build something with SeekrFlow](https://docs.seekr.com/flow/recipes.md): End-to-end, copy-pasteable walkthroughs. Pick one by what you want to build.
+- [New hire onboarding agent with citations](https://docs.seekr.com/flow/recipes/new-hire-onboarding-agent-with-citations.md): Build a FileSearch agent that answers onboarding questions from your own documents, with confidence ratings and cited sources.
+- [Poetry contest with a supervisor agent](https://docs.seekr.com/flow/recipes/poetry-contest-with-supervisor-agent.md): Build a supervisor agent that wraps a limerick writer and a haiku writer as tools, sends a prompt to both, and picks a winner.
+- [Question-answering bot with confidence scoring](https://docs.seekr.com/flow/recipes/simple-question-answering-bot-with-confidence-scoring.md): Build a Q&A bot with SeekrFlow that returns a confidence score alongside each answer.
+- [Simple RAG agent](https://docs.seekr.com/flow/recipes/simple-rag-agent.md): Learn the SeekrFlow building blocks: upload a file, index it in a vector store, and give an agent a FileSearch tool to answer from it.
+- [Weather agent with a custom Python tool](https://docs.seekr.com/flow/recipes/weather-agent-custom-python-tool.md): Build a SeekrFlow agent that calls your own Python function as a tool, where the function fetches live data from an external API.
+- [Add files to data job](https://docs.seekr.com/flow/reference/add_files_to_data_job_v1_flow_data_jobs__data_job_id__add_files_post.md): Add files to an existing data job.
+- [Delete alignment job](https://docs.seekr.com/flow/reference/alignment_delete_v1_flow_alignment__alignment_job_id__delete.md): Permanently delete an alignment job.
+- [Generate training pairs](https://docs.seekr.com/flow/reference/alignment_generate_v1_flow_alignment_generate_post.md): Generate instruction fine-tuning pairs from your data for use in alignment jobs.
+- [Get alignment job](https://docs.seekr.com/flow/reference/alignment_get_v1_flow_alignment__alignment_job_id__get.md): Retrieve the status and details of a specific alignment job.
+- [List alignment jobs](https://docs.seekr.com/flow/reference/alignment_list_v1_flow_alignment_get.md): Retrieve a list of all alignment jobs in your organization.
+- [Get alignment metadata](https://docs.seekr.com/flow/reference/alignment_outputs_v1_flow_alignment__alignment_job_id__outputs_get.md): Retrieve the output file metadata for a completed alignment job.
+- [Attach to run stream](https://docs.seekr.com/flow/reference/attach_to_run_v1_threads__thread_id__runs__run_id__attach_get.md): Attach to a run for SSE streaming output.
+- [Bulk upload files](https://docs.seekr.com/flow/reference/bulk_file_upload_v1_flow_bulk_files_put.md): Upload multiple files in a single request.
+- [Cancel alignment job](https://docs.seekr.com/flow/reference/cancel_alignment_job_v1_flow_alignment__alignment_job_id__cancel_post.md): Cancel an alignment job that is queued or in progress.
+- [Cancel data job](https://docs.seekr.com/flow/reference/cancel_data_job_v1_flow_data_jobs__data_job_id__cancel_post.md): Cancel the alignment job associated with a data job.
+- [Cancel fine-tuning job](https://docs.seekr.com/flow/reference/cancel_fine_tune_v1_flow_fine_tunes__fine_tune_id__cancel_put.md): Cancel a fine-tuning job that is queued or in progress.
+- [Cancel run](https://docs.seekr.com/flow/reference/cancel_run_v1_threads__thread_id__runs__run_id__cancel_post.md): Cancel an in-progress agent run.
+- [Clone data job](https://docs.seekr.com/flow/reference/clone_data_job_v1_flow_data_jobs__data_job_id__clone_post.md): Create a new, editable data job pre-populated from an existing one.
+- [Create message](https://docs.seekr.com/flow/reference/create_message_endpoint_v1_threads__thread_id__messages_post.md): Create a new message in a thread.
+- [Create thread](https://docs.seekr.com/flow/reference/create_thread_endpoint_v1_threads_post.md): Create a new thread.
+- [Create tool](https://docs.seekr.com/flow/reference/create_tool_v1_flow_tools_post.md): Create a new tool that agents can use to extend their capabilities.
+- [Create agent v1](https://docs.seekr.com/flow/reference/create_v1_flow_agents_create_post.md): Create a new agent with a model, instructions, and optional tools.
+- [Create agent](https://docs.seekr.com/flow/reference/create_v2_flow_agents_create_post.md): Create a new agent with a model, instructions, and optional tools.
+- [Create vector database ingestion job](https://docs.seekr.com/flow/reference/create_vector_database_ingestion_job_v1_flow_vectordb__database_id__ingestion_post.md): Start a new ingestion job to add files to a vector database.
+- [Create vector database](https://docs.seekr.com/flow/reference/create_vector_database_route_v1_flow_vectordb_post.md): Create a new vector database for use with file search tools.
+- [Data jobs](https://docs.seekr.com/flow/reference/data-jobs.md)
+- [Delete data job](https://docs.seekr.com/flow/reference/delete_data_job_v1_flow_data_jobs__data_job_id__delete.md): Permanently delete a data job and its associated alignment job.
+- [Delete file](https://docs.seekr.com/flow/reference/delete_file_v1_flow_files__file_id__delete.md): Permanently delete a file from your organization.
+- [Delete fine-tuning job](https://docs.seekr.com/flow/reference/delete_fine_tune_v1_flow_fine_tunes__fine_tune_id__delete.md): Delete a fine-tuning job and its associated artifacts.
+- [Delete message](https://docs.seekr.com/flow/reference/delete_message_endpoint_v1_threads__thread_id__messages__message_id__delete.md): Delete a message by ID.
+- [Delete project](https://docs.seekr.com/flow/reference/delete_project_v1_flow_projects__project_id__delete.md): Delete a project and disassociate it from its fine-tuning jobs.
+- [Delete function](https://docs.seekr.com/flow/reference/delete_python_function_endpoint_v1_functions__function_id__delete.md): Delete a Python function by its ID for the user.
+- [Delete thread](https://docs.seekr.com/flow/reference/delete_thread_endpoint_v1_threads__thread_id__delete.md): Delete a thread by ID.
+- [Delete tool](https://docs.seekr.com/flow/reference/delete_tool_v1_flow_tools__tool_id__delete.md): Delete a tool if it's not referenced by active agents.
+- [Delete agent v1](https://docs.seekr.com/flow/reference/delete_v1_flow_agents__agent_id__delete.md): Permanently delete an agent by ID.
+- [Delete agent](https://docs.seekr.com/flow/reference/delete_v2_flow_agents__agent_id__delete.md): Permanently delete an agent by ID.
+- [Delete file in vector database](https://docs.seekr.com/flow/reference/delete_vector_database_file_v1_flow_vectordb__database_id__files__file_id__delete.md): Remove a file from a vector database.
+- [Delete vector database](https://docs.seekr.com/flow/reference/delete_vector_database_route_v1_flow_vectordb__database_id__delete.md): Permanently delete a vector database and its contents.
+- [Demote agent v1](https://docs.seekr.com/flow/reference/demote_v1_flow_agents__agent_id__demote_put.md): Demote an agent to inactive status.
+- [Demote deployment](https://docs.seekr.com/flow/reference/demote_v1_flow_deployments__deployment_id__demote_put.md): Move a deployment from production to staging status.
+- [Demote agent](https://docs.seekr.com/flow/reference/demote_v2_flow_agents__agent_id__demote_put.md): Demote an agent to inactive status.
+- [Create deployment](https://docs.seekr.com/flow/reference/deploy_v1_flow_deployments_post.md): Deploy a fine-tuned model to a serving endpoint.
+- [Get deployment](https://docs.seekr.com/flow/reference/deployment_by_id_v1_flow_deployments__deployment_id__get.md): Retrieve the configuration and status of a specific deployment.
+- [Preview tool update](https://docs.seekr.com/flow/reference/diff_tool_changes_v1_flow_tools__tool_id__diff_patch.md): Preview the changes a patch request would make to a tool without applying them. Returns a before-and-after diff of the affected fields.
+- [Preview agent update v1](https://docs.seekr.com/flow/reference/diff_v1_flow_agents__agent_id__diff_patch.md): Preview the changes a patch request would make to an agent without applying them. Returns a before-and-after diff of the affected fields.
+- [Preview agent update](https://docs.seekr.com/flow/reference/diff_v2_flow_agents__agent_id__diff_patch.md): Preview the changes a patch request would make to an agent without applying them. Returns a before-and-after diff of the affected fields.
+- [Download fine-tune](https://docs.seekr.com/flow/reference/download_fine_tune_v1_flow_fine_tunes__fine_tune_id__download_get.md): Download the artifacts for a completed fine-tuning job.
+- [Clone tool](https://docs.seekr.com/flow/reference/duplicate_tool_v1_flow_tools__tool_id__duplicate_post.md): Duplicate an existing tool with a new name.
+- [Error handling](https://docs.seekr.com/flow/reference/error-handling.md): Learn about HTTP status codes and error response formats returned by the Seekr API.
+- [Get file contents](https://docs.seekr.com/flow/reference/file_download_content_v1_flow_files__file_id__content_get.md): Download the raw content of a file by ID.
+- [Get file details](https://docs.seekr.com/flow/reference/file_download_v1_flow_files__file_id__get.md): Retrieve metadata and details for a specific file.
+- [Get file token count](https://docs.seekr.com/flow/reference/file_token_counts_v1_flow_files_token_counts_get.md): Get the token count for one or more files.
+- [Upload file](https://docs.seekr.com/flow/reference/file_upload_v1_flow_files_put.md): Upload a file to your organization for use in fine-tuning, alignment, or vector databases.
+- [Validate file metadata](https://docs.seekr.com/flow/reference/file_validate_metadata_v1_flow_files_validate_metadata_post.md): Validate file metadata before uploading.
+- [Create fine-tuning job](https://docs.seekr.com/flow/reference/fine_tune_v1_flow_fine_tune_post.md): Create a new fine-tuning job using the specified base model and training files.
+- [Generate system prompt](https://docs.seekr.com/flow/reference/generate_system_prompt_v1_flow_data_jobs_gen_system_prompt_post.md): Generate a system prompt based on a use case description and optional source documents.
+- [Generate metadata snapshot](https://docs.seekr.com/flow/reference/generate_vector_database_metadata_snapshot_v1_flow_vectordb__database_id__metadata_post.md): Generate or refresh the metadata snapshot for a vector database by sampling its chunks and ranking the most common metadata keys and values.
+- [Get agent v1](https://docs.seekr.com/flow/reference/get_agent_by_id_v1_flow_agents__agent_id__get.md): Retrieve an agent's configuration by ID.
+- [Get agent](https://docs.seekr.com/flow/reference/get_agent_by_id_v2_flow_agents__agent_id__get.md): Retrieve an agent's configuration by ID.
+- [List linked agents](https://docs.seekr.com/flow/reference/get_agents_for_tool_v1_flow_tools__tool_id__agents_get.md): Returns the agents that are linked to a given tool.
+- [Get context attribution from run](https://docs.seekr.com/flow/reference/get_context_attribution_from_run_v1_explainability_context_attributor_from_run_post.md): Compute context attribution scores for the response generated during a specific agent run.
+- [Get context attribution](https://docs.seekr.com/flow/reference/get_context_attribution_v1_explainability_context_attributor_post.md): Compute context attribution scores for a model response given a set of source documents.
+- [Get data job](https://docs.seekr.com/flow/reference/get_data_job_v1_flow_data_jobs__data_job_id__get.md): Retrieve details for a specific data job.
+- [List vector database data jobs](https://docs.seekr.com/flow/reference/get_data_jobs_for_vector_database_v1_flow_vectordb__database_id__data_jobs_get.md): Returns the IDs of data jobs that reference a given vector database.
+- [List data jobs](https://docs.seekr.com/flow/reference/get_data_jobs_v1_flow_data_jobs_get.md): Retrieve a list of all data jobs.
+- [Get deployment event](https://docs.seekr.com/flow/reference/get_deployment_events_by_id_v1_flow_events_deployments__deployment_id__get.md): Retrieve the event history for a specific deployment.
+- [Get deployment metrics](https://docs.seekr.com/flow/reference/get_deployment_metrics_v1_flow_metrics_deployments_get.md): Retrieve performance metrics for active deployments.
+- [List deployments](https://docs.seekr.com/flow/reference/get_deployments_v1_flow_deployments_get.md): Retrieve a list of all deployments in your organization.
+- [List file data jobs](https://docs.seekr.com/flow/reference/get_file_data_jobs_v1_flow_files__file_id__data_jobs_get.md): Returns the IDs of data jobs that reference a given file.
+- [List derived files](https://docs.seekr.com/flow/reference/get_file_derived_files_v1_flow_files__file_id__derived_files_get.md): Returns the IDs of files derived from a given file, such as alignment outputs.
+- [Get file event](https://docs.seekr.com/flow/reference/get_file_events_by_id_v1_flow_events_files__file_id__get.md): Retrieve the event history for a specific file.
+- [List file vector databases](https://docs.seekr.com/flow/reference/get_file_vector_dbs_v1_flow_files__file_id__vector_dbs_get.md): Returns the IDs of vector databases that contain a given file.
+- [Get fine-tuning job](https://docs.seekr.com/flow/reference/get_fine_tune_v1_flow_fine_tunes__fine_tune_id__get.md): Retrieve the status and configuration of a specific fine-tuning job.
+- [Get fine-tuning event](https://docs.seekr.com/flow/reference/get_finetune_events_by_id_v1_flow_events_finetunes__finetune_id__get.md): Retrieve the event history for a specific fine-tuning job.
+- [Get health](https://docs.seekr.com/flow/reference/get_health_external_v1_flow_health_get.md): Check the health and availability of the SeekrFlow API.
+- [Get influential training data](https://docs.seekr.com/flow/reference/get_influential_training_data_route_v1_flow_explain_models__model_id__influential_finetuning_data_get.md): Retrieve influential QA pair training data for a specific model.
+- [Get message](https://docs.seekr.com/flow/reference/get_message_endpoint_v1_threads__thread_id__messages__message_id__get.md): Get a message by ID.
+- [Get project](https://docs.seekr.com/flow/reference/get_project_by_id_v1_flow_projects__project_id__get.md): Retrieve the details of a specific project.
+- [List projects](https://docs.seekr.com/flow/reference/get_projects_v1_flow_projects_get.md): Retrieve a list of all projects in your organization.
+- [Get function](https://docs.seekr.com/flow/reference/get_python_function_endpoint_v1_functions__function_id__get.md): Retrieve a Python function by its ID for the user.
+- [Get run](https://docs.seekr.com/flow/reference/get_run_endpoint_v1_threads__thread_id__runs__run_id__get.md): Get a run by ID.
+- [Get thread](https://docs.seekr.com/flow/reference/get_thread_endpoint_v1_threads__thread_id__get.md): Get a thread by ID.
+- [Get tool](https://docs.seekr.com/flow/reference/get_tool_v1_flow_tools__tool_id__get.md): Get a specific tool by ID.
+- [List vector database tools](https://docs.seekr.com/flow/reference/get_tools_for_vector_database_v1_flow_vectordb__database_id__tools_get.md): Returns the IDs of file search tools that reference a given vector database.
+- [Get vector database chunk](https://docs.seekr.com/flow/reference/get_vector_database_chunk_v1_flow_vectordb__database_id__chunk__chunk_id__get.md): Retrieve provenance details for a chunk in a vector database.
+- [Get vector database ingestion job status](https://docs.seekr.com/flow/reference/get_vector_database_ingestion_job_v1_flow_vectordb__database_id__ingestion__job_id__get.md): Retrieve the status of a specific vector database ingestion job.
+- [Get metadata snapshot](https://docs.seekr.com/flow/reference/get_vector_database_metadata_snapshot_v1_flow_vectordb__database_id__metadata_get.md): Retrieve the current metadata snapshot for a vector database, listing the most common metadata keys and values across its chunks.
+- [Get vector database](https://docs.seekr.com/flow/reference/get_vector_database_route_v1_flow_vectordb__database_id__get.md): Retrieve the configuration and status of a specific vector database.
+- [Get versions](https://docs.seekr.com/flow/reference/get_versions_v1_flow_versions_get.md): Retrieve version information for the SeekrFlow API.
+- [Getting started](https://docs.seekr.com/flow/reference/getting-started-with-your-api.md): Learn how to authenticate and make your first Seekr API request.
+- [Check inference health](https://docs.seekr.com/flow/reference/health_v1_inference_health_get.md): Check the health and availability of the inference service.
+- [Convert PDF files to markdown](https://docs.seekr.com/flow/reference/ingest_files_v1_flow_alignment_ingestion_post.md): Convert PDF files to Markdown format for use in alignment and fine-tuning.
+- [Convert PDF files to markdown](https://docs.seekr.com/flow/reference/ingest_files_v1_flow_ingestion_post.md): Convert PDF files to Markdown format for use in data jobs and fine-tuning.
+- [Get file conversion job](https://docs.seekr.com/flow/reference/ingestion_get_v1_flow_alignment_ingestion__ingestion_job_id__get.md): Retrieve the status and file records for a specific file conversion job.
+- [Get file conversion job](https://docs.seekr.com/flow/reference/ingestion_get_v1_flow_ingestion__ingestion_job_id__get.md): Retrieve the status and file records for a specific file conversion job.
+- [List file conversion jobs](https://docs.seekr.com/flow/reference/ingestion_list_v1_flow_alignment_ingestion_get.md): Retrieve a list of all file conversion jobs in your organization.
+- [List file conversion jobs](https://docs.seekr.com/flow/reference/ingestion_list_v1_flow_ingestion_get.md): Retrieve a list of all file conversion jobs in your organization.
+- [List agents v1](https://docs.seekr.com/flow/reference/list_agents_v1_flow_agents__get.md): Retrieve a list of all agents in your organization.
+- [List agents](https://docs.seekr.com/flow/reference/list_agents_v2_flow_agents__get.md): Retrieve a list of all agents in your organization.
+- [List files](https://docs.seekr.com/flow/reference/list_files_v1_flow_files_get.md): Retrieve a list of all files in your organization.
+- [List fine-tuning jobs](https://docs.seekr.com/flow/reference/list_fine_tune_v1_flow_fine_tunes_get.md): Retrieve a list of all fine-tuning jobs in your organization.
+- [List messages](https://docs.seekr.com/flow/reference/list_messages_endpoint_v1_threads__thread_id__messages_get.md): List messages in a thread.
+- [List functions](https://docs.seekr.com/flow/reference/list_python_function_endpoint_v1_functions_get.md): Retrieve a list of all Python functions in your organization.
+- [List runs](https://docs.seekr.com/flow/reference/list_runs_endpoint_v1_threads__thread_id__runs_get.md): List runs in a thread.
+- [List threads](https://docs.seekr.com/flow/reference/list_threads_endpoint_v1_threads_get.md): Retrieve a list of all threads in your organization.
+- [List tools](https://docs.seekr.com/flow/reference/list_tools_v1_flow_tools_get.md): Retrieve a list of all tools in your organization.
+- [List chunks](https://docs.seekr.com/flow/reference/list_vector_database_chunks_v1_flow_vectordb__database_id__chunks_post.md): Search and list chunks in a vector database, with optional filtering by file, chunk IDs, or metadata fields. Results are paginated.
+- [List files in vector database](https://docs.seekr.com/flow/reference/list_vector_database_files_v1_flow_vectordb__database_id__files_get.md): Retrieve a list of files in a vector database, including their queue positions.
+- [List vector database ingestion jobs](https://docs.seekr.com/flow/reference/list_vector_database_ingestion_jobs_v1_flow_vectordb__database_id__ingestion_get.md): Retrieve a list of all ingestion jobs for a vector database.
+- [List vector databases](https://docs.seekr.com/flow/reference/list_vector_databases_v1_flow_vectordb_get.md): Retrieve a list of all vector databases in your organization.
+- [Get model](https://docs.seekr.com/flow/reference/ml_model_by_model_id_v1_flow_models_info_get.md): Retrieve details and metadata for a specific model.
+- [Get model revision](https://docs.seekr.com/flow/reference/ml_model_hf_revision_by_model_name_v1_flow_models_hf_revision_get.md): Retrieve the Hugging Face revision hash for a specific model.
+- [List models](https://docs.seekr.com/flow/reference/ml_models_v1_flow_models_get.md): Retrieve a list of all available models.
+- [Observability](https://docs.seekr.com/flow/reference/observability.md)
+- [Update data job](https://docs.seekr.com/flow/reference/patch_data_job_v1_flow_data_jobs__data_job_id__patch.md): Update the details of an existing data job.
+- [Modify fine-tuning job](https://docs.seekr.com/flow/reference/patch_fine_tune_v1_flow_fine_tunes__fine_tune_id__patch.md): Update the configuration of an existing fine-tuning job.
+- [Update tool](https://docs.seekr.com/flow/reference/patch_tool_v1_flow_tools__tool_id__patch.md): Partially update an existing tool. Omitted fields remain unchanged.
+- [Update agent v1](https://docs.seekr.com/flow/reference/patch_v1_flow_agents__agent_id__patch.md): Partially update an agent's configuration. Omitted fields remain unchanged.
+- [Update agent](https://docs.seekr.com/flow/reference/patch_v2_flow_agents__agent_id__patch.md): Partially update an agent's configuration. Omitted fields remain unchanged.
+- [Promote agent v1](https://docs.seekr.com/flow/reference/promote_v1_flow_agents__agent_id__promote_put.md): Promote an agent to active status so it can serve requests.
+- [Promote deployment](https://docs.seekr.com/flow/reference/promote_v1_flow_deployments__deployment_id__promote_put.md): Promote a deployment from staging to production status.
+- [Promote agent](https://docs.seekr.com/flow/reference/promote_v2_flow_agents__agent_id__promote_put.md): Promote an agent to active status so it can serve requests.
+- [Query spans](https://docs.seekr.com/flow/reference/query_spans_v1_observability_spans_post.md): Query observability spans filtered by user and other criteria.
+- [Remove files from data job](https://docs.seekr.com/flow/reference/remove_files_from_data_job_v1_flow_data_jobs__data_job_id__remove_files_post.md): Remove files from an existing data job.
+- [Change file name](https://docs.seekr.com/flow/reference/rename_file_v1_flow_files__file_id__rename_put.md): Update the display name of an existing file.
+- [Get span](https://docs.seekr.com/flow/reference/retrieve_span_v1_observability_spans__span_id__get.md): Retrieve a specific observability span by ID.
+- [Create chat completion](https://docs.seekr.com/flow/reference/route_chat_completion_v1_inference_chat_completions_post.md): Generate a chat completion response from a deployed model.
+- [Create completion](https://docs.seekr.com/flow/reference/route_completion_v1_inference_completions_post.md): Generate a text completion response from a deployed model.
+- [Create embedding](https://docs.seekr.com/flow/reference/route_embeddings_v1_inference_embeddings_post.md): Generate vector embeddings for one or more input texts.
+- [Transcribe audio](https://docs.seekr.com/flow/reference/route_v1_audio_transcriptions_v1_inference_audio_transcriptions_post.md): Submit an audio file for transcription.
+- [Rerank documents](https://docs.seekr.com/flow/reference/route_v1_rerank_v1_inference_rerank_post.md): Rerank a list of documents by relevance to a query.
+- [Score text](https://docs.seekr.com/flow/reference/route_v1_score_v1_inference_score_post.md): Score a query-document pair for relevance.
+- [Stream agent run](https://docs.seekr.com/flow/reference/run_agent_stream_v1_threads__thread_id__runs_stream_post.md): Run an agent on a thread and stream the response as server-sent events.
+- [Stream agent run (Vercel AI SDK)](https://docs.seekr.com/flow/reference/run_agent_stream_vercel_v1_threads__thread_id__runs_stream_vercel_post.md): Stream an agent run response formatted for the Vercel AI SDK.
+- [Run agent](https://docs.seekr.com/flow/reference/run_agent_v1_threads__thread_id__runs_post.md): Run an agent on a thread and return the completed response.
+- [Start data job alignment](https://docs.seekr.com/flow/reference/start_data_job_alignment_v1_flow_data_jobs__data_job_id__start_post.md): Start the alignment process for a data job.
+- [Submit data job](https://docs.seekr.com/flow/reference/submit_data_job_v1_flow_data_jobs_post.md): Create a new data job.
+- [Update deployment](https://docs.seekr.com/flow/reference/update_deployment_v1_flow_deployments__deployment_id__patch.md): Update the configuration of an existing deployment.
+- [Update message](https://docs.seekr.com/flow/reference/update_message_endpoint_v1_threads__thread_id__messages__message_id__patch.md): Update a message's content and/or metadata.
+- [Update function](https://docs.seekr.com/flow/reference/update_python_function_endpoint_v1_functions__function_id__patch.md): Update the code or metadata for an existing Python function.
+- [Replace tool](https://docs.seekr.com/flow/reference/update_tool_v1_flow_tools__tool_id__put.md): Update an existing tool.
+- [Replace agent v1](https://docs.seekr.com/flow/reference/update_v1_flow_agents__agent_id__update_put.md): Update an agent's model, instructions, or tools.
+- [Replace agent](https://docs.seekr.com/flow/reference/update_v2_flow_agents__agent_id__update_put.md): Update an agent's model, instructions, or tools.
+- [Update chunk metadata](https://docs.seekr.com/flow/reference/update_vector_database_metadata_v1_flow_vectordb__database_id__metadata_patch.md): Overwrite metadata on chunks in a vector database, targeted by file IDs or chunk IDs. This replaces all existing metadata on the targeted chunks.
+- [Update vector database](https://docs.seekr.com/flow/reference/update_vector_database_route_v1_flow_vectordb__database_id__patch.md): Update a vector database's name or description.
+- [Create function](https://docs.seekr.com/flow/reference/upload_python_function_v1_functions_post.md): Upload a new Python function for the user.
+- [Create or update project](https://docs.seekr.com/flow/reference/upsert_project_v1_flow_projects_post.md): Create a new project or update an existing one by name.
+- [Vector database](https://docs.seekr.com/flow/reference/vector-database.md)
+- [Role-based access control](https://docs.seekr.com/flow/role-based-access-control.md): Manage access to SeekrFlow resources through organizations, teams, and role-based permissions.
+- [Agents](https://docs.seekr.com/flow/sdk/agents.md): Build and run agents programmatically with the SeekrFlow Python SDK.
+- [Agent as tool](https://docs.seekr.com/flow/sdk/agents/agent-as-tool.md): Use agents as callable tools to build multi-agent workflows.
+- [Create and manage agents](https://docs.seekr.com/flow/sdk/agents/create-agents.md): Create, configure, and manage agents using the SeekrFlow Python SDK.
+- [Custom tools](https://docs.seekr.com/flow/sdk/agents/custom-tools.md): Developer-defined Python functions for specialized business logic.
+- [File search](https://docs.seekr.com/flow/sdk/agents/filesearch-tool.md): Retrieve relevant data from a vector database using semantic search.
+- [MCP connector](https://docs.seekr.com/flow/sdk/agents/mcp-connector.md): Connect a remote MCP server to your agent so it can invoke external tools without a custom integration.
+- [Run an agent](https://docs.seekr.com/flow/sdk/agents/run-an-agent.md): Use threads and messages to start runs and retrieve agent responses.
+- [Use structured outputs](https://docs.seekr.com/flow/sdk/agents/structured-outputs.md): Control the format of agent responses using Pydantic models or JSON schemas.
+- [Tools](https://docs.seekr.com/flow/sdk/agents/tools.md): Create and manage tools in the tool library.
+- [Web search](https://docs.seekr.com/flow/sdk/agents/websearch-tool.md): Real-time information retrieval from web sources.
+- [Data engine](https://docs.seekr.com/flow/sdk/data-engine.md): SDK workflows for uploading files, running ingestion, and creating data jobs for fine-tuning and semantic search.
+- [Use AWS Bedrock for ingestion and inference](https://docs.seekr.com/flow/sdk/data-engine/aws-bedrock.md): Configure SeekrFlow to use AWS Bedrock for document ingestion and agent inference on self-hosted EKS deployments.
+- [Choose a chunking method](https://docs.seekr.com/flow/sdk/data-engine/choose-chunking-method.md): Segment ingested content with the markdown, semantic, or sliding window chunking methods, and attach per-chunk metadata.
+- [Create context-grounded fine-tuning data](https://docs.seekr.com/flow/sdk/data-engine/context-grounded-fine-tuning-data.md): Generate structured context data for RAG-enhanced fine-tuning using context_grounded_files or context_grounded_vector_db data jobs.
+- [Create and populate a vector database](https://docs.seekr.com/flow/sdk/data-engine/create-and-populate-a-vector-database.md): Set up a vector database and ingest documents to generate embeddings for semantic search and retrieval.
+- [Prepare and ingest files](https://docs.seekr.com/flow/sdk/data-engine/file-ingestion.md): Upload multiple files simultaneously in their original formats and the AI-Ready Data Engine will automatically extract relevant data and structure them into a dataset that can be used for fine-tuning.
+- [Generate a metadata snapshot](https://docs.seekr.com/flow/sdk/data-engine/generate-metadata-snapshot.md): Summarize the most common metadata keys and values across a vector database's chunks.
+- [Manage chunk metadata](https://docs.seekr.com/flow/sdk/data-engine/manage-chunk-metadata.md): Edit user-defined metadata on chunks and list or filter chunks by metadata.
+- [Manage data jobs](https://docs.seekr.com/flow/sdk/data-engine/manage-data-jobs.md): List, filter, update metadata, and cancel data jobs.
+- [Manage vector databases](https://docs.seekr.com/flow/sdk/data-engine/manage-vector-databases.md): List, retrieve, and delete vector databases and their files with the SeekrFlow SDK.
+- [Monitor ingestion](https://docs.seekr.com/flow/sdk/data-engine/monitor-ingestion.md): Track ingestion progress, interpret per-file statuses, and resolve errors through the data job detail endpoint.
+- [Create instruction fine-tuning data](https://docs.seekr.com/flow/sdk/data-engine/standard-instruction-finetuning.md): Generate a QA pair dataset for instruction fine-tuning using the principle_files data job workflow.
+- [Deployments](https://docs.seekr.com/flow/sdk/deployments.md): Create and manage model endpoints for real-time inference with the Python SDK.
+- [Explainability](https://docs.seekr.com/flow/sdk/explainability.md): Trace model outputs back to the sources and training examples that influenced them.
+- [Attribute a response to its sources](https://docs.seekr.com/flow/sdk/explainability/context-attribution.md)
+- [Trace a response to source documents](https://docs.seekr.com/flow/sdk/explainability/source-tracing.md): Trace model output back to the original source document using provenance metadata captured at ingestion.
+- [Attribute a response to training data](https://docs.seekr.com/flow/sdk/explainability/training-data-attribution.md)
+- [Fine-tuning](https://docs.seekr.com/flow/sdk/fine-tuning.md): Train models on your data with the SeekrFlow Python SDK.
+- [Create a fine-tuning job](https://docs.seekr.com/flow/sdk/fine-tuning/create-fine-tuning-job.md): Launch and manage model fine-tuning jobs in SeekrFlow with step-by-step guidance for configuring training parameters, setting up infrastructure, and monitoring progress through event tracking and loss visualization.
+- [Reinforcement tuning](https://docs.seekr.com/flow/sdk/fine-tuning/grpo-fine-tuning.md)
+- [Low-rank adaptation](https://docs.seekr.com/flow/sdk/fine-tuning/lora.md): Apply low-rank adaptation to fine-tuning jobs with the SeekrFlow Python SDK.
+- [Preference tuning](https://docs.seekr.com/flow/sdk/fine-tuning/preference-tuning.md): Fine-tune models on preference data using direct preference optimization (DPO) with the SeekrFlow Python SDK.
+- [Deploy a fine-tuned model for inference](https://docs.seekr.com/flow/sdk/fine-tuning/promote-a-fine-tuned-model.md): Launch and manage model fine-tuning jobs in SeekrFlow, with custom settings, event history, and inference.
+- [Vision language tuning](https://docs.seekr.com/flow/sdk/fine-tuning/vision-language-tuning.md): Fine-tune vision-language models on image-text datasets using the SeekrFlow Python SDK.
+- [Getting started](https://docs.seekr.com/flow/sdk/getting-started.md): Install the SDK, authenticate, and make your first API call.
+- [Integrations](https://docs.seekr.com/flow/sdk/integrations.md): Use SeekrFlow with OpenAI SDK and LangChain
+- [OpenAI](https://docs.seekr.com/flow/sdk/integrations/custom-functions.md): This quickstart guide will help you get started using SeekrFlow via OpenAI.
+- [LangChain](https://docs.seekr.com/flow/sdk/integrations/using-seekrflow-langchain.md): This quickstart guide will help you get started using LangChain with SeekrFlow chat models.
+- [Observability](https://docs.seekr.com/flow/sdk/observability.md): Query and inspect spans to monitor agent runs
+- [Work with teams](https://docs.seekr.com/flow/sdk/teams.md): Scope SDK requests to a team so resources are created in and read from the right place.
+- [Use cases](https://docs.seekr.com/flow/use-case-identification.md): Industry-specific examples of SeekrFlow applications across different workflows and business verticals.
+- [What is SeekrFlow](https://docs.seekr.com/flow/what-is-seekrflow.md): An overview of SeekrFlow's platform capabilities for building enterprise AI solutions.
+
+## OpenAPI Specs
+
+- [serving](https://docs.seekr.com/serving.json)
+- [llm-training](https://docs.seekr.com/llm-training.json)
+- [explainability](https://docs.seekr.com/explainability.json)
+- [agents](https://docs.seekr.com/agents.json)
+
+## Optional
+
+- [About us](https://www.seekr.com/about/)
+- [Contact us](https://www.seekr.com/contact-us/)
+- [Blog](https://www.seekr.com/resource-center/?type=blog)

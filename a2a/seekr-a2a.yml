@@ -1,0 +1,57 @@
+generated: '2026-08-05'
+method: probed
+source: https://docs.seekr.com/.well-known/agent-card.json
+discovery:
+  path: /.well-known/agent-card.json
+  canonical: true
+  host: docs.seekr.com
+  notes: >-
+    Probed on every Seekr host. www.seekr.com, seekr.com and flow.seekr.com return 404 for both
+    /.well-known/agent-card.json and the legacy /.well-known/agent.json. Only the documentation
+    host docs.seekr.com serves a card, and it is served by the docs platform (Mintlify) rather
+    than by the SeekrFlow API itself — the card's url, provider.url and documentationUrl all
+    point back at https://docs.seekr.com/, not at the flow.seekr.com API surface.
+conformance:
+  spec: A2A 1.0.0
+  grade: flavored
+  protocol_version: '0.3'
+  preferred_transport: HTTP+JSON
+  hard_checks:
+    capabilities_is_object: true
+    protocol_version_present: true
+    skills_is_array: true
+  deviations:
+  - supportedInterfaces-instead-of-additionalInterfaces
+  - protocol-version-0.3-pre-1.0
+card:
+  name: Seekr
+  url: https://docs.seekr.com/
+  version: 1.0.0
+  organization: Seekr
+  documentation_url: https://docs.seekr.com/
+  capabilities:
+    streaming: false
+    push_notifications: false
+  default_input_modes:
+  - text/plain
+  default_output_modes:
+  - text/plain
+  skills: 1
+  skill_ids:
+  - seekr
+  file: seekr-agent-card.json
+related:
+  agent_skill: skills/seekr-seekrflow.md
+  agent_skill_source: https://docs.seekr.com/.well-known/agent-skills/seekr/skill.md
+  mcp: mcp/seekr-mcp.yml
+x-evidence:
+  fetched: '2026-08-05'
+  url: https://docs.seekr.com/.well-known/agent-card.json
+  http_status: 200
+  content_type: application/json
+  misses:
+  - {url: 'https://www.seekr.com/.well-known/agent-card.json', http_status: 404}
+  - {url: 'https://www.seekr.com/.well-known/agent.json', http_status: 404}
+  - {url: 'https://flow.seekr.com/.well-known/agent-card.json', http_status: 404}
+  - {url: 'https://flow.seekr.com/.well-known/agent.json', http_status: 404}
+  - {url: 'https://docs.seekr.com/.well-known/agent.json', http_status: 404}

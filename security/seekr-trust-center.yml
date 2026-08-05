@@ -1,0 +1,41 @@
+generated: '2026-08-05'
+method: searched
+probe: true
+source: https://trust.seekr.com/
+url: https://trust.seekr.com/
+platform: SafeBase
+http_status: 200
+certifications:
+- SOC 2 Type 1
+- SOC 2 Type 2
+- ISO/IEC 27001:2022
+- CMMC Certified
+compliance_page: https://www.seekr.com/security-compliance/
+sub_processors: https://www.seekr.com/sub-processors/
+dpa: https://www.seekr.com/data-processing-addendum/
+data_commitments:
+- Customer data is isolated from every other customer's data.
+- Customer data is never used to train Seekr models or products.
+- Customer data is deleted on request and per applicable law.
+- Encryption in transit and at rest under a documented data-classification policy.
+- Secure SDLC with vulnerability identification and remediation from feature inception.
+evidence:
+- source: https://trust.seekr.com/
+  http_status: 200
+  documents_listed:
+  - SOC 2 Type 1
+  - SOC 2 Type 2
+  - ISO/IEC 27001:2022
+  - CMMC Certified
+  note: >-
+    Each certification is a gated document on the SafeBase trust center — the listing is public,
+    the report itself requires a request. The public marketing page states "SOC 2 Type II
+    compliant"; the trust center lists both a Type 1 and a Type 2 document.
+- source: https://www.seekr.com/security-compliance/
+  http_status: 200
+  keywords: [soc 2 type ii, encryption, data isolation, secure sdlc, defense in depth]
+note: >-
+  CMMC (Cybersecurity Maturity Model Certification) is the notable one for a company selling into
+  defense — but there is still no published FedRAMP authorization despite an air-gapped / IL5
+  deployment story, and no /.well-known/security.txt or vulnerability-disclosure programme on any
+  Seekr host.

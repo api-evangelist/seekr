@@ -1,0 +1,150 @@
+generated: '2026-08-05'
+method: derived
+source: openapi/seekr-agents-openapi.json, openapi/seekr-llm-training-openapi.json, openapi/seekr-explainability-openapi.json
+summary: >-
+  The SeekrFlow object graph derived from schema $refs and id-reference fields across the
+  published OpenAPI documents. Everything hangs off two roots: a Team (the tenancy boundary — a
+  team_id appears on almost every persisted entity) and a File (the raw material that becomes a
+  vector database, a data job, an alignment dataset and ultimately a fine-tuned model). Runtime
+  work is a separate spine: Agent → Thread → Run → Message/Span.
+tenancy:
+  root: Organization
+  boundary: Team
+  note: >-
+    team_id and user_id are stamped on Agent, Deployment, Project, Tool, Image, PythonFunction and
+    the tool response objects. Requests are scoped by the x-team-id header; omitting it targets the
+    caller's personal workspace.
+entities:
+- name: Team
+  id_field: team_id
+  note: Tenancy boundary. No public CRUD operations — teams are managed in the web UI.
+- name: Agent
+  schemas: [AgentSchema, AgentSchemaV2, CreateAgentRequest, PatchAgentRequest, UpdateAgentRequest]
+  id_field: id
+  key_operations: [create_v1_flow_agents_create_post, get_agent_by_id_v1_flow_agents__agent_id__get,
+    patch_v1_flow_agents__agent_id__patch, promote_v1_flow_agents__agent_id__promote_put,
+    demote_v1_flow_agents__agent_id__demote_put, diff_v1_flow_agents__agent_id__diff_patch]
+  lifecycle: draft -> promoted (active) -> demoted
+- name: Tool
+  schemas: [FileSearch, WebSearch, RunPython, AgentAsTool, MCPConnectorTool]
+  id_field: id
+  kinds: [file_search, web_search, run_python, agent_as_tool, mcp_connector]
+  key_operations: [create_tool_v1_flow_tools_post, list_tools_v1_flow_tools_get,
+    duplicate_tool_v1_flow_tools__tool_id__duplicate_post, diff_tool_changes_v1_flow_tools__tool_id__diff_patch]
+- name: PythonFunction
+  schemas: [PythonFunctionResponse]
+  key_operations: [upload_python_function_v1_functions_post, list_python_function_endpoint_v1_functions_get]
+  note: Custom Python callables uploaded to back a run_python tool.
+- name: Model
+  schemas: [MLModel]
+  id_field: model_id
+  key_operations: [ml_models_v1_flow_models_get, ml_model_by_model_id_v1_flow_models_info_get]
+- name: Deployment
+  schemas: [Deployment, NewDeploymentRequest]
+  key_operations: [deploy_v1_flow_deployments_post, promote_v1_flow_deployments__deployment_id__promote_put]
+- name: Thread
+  schemas: [Thread]
+  key_operations: [create_thread_endpoint_v1_threads_post, list_threads_endpoint_v1_threads_get]
+- name: Message
+  schemas: [ThreadMessageResponse, MessageTextPart, MessageFilePart, MessageDataPart, MessageReasoningPart,
+    MessageToolCallPart, MessageToolResultPart, MessageToolErrorPart]
+- name: Run
+  schemas: [Run, RunRequest, RunResponse, LatestRun]
+  key_operations: [run_agent_v1_threads__thread_id__runs_post, run_agent_stream_v1_threads__thread_id__runs_stream_post,
+    cancel_run_v1_threads__thread_id__runs__run_id__cancel_post, attach_to_run_v1_threads__thread_id__runs__run_id__attach_get]
+- name: Span
+  schemas: [SpanSummaryRequest, SpanSummaryResult]
+  key_operations: [query_spans_v1_observability_spans_post, retrieve_span_v1_observability_spans__span_id__get]
+- name: File
+  schemas: [FileResponse, DataJobFile, InputFile, InputImage]
+  key_operations: [file_upload_v1_flow_files_put, bulk_file_upload_v1_flow_bulk_files_put,
+    file_download_v1_flow_files__file_id__get, rename_file_v1_flow_files__file_id__rename_put]
+- name: VectorDatabase
+  schemas: [VectorDatabaseResponse, VectorDatabaseFileResponse, VectorDatabaseIngestionResponse,
+    VectorDatabaseChunkResponse, VectorDatabaseMetadataSnapshotResponse]
+  key_operations: [create_vector_database_route_v1_flow_vectordb_post,
+    create_vector_database_ingestion_job_v1_flow_vectordb__database_id__ingestion_post,
+    list_vector_database_chunks_v1_flow_vectordb__database_id__chunks_post]
+- name: Chunk
+  schemas: [VectorDatabaseChunkListItem, VectorDatabaseChunkResponse]
+  id_field: chunk_id
+- name: DataJob
+  schemas: [DataJobResponse, DataJobDetailResponse, DataJobCreateRequest]
+  key_operations: [submit_data_job_v1_flow_data_jobs_post, start_data_job_alignment_v1_flow_data_jobs__data_job_id__start_post,
+    clone_data_job_v1_flow_data_jobs__data_job_id__clone_post]
+- name: IngestionJob
+  schemas: [IngestionResponse, IngestionJobDetail, IngestionFileRecord]
+- name: AlignmentJob
+  schemas: [AlignmentRequest, AlignmentResponse, AlignmentOutput, QuestionAnswerPair]
+- name: FineTuneJob
+  key_operations: [fine_tune_v1_flow_fine_tune_post, get_fine_tune_v1_flow_fine_tunes__fine_tune_id__get,
+    promote_model_v1_flow_fine_tunes__fine_tune_id__promote_model_get]
+- name: Project
+  schemas: [Project, ProjectWithRuns, PostProjectRequest]
+- name: EvalCase
+  schemas: [Case]
+- name: Feedback
+  schemas: [CreateFeedbackRequest, FeedbackResponse, UpdateFeedbackRequest]
+- name: Event
+  schemas: [Event]
+  note: Read-only audit events for deployments, files and fine-tunes.
+relationships:
+- {from: Agent, to: Team, kind: belongs_to, via: team_id}
+- {from: Agent, to: Model, kind: has_one, via: model_id}
+- {from: Agent, to: Model, kind: has_one, via: planner_model_id, note: planner model for reasoning}
+- {from: Agent, to: Model, kind: has_one, via: tool_model_id, note: model used for tool calls}
+- {from: Agent, to: Tool, kind: has_many, via: tool_ids}
+- {from: Tool, to: Agent, kind: has_many, via: get_agents_for_tool_v1_flow_tools__tool_id__agents_get}
+- {from: Tool, to: VectorDatabase, kind: belongs_to, via: get_tools_for_vector_database_v1_flow_vectordb__database_id__tools_get,
+   note: file_search tools are bound to a vector database}
+- {from: Tool, to: PythonFunction, kind: has_one, via: function_ids, note: run_python tools}
+- {from: AgentAsTool, to: Agent, kind: belongs_to, via: agent_id}
+- {from: Thread, to: Run, kind: has_many, via: thread_id}
+- {from: Thread, to: Run, kind: has_one, via: active_run_id, note: the currently in-flight run}
+- {from: Run, to: Agent, kind: belongs_to, via: agent_id}
+- {from: Run, to: Thread, kind: belongs_to, via: thread_id}
+- {from: Message, to: Thread, kind: belongs_to, via: thread_id}
+- {from: Message, to: Run, kind: belongs_to, via: run_id}
+- {from: Message, to: File, kind: has_many, via: file_id, note: MessageFilePart / InputFile / InputImage}
+- {from: Span, to: Run, kind: belongs_to, via: run_id}
+- {from: Span, to: Thread, kind: belongs_to, via: thread_id}
+- {from: Span, to: Agent, kind: belongs_to, via: agent_id}
+- {from: Span, to: Span, kind: belongs_to, via: parent_span_id, note: self-referential trace tree under trace_id}
+- {from: VectorDatabase, to: File, kind: has_many, via: file_ids}
+- {from: VectorDatabase, to: Chunk, kind: has_many, via: chunk_ids}
+- {from: Chunk, to: File, kind: belongs_to, via: file_id}
+- {from: VectorDatabaseIngestionJob, to: VectorDatabase, kind: belongs_to, via: vector_database_id}
+- {from: VectorDatabaseFile, to: IngestionJob, kind: belongs_to, via: ingestion_job_id}
+- {from: File, to: File, kind: has_many, via: original_file_id,
+   note: derived files (converted markdown, generated datasets) point back at their source}
+- {from: DataJob, to: VectorDatabase, kind: has_one, via: vector_database_id}
+- {from: DataJob, to: File, kind: has_many, via: file_ids}
+- {from: DataJob, to: AlignmentJob, kind: has_one, via: alignment_job_id}
+- {from: DataJob, to: FineTuneJob, kind: has_many, via: fine_tuning_job_ids}
+- {from: DataJob, to: DataJob, kind: belongs_to, via: origin_data_job_id, note: set when a job is cloned}
+- {from: AlignmentJob, to: VectorDatabase, kind: has_one, via: vector_database_id}
+- {from: IngestionFileRecord, to: IngestionJob, kind: belongs_to, via: ingestion_job_id}
+- {from: IngestionFileRecord, to: File, kind: has_one, via: alignment_file_id}
+- {from: Deployment, to: Model, kind: belongs_to, via: model_id}
+- {from: Deployment, to: Project, kind: belongs_to, via: project_id}
+- {from: Deployment, to: Team, kind: belongs_to, via: team_id}
+- {from: Project, to: Run, kind: has_many, via: ProjectWithRuns}
+- {from: EvalCase, to: File, kind: has_many, via: file_ids}
+- {from: Feedback, to: Model, kind: belongs_to, via: model_id}
+- {from: Feedback, to: File, kind: has_many, via: file_ids}
+- {from: ExplainabilityIndex, to: Model, kind: belongs_to, via: model_id}
+- {from: ExplainabilityIndex, to: File, kind: has_many, via: file_ids}
+- {from: ContextAttribution, to: Run, kind: belongs_to, via: run_id}
+pipelines:
+- name: raw documents to fine-tuned model
+  chain: File -> IngestionJob -> DataJob -> AlignmentJob (QuestionAnswerPair) -> FineTuneJob -> Model -> Deployment
+- name: retrieval-augmented agent
+  chain: File -> VectorDatabase (Chunk) -> Tool(file_search) -> Agent -> Thread -> Run -> Message
+- name: explainability
+  chain: Run -> Span -> ContextAttribution / influential fine-tuning data -> source File + Chunk
+id_conventions:
+  note: >-
+    Identifiers are opaque and not prefixed by type (no `agt_`/`file_` style prefixes). model_id
+    is a plain numeric string in the documented example ("43"). Type is carried by the field name,
+    not the value.
+render: null

@@ -1,0 +1,61 @@
+generated: '2026-08-05'
+method: searched
+source: https://pypi.org/project/seekrai/ + https://docs.seekr.com/flow/sdk/getting-started
+summary: >-
+  Seekr ships one first-party client library — the `seekrai` Python SDK — plus a first-party
+  LangChain integration package published from a seekr.com address. There is no JavaScript,
+  Java, Go, .NET, Ruby, PHP or Rust client: npm, Maven Central, NuGet, pkg.go.dev, RubyGems,
+  Packagist and crates.io were searched and returned no Seekr-published client. The documented
+  alternative for other languages is the OpenAI-compatible inference endpoint at
+  https://flow.seekr.com/v1/inference, which any OpenAI SDK can target by changing base_url.
+packages:
+- language: python
+  registry: pypi
+  name: seekrai
+  url: https://pypi.org/project/seekrai/
+  install: pip install --upgrade seekrai
+  version: 0.33.0
+  releases: 77
+  requires_python: '>=3.9,<4'
+  official: true
+  maintainer_email: support@seekr.com
+  description: >-
+    Native Python client for SeekrFlow — inference, agents, fine-tuning, content moderation,
+    explainability and the data engine. Synchronous (SeekrFlow) and asynchronous (AsyncSeekrFlow)
+    clients.
+  auth: SEEKR_API_KEY environment variable, or api_key= constructor argument
+  team_scoping: SEEKR_TEAM_ID environment variable or x-team-id header
+  docs: https://docs.seekr.com/flow/sdk/getting-started
+- language: python
+  registry: pypi
+  name: langchain-seekrflow
+  url: https://pypi.org/project/langchain-seekrflow/
+  install: pip install langchain langchain-community langchain-seekrflow
+  version: 0.1.0
+  requires_python: '>=3.10,<4.0'
+  official: true
+  maintainer_email: bfaircloth@seekr.com
+  description: >-
+    LangChain integration providing the ChatSeekrFlow wrapper — tool calling, structured output,
+    JSON mode, streaming and token-usage tracking. Async APIs and image/audio/video input are
+    documented as not supported.
+  docs: https://docs.seekr.com/flow/sdk/getting-started
+compatible_third_party:
+- name: openai
+  registry: pypi
+  official: false
+  note: >-
+    Seekr documents the OpenAI SDK as a supported client against
+    base_url=https://flow.seekr.com/v1/inference. Supported params: model, messages, stream,
+    temperature, logprobs, top_logprobs, max_tokens, stop, top_p, frequency_penalty,
+    presence_penalty, tools. NOT supported: tool_choice, parallel_tool_calls, n, logit_bias,
+    max_completion_tokens.
+registries_searched:
+  pypi: 2 first-party packages found
+  npm: none
+  maven_central: none
+  nuget: none
+  pkg_go_dev: none
+  rubygems: none
+  packagist: none
+  crates_io: none

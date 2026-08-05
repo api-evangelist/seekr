@@ -1,0 +1,189 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for SeekrFlow — Inference & Serving API
+  version: 1.0.0
+extends: openapi/seekr-serving-openapi.json
+x-generated: '2026-08-05'
+x-method: generated
+x-source: derived from openapi/seekr-serving-openapi.json — the harvested document is never mutated
+x-summary: Adds 29 untagged operations to a capability tag, marks 0 legacy-tagged operations, and flags 0 operations
+  Seekr itself tags Internal.
+actions:
+- target: $.info
+  description: Record where API Evangelist harvested this document and what surface it describes.
+  update:
+    x-apievangelist-profile: https://apis.io/provider/seekr/
+    x-apievangelist-source: 'https://docs.seekr.com/mcp (query_docs_filesystem_seekr: /openapi/serving.json)'
+    x-apievangelist-harvested: '2026-08-05'
+    x-api-surface: Inference & Serving API
+    x-apievangelist-description: SeekrFlow Inference & Serving API. Authenticate with an API key in the Authorization
+      header with NO Bearer prefix; scope every request to a team with the x-team-id header (omitting it targets
+      the caller's personal workspace).
+- target: $.info
+  description: The published contact/termsOfService URLs use http:// and a generic support path; record the https
+    equivalents we verified.
+  update:
+    x-apievangelist-docs: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+    x-apievangelist-status-page: https://status.seekr.com/
+    x-apievangelist-changelog: https://docs.seekr.com/flow/changelog/seekr-managed/2026
+- target: $.paths['/v1/inference/chat/completions'].post
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Inference
+- target: $.paths['/v1/inference/internal/chat/completions'].post
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Inference
+- target: $.paths['/v1/inference/completions'].post
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Inference
+- target: $.paths['/v1/inference/embeddings'].post
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Inference
+- target: $.paths['/v1/inference/internal/embeddings'].post
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Inference
+- target: $.paths['/inference/tokenize'].post
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Inference
+- target: $.paths['/inference/detokenize'].post
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Inference
+- target: $.paths['/v1/inference/rerank'].post
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Inference
+- target: $.paths['/rerank'].post
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Inference
+- target: $.paths['/v1/inference/score'].post
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Inference
+- target: $.paths['/score'].post
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Inference
+- target: $.paths['/sleep'].post
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Serving Control
+- target: $.paths['/wake_up'].post
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Serving Control
+- target: $.paths['/is_sleeping'].get
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Serving Control
+- target: $.paths['/version'].get
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Health
+- target: $.paths['/v1/models'].get
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Models
+- target: $.paths['/v1/inference/internal/models'].get
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Inference
+- target: $.paths['/engines'].get
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Serving Control
+- target: $.paths['/health'].get
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Health
+- target: $.paths['/v1/inference/health'].get
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Inference
+- target: $.paths['/v1/inference/audio/transcriptions'].post
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Inference
+- target: $.paths['/v1/files'].post
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Files
+- target: $.paths['/v1/files/{file_id}'].get
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Files
+- target: $.paths['/v1/files/{file_id}/content'].get
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Files
+- target: $.paths['/v1/batches'].post
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Batches
+- target: $.paths['/v1/batches'].get
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Batches
+- target: $.paths['/v1/batches/{batch_id}'].get
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Batches
+- target: $.paths['/v1/batches/{batch_id}'].delete
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Batches
+- target: $.paths['/metrics'].get
+  description: The published operation carries no tags — add the capability tag.
+  update:
+    tags:
+    - Health
+- target: $
+  description: Declare the capability tags introduced above.
+  update:
+    tags:
+    - name: Batches
+      description: SeekrFlow Batches operations.
+    - name: Files
+      description: SeekrFlow Files operations.
+    - name: Health
+      description: SeekrFlow Health operations.
+    - name: Inference
+      description: SeekrFlow Inference operations.
+    - name: Models
+      description: SeekrFlow Models operations.
+    - name: Serving Control
+      description: SeekrFlow Serving Control operations.

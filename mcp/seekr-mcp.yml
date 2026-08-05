@@ -1,0 +1,80 @@
+generated: '2026-08-05'
+method: searched
+status: published
+source: https://docs.seekr.com/flow/mcp
+tools_source: https://docs.seekr.com/mcp (live JSON-RPC tools/list, anonymous, HTTP 200)
+server:
+  name: Seekr
+  version: 1.0.0
+  transport: http
+  url: https://docs.seekr.com/mcp
+  authentication: none
+  protocol_version: '2025-06-18'
+  platform: Mintlify-hosted documentation MCP server
+  documentation: https://docs.seekr.com/flow/mcp
+  descriptor: well-known/seekr-mcp.json
+  instructions: >-
+    Read-only search and retrieval over published Seekr documentation and the SeekrFlow OpenAPI
+    specs. The server states it does not mutate state or reach anything beyond the published site
+    content, apart from submit_feedback.
+scope: >-
+  This is a DOCUMENTATION MCP server, not a SeekrFlow control-plane server. It exposes the
+  SeekrFlow OpenAPI specs and docs to a coding assistant so the assistant can generate correct,
+  authenticated SeekrFlow API calls; it does NOT expose tools that create agents, launch
+  fine-tunes, or run inference. Those remain REST-only against https://flow.seekr.com/v1. Seekr
+  documents this explicitly: "Connect your AI assistant to the SeekrFlow OpenAPI spec to generate
+  working, authenticated code on demand."
+tools:
+- name: search_seekr
+  title: Search documentation
+  description: >-
+    Search across the Seekr knowledge base to find relevant information, code examples, API
+    references, and guides.
+  input_schema: {query: string (required)}
+  read_only: true
+- name: query_docs_filesystem_seekr
+  description: >-
+    Read-only shell-like query (rg/grep/find/tree/ls/cat/head/tail/jq …) against a virtualized
+    in-memory filesystem containing ONLY the Seekr documentation pages and the SeekrFlow OpenAPI
+    specs. Output truncated to 30KB per call.
+  input_schema: {command: string (required)}
+  read_only: true
+  exposes:
+  - /openapi/agents.json
+  - /openapi/explainability.json
+  - /openapi/llm-training.json
+  - /openapi/serving.json
+  - /flow/**.mdx
+- name: submit_feedback
+  title: Submit documentation feedback
+  description: Report a problem with a documentation page to the Seekr docs team.
+  input_schema: {path: string (required), feedback: string (required)}
+  read_only: false
+resources:
+- uri: mintlify://skills/seekr
+  name: seekr
+  mime_type: text/markdown
+  saved_as: skills/seekr-seekrflow.md
+  note: >-
+    Byte-identical to the Agent Skill published at
+    https://docs.seekr.com/.well-known/agent-skills/seekr/skill.md
+oauth:
+  required: false
+  discovery:
+    '/.well-known/oauth-authorization-server': 404
+    '/.well-known/oauth-protected-resource': 404
+findings:
+- id: well-known-mcp-points-at-preview-host
+  detail: >-
+    https://docs.seekr.com/.well-known/mcp.json advertises the server URL as
+    https://seekr.main-kill-isr.mintlify.me/mcp — a Mintlify branch-preview hostname — while the
+    documentation instructs users to configure https://docs.seekr.com/mcp. Both answered HTTP 200
+    to tools/list on 2026-08-05, but a machine that discovers the server via the well-known
+    descriptor is pointed at a preview deployment rather than the canonical docs host.
+  evidence:
+  - {url: 'https://docs.seekr.com/.well-known/mcp.json', http_status: 200}
+  - {url: 'https://seekr.main-kill-isr.mintlify.me/mcp', http_status: 200}
+x-evidence:
+  fetched: '2026-08-05'
+  tools_list_http_status: 200
+  file: seekr-mcp-tools.json

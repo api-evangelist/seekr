@@ -1,0 +1,4232 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "SeekrFlow API",
+    "description": "SeekrFlow API Documentation",
+    "termsOfService": "http://www.seekr.com/support",
+    "contact": {
+      "name": "Seekr API Support",
+      "url": "http://www.seekr.com/contact",
+      "email": "contact@seekr.com"
+    },
+    "version": "5.45.1"
+  },
+  "paths": {
+    "/version": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Version",
+        "description": "Return the deployed agent router version.",
+        "operationId": "version_version_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object",
+                  "title": "Response Version Version Get"
+                }
+              }
+            }
+          }
+        },
+        "x-excluded": true
+      }
+    },
+    "/v1/threads/{thread_id}/runs": {
+      "post": {
+        "tags": [
+          "Runs"
+        ],
+        "summary": "Run Agent",
+        "description": "Handles a client's request to run a specified agent.",
+        "operationId": "run_agent_v1_threads__thread_id__runs_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "thread_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Thread Id"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Runs"
+        ],
+        "summary": "List Runs Endpoint",
+        "description": "List runs in a thread.",
+        "operationId": "list_runs_endpoint_v1_threads__thread_id__runs_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "thread_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Thread Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 20,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/OrderEnum",
+              "default": "desc"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Run"
+                  },
+                  "title": "Response List Runs Endpoint V1 Threads  Thread Id  Runs Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/threads/{thread_id}/runs/stream": {
+      "post": {
+        "tags": [
+          "Runs"
+        ],
+        "summary": "Run Agent Stream",
+        "description": "Calls the agent's /runs/stream endpoint, returning an SSE stream.",
+        "operationId": "run_agent_stream_v1_threads__thread_id__runs_stream_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "thread_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Thread Id"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/threads/{thread_id}/runs/stream/vercel": {
+      "post": {
+        "tags": [
+          "Runs"
+        ],
+        "summary": "Run Agent Stream Vercel",
+        "description": "Calls the agent's /runs/stream/vercel endpoint, returning an SSE stream.",
+        "operationId": "run_agent_stream_vercel_v1_threads__thread_id__runs_stream_vercel_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "thread_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Thread Id"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/threads/{thread_id}/runs/{run_id}/cancel": {
+      "post": {
+        "tags": [
+          "Runs"
+        ],
+        "summary": "Cancel Run",
+        "description": "Cancels a run by calling the agent's /runs/{run_id}/cancel endpoint.",
+        "operationId": "cancel_run_v1_threads__thread_id__runs__run_id__cancel_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "thread_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Thread Id"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Cancel Run V1 Threads  Thread Id  Runs  Run Id  Cancel Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/threads/{thread_id}/runs/{run_id}/attach": {
+      "get": {
+        "tags": [
+          "Runs"
+        ],
+        "summary": "Attach To Run",
+        "description": "Attach to a run for SSE streaming output.",
+        "operationId": "attach_to_run_v1_threads__thread_id__runs__run_id__attach_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "thread_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Thread Id"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/threads/{thread_id}/runs/{run_id}": {
+      "get": {
+        "tags": [
+          "Runs"
+        ],
+        "summary": "Get Run Endpoint",
+        "description": "Get a run by ID.",
+        "operationId": "get_run_endpoint_v1_threads__thread_id__runs__run_id__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "thread_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Thread Id"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Run"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/internal/runs/latest": {
+      "post": {
+        "tags": [
+          "Runs",
+          "Internal"
+        ],
+        "summary": "List Agent Latest Runs Endpoint",
+        "description": "Returns a dictionary of agent_ids with their latest run.",
+        "operationId": "list_agent_latest_runs_endpoint_v1_internal_runs_latest_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "title": "Agent Ids"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LatestRun"
+                  },
+                  "type": "array",
+                  "title": "Response List Agent Latest Runs Endpoint V1 Internal Runs Latest Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-excluded": true
+      }
+    },
+    "/v1/internal/agents": {
+      "get": {
+        "tags": [
+          "Agents",
+          "Internal"
+        ],
+        "summary": "List Registered Agents Endpoint",
+        "description": "List all agents currently registered with agents-router.",
+        "operationId": "list_registered_agents_endpoint_v1_internal_agents_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/RegisteredAgent"
+                  },
+                  "type": "array",
+                  "title": "Response List Registered Agents Endpoint V1 Internal Agents Get"
+                }
+              }
+            }
+          }
+        },
+        "x-excluded": true
+      }
+    },
+    "/v1/health": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Health Check",
+        "description": "Health endpoint to check tracker status.",
+        "operationId": "health_check_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object",
+                  "title": "Response Health Check V1 Health Get"
+                }
+              }
+            }
+          }
+        },
+        "x-excluded": true
+      }
+    },
+    "/v1/health/{agent_id}": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Agent Health Check",
+        "description": "Health endpoint to check agent status.",
+        "operationId": "agent_health_check_v1_health__agent_id__get",
+        "parameters": [
+          {
+            "name": "agent_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Agent Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Agent Health Check V1 Health  Agent Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-excluded": true
+      }
+    },
+    "/v1/threads/{thread_id}/messages": {
+      "get": {
+        "tags": [
+          "Threads"
+        ],
+        "summary": "List Messages Endpoint",
+        "description": "List messages in a thread with pagination.",
+        "operationId": "list_messages_endpoint_v1_threads__thread_id__messages_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "thread_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Thread Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 20,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/OrderEnum",
+              "default": "desc"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "include_parts",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Parts"
+            }
+          },
+          {
+            "name": "expand_part_payloads",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Expand Part Payloads"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ThreadMessageResponse"
+                  },
+                  "title": "Response List Messages Endpoint V1 Threads  Thread Id  Messages Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Threads"
+        ],
+        "summary": "Create Message Endpoint",
+        "description": "Create a new message in a thread.\n\nMessage should contain role, content, and optional meta_data.",
+        "operationId": "create_message_endpoint_v1_threads__thread_id__messages_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "thread_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Thread Id"
+            }
+          },
+          {
+            "name": "include_parts",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Parts"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ThreadMessageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThreadMessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/threads": {
+      "post": {
+        "tags": [
+          "Threads"
+        ],
+        "summary": "Create Thread Endpoint",
+        "description": "Create a new thread.\n\nTakes optional meta_data in the request body.",
+        "operationId": "create_thread_endpoint_v1_threads_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ThreadCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Thread"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Threads"
+        ],
+        "summary": "List Threads Endpoint",
+        "description": "List all threads.",
+        "operationId": "list_threads_endpoint_v1_threads_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 20,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/OrderEnum",
+              "default": "desc"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thread"
+                  },
+                  "title": "Response List Threads Endpoint V1 Threads Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/threads/{thread_id}": {
+      "delete": {
+        "tags": [
+          "Threads"
+        ],
+        "summary": "Delete Thread Endpoint",
+        "description": "Delete a thread by ID.\n\nReturns {'deleted': True} if successful, or raises 422 if not found.",
+        "operationId": "delete_thread_endpoint_v1_threads__thread_id__delete",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "thread_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Thread Id"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Delete Thread Endpoint V1 Threads  Thread Id  Delete"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Threads"
+        ],
+        "summary": "Get Thread Endpoint",
+        "description": "Get a thread by ID.",
+        "operationId": "get_thread_endpoint_v1_threads__thread_id__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "thread_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Thread Id"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Thread"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/threads/{thread_id}/messages/{message_id}": {
+      "patch": {
+        "tags": [
+          "Threads"
+        ],
+        "summary": "Update Message Endpoint",
+        "description": "Update a message's content and/or metadata.\n\nRequest body can contain optional content and meta_data fields.",
+        "operationId": "update_message_endpoint_v1_threads__thread_id__messages__message_id__patch",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "thread_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Thread Id"
+            }
+          },
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Message Id"
+            }
+          },
+          {
+            "name": "include_parts",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Parts"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThreadMessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Threads"
+        ],
+        "summary": "Get Message Endpoint",
+        "description": "Get a message by ID.",
+        "operationId": "get_message_endpoint_v1_threads__thread_id__messages__message_id__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "thread_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Thread Id"
+            }
+          },
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Message Id"
+            }
+          },
+          {
+            "name": "include_parts",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Parts"
+            }
+          },
+          {
+            "name": "expand_part_payloads",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Expand Part Payloads"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThreadMessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Threads"
+        ],
+        "summary": "Delete Message Endpoint",
+        "description": "Delete a message by ID.\n\nReturns {'deleted': True} if successful, or raises 422 if not found.",
+        "operationId": "delete_message_endpoint_v1_threads__thread_id__messages__message_id__delete",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "thread_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Thread Id"
+            }
+          },
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Message Id"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Delete Message Endpoint V1 Threads  Thread Id  Messages  Message Id  Delete"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/functions": {
+      "post": {
+        "tags": [
+          "Functions"
+        ],
+        "summary": "Upload Python Function",
+        "description": "Upload a new Python function for the authenticated team.",
+        "operationId": "upload_python_function_v1_functions_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_python_function_v1_functions_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PythonFunctionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid function file or missing description"
+          },
+          "409": {
+            "description": "Function name already exists for this team"
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Functions"
+        ],
+        "summary": "List Python Function Endpoint",
+        "description": "List all python functions.",
+        "operationId": "list_python_function_endpoint_v1_functions_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 20,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/OrderEnum",
+              "default": "desc"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PythonFunctionResponse"
+                  },
+                  "title": "Response List Python Function Endpoint V1 Functions Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/functions/{function_id}": {
+      "get": {
+        "tags": [
+          "Functions"
+        ],
+        "summary": "Get Python Function Endpoint",
+        "description": "Retrieve a Python function by its ID for the authenticated team.",
+        "operationId": "get_python_function_endpoint_v1_functions__function_id__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "function_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Function Id"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PythonFunctionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Functions"
+        ],
+        "summary": "Delete Python Function Endpoint",
+        "description": "Delete a Python function by its ID for the authenticated team.",
+        "operationId": "delete_python_function_endpoint_v1_functions__function_id__delete",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "function_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Function Id"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeletePythonFunctionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Functions"
+        ],
+        "summary": "Update Python Function Endpoint",
+        "description": "Updates existing Python function. Supports updating the description, the code, or both.",
+        "operationId": "update_python_function_endpoint_v1_functions__function_id__patch",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "function_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Function Id"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_update_python_function_endpoint_v1_functions__function_id__patch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PythonFunctionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid function file"
+          },
+          "409": {
+            "description": "Function name already exists for this team"
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/internal/functions/validate-function-ids": {
+      "post": {
+        "tags": [
+          "Internal",
+          "Functions"
+        ],
+        "summary": "Validate Function Ids",
+        "description": "Validate that the provided function IDs exist and belong to the team (if provided).",
+        "operationId": "validate_function_ids_v1_internal_functions_validate_function_ids_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidatePythonFunctionIdsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidateFunctionIdsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-excluded": true
+      }
+    },
+    "/v1/internal/functions/by-ids": {
+      "post": {
+        "tags": [
+          "Internal",
+          "Functions"
+        ],
+        "summary": "Get Functions By Ids",
+        "description": "Retrieve Python functions by a list of IDs.",
+        "operationId": "get_functions_by_ids_v1_internal_functions_by_ids_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PythonFunctionIdsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PythonFunctionResponse"
+                  },
+                  "type": "array",
+                  "title": "Response Get Functions By Ids V1 Internal Functions By Ids Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-excluded": true
+      }
+    },
+    "/v1/observability/spans": {
+      "post": {
+        "tags": [
+          "Observability"
+        ],
+        "summary": "Query Spans",
+        "description": "Retrieves observability traces according to the provided user and facts.",
+        "operationId": "query_spans_v1_observability_spans_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpanSummaryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SpanSummaryResult"
+                  },
+                  "title": "Response Query Spans V1 Observability Spans Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/observability/spans/{span_id}": {
+      "get": {
+        "tags": [
+          "Observability"
+        ],
+        "summary": "Retrieve Span",
+        "description": "Retrieves a particular span given its ID.",
+        "operationId": "retrieve_span_v1_observability_spans__span_id__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "span_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Span Id"
+            }
+          },
+          {
+            "name": "x-team-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Retrieve Span V1 Observability Spans  Span Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AgentStatus": {
+        "type": "string",
+        "enum": [
+          "Inactive",
+          "Pending",
+          "Active",
+          "Failed"
+        ],
+        "title": "AgentStatus",
+        "description": "Available statuses for an agent."
+      },
+      "Body_update_python_function_endpoint_v1_functions__function_id__patch": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_update_python_function_endpoint_v1_functions__function_id__patch"
+      },
+      "Body_upload_python_function_v1_functions_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_python_function_v1_functions_post"
+      },
+      "DeletePythonFunctionResponse": {
+        "properties": {
+          "deleted": {
+            "type": "boolean",
+            "title": "Deleted"
+          }
+        },
+        "type": "object",
+        "required": [
+          "deleted"
+        ],
+        "title": "DeletePythonFunctionResponse",
+        "description": "Response model for deleting a Python function."
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "InputFile": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "input_file",
+            "title": "Type"
+          },
+          "file_id": {
+            "type": "string",
+            "title": "File Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "file_id"
+        ],
+        "title": "InputFile",
+        "description": "A file input to be sent to the model."
+      },
+      "InputImage": {
+        "properties": {
+          "detail": {
+            "type": "string",
+            "enum": [
+              "high",
+              "low",
+              "auto"
+            ],
+            "title": "Detail"
+          },
+          "type": {
+            "type": "string",
+            "const": "input_image",
+            "title": "Type"
+          },
+          "file_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "File Id"
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "detail",
+          "type"
+        ],
+        "title": "InputImage",
+        "description": "An image input to be sent to the model."
+      },
+      "InputText": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "type": {
+            "type": "string",
+            "const": "input_text",
+            "title": "Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text",
+          "type"
+        ],
+        "title": "InputText",
+        "description": "A text input to be sent to the model."
+      },
+      "Kind": {
+        "type": "string",
+        "enum": [
+          "span",
+          "pending_span",
+          "log",
+          "span_event"
+        ],
+        "title": "Kind",
+        "description": "Indicates the type of record for a logfire record."
+      },
+      "LatestRun": {
+        "properties": {
+          "run_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Run Id"
+          },
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id"
+          },
+          "last_run_created_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Run Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run_id",
+          "agent_id",
+          "last_run_created_at"
+        ],
+        "title": "LatestRun",
+        "description": "A minimal Run model to be used for determining the latest run of an agent."
+      },
+      "MessageDataPart": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "data",
+            "title": "Type"
+          },
+          "data": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "data_ref": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PublicStoredObjectRef"
+              },
+              {
+                "$ref": "#/components/schemas/StoredObjectRef"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Ref"
+          },
+          "data_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Type"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mime Type"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "MessageDataPart",
+        "description": "A structured data part persisted alongside a thread message."
+      },
+      "MessageFilePart": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "file",
+            "title": "Type"
+          },
+          "file_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "File Id"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mime Type"
+          },
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "high",
+                  "low",
+                  "auto"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "MessageFilePart",
+        "description": "A file or image part persisted alongside a thread message."
+      },
+      "MessageReasoningPart": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "reasoning",
+            "title": "Type"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "text"
+        ],
+        "title": "MessageReasoningPart",
+        "description": "A reasoning part persisted alongside a thread message."
+      },
+      "MessageTextPart": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "text",
+            "title": "Type"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "text"
+        ],
+        "title": "MessageTextPart",
+        "description": "A text part persisted alongside a thread message."
+      },
+      "MessageToolCallPart": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "tool-call",
+            "title": "Type"
+          },
+          "tool_name": {
+            "type": "string",
+            "title": "Tool Name"
+          },
+          "tool_call_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tool Call Id"
+          },
+          "args": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Args"
+          },
+          "args_ref": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PublicStoredObjectRef"
+              },
+              {
+                "$ref": "#/components/schemas/StoredObjectRef"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Args Ref"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "tool_name"
+        ],
+        "title": "MessageToolCallPart",
+        "description": "A tool-call part persisted alongside a thread message."
+      },
+      "MessageToolErrorPart": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "tool-error",
+            "title": "Type"
+          },
+          "tool_name": {
+            "type": "string",
+            "title": "Tool Name"
+          },
+          "tool_call_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tool Call Id"
+          },
+          "input": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Input"
+          },
+          "input_ref": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PublicStoredObjectRef"
+              },
+              {
+                "$ref": "#/components/schemas/StoredObjectRef"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Input Ref"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mime Type"
+          },
+          "error_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Text"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "tool_name"
+        ],
+        "title": "MessageToolErrorPart",
+        "description": "A tool-input-error part persisted alongside a thread message."
+      },
+      "MessageToolResultPart": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "tool-result",
+            "title": "Type"
+          },
+          "tool_name": {
+            "type": "string",
+            "title": "Tool Name"
+          },
+          "tool_call_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tool Call Id"
+          },
+          "output": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Output"
+          },
+          "output_ref": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PublicStoredObjectRef"
+              },
+              {
+                "$ref": "#/components/schemas/StoredObjectRef"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Output Ref"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mime Type"
+          },
+          "is_error": {
+            "type": "boolean",
+            "title": "Is Error",
+            "default": false
+          },
+          "error_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Text"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "tool_name"
+        ],
+        "title": "MessageToolResultPart",
+        "description": "A tool-result part persisted alongside a thread message."
+      },
+      "MessageUpdateRequest": {
+        "properties": {
+          "content": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/InputText"
+                    },
+                    {
+                      "$ref": "#/components/schemas/InputImage"
+                    },
+                    {
+                      "$ref": "#/components/schemas/InputFile"
+                    }
+                  ],
+                  "discriminator": {
+                    "propertyName": "type",
+                    "mapping": {
+                      "input_file": "#/components/schemas/InputFile",
+                      "input_image": "#/components/schemas/InputImage",
+                      "input_text": "#/components/schemas/InputText"
+                    }
+                  }
+                },
+                "type": "array"
+              },
+              {
+                "items": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/OutputText"
+                    },
+                    {
+                      "$ref": "#/components/schemas/OutputGuardrail"
+                    }
+                  ],
+                  "discriminator": {
+                    "propertyName": "type",
+                    "mapping": {
+                      "output_guardrail": "#/components/schemas/OutputGuardrail",
+                      "output_text": "#/components/schemas/OutputText"
+                    }
+                  }
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content"
+          },
+          "meta_data": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meta Data"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "MessageUpdateRequest",
+        "description": "Pydantic model for updating a message request.\n\nAttributes:\n    content (Optional[str]): Optional content of the message.\n    meta_data (Optional[dict[str, Any]]): Optional metadata dictionary."
+      },
+      "ModelSettings": {
+        "properties": {
+          "temperature": {
+            "type": "number",
+            "maximum": 2,
+            "minimum": 0,
+            "title": "Temperature",
+            "default": 1
+          },
+          "top_p": {
+            "type": "number",
+            "maximum": 1,
+            "minimum": 0,
+            "title": "Top P",
+            "default": 1
+          },
+          "frequency_penalty": {
+            "type": "number",
+            "maximum": 2,
+            "minimum": -2,
+            "title": "Frequency Penalty",
+            "default": 0
+          },
+          "presence_penalty": {
+            "type": "number",
+            "maximum": 2,
+            "minimum": -2,
+            "title": "Presence Penalty",
+            "default": 0
+          },
+          "max_tokens": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Tokens"
+          }
+        },
+        "type": "object",
+        "title": "ModelSettings",
+        "description": "Settings to use when calling an LLM.\n\nThis class holds optional model configuration parameters (e.g. temperature,\ntop_p, penalties, truncation, etc.).\n\nNot all models/providers support all of these parameters, so please check the API documentation\nfor the specific model and provider you are using."
+      },
+      "OrderEnum": {
+        "type": "string",
+        "enum": [
+          "asc",
+          "desc"
+        ],
+        "title": "OrderEnum",
+        "description": "Options for order query param in list endpoints."
+      },
+      "OutputGuardrail": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "output_guardrail",
+            "title": "Type"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "guardrail": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Guardrail"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "text",
+          "guardrail"
+        ],
+        "title": "OutputGuardrail",
+        "description": "A guardrail output from the model."
+      },
+      "OutputText": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "type": {
+            "type": "string",
+            "const": "output_text",
+            "title": "Type"
+          },
+          "annotations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Annotations"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text",
+          "type",
+          "annotations"
+        ],
+        "title": "OutputText",
+        "description": "A text output from the model."
+      },
+      "PublicStoredObjectRef": {
+        "properties": {
+          "object_id": {
+            "type": "string",
+            "title": "Object Id"
+          },
+          "size_bytes": {
+            "type": "integer",
+            "title": "Size Bytes"
+          },
+          "mime_type": {
+            "type": "string",
+            "title": "Mime Type"
+          },
+          "sha256": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sha256"
+          },
+          "preview_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preview Text"
+          },
+          "truncated": {
+            "type": "boolean",
+            "title": "Truncated",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "object_id",
+          "size_bytes",
+          "mime_type"
+        ],
+        "title": "PublicStoredObjectRef",
+        "description": "Client-safe reference to an object stored outside the message row."
+      },
+      "PythonFunctionIdsRequest": {
+        "properties": {
+          "function_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Function Ids"
+          }
+        },
+        "type": "object",
+        "required": [
+          "function_ids"
+        ],
+        "title": "PythonFunctionIdsRequest",
+        "description": "Request model for retrieving Python functions by a list of IDs."
+      },
+      "PythonFunctionResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "active": {
+            "type": "boolean",
+            "title": "Active"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "version",
+          "name",
+          "description",
+          "active",
+          "code",
+          "user_id",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "PythonFunctionResponse",
+        "description": "Response model for a Python function, including code and user info."
+      },
+      "RegisteredAgent": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "address": {
+            "type": "string",
+            "title": "Address"
+          },
+          "port": {
+            "type": "integer",
+            "title": "Port"
+          },
+          "status": {
+            "$ref": "#/components/schemas/AgentStatus"
+          },
+          "deployment_generation": {
+            "type": "integer",
+            "title": "Deployment Generation"
+          },
+          "awaiting_initial_readiness": {
+            "type": "boolean",
+            "title": "Awaiting Initial Readiness"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "address",
+          "port",
+          "status",
+          "deployment_generation",
+          "awaiting_initial_readiness"
+        ],
+        "title": "RegisteredAgent",
+        "description": "A registered agent currently known by agents-router."
+      },
+      "ResponseFormat": {
+        "properties": {
+          "json_schema": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Json Schema"
+          }
+        },
+        "type": "object",
+        "required": [
+          "json_schema"
+        ],
+        "title": "ResponseFormat",
+        "description": "Specifies a JSON schema for structured output.\n\nWhen provided, the LLM will be constrained to return a JSON response\nthat matches the specified schema."
+      },
+      "Run": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "object": {
+            "type": "string",
+            "title": "Object",
+            "default": "thread.run"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id"
+          },
+          "thread_id": {
+            "type": "string",
+            "title": "Thread Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/RunStatus"
+          },
+          "is_active": {
+            "type": "boolean",
+            "title": "Is Active",
+            "default": false
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started At"
+          },
+          "expires_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expires At"
+          },
+          "cancelled_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cancelled At"
+          },
+          "failed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Failed At"
+          },
+          "completed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "instructions": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Instructions"
+          },
+          "tools": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Tools"
+          },
+          "meta_data": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Meta Data"
+          },
+          "usage": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RunUsage"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "temperature": {
+            "type": "number",
+            "title": "Temperature"
+          },
+          "top_p": {
+            "type": "number",
+            "title": "Top P"
+          },
+          "max_completion_tokens": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Completion Tokens"
+          },
+          "truncation_strategy": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Truncation Strategy"
+          },
+          "response_format": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "additionalProperties": true,
+                "type": "object"
+              }
+            ],
+            "title": "Response Format",
+            "default": "auto"
+          },
+          "tool_choice": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "additionalProperties": true,
+                "type": "object"
+              }
+            ],
+            "title": "Tool Choice",
+            "default": "auto"
+          },
+          "parallel_tool_calls": {
+            "type": "boolean",
+            "title": "Parallel Tool Calls"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "created_at",
+          "agent_id",
+          "thread_id",
+          "status",
+          "model",
+          "temperature",
+          "top_p",
+          "parallel_tool_calls"
+        ],
+        "title": "Run",
+        "description": "Represents a single execution within a thread.\n\nA run encompasses the entire lifecycle of processing, from receiving\nthe initial prompt to delivering the final response. Runs track\nexecution status, timing, model parameters, and resource usage."
+      },
+      "RunRequest": {
+        "properties": {
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id",
+            "default": "default_agent"
+          },
+          "model_settings": {
+            "$ref": "#/components/schemas/ModelSettings",
+            "default": {
+              "temperature": 1,
+              "top_p": 1,
+              "frequency_penalty": 0,
+              "presence_penalty": 0
+            }
+          },
+          "response_format": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ResponseFormat"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "group": {
+            "type": "string",
+            "title": "Group",
+            "default": "default_group"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "title": "RunRequest",
+        "description": "Request model for creating a run."
+      },
+      "RunResponse": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "title": "Run Id"
+          },
+          "thread_id": {
+            "type": "string",
+            "title": "Thread Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "group": {
+            "type": "string",
+            "title": "Group",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "run_id",
+          "thread_id",
+          "status"
+        ],
+        "title": "RunResponse",
+        "description": "Response model for run creation."
+      },
+      "RunStatus": {
+        "type": "string",
+        "enum": [
+          "queued",
+          "running",
+          "completed",
+          "failed",
+          "canceled",
+          "cancelled"
+        ],
+        "title": "RunStatus",
+        "description": "Available status for a run."
+      },
+      "RunUsage": {
+        "properties": {
+          "prompt_tokens": {
+            "type": "integer",
+            "title": "Prompt Tokens"
+          },
+          "completion_tokens": {
+            "type": "integer",
+            "title": "Completion Tokens"
+          },
+          "total_tokens": {
+            "type": "integer",
+            "title": "Total Tokens"
+          }
+        },
+        "type": "object",
+        "required": [
+          "prompt_tokens",
+          "completion_tokens",
+          "total_tokens"
+        ],
+        "title": "RunUsage",
+        "description": "Aggregated usage metrics for a complete run execution.\n\nTracks token consumption for both prompts and completions."
+      },
+      "SpanSummaryRequest": {
+        "properties": {
+          "min_start_datetime": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Start Datetime"
+          },
+          "max_start_datetime": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Start Datetime"
+          },
+          "agent_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Agent Id"
+          },
+          "run_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Run Id"
+          },
+          "trace_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Trace Id"
+          },
+          "thread_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Thread Id"
+          },
+          "group": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Group"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metadata"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit",
+            "default": 100
+          },
+          "order": {
+            "$ref": "#/components/schemas/OrderEnum",
+            "default": "desc"
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "SpanSummaryRequest",
+        "description": "Object to contain request data for retrieving spans in bulk."
+      },
+      "SpanSummaryResult": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "title": "Run Id"
+          },
+          "group": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Group"
+          },
+          "thread_id": {
+            "type": "string",
+            "title": "Thread Id"
+          },
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id"
+          },
+          "trace_id": {
+            "type": "string",
+            "title": "Trace Id"
+          },
+          "span_id": {
+            "type": "string",
+            "title": "Span Id"
+          },
+          "parent_span_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent Span Id"
+          },
+          "span_name": {
+            "type": "string",
+            "title": "Span Name"
+          },
+          "level": {
+            "type": "integer",
+            "title": "Level"
+          },
+          "service_name": {
+            "type": "string",
+            "title": "Service Name"
+          },
+          "otel_scope_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Otel Scope Name"
+          },
+          "start_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Timestamp"
+          },
+          "end_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Timestamp"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/Kind"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "is_exception": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Exception"
+          },
+          "exception_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Exception Type"
+          },
+          "gen_ai_operation_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gen Ai Operation Name"
+          },
+          "gen_ai_request_model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gen Ai Request Model"
+          },
+          "gen_ai_response_model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gen Ai Response Model"
+          },
+          "gen_ai_system": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gen Ai System"
+          },
+          "gen_ai_usage_input_tokens": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gen Ai Usage Input Tokens"
+          },
+          "gen_ai_usage_output_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gen Ai Usage Output Token"
+          },
+          "seekr_metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seekr Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run_id",
+          "thread_id",
+          "agent_id",
+          "trace_id",
+          "span_id",
+          "span_name",
+          "level",
+          "service_name",
+          "start_timestamp",
+          "end_timestamp",
+          "kind",
+          "message"
+        ],
+        "title": "SpanSummaryResult",
+        "description": "Summary object of a span, meant to be retrieved in bulk and used to provide data on spans to be able to fetch more data."
+      },
+      "StoredObjectRef": {
+        "properties": {
+          "object_id": {
+            "type": "string",
+            "title": "Object Id"
+          },
+          "path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Path"
+          },
+          "size_bytes": {
+            "type": "integer",
+            "title": "Size Bytes"
+          },
+          "mime_type": {
+            "type": "string",
+            "title": "Mime Type"
+          },
+          "sha256": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sha256"
+          },
+          "preview_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preview Text"
+          },
+          "truncated": {
+            "type": "boolean",
+            "title": "Truncated",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "object_id",
+          "size_bytes",
+          "mime_type"
+        ],
+        "title": "StoredObjectRef",
+        "description": "Reference to an object stored outside the message row."
+      },
+      "Thread": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "object": {
+            "type": "string",
+            "title": "Object",
+            "default": "thread"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ThreadStatus",
+            "default": "available"
+          },
+          "active_run_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Run Id"
+          },
+          "meta_data": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Meta Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "created_at"
+        ],
+        "title": "Thread",
+        "description": "A thread is a top-level conversation container.\n\nThreads can contain multiple messages from various assistants and users,\nproviding a complete history of an interaction sequence."
+      },
+      "ThreadCreateRequest": {
+        "properties": {
+          "meta_data": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meta Data"
+          }
+        },
+        "type": "object",
+        "title": "ThreadCreateRequest",
+        "description": "Pydantic model for creating a thread request.\n\nAttributes:\n    meta_data (Optional[dict[str, Any]]): Optional metadata dictionary."
+      },
+      "ThreadMessageRequest": {
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "user",
+              "system",
+              "tool",
+              "developer",
+              "assistant"
+            ],
+            "title": "Role"
+          },
+          "content": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/InputText"
+                    },
+                    {
+                      "$ref": "#/components/schemas/InputImage"
+                    },
+                    {
+                      "$ref": "#/components/schemas/InputFile"
+                    }
+                  ],
+                  "discriminator": {
+                    "propertyName": "type",
+                    "mapping": {
+                      "input_file": "#/components/schemas/InputFile",
+                      "input_image": "#/components/schemas/InputImage",
+                      "input_text": "#/components/schemas/InputText"
+                    }
+                  }
+                },
+                "type": "array"
+              }
+            ],
+            "title": "Content"
+          },
+          "meta_data": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Meta Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "role",
+          "content"
+        ],
+        "title": "ThreadMessageRequest",
+        "description": "Pydantic model for creating a thread message request.\n\nAttributes:\n    role (str): The role of the message sender.\n    content (Union[str, list[InputMessage], list[OutputMessage]]): The content of the message.\n    meta_data (Optional[dict[str, Any]]): Optional metadata dictionary."
+      },
+      "ThreadMessageResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "object": {
+            "type": "string",
+            "title": "Object",
+            "default": "thread.message"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "thread_id": {
+            "type": "string",
+            "title": "Thread Id"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "content": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/InputText"
+                    },
+                    {
+                      "$ref": "#/components/schemas/InputImage"
+                    },
+                    {
+                      "$ref": "#/components/schemas/InputFile"
+                    }
+                  ],
+                  "discriminator": {
+                    "propertyName": "type",
+                    "mapping": {
+                      "input_file": "#/components/schemas/InputFile",
+                      "input_image": "#/components/schemas/InputImage",
+                      "input_text": "#/components/schemas/InputText"
+                    }
+                  }
+                },
+                "type": "array"
+              },
+              {
+                "items": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/OutputText"
+                    },
+                    {
+                      "$ref": "#/components/schemas/OutputGuardrail"
+                    }
+                  ],
+                  "discriminator": {
+                    "propertyName": "type",
+                    "mapping": {
+                      "output_guardrail": "#/components/schemas/OutputGuardrail",
+                      "output_text": "#/components/schemas/OutputText"
+                    }
+                  }
+                },
+                "type": "array"
+              }
+            ],
+            "title": "Content"
+          },
+          "parts": {
+            "anyOf": [
+              {
+                "items": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/MessageTextPart"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MessageReasoningPart"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MessageFilePart"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MessageDataPart"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MessageToolCallPart"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MessageToolErrorPart"
+                    },
+                    {
+                      "$ref": "#/components/schemas/MessageToolResultPart"
+                    }
+                  ],
+                  "discriminator": {
+                    "propertyName": "type",
+                    "mapping": {
+                      "data": "#/components/schemas/MessageDataPart",
+                      "file": "#/components/schemas/MessageFilePart",
+                      "reasoning": "#/components/schemas/MessageReasoningPart",
+                      "text": "#/components/schemas/MessageTextPart",
+                      "tool-call": "#/components/schemas/MessageToolCallPart",
+                      "tool-error": "#/components/schemas/MessageToolErrorPart",
+                      "tool-result": "#/components/schemas/MessageToolResultPart"
+                    }
+                  }
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parts"
+          },
+          "agent_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Agent Id"
+          },
+          "run_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Run Id"
+          },
+          "meta_data": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Meta Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "thread_id",
+          "role",
+          "content"
+        ],
+        "title": "ThreadMessageResponse",
+        "description": "Thread message shape returned by the thread API.\n\n`parts` are opt-in so existing clients keep the previous response shape by default."
+      },
+      "ThreadStatus": {
+        "type": "string",
+        "enum": [
+          "available",
+          "locked"
+        ],
+        "title": "ThreadStatus",
+        "description": "Available status for a thread."
+      },
+      "ValidateFunctionIdsResponse": {
+        "properties": {
+          "valid": {
+            "type": "boolean",
+            "title": "Valid"
+          },
+          "missing": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Missing"
+          }
+        },
+        "type": "object",
+        "required": [
+          "valid"
+        ],
+        "title": "ValidateFunctionIdsResponse",
+        "description": "Response model for function ID validation results."
+      },
+      "ValidatePythonFunctionIdsRequest": {
+        "properties": {
+          "function_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Function Ids"
+          },
+          "team_id": {
+            "type": "string",
+            "title": "Team Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "function_ids",
+          "team_id"
+        ],
+        "title": "ValidatePythonFunctionIdsRequest",
+        "description": "Request model for validating a list of Python function IDs for a team."
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    },
+    "securitySchemes": {
+      "APIKeyHeader": {
+        "type": "apiKey",
+        "description": "Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.",
+        "in": "header",
+        "name": "Authorization"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://flow.seekr.com",
+      "description": "SeekrBuild server base URL"
+    }
+  ]
+}

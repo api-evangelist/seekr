@@ -1,0 +1,142 @@
+generated: '2026-08-05'
+method: searched
+source: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+also:
+- https://docs.seekr.com/flow/reference/error-handling
+- https://docs.seekr.com/flow/role-based-access-control
+- https://docs.seekr.com/flow/sdk/getting-started
+- openapi/seekr-llm-training-openapi.json
+summary: >-
+  Cross-cutting request/response semantics for the SeekrFlow API, captured from the published
+  developer reference and cross-checked against the four OpenAPI documents. Two things a caller
+  must know that are easy to get wrong: the API key goes in the Authorization header with NO
+  "Bearer " prefix, and every resource is team-scoped — omitting x-team-id silently targets the
+  caller's personal workspace rather than the team they expect.
+base_url: https://flow.seekr.com/v1
+authentication:
+  style: api_key_header
+  header: Authorization
+  prefix: none
+  note: >-
+    "Authorization: YOUR_API_KEY" — no Bearer prefix. The OpenAPI declares the scheme as
+    apiKey/header/Authorization. An HTTPBearer scheme also appears in the explainability spec.
+  key_source: SeekrFlow dashboard, My Account > API Key (https://apps.seekr.com/flow)
+  env_var: SEEKR_API_KEY
+  see: authentication/seekr-authentication.yml
+tenancy:
+  model: organization > team > resource
+  header: x-team-id
+  env_var: SEEKR_TEAM_ID
+  default_when_omitted: the caller's personal workspace (a private single-member team)
+  isolation: >-
+    Agents, fine-tuning jobs, deployments, files and vector databases are scoped to the team they
+    were created in. Requests for resources outside the caller's teams are rejected.
+  roles:
+    organization: [owner, member]
+    team: [admin, creator]
+  docs: https://docs.seekr.com/flow/role-based-access-control
+content_types:
+  request: application/json (POST/PUT; Content-Type header required)
+  response: application/json
+  file_upload: multipart/form-data
+pagination:
+  style: limit-offset
+  params:
+    limit: {in: query, type: integer, defaults_seen: [20, 25, 100, 250], maxima_seen: [100, 1000]}
+    offset: {in: query, type: integer, minimum: 0, default: 0}
+    order: {in: query, type: string, pattern: '^(asc|desc)$', default: desc}
+  note: >-
+    Not documented in prose; derived from the OpenAPI query parameters on list operations. Limits
+    and maxima vary per resource — read the per-operation schema rather than assuming one default.
+  cursor: false
+versioning:
+  scheme: uri-path
+  current: v1
+  additional: v2 exists for the agents resource (/v2/flow/agents/*) alongside v1
+  policy: >-
+    "A new API version is released. The current version continues to function. You receive
+    notification with migration timelines before deprecation."
+  docs: https://docs.seekr.com/flow/reference/getting-started-with-your-api#versioning
+  see: lifecycle/seekr-lifecycle.yml
+error_envelope:
+  documented_shape:
+    error: string (short status name, e.g. "Bad Request")
+    message: string (specific, developer-actionable reason)
+    status: integer (HTTP status)
+    requestUrl: string
+    feedVersion: string
+  validation_shape:
+    schema: HTTPValidationError
+    detail: array of ValidationError {loc[], msg, type, input, ctx}
+    status: 422
+  rfc9457: false
+  note: >-
+    Two different error shapes coexist. Business/transport errors use the documented
+    error/message/status envelope; FastAPI request-validation failures return 422 with the
+    HTTPValidationError detail array declared in the OpenAPI. Neither uses
+    application/problem+json.
+  see: errors/seekr-problem-types.yml
+idempotency:
+  documented: false
+  header: null
+  note: >-
+    No idempotency-key header, parameter or retry contract is documented anywhere in the SeekrFlow
+    reference, and no Idempotency-Key parameter appears in any of the four OpenAPI documents. A
+    repeated POST to /v1/flow/agents/create or /v1/flow/fine-tune must be assumed to create a
+    duplicate. This is a real gap for agent callers, which retry by default.
+rate_limits:
+  documented: false
+  headers: null
+  note: >-
+    No rate-limit page, no documented quota, and no X-RateLimit-* response headers in any spec.
+    "rate limit" returns zero hits across the entire published documentation corpus.
+request_tracing:
+  request_id_header: null
+  observability: >-
+    Span-level observability is a first-class product surface rather than a response header:
+    POST /v1/observability/spans queries spans and GET /v1/observability/spans/{span_id} retrieves
+    one, giving per-run traces of every model call and tool invocation.
+streaming:
+  supported: true
+  transports: [server-sent events]
+  operations:
+  - run_agent_stream_v1_threads__thread_id__runs_stream_post
+  - run_agent_stream_vercel_v1_threads__thread_id__runs_stream_vercel_post
+  - attach_to_run_v1_threads__thread_id__runs__run_id__attach_get
+  note: >-
+    SSE streaming for agent runs, including a Vercel AI SDK-shaped stream. Attach re-joins an
+    in-flight run. This is a streaming surface, not a publish/subscribe one — there is no webhook
+    or event-delivery contract.
+webhooks:
+  documented: false
+  note: '"webhook" returns zero hits across the published documentation corpus.'
+long_running_operations:
+  pattern: job resources with status polling
+  examples:
+  - data jobs (/v1/flow/data-jobs/{data_job_id} + /workflow-phase)
+  - alignment jobs (/v1/flow/alignment/{alignment_job_id} + /workflow-phase)
+  - fine-tune jobs (/v1/flow/fine-tunes/{fine_tune_id} + /workflow-phase)
+  - vector database ingestion jobs (/v1/flow/vectordb/{database_id}/ingestion/{job_id})
+  cancel: every job family exposes an explicit cancel operation
+  note: >-
+    Every long-running operation is a create-then-poll job. There is no callback; the caller polls
+    the job resource or its /workflow-phase sub-resource.
+promotion_model:
+  note: >-
+    Agents, deployments and fine-tuned models share a promote/demote lifecycle
+    (PUT .../promote, PUT .../demote) that activates or deactivates the resource. Agents and tools
+    additionally support a diff/preview operation that returns the effect of a proposed patch
+    before it is applied.
+compatibility:
+  openai: >-
+    https://flow.seekr.com/v1/inference is OpenAI-compatible. Supported: model, messages, stream,
+    temperature, logprobs, top_logprobs, max_tokens, stop, top_p, frequency_penalty,
+    presence_penalty, tools. Not supported: tool_choice, parallel_tool_calls, n, logit_bias,
+    max_completion_tokens.
+cross_links:
+  authentication: authentication/seekr-authentication.yml
+  errors: errors/seekr-problem-types.yml
+  lifecycle: lifecycle/seekr-lifecycle.yml
+  changelog: changelog/seekr-changelog.yml
+  mcp: mcp/seekr-mcp.yml
+  data_model: data-model/seekr-data-model.yml

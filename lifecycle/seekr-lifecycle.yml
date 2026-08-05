@@ -1,0 +1,75 @@
+generated: '2026-08-05'
+method: searched
+source: https://docs.seekr.com/flow/reference/getting-started-with-your-api#versioning
+also:
+- https://docs.seekr.com/flow/changelog/seekr-managed/2026
+- https://status.seekr.com/
+- openapi/seekr-llm-training-openapi.json
+versioning:
+  scheme: uri-path
+  current: v1
+  additional:
+  - version: v2
+    scope: agents only
+    paths: /v2/flow/agents/*
+    note: >-
+      v2 agent operations run alongside the v1 set rather than replacing them; both are declared
+      in the same OpenAPI document with no deprecation marker on the v1 operations.
+  spec_versions:
+    llm-training: 5.108.1
+    agents: 5.45.1
+    explainability: 5.17.1
+    serving: 0.1.0
+  note: >-
+    The info.version of each spec tracks the SeekrFlow service build, not the URI API version.
+    Four separate OpenAPI documents all titled "SeekrFlow API" carry four different versions.
+  docs: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+deprecation:
+  policy_documented: true
+  policy_text: >-
+    "When breaking changes are introduced: a new API version is released; the current version
+    continues to function; you receive notification with migration timelines before deprecation."
+  policy_url: https://docs.seekr.com/flow/reference/getting-started-with-your-api#versioning
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: >-
+    The policy is a prose commitment on the getting-started page. Seekr does not emit RFC 8594
+    Sunset or Deprecation response headers, and no operation in any of the four OpenAPI documents
+    carries `deprecated: true` — deprecations are announced in the changelog instead.
+  announced_deprecations:
+  - feature: context-grounded fine-tuning
+    announced: '2026-06-23'
+    removal: '2026-07-17'
+    channel: changelog (Seekr-managed release notes)
+    guidance: Choose another fine-tuning method for new projects.
+    source: https://docs.seekr.com/flow/changelog/seekr-managed/2026
+deprecated_operations: []
+status_page:
+  url: https://status.seekr.com/
+  http_status: 200
+  subscribe: email and SMS incident notifications
+  provider: hosted status page with incident create/update/resolve notifications
+sla:
+  url: null
+  uptime_target: null
+  note: No public SLA or uptime commitment is published on the developer surface.
+release_notes:
+  managed: https://docs.seekr.com/flow/changelog/seekr-managed/2026
+  self_hosted: https://docs.seekr.com/flow/changelog/self-hosted/2026
+  years: [2024, 2025, 2026]
+  see: changelog/seekr-changelog.yml
+deployment_models:
+  models:
+  - seekr-managed cloud
+  - customer cloud
+  - on-premises / customer data center
+  - edge
+  - air-gapped
+  note: >-
+    Self-hosted installations version independently (6.2026.0 as of 2026-07-17) and have their own
+    release-notes track, so a self-hosted customer's available API surface can lag the managed one.
+  source: https://www.seekr.com/availability/
+cross_links:
+  changelog: changelog/seekr-changelog.yml
+  conventions: conventions/seekr-conventions.yml

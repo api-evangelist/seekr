@@ -1,0 +1,100 @@
+generated: '2026-08-05'
+method: derived
+source: mcp/seekr-mcp-tools.json + openapi/seekr-*-openapi.json
+summary: >-
+  Seekr's MCP surface and Seekr's REST surface do not overlap at all. The published MCP server is
+  a documentation-plane server: its three tools search and read Seekr's own docs and OpenAPI
+  files. Every one of the 212 SeekrFlow REST operations is reachable only over HTTPS against
+  https://flow.seekr.com/v1 with an API key. There is therefore no tool-to-operation binding to
+  record — the honest crosswalk is a full mcp_only / rest_only divergence, and recording it that
+  way is the point: an agent that connects to the Seekr MCP server can LEARN the API but cannot
+  CALL it.
+surfaces:
+  openapi:
+  - openapi/seekr-agents-openapi.json
+  - openapi/seekr-explainability-openapi.json
+  - openapi/seekr-llm-training-openapi.json
+  - openapi/seekr-serving-openapi.json
+  graphql: null
+  mcp:
+    url: https://docs.seekr.com/mcp
+    gated: false
+    note: tools/list returned HTTP 200 anonymously with real inputSchemas on 2026-08-05.
+crosswalk: []
+mcp_only:
+- tool: search_seekr
+  reason: >-
+    Documentation search over the Seekr knowledge base. No SeekrFlow REST operation performs
+    documentation search; the docs corpus is not part of the flow.seekr.com API.
+- tool: query_docs_filesystem_seekr
+  reason: >-
+    Read-only virtual filesystem over the docs pages and the four SeekrFlow OpenAPI specs. Backed
+    by the Mintlify docs platform, not by the SeekrFlow control plane. This tool is how the four
+    OpenAPI specs in openapi/ were harvested — they are not served at any static URL on
+    docs.seekr.com or flow.seekr.com.
+- tool: submit_feedback
+  reason: >-
+    Writes documentation feedback to the Seekr docs team. No public REST equivalent.
+rest_only:
+- capability: agents
+  operations: 21
+  note: v1 and v2 agent CRUD, promote/demote, diff/preview, status.
+- capability: vector-databases
+  operations: 17
+  note: create/list/update/delete vector DBs, ingestion jobs, chunks, files, metadata snapshots.
+- capability: threads-and-messages
+  operations: 16
+  note: threads, messages, runs, streaming runs (incl. Vercel AI SDK stream), cancel, attach.
+- capability: files
+  operations: 14
+  note: upload, bulk upload, download, rename, token counts, derived files, dependency lookups.
+- capability: inference
+  operations: 12
+  note: OpenAI-compatible chat/completions/embeddings, rerank, score, audio transcriptions.
+- capability: tools
+  operations: 11
+  note: custom tool CRUD, duplicate, diff, MCP-connector lifecycle sync, tool metadata.
+- capability: data-jobs
+  operations: 11
+  note: submit/start/cancel/clone data jobs, add/remove files, generate system prompt.
+- capability: alignment
+  operations: 10
+  note: alignment jobs, ingestion, generation of instruction fine-tuning pairs, outputs.
+- capability: explainability
+  operations: 9
+  note: index create/populate/delete, influential fine-tuning data, context attribution.
+- capability: fine-tunes
+  operations: 9
+  note: launch, patch, cancel, download, promote/demote model, workflow phase.
+- capability: deployments
+  operations: 9
+  note: deploy, update, promote/demote, deployment events and metrics.
+- capability: functions
+  operations: 7
+  note: upload and manage custom Python functions used as agent tools.
+- capability: feedback
+  operations: 7
+- capability: models
+  operations: 7
+- capability: evals
+  operations: 5
+- capability: health-and-version
+  operations: 11
+  note: health, version, versions, metrics, engines, sleep/wake_up/is_sleeping on the serving API.
+- capability: other
+  operations: 46
+  note: images, projects, batches, events, pricing estimates, observability spans, ingestion.
+coverage:
+  mcp_tools_named: 3
+  mcp_tools_bound_to_rest: 0
+  mcp_only: 3
+  rest_operations_total: 212
+  rest_operations_with_a_tool: 0
+  rest_only: 212
+  binding_rate: 0.0
+note: >-
+  The gap is a genuine product decision, not a harvest failure. Seekr's own MCP page says the
+  server exists so an assistant can "read endpoint definitions, parameters, request and response
+  schemas, and authentication requirements — then use that information to generate working,
+  authenticated code." Agent-callable SeekrFlow capability (create an agent, run a thread, launch
+  a fine-tune) would require an MCP server on flow.seekr.com; none is published.

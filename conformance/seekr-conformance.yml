@@ -1,0 +1,127 @@
+generated: '2026-08-05'
+method: searched
+source: https://www.seekr.com/security-compliance/
+also:
+- https://trust.seekr.com/
+- https://www.seekr.com/llms.txt
+- openapi/seekr-llm-training-openapi.json
+summary: >-
+  Seekr's published posture is strongest on the AI-governance side (SOC 2 Type II, plus explicit
+  alignment claims to NIST AI RMF, ISO/IEC 42001, SR 11-7 and the EU AI Act as the frameworks
+  SeekrGuard is built to evidence). On the API-standards side it is thinner: OpenAPI 3.1.0 and
+  OpenAI inference compatibility are real and verifiable, but there is no OAuth/OIDC, no RFC 9457
+  problem details, no RFC 8594 sunset signalling and no documented idempotency contract.
+standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: >-
+    Four OpenAPI 3.1.0 documents published for agents, explainability, llm-training and serving —
+    212 operations, unique operationIds, declared securitySchemes.
+- id: openai-inference-compatible
+  conforms: true
+  evidence: >-
+    Documented OpenAI-SDK compatibility at base_url https://flow.seekr.com/v1/inference, with a
+    published list of supported and unsupported parameters.
+  source: https://docs.seekr.com/flow/sdk/getting-started
+- id: mcp
+  conforms: true
+  evidence: >-
+    Hosted MCP server at https://docs.seekr.com/mcp, protocol version 2025-06-18, anonymous
+    tools/list returns 3 tools with JSON Schema draft-07 inputSchemas. Also an MCP *connector*
+    feature so SeekrFlow agents can consume third-party MCP servers as tools.
+  see: mcp/seekr-mcp.yml
+- id: a2a
+  conforms: partial
+  evidence: >-
+    An A2A agent card is served at https://docs.seekr.com/.well-known/agent-card.json declaring
+    protocolVersion 0.3. Graded `flavored` against A2A 1.0.0 — it uses supportedInterfaces where
+    1.0.0 specifies additionalInterfaces.
+  see: a2a/seekr-a2a.yml
+- id: llms-txt
+  conforms: true
+  evidence: llms.txt published on both docs.seekr.com and www.seekr.com.
+- id: soc2-type-ii
+  conforms: true
+  evidence: >-
+    "We deliver SOC 2 Type II compliant, privacy-first AI" — https://www.seekr.com/security-compliance/;
+    the SafeBase trust center at https://trust.seekr.com/ lists gated SOC 2 Type 1 and SOC 2 Type 2
+    documents.
+  see: security/seekr-trust-center.yml
+- id: iso-iec-27001
+  conforms: true
+  evidence: >-
+    "ISO/IEC 27001:2022" listed as a gated certification document on https://trust.seekr.com/.
+  see: security/seekr-trust-center.yml
+- id: cmmc
+  conforms: true
+  evidence: >-
+    "CMMC Certified" listed as a gated certification document on https://trust.seekr.com/ — the
+    relevant credential for the Defense Industrial Base go-to-market.
+  see: security/seekr-trust-center.yml
+- id: nist-ai-rmf
+  conforms: aligned
+  evidence: >-
+    Published as a framework SeekrGuard produces audit-ready documentation against. This is an
+    alignment claim by Seekr, not a third-party certification.
+- id: iso-iec-42001
+  conforms: aligned
+  evidence: Same as NIST AI RMF — an alignment claim for the SeekrGuard evaluation product.
+- id: sr-11-7
+  conforms: aligned
+  evidence: Model-risk-management alignment claim for financial-services buyers.
+- id: eu-ai-act
+  conforms: aligned
+  evidence: >-
+    Named as a compliance target (August 2026) for the risk/governance buying centre.
+- id: fedramp
+  conforms: false
+  evidence: >-
+    No FedRAMP authorization is published, despite a government/defense go-to-market and an
+    IL5/air-gapped deployment story.
+- id: oauth2
+  conforms: false
+  evidence: >-
+    No oauth2 securityScheme in any spec; /.well-known/oauth-authorization-server and
+    /.well-known/oauth-protected-resource both 404 on flow.seekr.com and docs.seekr.com.
+- id: openid-connect
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on every host probed.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors use a custom {error,message,status,requestUrl,feedVersion} envelope and FastAPI's
+    422 HTTPValidationError. No application/problem+json anywhere in the specs.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on www.seekr.com, seekr.com, docs.seekr.com and flow.seekr.com.
+- id: rfc8594-sunset
+  conforms: false
+  evidence: No Sunset or Deprecation headers documented; no deprecated operations in any spec.
+- id: idempotency
+  conforms: false
+  evidence: No idempotency key header/parameter documented or present in any spec.
+- id: asyncapi
+  conforms: false
+  evidence: >-
+    No AsyncAPI document and no webhook catalog. The event surface is SSE streaming on agent runs,
+    which AsyncAPI is not used to describe here.
+- id: json-api
+  conforms: false
+- id: fhir
+  conforms: false
+- id: scim
+  conforms: false
+- id: odata
+  conforms: false
+compliance_program:
+  published: true
+  page: https://www.seekr.com/security-compliance/
+  trust_center: https://trust.seekr.com/
+  certifications: ['SOC 2 Type 1', 'SOC 2 Type 2', 'ISO/IEC 27001:2022', 'CMMC Certified']
+  data_commitments:
+  - Customer data is isolated from other customers' data.
+  - Customer data is not used to train Seekr models or products.
+  - Customer data is deleted on request and per applicable law.
+  - Encryption in transit and at rest per a documented data-classification policy.
+  sub_processors: https://www.seekr.com/sub-processors/
+  dpa: https://www.seekr.com/data-processing-addendum/

@@ -42,5 +42,26 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Seekr is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/seekr_stock/
+Seekr Technologies builds explainable, auditable, sovereign AI for regulated industries and
+high-stakes government missions. Its platform, **SeekrFlow**, covers AI-ready data preparation,
+vector databases and retrieval, fine-tuning, model deployment, OpenAI-compatible inference and
+agent orchestration — wrapped in an explainability layer that traces every response back to the
+chunks, tool calls, spans and training examples that produced it.
+
+- Website: https://www.seekr.com/
+- Developer docs: https://docs.seekr.com/
+- API reference: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+- API base URL: `https://flow.seekr.com/v1`
+- MCP server: https://docs.seekr.com/mcp
+
+### What this profile holds
+
+| Artifact | Notes |
+|---|---|
+| `openapi/` | **Four OpenAPI 3.1.0 documents, 212 operations.** Seekr publishes no static spec URL — these were harvested through Seekr's own MCP server (`query_docs_filesystem_seekr`), which exposes `/openapi/{agents,explainability,llm-training,serving}.json`. Byte-verbatim copies are under `openapi/_original/`. |
+| `mcp/` | The published documentation MCP server, its live `tools/list`, and a tool crosswalk. |
+| `a2a/` | A real A2A agent card served from `docs.seekr.com`, graded against A2A 1.0.0. |
+| `skills/` | Seekr's own published Agent Skill (verbatim) plus four generated skills grounded in verified `operationId`s. |
+| `conventions/`, `errors/`, `lifecycle/`, `changelog/`, `data-model/`, `conformance/`, `security/`, `packages/`, `well-known/`, `overlays/`, `agentic-access/` | Derived, probed or searched — see each file's `method:` frontmatter. |
+
+Company also tracked on the secondary market at https://forgeglobal.com/seekr_stock/.
