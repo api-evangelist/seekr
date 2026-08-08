@@ -151,7 +151,7 @@ apis:
     url: mcp/seekr-mcp.yml
   - type: ToolCrosswalk
     url: mcp/seekr-tool-crosswalk.yml
-  - type: MCP
+  - type: Documentation
     url: https://docs.seekr.com/mcp
   - type: Documentation
     url: https://docs.seekr.com/flow/mcp
