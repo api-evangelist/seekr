@@ -41,105 +41,13 @@ tags:
 - mcp
 - agent-native
 apis:
-- name: SeekrFlow Platform API
-  description: >-
-    The core SeekrFlow control plane — agents (v1 and v2), custom tools, the AI-ready data engine
-    (file ingestion, data jobs, alignment / instruction-pair generation), vector databases and
-    chunk metadata, fine-tuning jobs, model deployments, projects, evaluations, feedback, pricing
-    estimates and audit events. 108 paths over an API-key-authenticated, team-scoped REST surface.
-  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
-  baseURL: https://flow.seekr.com/v1
-  tags:
-  - agents
-  - fine-tuning
-  - rag
-  - vector-database
-  - data-engine
-  - deployments
-  properties:
-  - type: OpenAPI
-    url: openapi/seekr-llm-training-openapi.json
-  - type: Overlay
-    url: overlays/seekr-llm-training-overlay.yaml
-  - type: Documentation
-    url: https://docs.seekr.com/flow
-  - type: APIReference
-    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
-  - type: Authentication
-    url: authentication/seekr-authentication.yml
-  - type: Conventions
-    url: conventions/seekr-conventions.yml
-  - type: ErrorCatalog
-    url: errors/seekr-problem-types.yml
-  - type: DataModel
-    url: data-model/seekr-data-model.yml
-- name: SeekrFlow Agent Runtime API
-  description: >-
-    The runtime half of SeekrFlow agents — threads, messages, runs (including SSE streaming and a
-    Vercel AI SDK stream shape), run cancel and attach, uploaded custom Python functions used as
-    agent tools, and span-level observability over every model call and tool invocation.
-  humanURL: https://docs.seekr.com/flow/components/agents
-  baseURL: https://flow.seekr.com/v1
-  tags:
-  - agents
-  - observability
-  - streaming
-  properties:
-  - type: OpenAPI
-    url: openapi/seekr-agents-openapi.json
-  - type: Overlay
-    url: overlays/seekr-agents-overlay.yaml
-  - type: Documentation
-    url: https://docs.seekr.com/flow/components/agents
-  - type: Authentication
-    url: authentication/seekr-authentication.yml
-- name: SeekrFlow Explainability API
-  description: >-
-    Seekr's differentiating surface — context attribution (which retrieved sources influenced an
-    answer, from a stored run or an arbitrary response/context pair), training-data attribution
-    via a per-model influence index, and source tracing back to the exact chunk in the original
-    document.
-  humanURL: https://docs.seekr.com/flow/components/explainability
-  baseURL: https://flow.seekr.com/v1
-  tags:
-  - explainability
-  - ai-governance
-  - observability
-  properties:
-  - type: OpenAPI
-    url: openapi/seekr-explainability-openapi.json
-  - type: Overlay
-    url: overlays/seekr-explainability-overlay.yaml
-  - type: Documentation
-    url: https://docs.seekr.com/flow/components/explainability
-- name: SeekrFlow Inference & Serving API
-  description: >-
-    OpenAI-compatible inference — chat completions, completions, embeddings, rerank, score and
-    audio transcription — plus batch jobs, file handling for batches, model listing, engine
-    health/metrics and sleep/wake control for dedicated serving instances. Any OpenAI SDK can call
-    it by changing base_url.
-  humanURL: https://docs.seekr.com/flow/sdk/getting-started
-  baseURL: https://flow.seekr.com/v1/inference
-  tags:
-  - inference
-  - llm
-  - embeddings
-  - openai-compatible
-  properties:
-  - type: OpenAPI
-    url: openapi/seekr-serving-openapi.json
-  - type: Overlay
-    url: overlays/seekr-serving-overlay.yaml
-  - type: Documentation
-    url: https://docs.seekr.com/flow/sdk/getting-started
 - name: Seekr Documentation MCP Server
   description: >-
-    A hosted, anonymous, read-only MCP server that gives an AI assistant direct access to the
-    SeekrFlow documentation and the four SeekrFlow OpenAPI specs, so the assistant can generate
-    working authenticated SeekrFlow code. Three tools — search_seekr,
-    query_docs_filesystem_seekr and submit_feedback — plus a packaged Agent Skill exposed as an
-    MCP resource. It is a documentation-plane server: it does not expose agent, fine-tuning or
-    inference actions.
+    A hosted, anonymous, read-only MCP server that gives an AI assistant direct access to the SeekrFlow
+    documentation and the four SeekrFlow OpenAPI specs, so the assistant can generate working authenticated
+    SeekrFlow code. Three tools — search_seekr, query_docs_filesystem_seekr and submit_feedback — plus
+    a packaged Agent Skill exposed as an MCP resource. It is a documentation-plane server: it does not
+    expose agent, fine-tuning or inference actions.
   humanURL: https://docs.seekr.com/flow/mcp
   baseURL: https://docs.seekr.com/mcp
   tags:
@@ -157,6 +65,958 @@ apis:
     url: https://docs.seekr.com/flow/mcp
   - type: AgentCard
     url: a2a/seekr-a2a.yml
+- aid: seekr:seekr-agents-api
+  name: Seekr Agents API
+  description: The Agents API from Seekr — 9 operation(s) for agents.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-agents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-agents-v1-legacy-api
+  name: Seekr Agents v1 - legacy API
+  description: The Agents v1 - legacy API from Seekr — 8 operation(s) for agents v1 - legacy.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Agents v1 - legacy
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-agents-v1-legacy-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-alignment-api
+  name: Seekr Alignment API
+  description: The Alignment API from Seekr — 8 operation(s) for alignment.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Alignment
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-alignment-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-batches-api
+  name: Seekr Batches API
+  description: The Batches API from Seekr — 2 operation(s) for batches.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Batches
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-batches-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-data-jobs-api
+  name: Seekr Data jobs API
+  description: The Data jobs API from Seekr — 8 operation(s) for data jobs.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Data jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-data-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-deployments-api
+  name: Seekr Deployments API
+  description: The Deployments API from Seekr — 8 operation(s) for deployments.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Deployments
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-deployments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-engines-api
+  name: Seekr Engines API
+  description: The Engines API from Seekr — 1 operation(s) for engines.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Engines
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-engines-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-evals-api
+  name: Seekr Evals API
+  description: The Evals API from Seekr — 2 operation(s) for evals.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Evals
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-evals-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-explainability-api
+  name: Seekr Explainability API
+  description: The Explainability API from Seekr — 10 operation(s) for explainability.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Explainability
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-explainability-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-feedback-api
+  name: Seekr Feedback API
+  description: The Feedback API from Seekr — 4 operation(s) for feedback.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Feedback
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-feedback-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-files-api
+  name: Seekr Files API
+  description: The Files API from Seekr — 14 operation(s) for files.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Files
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-files-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-fine-tuning-api
+  name: Seekr Fine Tuning API
+  description: The Fine-tuning API from Seekr — 12 operation(s) for fine-tuning.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Fine-tuning
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-fine-tuning-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-functions-api
+  name: Seekr Functions API
+  description: The Functions API from Seekr — 4 operation(s) for functions.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Functions
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-functions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-health-api
+  name: Seekr Health API
+  description: The Health API from Seekr — 6 operation(s) for health.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-health-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-images-api
+  name: Seekr Images API
+  description: The Images API from Seekr — 3 operation(s) for images.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Images
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-images-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-inference-api
+  name: Seekr Inference API
+  description: The Inference API from Seekr — 12 operation(s) for inference.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Inference
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-inference-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-ingestion-api
+  name: Seekr Ingestion API
+  description: The Ingestion API from Seekr — 2 operation(s) for ingestion.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Ingestion
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-ingestion-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-insights-api
+  name: Seekr Insights API
+  description: The Insights API from Seekr — 1 operation(s) for insights.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Insights
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-insights-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-internal-api
+  name: Seekr Internal API
+  description: The Internal API from Seekr — 39 operation(s) for internal.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Internal
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-internal-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-is-sleeping-api
+  name: Seekr Is Sleeping API
+  description: The Is Sleeping API from Seekr — 1 operation(s) for is sleeping.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Is Sleeping
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-is-sleeping-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-metrics-api
+  name: Seekr Metrics API
+  description: The Metrics API from Seekr — 1 operation(s) for metrics.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-models-api
+  name: Seekr Models API
+  description: The Models API from Seekr — 8 operation(s) for models.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Models
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-models-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-observability-api
+  name: Seekr Observability API
+  description: The Observability API from Seekr — 2 operation(s) for observability.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Observability
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-observability-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-pricing-api
+  name: Seekr Pricing API
+  description: The Pricing API from Seekr — 3 operation(s) for pricing.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Pricing
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-pricing-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-rerank-api
+  name: Seekr Rerank API
+  description: The Rerank API from Seekr — 1 operation(s) for rerank.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Rerank
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-rerank-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-runs-api
+  name: Seekr Runs API
+  description: The Runs API from Seekr — 7 operation(s) for runs.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-runs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-score-api
+  name: Seekr Score API
+  description: The Score API from Seekr — 1 operation(s) for score.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Score
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-score-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-sleep-api
+  name: Seekr Sleep API
+  description: The Sleep API from Seekr — 1 operation(s) for sleep.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Sleep
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-sleep-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-threads-api
+  name: Seekr Threads API
+  description: The Threads API from Seekr — 4 operation(s) for threads.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Threads
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-threads-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-tools-api
+  name: Seekr Tools API
+  description: The Tools API from Seekr — 7 operation(s) for tools.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Tools
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-tools-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-vector-database-api
+  name: Seekr Vector database API
+  description: The Vector database API from Seekr — 11 operation(s) for vector database.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Vector database
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-vector-database-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-version-api
+  name: Seekr Version API
+  description: The Version API from Seekr — 1 operation(s) for version.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Version
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-version-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-versions-api
+  name: Seekr Versions API
+  description: The Versions API from Seekr — 1 operation(s) for versions.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Versions
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-versions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
+- aid: seekr:seekr-wake-up-api
+  name: Seekr Wake Up API
+  description: The Wake Up API from Seekr — 1 operation(s) for wake up.
+  humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  baseURL: https://flow.seekr.com/v1
+  tags:
+  - Wake Up
+  properties:
+  - type: OpenAPI
+    url: openapi/seekr-wake-up-api-openapi.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow
+  - type: APIReference
+    url: https://docs.seekr.com/flow/reference/getting-started-with-your-api
+  - type: Authentication
+    url: authentication/seekr-authentication.yml
+  - type: Conventions
+    url: conventions/seekr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/seekr-problem-types.yml
+  - type: DataModel
+    url: data-model/seekr-data-model.yml
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/agents
+  - type: Documentation
+    url: https://docs.seekr.com/flow/components/explainability
+  - type: Documentation
+    url: https://docs.seekr.com/flow/sdk/getting-started
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
