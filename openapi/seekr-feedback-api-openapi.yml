@@ -1,0 +1,464 @@
+openapi: 3.2.0
+info:
+  title: SeekrFlow Feedback API
+  description: SeekrFlow API Documentation
+  termsOfService: http://www.seekr.com/support
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  version: 5.108.1
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Feedback
+paths:
+  /v1/flow/feedback/upload:
+    post:
+      tags:
+      - Feedback
+      summary: Upload Feedback Route
+      operationId: upload_feedback_route_v1_flow_feedback_upload_post
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_upload_feedback_route_v1_flow_feedback_upload_post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+      x-excluded: true
+  /v1/flow/feedback/images/{image_id}:
+    get:
+      tags:
+      - Feedback
+      summary: Get Feedback Image Route
+      operationId: get_feedback_image_route_v1_flow_feedback_images__image_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Image Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/feedback/:
+    post:
+      tags:
+      - Feedback
+      summary: Create Feedback Route
+      operationId: create_feedback_route_v1_flow_feedback__post
+      security:
+      - APIKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFeedbackRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+    get:
+      tags:
+      - Feedback
+      summary: List Feedback Route
+      operationId: list_feedback_route_v1_flow_feedback__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: model_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model Id
+      - name: min_datetime
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Min Datetime
+      - name: max_datetime
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Max Datetime
+      - name: tags
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: Tags
+      - name: tag_strategy
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/TagStrategy'
+          default: contains
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 20
+          title: Limit
+      - name: order
+        in: query
+        required: false
+        schema:
+          type: string
+          pattern: ^(asc|desc)$
+          default: desc
+          title: Order
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FeedbackResponse'
+                title: Response List Feedback Route V1 Flow Feedback  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/feedback/{feedback_id}:
+    get:
+      tags:
+      - Feedback
+      summary: Get Feedback Route
+      operationId: get_feedback_route_v1_flow_feedback__feedback_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: feedback_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Feedback Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+    delete:
+      tags:
+      - Feedback
+      summary: Delete Feedback Route
+      description: Delete feedback by id.
+      operationId: delete_feedback_route_v1_flow_feedback__feedback_id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: feedback_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Feedback Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+    put:
+      tags:
+      - Feedback
+      summary: Update Feedback Route
+      operationId: update_feedback_route_v1_flow_feedback__feedback_id__put
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: feedback_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Feedback Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFeedbackRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+components:
+  schemas:
+    CreateFeedbackRequest:
+      properties:
+        model_id:
+          type: string
+          title: Model Id
+          description: The name of a model (TinyLlama/TinyLlama-1.1B-Chat-v1.0) deployment id
+        feedback:
+          additionalProperties: true
+          type: object
+          title: Feedback
+          description: Json object
+        version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+          description: The version of feedback data
+          default: ''
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+      type: object
+      required:
+      - model_id
+      - feedback
+      title: CreateFeedbackRequest
+    TagStrategy:
+      type: string
+      enum:
+      - contains
+      - overlap
+      title: TagStrategy
+    FeedbackResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        user_id:
+          type: string
+          title: User Id
+        model_id:
+          type: string
+          title: Model Id
+        feedback:
+          additionalProperties: true
+          type: object
+          title: Feedback
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+        file_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: File Ids
+      type: object
+      required:
+      - id
+      - user_id
+      - model_id
+      - feedback
+      - timestamp
+      - updated_at
+      title: FeedbackResponse
+    Body_upload_feedback_route_v1_flow_feedback_upload_post:
+      properties:
+        files:
+          items:
+            type: string
+            contentMediaType: application/octet-stream
+          type: array
+          title: Files
+        model_id:
+          type: string
+          title: Model Id
+        version:
+          type: string
+          title: Version
+        feedback:
+          type: string
+          title: Feedback
+          description: Stringified json object for feedback data
+        tags:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tags
+      type: object
+      required:
+      - model_id
+      - version
+      - feedback
+      title: Body_upload_feedback_route_v1_flow_feedback_upload_post
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    UpdateFeedbackRequest:
+      properties:
+        model_id:
+          type: string
+          title: Model Id
+          description: The name of a model (TinyLlama/TinyLlama-1.1B-Chat-v1.0) deployment id
+        feedback:
+          additionalProperties: true
+          type: object
+          title: Feedback
+          description: Json object. If images are included, they must be base64 encoded.
+        version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+          description: The version of feedback data
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+          description: List of tags
+      type: object
+      required:
+      - model_id
+      - feedback
+      title: UpdateFeedbackRequest
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization

@@ -1,0 +1,721 @@
+openapi: 3.2.0
+info:
+  title: SeekrFlow Runs API
+  description: SeekrFlow API Documentation
+  termsOfService: http://www.seekr.com/support
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  version: 5.45.1
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Runs
+paths:
+  /v1/threads/{thread_id}/runs:
+    post:
+      tags:
+      - Runs
+      summary: Run Agent
+      description: Handles a client's request to run a specified agent.
+      operationId: run_agent_v1_threads__thread_id__runs_post
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: thread_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Thread Id
+      - name: x-team-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Team-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Runs
+      summary: List Runs Endpoint
+      description: List runs in a thread.
+      operationId: list_runs_endpoint_v1_threads__thread_id__runs_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: thread_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Thread Id
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 20
+          title: Limit
+      - name: order
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/OrderEnum'
+          default: desc
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: x-team-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Team-Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Run'
+                title: Response List Runs Endpoint V1 Threads  Thread Id  Runs Get
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/threads/{thread_id}/runs/stream:
+    post:
+      tags:
+      - Runs
+      summary: Run Agent Stream
+      description: Calls the agent's /runs/stream endpoint, returning an SSE stream.
+      operationId: run_agent_stream_v1_threads__thread_id__runs_stream_post
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: thread_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Thread Id
+      - name: x-team-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Team-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/threads/{thread_id}/runs/stream/vercel:
+    post:
+      tags:
+      - Runs
+      summary: Run Agent Stream Vercel
+      description: Calls the agent's /runs/stream/vercel endpoint, returning an SSE stream.
+      operationId: run_agent_stream_vercel_v1_threads__thread_id__runs_stream_vercel_post
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: thread_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Thread Id
+      - name: x-team-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Team-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/threads/{thread_id}/runs/{run_id}/cancel:
+    post:
+      tags:
+      - Runs
+      summary: Cancel Run
+      description: Cancels a run by calling the agent's /runs/{run_id}/cancel endpoint.
+      operationId: cancel_run_v1_threads__thread_id__runs__run_id__cancel_post
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: thread_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Thread Id
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      - name: x-team-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Team-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+                title: Response Cancel Run V1 Threads  Thread Id  Runs  Run Id  Cancel Post
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/threads/{thread_id}/runs/{run_id}/attach:
+    get:
+      tags:
+      - Runs
+      summary: Attach To Run
+      description: Attach to a run for SSE streaming output.
+      operationId: attach_to_run_v1_threads__thread_id__runs__run_id__attach_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: thread_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Thread Id
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      - name: x-team-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Team-Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/threads/{thread_id}/runs/{run_id}:
+    get:
+      tags:
+      - Runs
+      summary: Get Run Endpoint
+      description: Get a run by ID.
+      operationId: get_run_endpoint_v1_threads__thread_id__runs__run_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: thread_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Thread Id
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      - name: x-team-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Team-Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Run'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/internal/runs/latest:
+    post:
+      tags:
+      - Runs
+      summary: List Agent Latest Runs Endpoint
+      description: Returns a dictionary of agent_ids with their latest run.
+      operationId: list_agent_latest_runs_endpoint_v1_internal_runs_latest_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                type: string
+              type: array
+              title: Agent Ids
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/LatestRun'
+                type: array
+                title: Response List Agent Latest Runs Endpoint V1 Internal Runs Latest Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+components:
+  schemas:
+    Run:
+      properties:
+        id:
+          type: string
+          title: Id
+        object:
+          type: string
+          title: Object
+          default: thread.run
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        agent_id:
+          type: string
+          title: Agent Id
+        thread_id:
+          type: string
+          title: Thread Id
+        status:
+          $ref: '#/components/schemas/RunStatus'
+        is_active:
+          type: boolean
+          title: Is Active
+          default: false
+        started_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Started At
+        expires_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expires At
+        cancelled_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Cancelled At
+        failed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Failed At
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+        model:
+          type: string
+          title: Model
+        instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instructions
+        tools:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Tools
+        meta_data:
+          additionalProperties: true
+          type: object
+          title: Meta Data
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/RunUsage'
+          - type: 'null'
+        temperature:
+          type: number
+          title: Temperature
+        top_p:
+          type: number
+          title: Top P
+        max_completion_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Completion Tokens
+        truncation_strategy:
+          additionalProperties: true
+          type: object
+          title: Truncation Strategy
+        response_format:
+          anyOf:
+          - type: string
+          - additionalProperties: true
+            type: object
+          title: Response Format
+          default: auto
+        tool_choice:
+          anyOf:
+          - type: string
+          - additionalProperties: true
+            type: object
+          title: Tool Choice
+          default: auto
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+      type: object
+      required:
+      - id
+      - created_at
+      - agent_id
+      - thread_id
+      - status
+      - model
+      - temperature
+      - top_p
+      - parallel_tool_calls
+      title: Run
+      description: 'Represents a single execution within a thread.
+
+
+        A run encompasses the entire lifecycle of processing, from receiving
+
+        the initial prompt to delivering the final response. Runs track
+
+        execution status, timing, model parameters, and resource usage.'
+    RunRequest:
+      properties:
+        agent_id:
+          type: string
+          title: Agent Id
+          default: default_agent
+        model_settings:
+          $ref: '#/components/schemas/ModelSettings'
+          default:
+            temperature: 1
+            top_p: 1
+            frequency_penalty: 0
+            presence_penalty: 0
+        response_format:
+          anyOf:
+          - $ref: '#/components/schemas/ResponseFormat'
+          - type: 'null'
+        group:
+          type: string
+          title: Group
+          default: default_group
+        metadata:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      title: RunRequest
+      description: Request model for creating a run.
+    RunResponse:
+      properties:
+        run_id:
+          type: string
+          title: Run Id
+        thread_id:
+          type: string
+          title: Thread Id
+        status:
+          type: string
+          title: Status
+        group:
+          type: string
+          title: Group
+          default: ''
+      type: object
+      required:
+      - run_id
+      - thread_id
+      - status
+      title: RunResponse
+      description: Response model for run creation.
+    ResponseFormat:
+      properties:
+        json_schema:
+          additionalProperties: true
+          type: object
+          title: Json Schema
+      type: object
+      required:
+      - json_schema
+      title: ResponseFormat
+      description: 'Specifies a JSON schema for structured output.
+
+
+        When provided, the LLM will be constrained to return a JSON response
+
+        that matches the specified schema.'
+    RunUsage:
+      properties:
+        prompt_tokens:
+          type: integer
+          title: Prompt Tokens
+        completion_tokens:
+          type: integer
+          title: Completion Tokens
+        total_tokens:
+          type: integer
+          title: Total Tokens
+      type: object
+      required:
+      - prompt_tokens
+      - completion_tokens
+      - total_tokens
+      title: RunUsage
+      description: 'Aggregated usage metrics for a complete run execution.
+
+
+        Tracks token consumption for both prompts and completions.'
+    OrderEnum:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: OrderEnum
+      description: Options for order query param in list endpoints.
+    LatestRun:
+      properties:
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        agent_id:
+          type: string
+          title: Agent Id
+        last_run_created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Run Created At
+      type: object
+      required:
+      - run_id
+      - agent_id
+      - last_run_created_at
+      title: LatestRun
+      description: A minimal Run model to be used for determining the latest run of an agent.
+    ModelSettings:
+      properties:
+        temperature:
+          type: number
+          maximum: 2
+          minimum: 0
+          title: Temperature
+          default: 1
+        top_p:
+          type: number
+          maximum: 1
+          minimum: 0
+          title: Top P
+          default: 1
+        frequency_penalty:
+          type: number
+          maximum: 2
+          minimum: -2
+          title: Frequency Penalty
+          default: 0
+        presence_penalty:
+          type: number
+          maximum: 2
+          minimum: -2
+          title: Presence Penalty
+          default: 0
+        max_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Tokens
+      type: object
+      title: ModelSettings
+      description: 'Settings to use when calling an LLM.
+
+
+        This class holds optional model configuration parameters (e.g. temperature,
+
+        top_p, penalties, truncation, etc.).
+
+
+        Not all models/providers support all of these parameters, so please check the API documentation
+
+        for the specific model and provider you are using.'
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    RunStatus:
+      type: string
+      enum:
+      - queued
+      - running
+      - completed
+      - failed
+      - canceled
+      - cancelled
+      title: RunStatus
+      description: Available status for a run.
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization

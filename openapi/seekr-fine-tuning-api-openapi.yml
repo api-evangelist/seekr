@@ -1,0 +1,1234 @@
+openapi: 3.2.0
+info:
+  title: SeekrFlow Fine Tuning API
+  description: SeekrFlow API Documentation
+  termsOfService: http://www.seekr.com/support
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  version: 5.108.1
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Fine-tuning
+paths:
+  /v1/flow/fine-tune:
+    post:
+      tags:
+      - Fine-tuning
+      summary: Fine Tune
+      operationId: fine_tune_v1_flow_fine_tune_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestConfig'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinetuneResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /v1/flow/fine-tunes/{fine_tune_id}:
+    get:
+      tags:
+      - Fine-tuning
+      summary: Get Fine Tune
+      operationId: get_fine_tune_v1_flow_fine_tunes__fine_tune_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: fine_tune_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Fine Tune Id
+      - name: include_deleted
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Deleted
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinetuneResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Fine-tuning
+      summary: Patch Fine Tune
+      operationId: patch_fine_tune_v1_flow_fine_tunes__fine_tune_id__patch
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: fine_tune_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Fine Tune Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFineTuneRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinetuneResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Fine-tuning
+      summary: Delete Fine Tune
+      operationId: delete_fine_tune_v1_flow_fine_tunes__fine_tune_id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: fine_tune_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Fine Tune Id
+      responses:
+        '204':
+          description: Success, no content returned
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/fine-tunes/{fine_tune_id}/download:
+    get:
+      tags:
+      - Fine-tuning
+      summary: Download Fine Tune
+      operationId: download_fine_tune_v1_flow_fine_tunes__fine_tune_id__download_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: fine_tune_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Fine Tune Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/fine-tunes/{fine_tune_id}/cancel:
+    put:
+      tags:
+      - Fine-tuning
+      summary: Cancel Fine Tune
+      operationId: cancel_fine_tune_v1_flow_fine_tunes__fine_tune_id__cancel_put
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: fine_tune_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Fine Tune Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinetuneResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/fine-tunes/{fine_tune_id}/workflow-phase:
+    get:
+      tags:
+      - Fine-tuning
+      summary: Fine Tune Workflow Phase
+      description: 'Internal: the live Argo workflow phase for a fine-tune job.
+
+
+        Not part of the public SDK. Lets the integration suite confirm a cancelled
+
+        job''s workflow actually terminated (the DB `cancelled` write alone doesn''t
+
+        prove the Argo stop landed). ``phase`` is None when the workflow was never
+
+        started or no longer exists in Argo.'
+      operationId: fine_tune_workflow_phase_v1_flow_fine_tunes__fine_tune_id__workflow_phase_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: fine_tune_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Fine Tune Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowPhaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/fine-tunes/{fine_tune_id}/demote-model:
+    get:
+      tags:
+      - Fine-tuning
+      summary: Demote Model
+      operationId: demote_model_v1_flow_fine_tunes__fine_tune_id__demote_model_get
+      deprecated: true
+      parameters:
+      - name: fine_tune_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Fine Tune Id
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          title: Authorization
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/fine-tunes/{fine_tune_id}/promote-model:
+    get:
+      tags:
+      - Fine-tuning
+      summary: Promote Model
+      operationId: promote_model_v1_flow_fine_tunes__fine_tune_id__promote_model_get
+      deprecated: true
+      parameters:
+      - name: fine_tune_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Fine Tune Id
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          title: Authorization
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/fine-tunes:
+    get:
+      tags:
+      - Fine-tuning
+      summary: List Fine Tune
+      operationId: list_fine_tune_v1_flow_fine_tunes_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: project_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Id
+      - name: include_deleted
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Deleted
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinetuneList'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/projects:
+    get:
+      tags:
+      - Fine-tuning
+      summary: Get Projects
+      operationId: get_projects_v1_flow_projects_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: skip
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 0
+          - type: 'null'
+          title: Skip
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 1
+          - type: 'null'
+          title: Limit
+      - name: include_deleted
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Deleted
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProjectsResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - Fine-tuning
+      summary: Upsert Project
+      operationId: upsert_project_v1_flow_projects_post
+      security:
+      - APIKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostProjectRequest'
+      responses:
+        '201':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/projects/{project_id}:
+    get:
+      tags:
+      - Fine-tuning
+      summary: Get Project By Id
+      operationId: get_project_by_id_v1_flow_projects__project_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Project Id
+      - name: include_deleted
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Deleted
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Fine-tuning
+      summary: Delete Project
+      operationId: delete_project_v1_flow_projects__project_id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Project Id
+      responses:
+        '204':
+          description: Success, no content returned
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/events/finetunes/{finetune_id}:
+    get:
+      tags:
+      - Fine-tuning
+      summary: Get Finetune Events By Id
+      operationId: get_finetune_events_by_id_v1_flow_events_finetunes__finetune_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: finetune_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Finetune Id
+      - name: type_filter
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/FinetuneFilter'
+          default: FINETUNE_ONLY
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetEventsResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/explain/models/{model_id}/influential-finetuning-data:
+    get:
+      tags:
+      - Fine-tuning
+      summary: Get Influential Training Data Route
+      description: 'Retrieve influential QA pair training data for a specific model.
+
+        This is a pass-through endpoint that calls the explainability service.'
+      operationId: get_influential_training_data_route_v1_flow_explain_models__model_id__influential_finetuning_data_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Model Id
+      - name: question
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Question
+      - name: system_prompt
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: System Prompt
+      - name: answer
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Answer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfluentialFinetuningDataResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    GetProjectsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ProjectWithRuns'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: GetProjectsResponse
+    StringCheckGrader:
+      properties:
+        type:
+          type: string
+          const: string_check
+          title: Type
+          default: string_check
+        weight:
+          anyOf:
+          - type: number
+            maximum: 1
+            exclusiveMinimum: 0
+          - type: 'null'
+          title: Weight
+        operation:
+          $ref: '#/components/schemas/StringOperation'
+      type: object
+      required:
+      - operation
+      title: StringCheckGrader
+      description: String-comparison grader. Requires a StringOperation.
+    RequestConfig:
+      properties:
+        project_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Project Id
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        training_config:
+          $ref: '#/components/schemas/TrainingConfig'
+        infrastructure_config:
+          $ref: '#/components/schemas/InfrastructureConfig'
+      type: object
+      required:
+      - training_config
+      - infrastructure_config
+      title: RequestConfig
+    FinetuneResponse:
+      additionalProperties: true
+      type: object
+    RewardComponents:
+      properties:
+        format_reward_weight:
+          type: number
+          maximum: 1
+          exclusiveMinimum: 0
+          title: Format Reward Weight
+          default: 0.1
+        graders:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/FormatCheckGrader'
+            - $ref: '#/components/schemas/MathAccuracyGrader'
+            - $ref: '#/components/schemas/StringCheckGrader'
+            - $ref: '#/components/schemas/TextSimilarityGrader'
+            - $ref: '#/components/schemas/LLMGrader'
+            discriminator:
+              propertyName: type
+              mapping:
+                format_check: '#/components/schemas/FormatCheckGrader'
+                llm: '#/components/schemas/LLMGrader'
+                math_accuracy: '#/components/schemas/MathAccuracyGrader'
+                string_check: '#/components/schemas/StringCheckGrader'
+                text_similarity: '#/components/schemas/TextSimilarityGrader'
+          type: array
+          minItems: 1
+          title: Graders
+      additionalProperties: true
+      type: object
+      required:
+      - graders
+      title: RewardComponents
+    FormatCheckGrader:
+      properties:
+        type:
+          type: string
+          const: format_check
+          title: Type
+          default: format_check
+        weight:
+          anyOf:
+          - type: number
+            maximum: 1
+            exclusiveMinimum: 0
+          - type: 'null'
+          title: Weight
+      type: object
+      title: FormatCheckGrader
+      description: Format-compliance grader. Carries no operation or config.
+    EventType:
+      type: string
+      enum:
+      - Files
+      - Finetune
+      - Deployments
+      - Alignment
+      title: EventType
+    InfluenceLevel:
+      type: string
+      enum:
+      - high
+      - medium
+      - low
+      - irrelevant
+      title: InfluenceLevel
+    ProjectWithRuns:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        runs:
+          type: integer
+          title: Runs
+        runs_deployed:
+          type: integer
+          title: Runs Deployed
+        last_modified:
+          type: string
+          format: date-time
+          title: Last Modified
+      type: object
+      required:
+      - id
+      - name
+      - description
+      - user_id
+      - team_id
+      - created_at
+      - updated_at
+      - runs
+      - runs_deployed
+      - last_modified
+      title: ProjectWithRuns
+    FineTuneType:
+      type: string
+      enum:
+      - STANDARD
+      - PREFERENCE
+      - GRPO
+      - REINFORCEMENT
+      title: FineTuneType
+    QuestionAnswerPair:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier for the QA pair
+        file_id:
+          type: string
+          title: File Id
+          description: ID of the source file
+        influence_level:
+          $ref: '#/components/schemas/InfluenceLevel'
+          description: Level of influence this QA pair has (high, medium, low, irrelevant)
+        messages:
+          type: string
+          title: Messages
+          description: The question-answer content
+      type: object
+      required:
+      - id
+      - file_id
+      - influence_level
+      - messages
+      title: QuestionAnswerPair
+    FinetuneFilter:
+      type: string
+      enum:
+      - FINETUNE_ONLY
+      - ALL
+      - FINETUNE_DEPLOYMENT
+      - FINETUNE_FILES
+      title: FinetuneFilter
+    TextSimilarityOperation:
+      type: string
+      enum:
+      - bleu
+      - rouge
+      title: TextSimilarityOperation
+    PostProjectRequest:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+        name:
+          type: string
+          maxLength: 100
+          minLength: 5
+          title: Name
+        description:
+          type: string
+          maxLength: 1000
+          minLength: 5
+          title: Description
+      type: object
+      required:
+      - name
+      - description
+      title: PostProjectRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    WorkflowPhaseResponse:
+      properties:
+        phase:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phase
+      additionalProperties: true
+      type: object
+      title: WorkflowPhaseResponse
+      description: 'Internal: the Argo workflow phase backing a job.
+
+
+        ``phase`` is the raw Argo phase (e.g. Running, Succeeded, Failed, Error) or
+
+        ``None`` when the workflow no longer exists / was never started. Not part of
+
+        the public SDK — used to verify a cancelled job''s workflow actually
+
+        terminated.'
+    EventStatus:
+      type: string
+      enum:
+      - Inactive
+      - Pending
+      - Active
+      - Failed
+      - Started
+      - Success
+      - Uploading
+      - Completed
+      - Deleted
+      - Cancelled
+      - Queued
+      - Running
+      title: EventStatus
+    GetEventsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Event'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: GetEventsResponse
+    StringOperation:
+      type: string
+      enum:
+      - equals
+      - not_equals
+      - contains
+      - case_insensitive_contains
+      title: StringOperation
+    Project:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - id
+      - name
+      - description
+      - user_id
+      - team_id
+      - created_at
+      - updated_at
+      title: Project
+    FinetuneList:
+      properties:
+        object:
+          anyOf:
+          - type: string
+            const: list
+          - type: 'null'
+          title: Object
+        data:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/FinetuneResponse'
+            type: array
+          - type: 'null'
+          title: Data
+      additionalProperties: true
+      type: object
+      title: FinetuneList
+    TrainingConfig:
+      properties:
+        training_files:
+          items:
+            type: string
+          type: array
+          title: Training Files
+        model:
+          type: string
+          title: Model
+        n_epochs:
+          type: integer
+          title: N Epochs
+        learning_rate:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Learning Rate
+        n_checkpoints:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: N Checkpoints
+        batch_size:
+          anyOf:
+          - type: integer
+            maximum: 1024
+            minimum: 1
+          - type: 'null'
+          title: Batch Size
+        experiment_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Experiment Name
+        max_length:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Length
+        pre_train:
+          type: boolean
+          title: Pre Train
+          default: false
+        fine_tune_type:
+          $ref: '#/components/schemas/FineTuneType'
+          default: STANDARD
+        lora_config:
+          anyOf:
+          - $ref: '#/components/schemas/LoRAConfig'
+          - type: 'null'
+        reward_components:
+          anyOf:
+          - $ref: '#/components/schemas/RewardComponents'
+          - type: 'null'
+        beta:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Beta
+        loss_type:
+          anyOf:
+          - type: string
+            enum:
+            - SIGMOID
+            - HINGE
+            - IPO
+            - KTO_PAIR
+          - type: 'null'
+          title: Loss Type
+        gradient_checkpointing:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Gradient Checkpointing
+      additionalProperties: true
+      type: object
+      required:
+      - training_files
+      - model
+      - n_epochs
+      title: TrainingConfig
+    LoRAConfig:
+      properties:
+        r:
+          type: integer
+          exclusiveMinimum: 0
+          title: R
+          description: Rank of the update matrices.
+          default: 8
+        alpha:
+          type: integer
+          exclusiveMinimum: 0
+          title: Alpha
+          description: Scaling factor applied to LoRA updates.
+          default: 32
+        dropout:
+          type: number
+          maximum: 1
+          minimum: 0
+          title: Dropout
+          description: Fraction of LoRA neurons dropped during training.
+          default: 0.1
+        bias:
+          type: string
+          enum:
+          - none
+          - all
+          - lora_only
+          title: Bias
+          description: Bias terms to train; choose from 'none', 'all', or 'lora_only'.
+          default: none
+        extras:
+          additionalProperties: true
+          type: object
+          title: Extras
+      additionalProperties: true
+      type: object
+      title: LoRAConfig
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    TextSimilarityGrader:
+      properties:
+        type:
+          type: string
+          const: text_similarity
+          title: Type
+          default: text_similarity
+        weight:
+          anyOf:
+          - type: number
+            maximum: 1
+            exclusiveMinimum: 0
+          - type: 'null'
+          title: Weight
+        operation:
+          $ref: '#/components/schemas/TextSimilarityOperation'
+      type: object
+      required:
+      - operation
+      title: TextSimilarityGrader
+      description: Text-similarity grader. Requires a TextSimilarityOperation.
+    InfrastructureConfig:
+      properties:
+        accel_type:
+          $ref: '#/components/schemas/AcceleratorType'
+        n_accel:
+          type: integer
+          title: N Accel
+        n_node:
+          type: integer
+          title: N Node
+          default: 1
+      additionalProperties: true
+      type: object
+      required:
+      - accel_type
+      - n_accel
+      title: InfrastructureConfig
+    MathAccuracyGrader:
+      properties:
+        type:
+          type: string
+          const: math_accuracy
+          title: Type
+          default: math_accuracy
+        weight:
+          anyOf:
+          - type: number
+            maximum: 1
+            exclusiveMinimum: 0
+          - type: 'null'
+          title: Weight
+      type: object
+      title: MathAccuracyGrader
+      description: Math-correctness grader. Carries no operation or config.
+    LLMGrader:
+      properties:
+        type:
+          type: string
+          const: llm
+          title: Type
+          default: llm
+        weight:
+          anyOf:
+          - type: number
+            maximum: 1
+            exclusiveMinimum: 0
+          - type: 'null'
+          title: Weight
+        seed:
+          anyOf:
+          - type: integer
+            minimum: 0
+          - type: 'null'
+          title: Seed
+        top_p:
+          anyOf:
+          - type: number
+            maximum: 1
+            minimum: 0
+          - type: 'null'
+          title: Top P
+        temperature:
+          type: number
+          maximum: 1.5
+          minimum: 0
+          title: Temperature
+          default: 0
+        max_completion_tokens:
+          type: integer
+          minimum: 1
+          title: Max Completion Tokens
+          default: 512
+      type: object
+      title: LLMGrader
+      description: 'LLM-as-a-judge grader.
+
+
+        The user-facing generation parameters live directly on the grader (no nested
+
+        config). The training service injects operational settings (inference endpoint,
+
+        concurrency, timeouts) at runtime; those are not exposed to API users here.'
+    Event:
+      properties:
+        id:
+          type: integer
+          title: Id
+        type:
+          $ref: '#/components/schemas/EventType'
+        type_id:
+          type: string
+          title: Type Id
+        status:
+          $ref: '#/components/schemas/EventStatus'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - id
+      - type
+      - type_id
+      - status
+      - created_at
+      title: Event
+    AcceleratorType:
+      type: string
+      enum:
+      - GAUDI2
+      - GAUDI3
+      - A100
+      - A10
+      - H100
+      - MI300X
+      title: AcceleratorType
+    UpdateFineTuneRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      title: UpdateFineTuneRequest
+    InfluentialFinetuningDataResponse:
+      properties:
+        answer:
+          type: string
+          title: Answer
+          description: The answer from the model or provided by the user
+        results:
+          items:
+            $ref: '#/components/schemas/QuestionAnswerPair'
+          type: array
+          title: Results
+          description: List of influential training data results
+        version:
+          type: string
+          title: Version
+          description: Version of the explainability service
+      type: object
+      required:
+      - answer
+      - results
+      - version
+      title: InfluentialFinetuningDataResponse
+      description: Response model for influential training data
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization

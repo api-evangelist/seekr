@@ -1,0 +1,238 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SeekrFlow Alignment API",
+    "version": "5.108.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Alignment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Alignment List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/alignment",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deprecated. List all alignment jobs for the user.\n\nUse ``GET /v1/flow/data-jobs`` instead."
+        },
+        {
+          "info": {
+            "name": "Ingestion List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/alignment/ingestion",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deprecated. List all ingestion jobs for the user.\n\nUse ``GET /v1/flow/ingestion`` (standalone) or\n``GET /v1/flow/data-jobs`` (data-job context)."
+        },
+        {
+          "info": {
+            "name": "Ingest Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/alignment/ingestion",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deprecated. Convert PDF files to Markdown using the ingestion service.\n\nUse ``POST /v1/flow/ingestion`` (standalone) or\n``POST /v1/flow/data-jobs/{data_job_id}/add-files`` (data-job context)."
+        },
+        {
+          "info": {
+            "name": "Ingestion Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/alignment/ingestion/:ingestion_job_id",
+            "params": [
+              {
+                "name": "ingestion_job_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deprecated. Get ingestion job with file records and queue positions.\n\nUse ``GET /v1/flow/ingestion/{ingestion_job_id}`` (standalone) or\n``GET /v1/flow/data-jobs/{data_job_id}`` (embeds ingestion records)."
+        },
+        {
+          "info": {
+            "name": "Alignment Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/alignment/:alignment_job_id",
+            "params": [
+              {
+                "name": "alignment_job_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deprecated. Get alignment job status.\n\nUse ``GET /v1/flow/data-jobs/{data_job_id}`` (embeds the alignment job)."
+        },
+        {
+          "info": {
+            "name": "Alignment Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://flow.seekr.com/v1/flow/alignment/:alignment_job_id",
+            "params": [
+              {
+                "name": "alignment_job_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deprecated. Delete an alignment job.\n\nUse ``DELETE /v1/flow/data-jobs/{data_job_id}``."
+        },
+        {
+          "info": {
+            "name": "Alignment Generate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/alignment/generate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deprecated. Generate IFT pairs for alignment.\n\nThin wrapper that attaches deprecation headers and delegates to the\nroute-independent service function. Callers should migrate to the\ndata-jobs router. The headers are attached to both the success response\nand any raised HTTPException so the signal survives 4xx responses (FastAPI\ndiscards a mutated Response when the handler raises)."
+        },
+        {
+          "info": {
+            "name": "Cancel Alignment Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/alignment/:alignment_job_id/cancel",
+            "params": [
+              {
+                "name": "alignment_job_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deprecated. Cancel an alignment job.\n\nUse ``POST /v1/flow/data-jobs/{data_job_id}/cancel``."
+        },
+        {
+          "info": {
+            "name": "Alignment Workflow Phase",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/alignment/:alignment_job_id/workflow-phase",
+            "params": [
+              {
+                "name": "alignment_job_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Internal: the live Argo workflow phase for an alignment job.\n\nNot part of the public SDK. Lets the integration suite confirm a cancelled\njob's workflow actually terminated (the DB `cancelled` write alone doesn't\nprove the Argo stop landed). ``phase`` is None when the workflow was never\nstarted or no longer exists in Argo."
+        },
+        {
+          "info": {
+            "name": "Alignment Outputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/alignment/:alignment_job_id/outputs",
+            "params": [
+              {
+                "name": "alignment_job_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deprecated. Get output files for an alignment job.\n\nUse ``GET /v1/flow/data-jobs/{data_job_id}/outputs``."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

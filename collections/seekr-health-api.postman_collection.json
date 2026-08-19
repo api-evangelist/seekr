@@ -1,0 +1,556 @@
+{
+  "item": [
+    {
+      "id": "d7c96ba6-5347-4ac0-9e19-c6336f6411e1",
+      "name": "Health",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c54f5765-473d-4db7-ba6e-927cfef8eafe",
+          "name": "Version",
+          "request": {
+            "name": "Version",
+            "description": {
+              "content": "Return the deployed agent router version.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "version"
+              ],
+              "host": [
+                "{{version-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "837fb0da-05ca-4be4-a24b-a8cd091cae36",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "version"
+                  ],
+                  "host": [
+                    "{{version-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\",\n  \"key_1\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f7532c04-0d60-4fe3-b91e-ac4093f8e26a",
+          "name": "Health Check",
+          "request": {
+            "name": "Health Check",
+            "description": {
+              "content": "Health endpoint to check tracker status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "health"
+              ],
+              "host": [
+                "{{v1-health-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "856942ca-629d-482e-b4f8-d1ac6e7a3de9",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "health"
+                  ],
+                  "host": [
+                    "{{v1-health-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37a44831-8a1b-40e6-ba5f-9244d8462766",
+          "name": "Agent Health Check",
+          "request": {
+            "name": "Agent Health Check",
+            "description": {
+              "content": "Health endpoint to check agent status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "health",
+                ":agent_id"
+              ],
+              "host": [
+                "{{v1-health-agent_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6c85ff04-249a-4e76-bada-89c42e8a9cd2",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "health",
+                    ":agent_id"
+                  ],
+                  "host": [
+                    "{{v1-health-agent_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\",\n  \"key_1\": \"string\",\n  \"key_2\": \"string\",\n  \"key_3\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf9abce4-abdb-4db6-8693-e9ce9690c6d4",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "health",
+                    ":agent_id"
+                  ],
+                  "host": [
+                    "{{v1-health-agent_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "282b9282-7bc0-4665-8d24-c2a59574111d",
+          "name": "Get Health External",
+          "request": {
+            "name": "Get Health External",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "health"
+              ],
+              "host": [
+                "{{v1-flow-health-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b164e1a3-0f7f-4eed-8f9d-b7c22b96a19c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "health"
+                  ],
+                  "host": [
+                    "{{v1-flow-health-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deployment_pending_average\": 1273,\n  \"deployment_pending_maximum\": 6101,\n  \"deployment_pending_count\": 297,\n  \"deployment_pending_by_model_name\": {\n    \"key_0\": {\n      \"average\": 4819,\n      \"maximum\": 4132,\n      \"count\": 8031\n    },\n    \"key_1\": {\n      \"average\": 4699,\n      \"maximum\": 4270,\n      \"count\": 1740\n    }\n  },\n  \"version\": \"string\",\n  \"agent_pending_average\": 8901,\n  \"agent_pending_maximum\": 5508,\n  \"agent_pending_count\": 343,\n  \"agent_failed_count\": 7680,\n  \"finetune_queued_average\": 6815,\n  \"finetune_queued_maximum\": 3844,\n  \"finetune_queued_count\": 2151,\n  \"finetune_queued_by_model_name\": {\n    \"key_0\": {\n      \"average\": 1948,\n      \"maximum\": 6756,\n      \"count\": 4510\n    },\n    \"key_1\": {\n      \"average\": 308,\n      \"maximum\": 7486,\n      \"count\": 4446\n    }\n  },\n  \"alignment_queued_average\": 6655,\n  \"alignment_queued_maximum\": 4624,\n  \"alignment_queued_count\": 5636,\n  \"environment_management_on\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b7ca8323-8bcf-4800-9606-e8ff499df451",
+          "name": "Get Health Internal",
+          "request": {
+            "name": "Get Health Internal",
+            "description": {
+              "content": "Adds the commit id to the app version.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "internal",
+                "health"
+              ],
+              "host": [
+                "{{v1-flow-internal-health-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c2131ca8-8fa9-4bd8-acb6-30e431b5b4e6",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "internal",
+                    "health"
+                  ],
+                  "host": [
+                    "{{v1-flow-internal-health-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deployment_pending_average\": 1273,\n  \"deployment_pending_maximum\": 6101,\n  \"deployment_pending_count\": 297,\n  \"deployment_pending_by_model_name\": {\n    \"key_0\": {\n      \"average\": 4819,\n      \"maximum\": 4132,\n      \"count\": 8031\n    },\n    \"key_1\": {\n      \"average\": 4699,\n      \"maximum\": 4270,\n      \"count\": 1740\n    }\n  },\n  \"version\": \"string\",\n  \"agent_pending_average\": 8901,\n  \"agent_pending_maximum\": 5508,\n  \"agent_pending_count\": 343,\n  \"agent_failed_count\": 7680,\n  \"finetune_queued_average\": 6815,\n  \"finetune_queued_maximum\": 3844,\n  \"finetune_queued_count\": 2151,\n  \"finetune_queued_by_model_name\": {\n    \"key_0\": {\n      \"average\": 1948,\n      \"maximum\": 6756,\n      \"count\": 4510\n    },\n    \"key_1\": {\n      \"average\": 308,\n      \"maximum\": 7486,\n      \"count\": 4446\n    }\n  },\n  \"alignment_queued_average\": 6655,\n  \"alignment_queued_maximum\": 4624,\n  \"alignment_queued_count\": 5636,\n  \"environment_management_on\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37081eb2-860d-444a-8109-e88884534d66",
+          "name": "Health",
+          "request": {
+            "name": "Health",
+            "description": {
+              "content": "Endpoint to check the health status of various components.\n\nThis function verifies the health of the service discovery module and\nthe engine stats scraper. If either component is down, it returns a\n503 response with the appropriate status message. If both components\nare healthy, it returns a 200 OK response.\n\nReturns:\n    Response: A JSONResponse with status code 503 if a component is\n    down, or a plain Response with status code 200 if all components\n    are healthy.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "health"
+              ],
+              "host": [
+                "{{health-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "87a517d9-3a34-44cc-a62e-834b0e41044e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health"
+                  ],
+                  "host": [
+                    "{{health-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "version-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "v1-health-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "v1-health-agent_id-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "v1-flow-health-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "v1-flow-internal-health-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "health-Url"
+    }
+  ],
+  "info": {
+    "_postman_id": "30576de2-2ad0-4b1e-8e56-0a512df762ca",
+    "name": "Seekr Health API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged Health across 3 of this provider's published API definitions: seekr-agents-openapi.json, seekr-llm-training-openapi.json, seekr-serving-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: Seekr API Support\n Email: contact@seekr.com",
+      "type": "text/plain"
+    }
+  }
+}

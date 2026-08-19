@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SeekrFlow Rerank API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rerank",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Route Rerank",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/rerank",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Route Rerank"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

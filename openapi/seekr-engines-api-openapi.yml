@@ -1,0 +1,37 @@
+openapi: 3.2.0
+info:
+  title: SeekrFlow Engines API
+  description: SeekrFlow API Documentation
+  termsOfService: http://www.seekr.com/support
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  version: 0.1.0
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Engines
+paths:
+  /engines:
+    get:
+      summary: Get Engine Instances
+      description: "Returns a list of all models available in the stack.\n\nArgs:\n    None\n\nReturns:\n    JSONResponse: A JSON response containing the list of models and their relationships.\n\nRaises:\n    Exception: If there is an error in retrieving the endpoint information."
+      operationId: get_engine_instances_engines_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      x-excluded: true
+      tags:
+      - Engines
+components:
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization

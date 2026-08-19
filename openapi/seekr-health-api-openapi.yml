@@ -1,0 +1,284 @@
+openapi: 3.2.0
+info:
+  title: Seekr Health API
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  termsOfService: http://www.seekr.com/support
+  version: '1.0'
+  description: 'Operations tagged Health across 3 of this provider''s published API definitions: seekr-agents-openapi.json, seekr-llm-training-openapi.json, seekr-serving-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Health
+paths:
+  /version:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Health
+      summary: Version
+      description: Return the deployed agent router version.
+      operationId: version_version_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+                title: Response Version Version Get
+      x-excluded: true
+  /v1/health:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Health
+      summary: Health Check
+      description: Health endpoint to check tracker status.
+      operationId: health_check_v1_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+                title: Response Health Check V1 Health Get
+      x-excluded: true
+  /v1/health/{agent_id}:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Health
+      summary: Agent Health Check
+      description: Health endpoint to check agent status.
+      operationId: agent_health_check_v1_health__agent_id__get
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Agent Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+                title: Response Agent Health Check V1 Health  Agent Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/health:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Health
+      summary: Get Health External
+      operationId: get_health_external_v1_flow_health_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetHealthResponse'
+  /v1/flow/internal/health:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Health
+      summary: Get Health Internal
+      description: Adds the commit id to the app version.
+      operationId: get_health_internal_v1_flow_internal_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetHealthResponse'
+      x-excluded: true
+  /health:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      summary: Health
+      description: "Endpoint to check the health status of various components.\n\nThis function verifies the health of the service discovery module and\nthe engine stats scraper. If either component is down, it returns a\n503 response with the appropriate status message. If both components\nare healthy, it returns a 200 OK response.\n\nReturns:\n    Response: A JSONResponse with status code 503 if a component is\n    down, or a plain Response with status code 200 if all components\n    are healthy."
+      operationId: health_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      x-excluded: true
+      tags:
+      - Health
+components:
+  schemas:
+    SinceUpdateMetrics:
+      properties:
+        average:
+          type: integer
+          title: Average
+        maximum:
+          type: integer
+          title: Maximum
+        count:
+          type: integer
+          title: Count
+      type: object
+      required:
+      - average
+      - maximum
+      - count
+      title: SinceUpdateMetrics
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    GetHealthResponse:
+      properties:
+        deployment_pending_average:
+          type: integer
+          title: Deployment Pending Average
+        deployment_pending_maximum:
+          type: integer
+          title: Deployment Pending Maximum
+        deployment_pending_count:
+          type: integer
+          title: Deployment Pending Count
+        deployment_pending_by_model_name:
+          additionalProperties:
+            $ref: '#/components/schemas/SinceUpdateMetrics'
+          type: object
+          title: Deployment Pending By Model Name
+        version:
+          type: string
+          title: Version
+        agent_pending_average:
+          type: integer
+          title: Agent Pending Average
+        agent_pending_maximum:
+          type: integer
+          title: Agent Pending Maximum
+        agent_pending_count:
+          type: integer
+          title: Agent Pending Count
+        agent_failed_count:
+          type: integer
+          title: Agent Failed Count
+        finetune_queued_average:
+          type: integer
+          title: Finetune Queued Average
+        finetune_queued_maximum:
+          type: integer
+          title: Finetune Queued Maximum
+        finetune_queued_count:
+          type: integer
+          title: Finetune Queued Count
+        finetune_queued_by_model_name:
+          additionalProperties:
+            $ref: '#/components/schemas/SinceUpdateMetrics'
+          type: object
+          title: Finetune Queued By Model Name
+        alignment_queued_average:
+          type: integer
+          title: Alignment Queued Average
+        alignment_queued_maximum:
+          type: integer
+          title: Alignment Queued Maximum
+        alignment_queued_count:
+          type: integer
+          title: Alignment Queued Count
+        environment_management_on:
+          type: string
+          title: Environment Management On
+      type: object
+      required:
+      - deployment_pending_average
+      - deployment_pending_maximum
+      - deployment_pending_count
+      - deployment_pending_by_model_name
+      - version
+      - agent_pending_average
+      - agent_pending_maximum
+      - agent_pending_count
+      - agent_failed_count
+      - finetune_queued_average
+      - finetune_queued_maximum
+      - finetune_queued_count
+      - finetune_queued_by_model_name
+      - alignment_queued_average
+      - alignment_queued_maximum
+      - alignment_queued_count
+      - environment_management_on
+      title: GetHealthResponse
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization
+x-refined-from:
+- seekr-agents-openapi.json
+- seekr-llm-training-openapi.json
+- seekr-serving-openapi.json

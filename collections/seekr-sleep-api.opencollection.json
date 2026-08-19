@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SeekrFlow Sleep API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sleep",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Route Sleep",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/sleep",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Route Sleep"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

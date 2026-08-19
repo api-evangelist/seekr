@@ -1,0 +1,191 @@
+openapi: 3.2.0
+info:
+  title: SeekrFlow Inference API
+  description: SeekrFlow API Documentation
+  termsOfService: http://www.seekr.com/support
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  version: 0.1.0
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Inference
+paths:
+  /v1/inference/chat/completions:
+    post:
+      summary: Route Chat Completion
+      operationId: route_chat_completion_v1_inference_chat_completions_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {}
+      security:
+      - APIKeyHeader: []
+      tags:
+      - Inference
+  /v1/inference/internal/chat/completions:
+    post:
+      summary: Route Chat Completion
+      operationId: route_chat_completion_v1_inference_internal_chat_completions_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      x-excluded: true
+      tags:
+      - Inference
+  /v1/inference/completions:
+    post:
+      summary: Route Completion
+      operationId: route_completion_v1_inference_completions_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {}
+      security:
+      - APIKeyHeader: []
+      tags:
+      - Inference
+  /v1/inference/embeddings:
+    post:
+      summary: Route Embeddings
+      operationId: route_embeddings_v1_inference_embeddings_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {}
+      security:
+      - APIKeyHeader: []
+      tags:
+      - Inference
+  /v1/inference/internal/embeddings:
+    post:
+      summary: Route Embeddings
+      operationId: route_embeddings_v1_inference_internal_embeddings_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      x-excluded: true
+      tags:
+      - Inference
+  /inference/tokenize:
+    post:
+      summary: Route Tokenize
+      operationId: route_tokenize_inference_tokenize_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - APIKeyHeader: []
+      x-excluded: true
+      tags:
+      - Inference
+  /inference/detokenize:
+    post:
+      summary: Route Detokenize
+      operationId: route_detokenize_inference_detokenize_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - APIKeyHeader: []
+      x-excluded: true
+      tags:
+      - Inference
+  /v1/inference/rerank:
+    post:
+      summary: Route V1 Rerank
+      operationId: route_v1_rerank_v1_inference_rerank_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {}
+      security:
+      - APIKeyHeader: []
+      tags:
+      - Inference
+  /v1/inference/score:
+    post:
+      summary: Route V1 Score
+      operationId: route_v1_score_v1_inference_score_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {}
+      security:
+      - APIKeyHeader: []
+      tags:
+      - Inference
+  /v1/inference/internal/models:
+    get:
+      summary: Show Models
+      description: "Returns a list of all models available in the stack.\n\nArgs:\n    token_data: User data specified by api-key\n\nReturns:\n    JSONResponse: A JSON response containing the list of models.\n\nRaises:\n    Exception: If there is an error in retrieving the endpoint information."
+      operationId: show_models_v1_inference_internal_models_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - APIKeyHeader: []
+      x-excluded: true
+      tags:
+      - Inference
+  /v1/inference/health:
+    get:
+      summary: Health
+      description: "Endpoint to check the health status of various components.\n\nThis function verifies the health of the service discovery module and\nthe engine stats scraper. If either component is down, it returns a\n503 response with the appropriate status message. If both components\nare healthy, it returns a 200 OK response.\n\nReturns:\n    Response: A JSONResponse with status code 503 if a component is\n    down, or a plain Response with status code 200 if all components\n    are healthy."
+      operationId: health_v1_inference_health_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Inference
+  /v1/inference/audio/transcriptions:
+    post:
+      summary: Route V1 Audio Transcriptions
+      description: Handles audio transcription requests.
+      operationId: route_v1_audio_transcriptions_v1_inference_audio_transcriptions_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Inference
+components:
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization

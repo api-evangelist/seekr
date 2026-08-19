@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SeekrFlow Batches API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Batches",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Route List Batches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/batches",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Route List Batches"
+        },
+        {
+          "info": {
+            "name": "Route Batches",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/batches"
+          },
+          "docs": "Handle batch requests that process files with specified endpoints."
+        },
+        {
+          "info": {
+            "name": "Route Get Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/batches/:batch_id",
+            "params": [
+              {
+                "name": "batch_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Route Get Batch"
+        },
+        {
+          "info": {
+            "name": "Route Cancel Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://flow.seekr.com/v1/batches/:batch_id",
+            "params": [
+              {
+                "name": "batch_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Route Cancel Batch"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

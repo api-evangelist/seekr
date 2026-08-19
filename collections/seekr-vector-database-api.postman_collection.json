@@ -1,0 +1,3150 @@
+{
+  "item": [
+    {
+      "id": "7d73906e-dd25-4cfd-beed-ad104e32f928",
+      "name": "Vector database",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "61cbc69a-6177-4b89-9c0e-8ebf73caae9b",
+          "name": "Create Vector Database Route",
+          "request": {
+            "name": "Create Vector Database Route",
+            "description": {
+              "content": "Create a new vector database",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "vectordb"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"model\": \"<string>\",\n  \"description\": \"<string>\",\n  \"db_type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "27385a80-2cf6-4663-a792-789c6b281c71",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"model\": \"<string>\",\n  \"description\": \"<string>\",\n  \"db_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"model\": \"string\",\n  \"dimension\": 1884,\n  \"description\": \"string\",\n  \"created_at\": \"1994-12-01T20:55:11.789Z\",\n  \"updated_at\": \"1977-11-27T06:36:05.527Z\",\n  \"file_count\": 7695,\n  \"db_type\": \"<string>\",\n  \"size_in_bytes\": 2075\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a867bd8-75da-47f1-bd09-c742dffeafeb",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"model\": \"<string>\",\n  \"description\": \"<string>\",\n  \"db_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff8a2c05-d834-409c-8317-0b2cbea9e1d3",
+          "name": "List Vector Databases",
+          "request": {
+            "name": "List Vector Databases",
+            "description": {
+              "content": "List all vector databases for the user",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "vectordb"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "types",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "types",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3d1dc936-d6a0-418d-b0b3-fac3f55b9ba5",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "types",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"string\",\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"model\": \"string\",\n      \"dimension\": 5433,\n      \"description\": \"string\",\n      \"created_at\": \"1972-02-21T18:19:59.973Z\",\n      \"updated_at\": \"1966-06-11T08:30:29.314Z\",\n      \"file_count\": 5363,\n      \"db_type\": \"<string>\",\n      \"size_in_bytes\": 6414\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"model\": \"string\",\n      \"dimension\": 2440,\n      \"description\": \"string\",\n      \"created_at\": \"1988-10-28T18:56:37.253Z\",\n      \"updated_at\": \"2015-12-02T12:07:16.446Z\",\n      \"file_count\": 1389,\n      \"db_type\": \"<string>\",\n      \"size_in_bytes\": 210\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42567d75-e97b-46e6-9a02-98bcd0d6ff7e",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "types",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4ba88cb9-2334-49b1-97a3-1bacfb8426d4",
+          "name": "Delete Vector Database Route",
+          "request": {
+            "name": "Delete Vector Database Route",
+            "description": {
+              "content": "Delete a vector database",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "vectordb",
+                ":database_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "database_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ab076f64-ad72-4698-afae-f446ef88a496",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"string\",\n  \"deleted\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b61e1f12-1e41-4150-81ad-13a5e0027afb",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd72053d-9c4a-400f-ae19-167a63db3519",
+          "name": "Get Vector Database Route",
+          "request": {
+            "name": "Get Vector Database Route",
+            "description": {
+              "content": "Get a specific vector database",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "vectordb",
+                ":database_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "database_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "81f04287-0e00-41c4-9298-e53b78453dc8",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"model\": \"string\",\n  \"dimension\": 1884,\n  \"description\": \"string\",\n  \"created_at\": \"1994-12-01T20:55:11.789Z\",\n  \"updated_at\": \"1977-11-27T06:36:05.527Z\",\n  \"file_count\": 7695,\n  \"db_type\": \"<string>\",\n  \"size_in_bytes\": 2075\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d73400bd-74f0-4beb-94d5-6f3e90c75590",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "74b38c69-4041-4dd2-be57-8baccba40e5a",
+          "name": "Update Vector Database Route",
+          "request": {
+            "name": "Update Vector Database Route",
+            "description": {
+              "content": "Update a vector database name and/or description",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "vectordb",
+                ":database_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "database_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"db_type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "db29acd3-bfa2-4a75-8fe5-bd91b1a414d3",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"db_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"model\": \"string\",\n  \"dimension\": 1884,\n  \"description\": \"string\",\n  \"created_at\": \"1994-12-01T20:55:11.789Z\",\n  \"updated_at\": \"1977-11-27T06:36:05.527Z\",\n  \"file_count\": 7695,\n  \"db_type\": \"<string>\",\n  \"size_in_bytes\": 2075\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11055c30-8f9f-46c1-984c-baf8d821960c",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"db_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "500af549-a74c-48f3-8849-bdd1ba7a6855",
+          "name": "Get Tools For Vector Database",
+          "request": {
+            "name": "Get Tools For Vector Database",
+            "description": {
+              "content": "List IDs of FILE_SEARCH tools that reference this vector database.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "vectordb",
+                ":database_id",
+                "tools"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "database_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0a115ba0-18d0-4d49-a2ac-c7dd19246271",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "tools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"string\",\n    \"string\"\n  ],\n  \"object\": \"list\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c25514e7-e338-4f4a-8be5-0d78dc8b29b0",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "tools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d5ca7368-d96f-4561-a119-2cdcb9305359",
+          "name": "Get Data Jobs For Vector Database",
+          "request": {
+            "name": "Get Data Jobs For Vector Database",
+            "description": {
+              "content": "List IDs of data jobs that reference this vector database.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "vectordb",
+                ":database_id",
+                "data-jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "database_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "de7c8d44-79c3-45a7-8fcb-1ff999fd0ed9",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "data-jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"string\",\n    \"string\"\n  ],\n  \"object\": \"list\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f81cbe66-3576-43bd-8418-e7c7b571b1c4",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "data-jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c7a238f8-2507-47e3-94e9-2232c0bc756e",
+          "name": "Create Vector Database Ingestion Job",
+          "request": {
+            "name": "Create Vector Database Ingestion Job",
+            "description": {
+              "content": "Create a new vector database ingestion job.\n\n**`method` — document extraction strategy:**\n- `accuracy-optimized` *(default)* — runs the full Seekr pipeline (up to 12 methods: bookmark-aware hybrid extraction, Seekr-SaaS OCR, LLM post-processing, PyMuPDF, and more) with no restrictions, always selecting the highest-quality result\n- `speed-optimized` — same pipeline, but skips methods that exceed per-method word-count thresholds; significantly faster on large documents\n\n**`chunking_method` — text splitting strategy:**\n- `markdown` *(default)* — heading-hierarchy-aware splitting with intelligent table handling (repeats table headers across continuation chunks so every chunk is self-contained)\n- `semantic` — spaCy sentence detection + paragraph embeddings + Ward hierarchical clustering; groups content by meaning rather than position for higher answer quality on complex QA workloads\n- `sliding` — fixed-size overlapping windows; fast and predictable, best for plain-text or homogeneous content\n\n**`token_count`** — target maximum tokens per chunk (default 800).\n\n**`overlap_tokens`** — tokens repeated between consecutive chunks to preserve context (default 100).\n\n**`metadata`** — optional flat JSON object attached to every chunk produced by this job.\n- Must be a flat object (no nested objects or arrays).\n- Values must be `string`, `number`, `boolean`, or `null`. Null values are silently dropped.\n- Maximum **20 fields**.\n- String values are trimmed of whitespace; newlines are replaced with spaces.\n\nReturns 400 if metadata fails validation. The job is not started until validation passes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "vectordb",
+                ":database_id",
+                "ingestion"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "database_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"method\": \"<string>\",\n  \"chunking_method\": \"<string>\",\n  \"token_count\": 800,\n  \"overlap_tokens\": 100,\n  \"metadata\": {\n    \"key_0\": 5087.166807002659\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "908d7280-6a2b-4dd8-a13d-8b5a3a4f7943",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "ingestion"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"method\": \"<string>\",\n  \"chunking_method\": \"<string>\",\n  \"token_count\": 800,\n  \"overlap_tokens\": 100,\n  \"metadata\": {\n    \"key_0\": 9405.11832703111\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"vector_database_id\": \"string\",\n  \"status\": \"string\",\n  \"created_at\": \"1998-02-22T04:48:39.958Z\",\n  \"updated_at\": \"1973-12-31T00:18:43.340Z\",\n  \"error_message\": \"string\",\n  \"file_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"metaflow_run_id\": \"string\",\n  \"file_records\": [\n    {\n      \"id\": \"string\",\n      \"record_id\": \"string\",\n      \"vector_database_id\": \"string\",\n      \"filename\": \"string\",\n      \"created_at\": \"2002-09-07T16:31:27.880Z\",\n      \"status\": \"string\",\n      \"method\": \"string\",\n      \"chunk_method\": \"string\",\n      \"token_count\": 1756,\n      \"overlap_tokens\": 9817,\n      \"ingestion_job_id\": \"string\",\n      \"error_message\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"processing_at\": \"1980-09-09T09:29:28.698Z\",\n      \"completed_at\": \"2015-06-01T06:27:10.683Z\",\n      \"failed_at\": \"1959-10-05T17:09:33.648Z\",\n      \"file_size_in_bytes\": 6050,\n      \"queue_position\": 5351,\n      \"metadata\": {\n        \"key_0\": true\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"record_id\": \"string\",\n      \"vector_database_id\": \"string\",\n      \"filename\": \"string\",\n      \"created_at\": \"1948-08-30T12:35:42.394Z\",\n      \"status\": \"string\",\n      \"method\": \"string\",\n      \"chunk_method\": \"string\",\n      \"token_count\": 8354,\n      \"overlap_tokens\": 4782,\n      \"ingestion_job_id\": \"string\",\n      \"error_message\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"processing_at\": \"1953-08-30T02:20:21.893Z\",\n      \"completed_at\": \"1984-04-24T15:15:18.574Z\",\n      \"failed_at\": \"2021-06-28T20:01:04.824Z\",\n      \"file_size_in_bytes\": 2512,\n      \"queue_position\": 6831,\n      \"metadata\": {\n        \"key_0\": 5506,\n        \"key_1\": 6185.98000995927,\n        \"key_2\": 48\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c34cb71-0fd2-4d2a-8cfc-cae2692281b2",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "ingestion"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"method\": \"<string>\",\n  \"chunking_method\": \"<string>\",\n  \"token_count\": 800,\n  \"overlap_tokens\": 100,\n  \"metadata\": {\n    \"key_0\": 9405.11832703111\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "04891e09-8620-4ae2-93a4-3e92f8ba9e5f",
+          "name": "List Vector Database Ingestion Jobs",
+          "request": {
+            "name": "List Vector Database Ingestion Jobs",
+            "description": {
+              "content": "List all vector database ingestion jobs",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "vectordb",
+                ":database_id",
+                "ingestion"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "database_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3b629e91-dc80-4951-957c-27c3f30aa79e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "ingestion"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"string\",\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"vector_database_id\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"1979-10-02T23:29:08.600Z\",\n      \"updated_at\": \"1973-07-08T02:04:58.218Z\",\n      \"error_message\": \"string\",\n      \"file_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"metaflow_run_id\": \"string\",\n      \"file_records\": [\n        {\n          \"id\": \"string\",\n          \"record_id\": \"string\",\n          \"vector_database_id\": \"string\",\n          \"filename\": \"string\",\n          \"created_at\": \"1959-09-11T11:55:19.421Z\",\n          \"status\": \"string\",\n          \"method\": \"string\",\n          \"chunk_method\": \"string\",\n          \"token_count\": 2455,\n          \"overlap_tokens\": 882,\n          \"ingestion_job_id\": \"string\",\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"processing_at\": \"1970-07-03T11:27:26.852Z\",\n          \"completed_at\": \"2013-04-15T16:04:52.579Z\",\n          \"failed_at\": \"1998-08-25T11:55:09.383Z\",\n          \"file_size_in_bytes\": 8319,\n          \"queue_position\": 2965,\n          \"metadata\": {\n            \"key_0\": 4425,\n            \"key_1\": true,\n            \"key_2\": 6008.489637421616\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"record_id\": \"string\",\n          \"vector_database_id\": \"string\",\n          \"filename\": \"string\",\n          \"created_at\": \"1968-11-11T22:42:49.305Z\",\n          \"status\": \"string\",\n          \"method\": \"string\",\n          \"chunk_method\": \"string\",\n          \"token_count\": 2677,\n          \"overlap_tokens\": 7626,\n          \"ingestion_job_id\": \"string\",\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"processing_at\": \"2022-03-16T03:54:19.403Z\",\n          \"completed_at\": \"1964-11-10T01:30:48.108Z\",\n          \"failed_at\": \"2025-09-12T10:47:24.899Z\",\n          \"file_size_in_bytes\": 2077,\n          \"queue_position\": 7387,\n          \"metadata\": {\n            \"key_0\": \"string\",\n            \"key_1\": 9054\n          }\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"vector_database_id\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"1957-03-16T05:03:28.486Z\",\n      \"updated_at\": \"2007-10-30T19:19:53.896Z\",\n      \"error_message\": \"string\",\n      \"file_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"metaflow_run_id\": \"string\",\n      \"file_records\": [\n        {\n          \"id\": \"string\",\n          \"record_id\": \"string\",\n          \"vector_database_id\": \"string\",\n          \"filename\": \"string\",\n          \"created_at\": \"1972-02-29T19:01:14.794Z\",\n          \"status\": \"string\",\n          \"method\": \"string\",\n          \"chunk_method\": \"string\",\n          \"token_count\": 9691,\n          \"overlap_tokens\": 1058,\n          \"ingestion_job_id\": \"string\",\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"processing_at\": \"1991-07-13T20:58:06.392Z\",\n          \"completed_at\": \"1953-07-24T18:18:38.281Z\",\n          \"failed_at\": \"1992-05-17T02:48:17.414Z\",\n          \"file_size_in_bytes\": 5693,\n          \"queue_position\": 8562,\n          \"metadata\": {\n            \"key_0\": 6272,\n            \"key_1\": 4275,\n            \"key_2\": \"string\",\n            \"key_3\": \"string\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"record_id\": \"string\",\n          \"vector_database_id\": \"string\",\n          \"filename\": \"string\",\n          \"created_at\": \"2008-08-27T06:44:06.333Z\",\n          \"status\": \"string\",\n          \"method\": \"string\",\n          \"chunk_method\": \"string\",\n          \"token_count\": 4915,\n          \"overlap_tokens\": 5687,\n          \"ingestion_job_id\": \"string\",\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"processing_at\": \"1987-06-28T10:11:05.311Z\",\n          \"completed_at\": \"1997-01-16T22:55:07.123Z\",\n          \"failed_at\": \"1956-08-24T02:43:46.266Z\",\n          \"file_size_in_bytes\": 9796,\n          \"queue_position\": 5237,\n          \"metadata\": {\n            \"key_0\": \"string\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd742e59-8e94-4b12-9034-d1af8c0d4d08",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "ingestion"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "176304b8-4f3e-4b18-9559-b6e5901ef932",
+          "name": "Get Vector Database Ingestion Job",
+          "request": {
+            "name": "Get Vector Database Ingestion Job",
+            "description": {
+              "content": "Get status of a vector database ingestion job",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "vectordb",
+                ":database_id",
+                "ingestion",
+                ":job_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "database_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5afe5518-b52d-4db3-a088-1930227ab555",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "ingestion",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"vector_database_id\": \"string\",\n  \"status\": \"string\",\n  \"created_at\": \"2019-12-09T19:50:56.097Z\",\n  \"updated_at\": \"1952-10-26T20:00:37.367Z\",\n  \"error_message\": \"string\",\n  \"file_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"metaflow_run_id\": \"string\",\n  \"file_records\": [\n    {\n      \"id\": \"string\",\n      \"record_id\": \"string\",\n      \"vector_database_id\": \"string\",\n      \"filename\": \"string\",\n      \"created_at\": \"1996-03-30T08:07:28.786Z\",\n      \"status\": \"string\",\n      \"method\": \"string\",\n      \"chunk_method\": \"string\",\n      \"token_count\": 154,\n      \"overlap_tokens\": 8191,\n      \"ingestion_job_id\": \"string\",\n      \"error_message\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"processing_at\": \"1976-10-22T17:08:29.928Z\",\n      \"completed_at\": \"1988-06-04T12:56:31.721Z\",\n      \"failed_at\": \"1992-05-10T05:02:52.359Z\",\n      \"file_size_in_bytes\": 6831,\n      \"queue_position\": 8132,\n      \"metadata\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"record_id\": \"string\",\n      \"vector_database_id\": \"string\",\n      \"filename\": \"string\",\n      \"created_at\": \"1962-12-02T11:29:36.922Z\",\n      \"status\": \"string\",\n      \"method\": \"string\",\n      \"chunk_method\": \"string\",\n      \"token_count\": 1700,\n      \"overlap_tokens\": 7337,\n      \"ingestion_job_id\": \"string\",\n      \"error_message\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"processing_at\": \"1999-02-24T07:03:20.662Z\",\n      \"completed_at\": \"2011-08-31T05:36:28.629Z\",\n      \"failed_at\": \"2007-03-30T19:11:08.817Z\",\n      \"file_size_in_bytes\": 5520,\n      \"queue_position\": 8651,\n      \"metadata\": {\n        \"key_0\": 5750.858910498193,\n        \"key_1\": 4568,\n        \"key_2\": \"string\",\n        \"key_3\": 8044.951472331998\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45d2b02f-0316-4c56-a7a3-15a30d1a1f94",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "ingestion",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e018bffe-6dbe-4881-ac6e-736dbed43c77",
+          "name": "List Vector Database Files",
+          "request": {
+            "name": "List Vector Database Files",
+            "description": {
+              "content": "List files in vector database with queue positions",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "vectordb",
+                ":database_id",
+                "files"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "database_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d8866f77-6bea-4a1f-a4fb-5d82752bc846",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"record_id\": \"string\",\n      \"vector_database_id\": \"string\",\n      \"filename\": \"string\",\n      \"created_at\": \"1995-11-27T01:46:57.772Z\",\n      \"status\": \"string\",\n      \"method\": \"string\",\n      \"chunk_method\": \"string\",\n      \"token_count\": 11,\n      \"overlap_tokens\": 5984,\n      \"ingestion_job_id\": \"string\",\n      \"error_message\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"processing_at\": \"1983-05-08T08:27:43.310Z\",\n      \"completed_at\": \"2001-12-01T07:09:07.649Z\",\n      \"failed_at\": \"2023-03-01T10:54:26.529Z\",\n      \"file_size_in_bytes\": 5038,\n      \"queue_position\": 1220,\n      \"metadata\": {\n        \"key_0\": 5470.791083128424,\n        \"key_1\": 2549.1107188429196\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"record_id\": \"string\",\n      \"vector_database_id\": \"string\",\n      \"filename\": \"string\",\n      \"created_at\": \"2014-10-22T22:16:30.101Z\",\n      \"status\": \"string\",\n      \"method\": \"string\",\n      \"chunk_method\": \"string\",\n      \"token_count\": 2159,\n      \"overlap_tokens\": 512,\n      \"ingestion_job_id\": \"string\",\n      \"error_message\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"processing_at\": \"2022-11-03T03:54:14.685Z\",\n      \"completed_at\": \"1998-12-26T20:25:32.589Z\",\n      \"failed_at\": \"2015-06-05T11:45:07.623Z\",\n      \"file_size_in_bytes\": 1463,\n      \"queue_position\": 3222,\n      \"metadata\": {\n        \"key_0\": 8104.762225947723,\n        \"key_1\": 2331.981572659365\n      }\n    }\n  ],\n  \"object\": \"list\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a11bd595-9329-4118-ad41-16cef6e0f8d3",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d56899a9-63b2-4566-99d0-33cf5435247b",
+          "name": "Get Vector Database Chunk",
+          "request": {
+            "name": "Get Vector Database Chunk",
+            "description": {
+              "content": "Retrieve provenance details for a chunk in a vector database.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "vectordb",
+                ":database_id",
+                "chunk",
+                ":chunk_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "database_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chunk_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c02c91d0-a326-4cbe-84ec-b711d69a3e01",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "chunk",
+                    ":chunk_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chunk_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"chunk_id\": \"string\",\n  \"file_id\": \"string\",\n  \"text\": \"string\",\n  \"locations\": [\n    {\n      \"line_number_start\": 3099,\n      \"line_number_end\": 2029,\n      \"char_start\": 7531,\n      \"char_end\": 2140,\n      \"hierarchy\": [\n        \"string\",\n        \"string\"\n      ],\n      \"page_number\": 5752\n    },\n    {\n      \"line_number_start\": 4866,\n      \"line_number_end\": 8125,\n      \"char_start\": 9738,\n      \"char_end\": 4169,\n      \"hierarchy\": [\n        \"string\",\n        \"string\"\n      ],\n      \"page_number\": 3827\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e18f18d-9b02-4e17-9045-eb386b2b913e",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "chunk",
+                    ":chunk_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chunk_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "78061e62-7843-4009-9ffb-721abf75a6cb",
+          "name": "List Vector Database Chunks",
+          "request": {
+            "name": "List Vector Database Chunks",
+            "description": {
+              "content": "Search/list chunks in a vector database with optional filtering.\n\nSupports filtering by `file_id`, `chunk_ids`, and `metadata` fields.\nMetadata filters support operator syntax: `$gt`, `$gte`, `$lt`, `$lte`, `$in`.\nUnknown operators return 400.\n\nRequest body example:\n```json\n{\n  \"file_id\": \"file-abc123\",\n  \"metadata\": {\"year\": {\"$gte\": 2023}, \"doc_type\": \"SOP\"},\n  \"limit\": 20,\n  \"offset\": 0\n}\n```",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "vectordb",
+                ":database_id",
+                "chunks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "database_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"file_id\": \"<string>\",\n  \"chunk_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"key_0\": \"string\",\n    \"key_1\": 7828.009986535537,\n    \"key_2\": 340.91067291268985\n  },\n  \"limit\": 20,\n  \"offset\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "66470595-702f-4291-b2ac-f35c2a4cf4a4",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "chunks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"file_id\": \"<string>\",\n  \"chunk_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"key_0\": 4794,\n    \"key_1\": false\n  },\n  \"limit\": 20,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"chunk_id\": \"string\",\n      \"file_id\": \"string\",\n      \"text\": \"string\",\n      \"metadata\": {\n        \"key_0\": \"string\"\n      },\n      \"hierarchy\": [\n        \"string\",\n        \"string\"\n      ],\n      \"locations\": [\n        {\n          \"line_number_start\": 3125,\n          \"line_number_end\": 7394,\n          \"char_start\": 7824,\n          \"char_end\": 2589,\n          \"hierarchy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"page_number\": 3024\n        },\n        {\n          \"line_number_start\": 9401,\n          \"line_number_end\": 7059,\n          \"char_start\": 3154,\n          \"char_end\": 4046,\n          \"hierarchy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"page_number\": 2400\n        }\n      ]\n    },\n    {\n      \"chunk_id\": \"string\",\n      \"file_id\": \"string\",\n      \"text\": \"string\",\n      \"metadata\": {\n        \"key_0\": true,\n        \"key_1\": \"string\"\n      },\n      \"hierarchy\": [\n        \"string\",\n        \"string\"\n      ],\n      \"locations\": [\n        {\n          \"line_number_start\": 7671,\n          \"line_number_end\": 513,\n          \"char_start\": 9326,\n          \"char_end\": 9145,\n          \"hierarchy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"page_number\": 6223\n        },\n        {\n          \"line_number_start\": 4222,\n          \"line_number_end\": 6990,\n          \"char_start\": 9384,\n          \"char_end\": 185,\n          \"hierarchy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"page_number\": 9665\n        }\n      ]\n    }\n  ],\n  \"total\": 1711,\n  \"limit\": 223,\n  \"offset\": 3977,\n  \"object\": \"list\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d8f0b2b-a3bd-4534-815e-37dc691cf6ff",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "chunks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"file_id\": \"<string>\",\n  \"chunk_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"key_0\": 4794,\n    \"key_1\": false\n  },\n  \"limit\": 20,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "54a90682-7629-4e1e-be9d-0b601f3bdd4e",
+          "name": "Delete Vector Database File",
+          "request": {
+            "name": "Delete Vector Database File",
+            "description": {
+              "content": "Delete a file from a vector database",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "vectordb",
+                ":database_id",
+                "files",
+                ":file_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "database_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "file_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "015061cc-50fa-4f0b-9e40-0c32b5c6d367",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "files",
+                    ":file_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "file_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"string\",\n  \"deleted\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f79b918-244a-4e83-bf9a-34d67d5b333b",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "files",
+                    ":file_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "file_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2de40389-20f3-4169-960d-9151d6c7d0e0",
+          "name": "Update Vector Database Metadata",
+          "request": {
+            "name": "Update Vector Database Metadata",
+            "description": {
+              "content": "Overwrite metadata on chunks within a vector database, targeted by file_ids or chunk_ids.\n\nThis operation is **destructive**: the provided `metadata` object **replaces** all existing\nmetadata on every targeted chunk. Previous metadata fields that are not included in the\nnew object are permanently removed.\n\nTo preserve existing fields, include them explicitly in the new `metadata` object.\n\n**Metadata constraints:**\n- Must be a flat object (no nested objects or arrays).\n- Values must be `string`, `number`, `boolean`, or `datetime`. Null is rejected (422).\n- Maximum **20 fields**.\n- String values are trimmed of whitespace; newlines are replaced with spaces.\n\nReturns 422 if metadata is invalid or the database is not found, and 404 if the\nprovided file_ids/chunk_ids match no chunks in the database.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "vectordb",
+                ":database_id",
+                "metadata"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "database_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metadata\": {\n    \"key_0\": false,\n    \"key_1\": false\n  },\n  \"file_ids\": [\n    \"<string>\"\n  ],\n  \"chunk_ids\": [\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "53231602-b24b-4b28-8565-d41e4c04d80b",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": {\n    \"key_0\": 4690.401506138271,\n    \"key_1\": false,\n    \"key_2\": 5666\n  },\n  \"file_ids\": [\n    \"<string>\"\n  ],\n  \"chunk_ids\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metadata\": {\n    \"key_0\": \"string\",\n    \"key_1\": 8719\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "daceed91-b642-4b32-946a-1708ac6503c6",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": {\n    \"key_0\": 4690.401506138271,\n    \"key_1\": false,\n    \"key_2\": 5666\n  },\n  \"file_ids\": [\n    \"<string>\"\n  ],\n  \"chunk_ids\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "198c2197-150c-49d6-aa57-78a8bac751c1",
+          "name": "Generate Vector Database Metadata Snapshot",
+          "request": {
+            "name": "Generate Vector Database Metadata Snapshot",
+            "description": {
+              "content": "Generate (or refresh) the metadata snapshot for a vector database.\n\nSamples up to 10,000 random chunks from the index, ranks the top 100 metadata keys\nby frequency, and for each key records the top 10 most common values along with an\ninferred type. The snapshot is stored in Postgres and returned by GET on this path.\n\nRetrying is safe — each call replaces the prior snapshot.\n\nErrors:\n- 422 if the vector database is not found.\n- 502 with `SnapshotGenerationFailed` if the ingestion service cannot produce the snapshot.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "vectordb",
+                ":database_id",
+                "metadata"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "database_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "72361c11-4210-49fc-8f27-9003fd7cc7b0",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vector_database_id\": \"string\",\n  \"keys_captured\": 172,\n  \"created_at\": \"1962-01-13T00:33:15.191Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6933a84-3c22-4bbc-8bbc-7144daf0fb53",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e39a55f9-6de7-470a-8d3d-7bc43f2976f6",
+          "name": "Get Vector Database Metadata Snapshot",
+          "request": {
+            "name": "Get Vector Database Metadata Snapshot",
+            "description": {
+              "content": "Return the current metadata snapshot for a vector database.\n\nThe snapshot is automatically refreshed whenever an ingestion job completes or a\nfile is deleted from the database (both are best-effort and asynchronous, so the\nrefresh may briefly lag the change), and can be regenerated on demand via POST on\nthis path. A snapshot with no metadata returns 200 with `keys: []`. Returns 404 if\na snapshot has never been generated for this database.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "vectordb",
+                ":database_id",
+                "metadata"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "database_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cf9c30fd-6165-42c7-8b3e-498daa182341",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vector_database_id\": \"string\",\n  \"created_at\": \"2006-05-02T23:24:37.112Z\",\n  \"keys\": [\n    {\n      \"key_name\": \"string\",\n      \"value_type\": \"boolean\",\n      \"top_values\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"key_name\": \"string\",\n      \"value_type\": \"string\",\n      \"top_values\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e01bb28-c835-4abe-8558-6a91852bb774",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "vectordb",
+                    ":database_id",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "069fe982-6792-42ba-a892-7e4ff90bd984",
+    "name": "SeekrFlow Vector database API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "SeekrFlow API Documentation\n\nContact Support:\n Name: Seekr API Support\n Email: contact@seekr.com",
+      "type": "text/plain"
+    }
+  }
+}

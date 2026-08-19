@@ -1,0 +1,457 @@
+openapi: 3.2.0
+info:
+  title: SeekrFlow Functions API
+  description: SeekrFlow API Documentation
+  termsOfService: http://www.seekr.com/support
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  version: 5.45.1
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Functions
+paths:
+  /v1/functions:
+    post:
+      tags:
+      - Functions
+      summary: Upload Python Function
+      description: Upload a new Python function for the authenticated team.
+      operationId: upload_python_function_v1_functions_post
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: x-team-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Team-Id
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_python_function_v1_functions_post'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PythonFunctionResponse'
+        '400':
+          description: Invalid function file or missing description
+        '409':
+          description: Function name already exists for this team
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Functions
+      summary: List Python Function Endpoint
+      description: List all python functions.
+      operationId: list_python_function_endpoint_v1_functions_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 20
+          title: Limit
+      - name: order
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/OrderEnum'
+          default: desc
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: x-team-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Team-Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PythonFunctionResponse'
+                title: Response List Python Function Endpoint V1 Functions Get
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/functions/{function_id}:
+    get:
+      tags:
+      - Functions
+      summary: Get Python Function Endpoint
+      description: Retrieve a Python function by its ID for the authenticated team.
+      operationId: get_python_function_endpoint_v1_functions__function_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: function_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Function Id
+      - name: x-team-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Team-Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PythonFunctionResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Functions
+      summary: Delete Python Function Endpoint
+      description: Delete a Python function by its ID for the authenticated team.
+      operationId: delete_python_function_endpoint_v1_functions__function_id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: function_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Function Id
+      - name: x-team-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Team-Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletePythonFunctionResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Functions
+      summary: Update Python Function Endpoint
+      description: Updates existing Python function. Supports updating the description, the code, or both.
+      operationId: update_python_function_endpoint_v1_functions__function_id__patch
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: function_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Function Id
+      - name: x-team-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Team-Id
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_update_python_function_endpoint_v1_functions__function_id__patch'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PythonFunctionResponse'
+        '400':
+          description: Invalid function file
+        '409':
+          description: Function name already exists for this team
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/internal/functions/validate-function-ids:
+    post:
+      tags:
+      - Functions
+      summary: Validate Function Ids
+      description: Validate that the provided function IDs exist and belong to the team (if provided).
+      operationId: validate_function_ids_v1_internal_functions_validate_function_ids_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidatePythonFunctionIdsRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateFunctionIdsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/internal/functions/by-ids:
+    post:
+      tags:
+      - Functions
+      summary: Get Functions By Ids
+      description: Retrieve Python functions by a list of IDs.
+      operationId: get_functions_by_ids_v1_internal_functions_by_ids_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PythonFunctionIdsRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PythonFunctionResponse'
+                type: array
+                title: Response Get Functions By Ids V1 Internal Functions By Ids Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+components:
+  schemas:
+    ValidateFunctionIdsResponse:
+      properties:
+        valid:
+          type: boolean
+          title: Valid
+        missing:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Missing
+      type: object
+      required:
+      - valid
+      title: ValidateFunctionIdsResponse
+      description: Response model for function ID validation results.
+    PythonFunctionIdsRequest:
+      properties:
+        function_ids:
+          items:
+            type: string
+          type: array
+          title: Function Ids
+      type: object
+      required:
+      - function_ids
+      title: PythonFunctionIdsRequest
+      description: Request model for retrieving Python functions by a list of IDs.
+    OrderEnum:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: OrderEnum
+      description: Options for order query param in list endpoints.
+    DeletePythonFunctionResponse:
+      properties:
+        deleted:
+          type: boolean
+          title: Deleted
+      type: object
+      required:
+      - deleted
+      title: DeletePythonFunctionResponse
+      description: Response model for deleting a Python function.
+    PythonFunctionResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        version:
+          type: integer
+          title: Version
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        active:
+          type: boolean
+          title: Active
+        code:
+          type: string
+          title: Code
+        user_id:
+          type: string
+          title: User Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - id
+      - version
+      - name
+      - description
+      - active
+      - code
+      - user_id
+      - created_at
+      - updated_at
+      title: PythonFunctionResponse
+      description: Response model for a Python function, including code and user info.
+    Body_upload_python_function_v1_functions_post:
+      properties:
+        file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: File
+      type: object
+      required:
+      - file
+      title: Body_upload_python_function_v1_functions_post
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidatePythonFunctionIdsRequest:
+      properties:
+        function_ids:
+          items:
+            type: string
+          type: array
+          title: Function Ids
+        team_id:
+          type: string
+          title: Team Id
+      type: object
+      required:
+      - function_ids
+      - team_id
+      title: ValidatePythonFunctionIdsRequest
+      description: Request model for validating a list of Python function IDs for a team.
+    Body_update_python_function_endpoint_v1_functions__function_id__patch:
+      properties:
+        file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: File
+      type: object
+      required:
+      - file
+      title: Body_update_python_function_endpoint_v1_functions__function_id__patch
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization

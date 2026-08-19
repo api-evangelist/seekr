@@ -1,0 +1,265 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SeekrFlow Deployments API",
+    "version": "5.108.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Deployments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Deployment Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/metrics/deployments",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Deployment Metrics"
+        },
+        {
+          "info": {
+            "name": "Get Deployment Events By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/events/deployments/:deployment_id",
+            "params": [
+              {
+                "name": "deployment_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Deployment Events By Id"
+        },
+        {
+          "info": {
+            "name": "Get Deployments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/deployments",
+            "params": [
+              {
+                "name": "deployment_status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fine_tune_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Deployments"
+        },
+        {
+          "info": {
+            "name": "Deploy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/deployments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deploy"
+        },
+        {
+          "info": {
+            "name": "Deployment By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/deployments/:deployment_id",
+            "params": [
+              {
+                "name": "deployment_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deployment By Id"
+        },
+        {
+          "info": {
+            "name": "Update Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://flow.seekr.com/v1/flow/deployments/:deployment_id",
+            "params": [
+              {
+                "name": "deployment_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update Deployment"
+        },
+        {
+          "info": {
+            "name": "Promote",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://flow.seekr.com/v1/flow/deployments/:deployment_id/promote",
+            "params": [
+              {
+                "name": "deployment_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Promote"
+        },
+        {
+          "info": {
+            "name": "Demote",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://flow.seekr.com/v1/flow/deployments/:deployment_id/demote",
+            "params": [
+              {
+                "name": "deployment_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Demote"
+        },
+        {
+          "info": {
+            "name": "Internal Deployment By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/internal/deployments/:deployment_id",
+            "headers": [
+              {
+                "name": "team-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "deployment_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Internal Deployment By Id"
+        },
+        {
+          "info": {
+            "name": "Update the status of a deployment (Internal)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/internal/deployments/:deployment_id/status",
+            "params": [
+              {
+                "name": "deployment_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Internal endpoint for the Kubernetes event tracker to update the status of a deployment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

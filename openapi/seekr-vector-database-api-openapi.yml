@@ -1,0 +1,1408 @@
+openapi: 3.2.0
+info:
+  title: SeekrFlow Vector database API
+  description: SeekrFlow API Documentation
+  termsOfService: http://www.seekr.com/support
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  version: 5.108.1
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Vector database
+paths:
+  /v1/flow/vectordb:
+    post:
+      tags:
+      - Vector database
+      summary: Create Vector Database Route
+      description: Create a new vector database
+      operationId: create_vector_database_route_v1_flow_vectordb_post
+      security:
+      - APIKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VectorDatabaseCreate'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VectorDatabaseResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Vector database
+      summary: List Vector Databases
+      description: List all vector databases for the user
+      operationId: list_vector_databases_v1_flow_vectordb_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: types
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              $ref: '#/components/schemas/DBType'
+          - type: 'null'
+          title: Types
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VectorDatabaseList'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/vectordb/{database_id}:
+    delete:
+      tags:
+      - Vector database
+      summary: Delete Vector Database Route
+      description: Delete a vector database
+      operationId: delete_vector_database_route_v1_flow_vectordb__database_id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: database_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Database Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VectorDatabaseDeleteResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Vector database
+      summary: Get Vector Database Route
+      description: Get a specific vector database
+      operationId: get_vector_database_route_v1_flow_vectordb__database_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: database_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Database Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VectorDatabaseResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Vector database
+      summary: Update Vector Database Route
+      description: Update a vector database name and/or description
+      operationId: update_vector_database_route_v1_flow_vectordb__database_id__patch
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: database_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Database Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateVectorDbRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VectorDatabaseResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/vectordb/{database_id}/tools:
+    get:
+      tags:
+      - Vector database
+      summary: Get Tools For Vector Database
+      description: List IDs of FILE_SEARCH tools that reference this vector database.
+      operationId: get_tools_for_vector_database_v1_flow_vectordb__database_id__tools_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: database_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Database Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdList'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/vectordb/{database_id}/data-jobs:
+    get:
+      tags:
+      - Vector database
+      summary: Get Data Jobs For Vector Database
+      description: List IDs of data jobs that reference this vector database.
+      operationId: get_data_jobs_for_vector_database_v1_flow_vectordb__database_id__data_jobs_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: database_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Database Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdList'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/vectordb/{database_id}/ingestion:
+    post:
+      tags:
+      - Vector database
+      summary: Create Vector Database Ingestion Job
+      description: 'Create a new vector database ingestion job.
+
+
+        **`method` — document extraction strategy:**
+
+        - `accuracy-optimized` *(default)* — runs the full Seekr pipeline (up to 12 methods: bookmark-aware hybrid extraction, Seekr-SaaS OCR, LLM post-processing, PyMuPDF, and more) with no restrictions, always selecting the highest-quality result
+
+        - `speed-optimized` — same pipeline, but skips methods that exceed per-method word-count thresholds; significantly faster on large documents
+
+
+        **`chunking_method` — text splitting strategy:**
+
+        - `markdown` *(default)* — heading-hierarchy-aware splitting with intelligent table handling (repeats table headers across continuation chunks so every chunk is self-contained)
+
+        - `semantic` — spaCy sentence detection + paragraph embeddings + Ward hierarchical clustering; groups content by meaning rather than position for higher answer quality on complex QA workloads
+
+        - `sliding` — fixed-size overlapping windows; fast and predictable, best for plain-text or homogeneous content
+
+
+        **`token_count`** — target maximum tokens per chunk (default 800).
+
+
+        **`overlap_tokens`** — tokens repeated between consecutive chunks to preserve context (default 100).
+
+
+        **`metadata`** — optional flat JSON object attached to every chunk produced by this job.
+
+        - Must be a flat object (no nested objects or arrays).
+
+        - Values must be `string`, `number`, `boolean`, or `null`. Null values are silently dropped.
+
+        - Maximum **20 fields**.
+
+        - String values are trimmed of whitespace; newlines are replaced with spaces.
+
+
+        Returns 400 if metadata fails validation. The job is not started until validation passes.'
+      operationId: create_vector_database_ingestion_job_v1_flow_vectordb__database_id__ingestion_post
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: database_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Database Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VectorDatabaseIngestionRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VectorDatabaseIngestionResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Vector database
+      summary: List Vector Database Ingestion Jobs
+      description: List all vector database ingestion jobs
+      operationId: list_vector_database_ingestion_jobs_v1_flow_vectordb__database_id__ingestion_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: database_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Database Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VectorDatabaseIngestionList'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/vectordb/{database_id}/ingestion/{job_id}:
+    get:
+      tags:
+      - Vector database
+      summary: Get Vector Database Ingestion Job
+      description: Get status of a vector database ingestion job
+      operationId: get_vector_database_ingestion_job_v1_flow_vectordb__database_id__ingestion__job_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: database_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Database Id
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VectorDatabaseIngestionResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/vectordb/{database_id}/files:
+    get:
+      tags:
+      - Vector database
+      summary: List Vector Database Files
+      description: List files in vector database with queue positions
+      operationId: list_vector_database_files_v1_flow_vectordb__database_id__files_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: database_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Database Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VectorDatabaseFileList'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/vectordb/{database_id}/chunk/{chunk_id}:
+    get:
+      tags:
+      - Vector database
+      summary: Get Vector Database Chunk
+      description: Retrieve provenance details for a chunk in a vector database.
+      operationId: get_vector_database_chunk_v1_flow_vectordb__database_id__chunk__chunk_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: database_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Database Id
+      - name: chunk_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Chunk Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VectorDatabaseChunkResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/vectordb/{database_id}/chunks:
+    post:
+      tags:
+      - Vector database
+      summary: List Vector Database Chunks
+      description: "Search/list chunks in a vector database with optional filtering.\n\nSupports filtering by `file_id`, `chunk_ids`, and `metadata` fields.\nMetadata filters support operator syntax: `$gt`, `$gte`, `$lt`, `$lte`, `$in`.\nUnknown operators return 400.\n\nRequest body example:\n```json\n{\n  \"file_id\": \"file-abc123\",\n  \"metadata\": {\"year\": {\"$gte\": 2023}, \"doc_type\": \"SOP\"},\n  \"limit\": 20,\n  \"offset\": 0\n}\n```"
+      operationId: list_vector_database_chunks_v1_flow_vectordb__database_id__chunks_post
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: database_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Database Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VectorDatabaseChunkSearchRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VectorDatabaseChunkListResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/vectordb/{database_id}/files/{file_id}:
+    delete:
+      tags:
+      - Vector database
+      summary: Delete Vector Database File
+      description: Delete a file from a vector database
+      operationId: delete_vector_database_file_v1_flow_vectordb__database_id__files__file_id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: database_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Database Id
+      - name: file_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: File Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VectorDatabaseFileDeleteResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/vectordb/{database_id}/metadata:
+    patch:
+      tags:
+      - Vector database
+      summary: Update Vector Database Metadata
+      description: 'Overwrite metadata on chunks within a vector database, targeted by file_ids or chunk_ids.
+
+
+        This operation is **destructive**: the provided `metadata` object **replaces** all existing
+
+        metadata on every targeted chunk. Previous metadata fields that are not included in the
+
+        new object are permanently removed.
+
+
+        To preserve existing fields, include them explicitly in the new `metadata` object.
+
+
+        **Metadata constraints:**
+
+        - Must be a flat object (no nested objects or arrays).
+
+        - Values must be `string`, `number`, `boolean`, or `datetime`. Null is rejected (422).
+
+        - Maximum **20 fields**.
+
+        - String values are trimmed of whitespace; newlines are replaced with spaces.
+
+
+        Returns 422 if metadata is invalid or the database is not found, and 404 if the
+
+        provided file_ids/chunk_ids match no chunks in the database.'
+      operationId: update_vector_database_metadata_v1_flow_vectordb__database_id__metadata_patch
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: database_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Database Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VectorDatabaseMetadataUpdateRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VectorDatabaseMetadataUpdateResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - Vector database
+      summary: Generate Vector Database Metadata Snapshot
+      description: 'Generate (or refresh) the metadata snapshot for a vector database.
+
+
+        Samples up to 10,000 random chunks from the index, ranks the top 100 metadata keys
+
+        by frequency, and for each key records the top 10 most common values along with an
+
+        inferred type. The snapshot is stored in Postgres and returned by GET on this path.
+
+
+        Retrying is safe — each call replaces the prior snapshot.
+
+
+        Errors:
+
+        - 422 if the vector database is not found.
+
+        - 502 with `SnapshotGenerationFailed` if the ingestion service cannot produce the snapshot.'
+      operationId: generate_vector_database_metadata_snapshot_v1_flow_vectordb__database_id__metadata_post
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: database_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Database Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VectorDatabaseMetadataSnapshotGenerateResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Vector database
+      summary: Get Vector Database Metadata Snapshot
+      description: 'Return the current metadata snapshot for a vector database.
+
+
+        The snapshot is automatically refreshed whenever an ingestion job completes or a
+
+        file is deleted from the database (both are best-effort and asynchronous, so the
+
+        refresh may briefly lag the change), and can be regenerated on demand via POST on
+
+        this path. A snapshot with no metadata returns 200 with `keys: []`. Returns 404 if
+
+        a snapshot has never been generated for this database.'
+      operationId: get_vector_database_metadata_snapshot_v1_flow_vectordb__database_id__metadata_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: database_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Database Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VectorDatabaseMetadataSnapshotResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    UpdateVectorDbRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 1
+          - type: 'null'
+          title: Name
+          description: New name of the vector database
+        description:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: Description
+          description: New description of the vector database
+        db_type:
+          anyOf:
+          - $ref: '#/components/schemas/DBType'
+          - type: 'null'
+          description: Type of vector database to create
+          examples:
+          - RAG
+          - explainability
+      type: object
+      title: UpdateVectorDbRequest
+    MetadataSnapshotKey:
+      properties:
+        key_name:
+          type: string
+          title: Key Name
+          description: Name of the metadata key.
+        value_type:
+          type: string
+          enum:
+          - string
+          - number
+          - boolean
+          title: Value Type
+          description: 'Inferred type of the key''s values: `string`, `number`, or `boolean`.'
+        top_values:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+            - type: number
+            - type: boolean
+          type: array
+          title: Top Values
+          description: Most common values for this key, ranked by how often they occur in the sample.
+      type: object
+      required:
+      - key_name
+      - value_type
+      - top_values
+      title: MetadataSnapshotKey
+    VectorDatabaseFileResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        record_id:
+          type: string
+          title: Record Id
+        vector_database_id:
+          type: string
+          title: Vector Database Id
+        filename:
+          type: string
+          title: Filename
+        method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Method
+        chunk_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chunk Method
+        token_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Token Count
+        overlap_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Overlap Tokens
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        ingestion_job_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ingestion Job Id
+        status:
+          type: string
+          title: Status
+        error_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error Message
+        suggested_fix:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Suggested Fix
+        processing_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Processing At
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+        failed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Failed At
+        file_size_in_bytes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: File Size In Bytes
+        queue_position:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Queue Position
+          description: Position in queue if status is queued
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: User-defined metadata associated with this file's chunks. Set at ingestion time or updated via PATCH /vectordb/{database_id}/metadata.
+      type: object
+      required:
+      - id
+      - record_id
+      - vector_database_id
+      - filename
+      - created_at
+      - status
+      title: VectorDatabaseFileResponse
+      description: Response model for a vector database file
+    VectorDatabaseChunkListResponse:
+      properties:
+        object:
+          type: string
+          const: list
+          title: Object
+          default: list
+        data:
+          items:
+            $ref: '#/components/schemas/VectorDatabaseChunkListItem'
+          type: array
+          title: Data
+        total:
+          type: integer
+          title: Total
+        limit:
+          type: integer
+          title: Limit
+        offset:
+          type: integer
+          title: Offset
+      type: object
+      required:
+      - data
+      - total
+      - limit
+      - offset
+      title: VectorDatabaseChunkListResponse
+    VectorDatabaseCreate:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: Name of the vector database
+        model:
+          type: string
+          title: Model
+          description: Model used to generate the vectors
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: Optional description
+        db_type:
+          anyOf:
+          - $ref: '#/components/schemas/DBType'
+          - type: 'null'
+          description: Type of vector database to create
+          default: RAG
+      type: object
+      required:
+      - name
+      - model
+      title: VectorDatabaseCreate
+    VectorDatabaseResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        model:
+          type: string
+          title: Model
+        dimension:
+          type: integer
+          title: Dimension
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        file_count:
+          type: integer
+          title: File Count
+        size_in_bytes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Size In Bytes
+        db_type:
+          anyOf:
+          - $ref: '#/components/schemas/DBType'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - name
+      - model
+      - dimension
+      - description
+      - created_at
+      - updated_at
+      - file_count
+      - db_type
+      title: VectorDatabaseResponse
+    VectorDatabaseFileDeleteResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        object:
+          type: string
+          const: vector_database.file
+          title: Object
+        deleted:
+          type: boolean
+          title: Deleted
+      type: object
+      required:
+      - id
+      - object
+      - deleted
+      title: VectorDatabaseFileDeleteResponse
+    VectorDatabaseMetadataSnapshotGenerateResponse:
+      properties:
+        vector_database_id:
+          type: string
+          title: Vector Database Id
+          description: ID of the vector database the snapshot describes.
+        keys_captured:
+          type: integer
+          title: Keys Captured
+          description: Number of metadata keys captured in the snapshot.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: Time the snapshot was generated.
+      type: object
+      required:
+      - vector_database_id
+      - keys_captured
+      - created_at
+      title: VectorDatabaseMetadataSnapshotGenerateResponse
+    VectorDatabaseMarkdownLocation:
+      properties:
+        line_number_start:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Line Number Start
+        line_number_end:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Line Number End
+        char_start:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Char Start
+        char_end:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Char End
+        hierarchy:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Hierarchy
+        page_number:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Page Number
+      type: object
+      title: VectorDatabaseMarkdownLocation
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    VectorDatabaseIngestionResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        vector_database_id:
+          type: string
+          title: Vector Database Id
+        status:
+          type: string
+          title: Status
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        error_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error Message
+        file_ids:
+          items:
+            type: string
+          type: array
+          title: File Ids
+        metaflow_run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Metaflow Run Id
+        file_records:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/VectorDatabaseFileResponse'
+            type: array
+          - type: 'null'
+          title: File Records
+      type: object
+      required:
+      - id
+      - vector_database_id
+      - status
+      - created_at
+      - updated_at
+      - error_message
+      - file_ids
+      - metaflow_run_id
+      title: VectorDatabaseIngestionResponse
+    VectorDatabaseChunkSearchRequest:
+      properties:
+        file_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: File Id
+          description: Filter to chunks from a specific file
+        chunk_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Chunk Ids
+          description: Chunk IDs to retrieve
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: 'Metadata key-value filters with optional operators ($gt, $gte, $lt, $lte, $in). Example: {"year": {"$gte": 2023}, "doc_type": "SOP"}'
+        limit:
+          type: integer
+          maximum: 100
+          minimum: 1
+          title: Limit
+          description: Max results to return
+          default: 20
+        offset:
+          type: integer
+          minimum: 0
+          title: Offset
+          description: Pagination offset
+          default: 0
+      type: object
+      title: VectorDatabaseChunkSearchRequest
+      description: Request body for searching/listing chunks in a vector database.
+    IdList:
+      properties:
+        object:
+          type: string
+          const: list
+          title: Object
+          default: list
+        data:
+          items:
+            type: string
+          type: array
+          title: Data
+      additionalProperties: true
+      type: object
+      required:
+      - data
+      title: IdList
+      description: Generic response model for a list of resource IDs.
+    VectorDatabaseIngestionRequest:
+      properties:
+        file_ids:
+          items:
+            type: string
+          type: array
+          title: File Ids
+          description: List of file ids to use for alignment
+        method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Method
+          description: 'Document extraction strategy used to convert raw files into clean markdown before chunking. `accuracy-optimized` (default) — runs the full Seekr extraction pipeline: tries up to 12 conversion methods in priority order (bookmark-aware hybrid extraction, Seekr-SaaS OCR, LLM post-processing, PyMuPDF, and more) with no word-count restrictions, selecting the highest-quality result for each document. Best for complex PDFs, tables, and documents where retrieval accuracy matters. `speed-optimized` — uses the same pipeline but skips methods that exceed per-method word-count thresholds, dramatically reducing processing time on large documents while still producing high-quality output.'
+          default: accuracy-optimized
+          examples:
+          - accuracy-optimized
+          - speed-optimized
+        chunking_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chunking Method
+          description: Strategy used to split the extracted markdown into chunks before embedding. `markdown` (default) — parses the heading hierarchy (`#`–`######`) to identify section boundaries, groups subsections into token-bounded chunks, and intelligently handles tables by repeating table headers across continuation chunks so every chunk is self-contained. Best for structured documents (reports, policies, manuals). `semantic` — uses spaCy sentence detection, generates paragraph-level embeddings, then applies Ward hierarchical clustering to group paragraphs by meaning rather than position. Produces topically coherent chunks even in poorly structured documents — ideal for improving answer quality on complex question-answering workloads. `sliding` — fixed-size overlapping windows with no structural awareness. Fast and predictable; best for plain-text or homogeneous content where document structure is absent.
+          default: markdown
+          examples:
+          - markdown
+          - semantic
+          - sliding
+        token_count:
+          type: integer
+          title: Token Count
+          description: Target maximum tokens per chunk.
+          default: 800
+        overlap_tokens:
+          type: integer
+          title: Overlap Tokens
+          description: Number of tokens repeated at the start of each chunk from the end of the previous one, preserving context across chunk boundaries.
+          default: 100
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: 'Optional flat JSON object attached to every chunk produced by this ingestion job. Constraints: (1) must be a flat object — no nested objects or arrays; (2) values must be string, number, boolean, or datetime (null is rejected); (3) maximum 20 fields; (4) string values are trimmed of leading/trailing whitespace and newlines are replaced with spaces. Example: {"year": 2024, "doc_type": "policy", "is_confidential": false}'
+          examples:
+          - doc_type: policy
+            is_confidential: false
+            year: 2024
+      type: object
+      required:
+      - file_ids
+      title: VectorDatabaseIngestionRequest
+    VectorDatabaseIngestionList:
+      properties:
+        object:
+          type: string
+          const: list
+          title: Object
+        data:
+          items:
+            $ref: '#/components/schemas/VectorDatabaseIngestionResponse'
+          type: array
+          title: Data
+      type: object
+      required:
+      - object
+      - data
+      title: VectorDatabaseIngestionList
+    VectorDatabaseList:
+      properties:
+        object:
+          type: string
+          const: list
+          title: Object
+        data:
+          items:
+            $ref: '#/components/schemas/VectorDatabaseResponse'
+          type: array
+          title: Data
+      type: object
+      required:
+      - object
+      - data
+      title: VectorDatabaseList
+    VectorDatabaseChunkResponse:
+      properties:
+        chunk_id:
+          type: string
+          title: Chunk Id
+        file_id:
+          type: string
+          title: File Id
+        text:
+          type: string
+          title: Text
+        locations:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/VectorDatabaseMarkdownLocation'
+            type: array
+          - type: 'null'
+          title: Locations
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: User-defined metadata attached to this chunk at ingestion time, or updated via PATCH /vectordb/{database_id}/metadata. Null if no metadata was provided.
+      type: object
+      required:
+      - chunk_id
+      - file_id
+      - text
+      title: VectorDatabaseChunkResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    VectorDatabaseMetadataSnapshotResponse:
+      properties:
+        vector_database_id:
+          type: string
+          title: Vector Database Id
+          description: ID of the vector database the snapshot describes.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: Time the current snapshot was generated.
+        keys:
+          items:
+            $ref: '#/components/schemas/MetadataSnapshotKey'
+          type: array
+          title: Keys
+          description: Captured metadata keys, each with its inferred type and most common values.
+      type: object
+      required:
+      - vector_database_id
+      - created_at
+      - keys
+      title: VectorDatabaseMetadataSnapshotResponse
+    DBType:
+      type: string
+      enum:
+      - RAG
+      - explainability
+      title: DBType
+    VectorDatabaseMetadataUpdateResponse:
+      properties:
+        metadata:
+          additionalProperties: true
+          type: object
+          title: Metadata
+          description: The metadata object that was written to all matching chunks.
+      type: object
+      required:
+      - metadata
+      title: VectorDatabaseMetadataUpdateResponse
+    VectorDatabaseFileList:
+      properties:
+        object:
+          type: string
+          title: Object
+          default: list
+        data:
+          items:
+            $ref: '#/components/schemas/VectorDatabaseFileResponse'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: VectorDatabaseFileList
+      description: Response model for a list of vector database files
+    VectorDatabaseChunkListItem:
+      properties:
+        chunk_id:
+          type: string
+          title: Chunk Id
+        file_id:
+          type: string
+          title: File Id
+        text:
+          type: string
+          title: Text
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+        hierarchy:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Hierarchy
+        locations:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/VectorDatabaseMarkdownLocation'
+            type: array
+          - type: 'null'
+          title: Locations
+      type: object
+      required:
+      - chunk_id
+      - file_id
+      - text
+      title: VectorDatabaseChunkListItem
+    VectorDatabaseMetadataUpdateRequest:
+      properties:
+        file_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+            minItems: 1
+          - type: 'null'
+          title: File Ids
+          description: File IDs whose chunks should have their metadata replaced.
+          examples:
+          - - file_789
+            - file_012
+        chunk_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+            minItems: 1
+          - type: 'null'
+          title: Chunk Ids
+          description: Chunk IDs to update metadata on directly.
+          examples:
+          - - chunk_789
+            - chunk_012
+        metadata:
+          additionalProperties: true
+          type: object
+          title: Metadata
+          description: 'Key-value pairs to write onto every targeted chunk. Replaces all existing metadata. Constraints: (1) flat object only — no nested objects or arrays; (2) values must be string, number, boolean, or datetime (null is rejected); (3) maximum 20 fields.'
+          examples:
+          - category: support_doc
+            confidence: medium
+            source: manual_review
+      type: object
+      required:
+      - metadata
+      title: VectorDatabaseMetadataUpdateRequest
+      description: 'Request body for overwriting chunk metadata within a vector database.
+
+
+        This operation is **destructive**: the provided `metadata` object replaces all
+
+        existing metadata on the targeted chunks. Any previous metadata fields not
+
+        included in the new object are permanently removed.
+
+
+        Provide exactly one of `file_ids` or `chunk_ids` to target chunks.'
+    VectorDatabaseDeleteResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        object:
+          type: string
+          const: vector_database
+          title: Object
+        deleted:
+          type: boolean
+          title: Deleted
+      type: object
+      required:
+      - id
+      - object
+      - deleted
+      title: VectorDatabaseDeleteResponse
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization

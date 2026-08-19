@@ -1,0 +1,3409 @@
+openapi: 3.2.0
+info:
+  title: Seekr Internal API
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  termsOfService: http://www.seekr.com/support
+  version: '1.0'
+  description: 'Operations tagged Internal across 3 of this provider''s published API definitions: seekr-agents-openapi.json, seekr-explainability-openapi.json, seekr-llm-training-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Internal
+paths:
+  /v1/internal/runs/latest:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    post:
+      tags:
+      - Internal
+      summary: List Agent Latest Runs Endpoint
+      description: Returns a dictionary of agent_ids with their latest run.
+      operationId: list_agent_latest_runs_endpoint_v1_internal_runs_latest_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                type: string
+              type: array
+              title: Agent Ids
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/LatestRun'
+                type: array
+                title: Response List Agent Latest Runs Endpoint V1 Internal Runs Latest Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/internal/agents:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: List Registered Agents Endpoint
+      description: List all agents currently registered with agents-router.
+      operationId: list_registered_agents_endpoint_v1_internal_agents_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/RegisteredAgent'
+                type: array
+                title: Response List Registered Agents Endpoint V1 Internal Agents Get
+      x-excluded: true
+  /v1/internal/functions/validate-function-ids:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    post:
+      tags:
+      - Internal
+      summary: Validate Function Ids
+      description: Validate that the provided function IDs exist and belong to the team (if provided).
+      operationId: validate_function_ids_v1_internal_functions_validate_function_ids_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidatePythonFunctionIdsRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateFunctionIdsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/internal/functions/by-ids:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    post:
+      tags:
+      - Internal
+      summary: Get Functions By Ids
+      description: Retrieve Python functions by a list of IDs.
+      operationId: get_functions_by_ids_v1_internal_functions_by_ids_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PythonFunctionIdsRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PythonFunctionResponse'
+                type: array
+                title: Response Get Functions By Ids V1 Internal Functions By Ids Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /version:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Version
+      operationId: version_version_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+                title: Response Version Version Get
+      x-excluded: true
+  /v1/explainability/:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Read Root
+      operationId: read_root_v1_explainability__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      x-excluded: true
+  /v1/explainability/status:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Check Status
+      description: "Check the status of the retriever service.\n\nReturns:\n    JSONResponse: The status response containing the status and version information."
+      operationId: check_status_v1_explainability_status_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+      x-excluded: true
+  /v1/explainability/create-index:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    post:
+      tags:
+      - Internal
+      summary: Create Index
+      description: Create index.
+      operationId: create_index_v1_explainability_create_index_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateIndexRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateIndexResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/explainability/populate-index:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    post:
+      tags:
+      - Internal
+      summary: Populate Index
+      description: Populate the index with qa pairs in the parquet files.
+      operationId: populate_index_v1_explainability_populate_index_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PopulateIndexRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PopulateIndexResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/explainability/delete-index:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    post:
+      tags:
+      - Internal
+      summary: Delete Index
+      operationId: delete_index_v1_explainability_delete_index_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteIndexRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteIndexResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/explainability/influential-finetuning-data:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Get Influential Finetuning Data
+      description: "Perform hybrid search of the index for the given query.\n\nParameters:\n- team_id (str): team scope for the request.\n- question (str): question from user.\n- model_id (str): model_id of the finetuned model.\n- system_prompt (str | None): optional system prompt used only when answer must be generated.\n- answer (str | None): answer from the finetuned model to the question; if not provided, the service retrieves\n  an answer from the finetuned model specified by model_id.\n- method (str): Specify the types of the hybrid query. Possible values are:\n        match (default): match query for text/keyword search,\n        mlt: more_like_this query for text/keyword search,\n        ns: neural_sparse query for keyword search,\n        bool: boolean query for text/keyword search,\n- k (int): the number of results to be retrieved (5 by default).\n- alpha (float): hybrid query weighting parameter in [0, 1] (default 0.9).\n- index_version (str): index version identifier carried in the request (default \"v0\").\n- threshold (float): score threshold value carried in the request in [0, 1] (default 0.0).\n- api_key: API key passed via HTTP header. Required when answer should be computed\n  using the finetuned model.\n\nReturns:\n    InfluentialFinetuningDataResponse"
+      operationId: get_influential_finetuning_data_v1_explainability_influential_finetuning_data_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: team_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Team Id
+      - name: question
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Question
+      - name: model_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Model Id
+      - name: system_prompt
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: System Prompt
+      - name: answer
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Answer
+      - name: method
+        in: query
+        required: false
+        schema:
+          type: string
+          default: match
+          title: Method
+      - name: k
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 5
+          title: K
+      - name: alpha
+        in: query
+        required: false
+        schema:
+          type: number
+          maximum: 1
+          minimum: 0
+          default: 0.9
+          title: Alpha
+      - name: index_version
+        in: query
+        required: false
+        schema:
+          type: string
+          default: v0
+          title: Index Version
+      - name: threshold
+        in: query
+        required: false
+        schema:
+          type: number
+          maximum: 1
+          minimum: 0
+          default: 0
+          title: Threshold
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfluentialFinetuningDataResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/explainability/populate-index-job-status:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Populate Index Job Status
+      operationId: populate_index_job_status_v1_explainability_populate_index_job_status_get
+      parameters:
+      - name: team_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Team Id
+      - name: job_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PopulateIndexJobStatusResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v2/flow/internal/agents/{agent_id}/update-status:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    patch:
+      tags:
+      - Internal
+      summary: Update Status
+      description: "An internal-only endpoint (no built-in auth validation) to update the agent's status in the DB, if it exists.\n\nIf the provided status is 'Active', and the Agent's current status is NOT 'Active', the `last_deployed_at` field\nis also updated in the DB to reflect the current date/time.\n\nIf the provided status is changed to 'Failed' from any other status, the Agent yaml is deleted from the git repo,\nand the status is updated to 'Failed' in the DB.\n\nArguments:\n    agent_id: the ID of the agent to update\n    update_request: the AgentUpdateStatusRequest object from the body containing the new status\n\nReturns:\n    An AgentUpdateStatusResponseV2 containing the Agent's ID, old and new status."
+      operationId: update_status_v2_flow_internal_agents__agent_id__update_status_patch
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Agent Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentUpdateStatusRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentUpdateStatusResponseV2'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/alignment/{alignment_job_id}/workflow-phase:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Alignment Workflow Phase
+      description: 'Internal: the live Argo workflow phase for an alignment job.
+
+
+        Not part of the public SDK. Lets the integration suite confirm a cancelled
+
+        job''s workflow actually terminated (the DB `cancelled` write alone doesn''t
+
+        prove the Argo stop landed). ``phase`` is None when the workflow was never
+
+        started or no longer exists in Argo.'
+      operationId: alignment_workflow_phase_v1_flow_alignment__alignment_job_id__workflow_phase_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: alignment_job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Alignment Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowPhaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow_internal/health:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Health
+      operationId: health_v1_flow_internal_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      x-excluded: true
+  /v1/flow/evals/cases:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    post:
+      tags:
+      - Internal
+      summary: Create Case Route
+      operationId: create_case_route_v1_flow_evals_cases_post
+      security:
+      - APIKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateCaseForm'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Case'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+    get:
+      tags:
+      - Internal
+      summary: List Cases Route
+      description: List cases with optional filtering.
+      operationId: list_cases_route_v1_flow_evals_cases_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: min_datetime
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Min Datetime
+      - name: max_datetime
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Max Datetime
+      - name: tags
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: Tags
+      - name: tag_strategy
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/TagStrategy'
+          default: contains
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 20
+          title: Limit
+      - name: order
+        in: query
+        required: false
+        schema:
+          type: string
+          pattern: ^(asc|desc)$
+          default: desc
+          title: Order
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Case'
+                title: Response List Cases Route V1 Flow Evals Cases Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/evals/cases/{case_id}:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Get Case Route
+      description: Get a specific case by ID.
+      operationId: get_case_route_v1_flow_evals_cases__case_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the case to retrieve
+          title: Case Id
+        description: The ID of the case to retrieve
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Case'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+    put:
+      tags:
+      - Internal
+      summary: Update Case Route
+      description: Update a case by ID.
+      operationId: update_case_route_v1_flow_evals_cases__case_id__put
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the case to update
+          title: Case Id
+        description: The ID of the case to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCaseRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Case'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+    delete:
+      tags:
+      - Internal
+      summary: Delete Case Route
+      description: Delete a case by ID.
+      operationId: delete_case_route_v1_flow_evals_cases__case_id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the case to delete
+          title: Case Id
+        description: The ID of the case to delete
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/feedback/upload:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    post:
+      tags:
+      - Internal
+      summary: Upload Feedback Route
+      operationId: upload_feedback_route_v1_flow_feedback_upload_post
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_upload_feedback_route_v1_flow_feedback_upload_post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+      x-excluded: true
+  /v1/flow/feedback/images/{image_id}:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Get Feedback Image Route
+      operationId: get_feedback_image_route_v1_flow_feedback_images__image_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Image Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/feedback/:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    post:
+      tags:
+      - Internal
+      summary: Create Feedback Route
+      operationId: create_feedback_route_v1_flow_feedback__post
+      security:
+      - APIKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFeedbackRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+    get:
+      tags:
+      - Internal
+      summary: List Feedback Route
+      operationId: list_feedback_route_v1_flow_feedback__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: model_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model Id
+      - name: min_datetime
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Min Datetime
+      - name: max_datetime
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Max Datetime
+      - name: tags
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: Tags
+      - name: tag_strategy
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/TagStrategy'
+          default: contains
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 20
+          title: Limit
+      - name: order
+        in: query
+        required: false
+        schema:
+          type: string
+          pattern: ^(asc|desc)$
+          default: desc
+          title: Order
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FeedbackResponse'
+                title: Response List Feedback Route V1 Flow Feedback  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/feedback/{feedback_id}:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Get Feedback Route
+      operationId: get_feedback_route_v1_flow_feedback__feedback_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: feedback_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Feedback Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+    delete:
+      tags:
+      - Internal
+      summary: Delete Feedback Route
+      description: Delete feedback by id.
+      operationId: delete_feedback_route_v1_flow_feedback__feedback_id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: feedback_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Feedback Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+    put:
+      tags:
+      - Internal
+      summary: Update Feedback Route
+      operationId: update_feedback_route_v1_flow_feedback__feedback_id__put
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: feedback_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Feedback Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFeedbackRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/internal/images/{image_id}:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Get Image Route
+      description: Returns the ImageResponse metadata for a given image_id.
+      operationId: get_image_route_v1_flow_internal_images__image_id__get
+      parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Image Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+    delete:
+      tags:
+      - Internal
+      summary: Delete Image Route
+      operationId: delete_image_route_v1_flow_internal_images__image_id__delete
+      parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Image Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/internal/images/{image_id}/content:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Get Image Content Route
+      description: Internal route without auth for proxying image from object storage.
+      operationId: get_image_content_route_v1_flow_internal_images__image_id__content_get
+      parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Image Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/internal/images:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    post:
+      tags:
+      - Internal
+      summary: Create Images Route
+      operationId: create_images_route_v1_flow_internal_images_post
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateImageForm'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ImageResponse'
+                type: array
+                title: Response Create Images Route V1 Flow Internal Images Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/fine-tunes/{fine_tune_id}/workflow-phase:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Fine Tune Workflow Phase
+      description: 'Internal: the live Argo workflow phase for a fine-tune job.
+
+
+        Not part of the public SDK. Lets the integration suite confirm a cancelled
+
+        job''s workflow actually terminated (the DB `cancelled` write alone doesn''t
+
+        prove the Argo stop landed). ``phase`` is None when the workflow was never
+
+        started or no longer exists in Argo.'
+      operationId: fine_tune_workflow_phase_v1_flow_fine_tunes__fine_tune_id__workflow_phase_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: fine_tune_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Fine Tune Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowPhaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/fine-tunes/{fine_tune_id}/demote-model:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Demote Model
+      operationId: demote_model_v1_flow_fine_tunes__fine_tune_id__demote_model_get
+      deprecated: true
+      parameters:
+      - name: fine_tune_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Fine Tune Id
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          title: Authorization
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/fine-tunes/{fine_tune_id}/promote-model:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Promote Model
+      operationId: promote_model_v1_flow_fine_tunes__fine_tune_id__promote_model_get
+      deprecated: true
+      parameters:
+      - name: fine_tune_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Fine Tune Id
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          title: Authorization
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /internal/finetune/{fine_tune_id}/status:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    post:
+      tags:
+      - Internal
+      summary: Training Status Update
+      operationId: training_status_update_internal_finetune__fine_tune_id__status_post
+      parameters:
+      - name: fine_tune_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Fine Tune Id
+      - name: authorization
+        in: header
+        required: false
+        schema:
+          type: string
+          default: ''
+          title: Authorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StatusUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/internal/health:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Get Health Internal
+      description: Adds the commit id to the app version.
+      operationId: get_health_internal_v1_flow_internal_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetHealthResponse'
+      x-excluded: true
+  /v1/flow/pricing/inference/serverless:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    post:
+      tags:
+      - Internal
+      summary: Generate Price Estimate For Serverless Inference
+      description: 'Generates a price estimate for running inference using a base-model in a server-less deployment environment.
+
+        **Note:** We currently only support inference for fine-tuned models in dedicated servers.
+
+
+        ### Key Input Fields:
+
+
+        - **pricing_estimate_request.deployment.model_id**: Used to fetch the model and determine the `model_size`, which influences the pricing multipliers applied in the calculation. Also used in logic in determining whether model deployed is a fine-tuned or base model.
+
+
+        - **pricing_estimate_request.file_ids**: A list of file IDs used to pull files from S3 and parse them for token counts. These token counts will be used as `input_tokens` in the pricing equation, while `output_tokens` will use default values. If no `file_ids` are provided, `input_tokens` will default to predefined values.
+
+
+        **Returns:** A JSON object with the price estimate.'
+      operationId: generate_price_estimate_for_serverless_inference_v1_flow_pricing_inference_serverless_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PricingEstimateServerlessInferenceRequestModel'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PricingEstimateResponseModel'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+      x-excluded: true
+  /v1/flow/pricing/fine-tuning:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    post:
+      tags:
+      - Internal
+      summary: Generate Price Estimate For Finetuning
+      description: "Generates a price estimate for applying a fine-tuning job for a given model.\n\n### Key input fields:\n- **pricing_estimate_request.deployment.model_id**: - used to fetch the model, and determine the model_size which in turn is used for calculating multipliers used in equations\n- **pricing_estimate_request.num_of_epochs**: - number of times training set is passed through model during training.\n    A direct input into the equation calculations\n\n**Returns:** A JSON object with the price estimate."
+      operationId: generate_price_estimate_for_finetuning_v1_flow_pricing_fine_tuning_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PricingEstimateFineTuningRequestModel'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PricingEstimateResponseModel'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+      x-excluded: true
+  /v1/flow/pricing/inference/dedicated:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    post:
+      tags:
+      - Internal
+      summary: Generate Price Estimate For Dedicated Inference
+      description: "Generates a price estimate for running inference using a base or fine-tuned model in a dedicated deployment environment.\nNote: We currently only support GAUDI2 for our hardware but recognize future use of A100, H100, GAUDI3 accelerator types.\nKey input fields:\n- **pricing_estimate_request.estimated_compute_hours**: - hours of total usage of the model. A direct input used in calculation\n    Also has a default if nothing is entered\n- **pricing_estimate_request.deployment.n_instances**: - instances of the hardware resource used. A direct input used in calculations\n- **pricing_estimate_request.deployment.hardware**: - used to calculate pricing multiplier based on the mapping (CPU, GPU, HPU) listed.\n    For the input value `GAUDI2` we actually bypass the mapping and set the multiplier by 1, because it is our default offering."
+      operationId: generate_price_estimate_for_dedicated_inference_v1_flow_pricing_inference_dedicated_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PricingEstimateDedicatedInferenceRequestModel'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PricingEstimateResponseModel'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+      x-excluded: true
+  /v1/flow/internal/deployments/{deployment_id}:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Internal Deployment By Id
+      operationId: internal_deployment_by_id_v1_flow_internal_deployments__deployment_id__get
+      parameters:
+      - name: deployment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Deployment Id
+      - name: team-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/internal/deployments/{deployment_id}/status:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    post:
+      tags:
+      - Internal
+      summary: Update the status of a deployment (Internal)
+      description: Internal endpoint for the Kubernetes event tracker to update the status of a deployment.
+      operationId: update_deployment_status_internal_v1_flow_internal_deployments__deployment_id__status_post
+      parameters:
+      - name: deployment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Deployment Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDeploymentStatusRequest'
+      responses:
+        '200':
+          description: Confirmation message of the status update.
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/internal/models:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Ml Models
+      operationId: ml_models_v1_flow_internal_models_get
+      parameters:
+      - name: model_type
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/MLModelType'
+          - type: 'null'
+          title: Model Type
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMLModelsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/internal/deployments:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Deployments
+      operationId: deployments_v1_flow_internal_deployments_get
+      parameters:
+      - name: team-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDeploymentsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/internal/models/info:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Ml Model By Model Id
+      operationId: ml_model_by_model_id_v1_flow_internal_models_info_get
+      parameters:
+      - name: model_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Model Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMLModelInfoResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/internal/models/hf_revision:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Internal
+      summary: Ml Model Hf Revision By Model Name
+      operationId: ml_model_hf_revision_by_model_name_v1_flow_internal_models_hf_revision_get
+      parameters:
+      - name: model_name
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Model Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMLModelHfRevision'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/internal/explain/populate-index:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    post:
+      tags:
+      - Internal
+      summary: Populate Explainability Index Route
+      description: 'Populate the explainability index with data from a vector database.
+
+        This is an internal endpoint that calls the explainability service.'
+      operationId: populate_explainability_index_route_v1_flow_internal_explain_populate_index_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PopulateIndexRequest_2'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PopulateIndexResponse_2'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+components:
+  schemas:
+    StatusUpdate:
+      properties:
+        status:
+          type: string
+          enum:
+          - RUNNING
+          - COMPLETED
+          - FAILED
+          title: Status
+        checkpoint_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Checkpoint Path
+      type: object
+      required:
+      - status
+      title: StatusUpdate
+    ReasoningEffort:
+      type: string
+      enum:
+      - low
+      - medium
+      - high
+      - speed_optimized
+      - performance_optimized
+      title: ReasoningEffort
+      description: Controls how much reasoning the agent uses when working through a request. Accepts `low`, `medium`, or `high`, where higher levels produce more thorough reasoning. The `speed_optimized` and `performance_optimized` values are only supported for backward compatibility. `speed_optimized` maps to `low`, and `performance_optimized` maps to `high`.
+    RegisteredAgent:
+      properties:
+        id:
+          type: string
+          title: Id
+        address:
+          type: string
+          title: Address
+        port:
+          type: integer
+          title: Port
+        status:
+          $ref: '#/components/schemas/AgentStatus'
+        deployment_generation:
+          type: integer
+          title: Deployment Generation
+        awaiting_initial_readiness:
+          type: boolean
+          title: Awaiting Initial Readiness
+      type: object
+      required:
+      - id
+      - address
+      - port
+      - status
+      - deployment_generation
+      - awaiting_initial_readiness
+      title: RegisteredAgent
+      description: A registered agent currently known by agents-router.
+    CreateImageForm:
+      properties:
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        files:
+          anyOf:
+          - items:
+              type: string
+              contentMediaType: application/octet-stream
+            type: array
+          - type: 'null'
+          title: Files
+      additionalProperties: true
+      type: object
+      required:
+      - user_id
+      title: CreateImageForm
+    CreateIndexResponse:
+      properties:
+        index_name:
+          type: string
+          title: Index Name
+          description: 'The name of the index created. '
+        status:
+          type: string
+          title: Status
+          description: 'Final status. '
+          default: ''
+      type: object
+      required:
+      - index_name
+      title: CreateIndexResponse
+      description: "CreateIndexResponse represents the response model for creating an index.\n\nAttributes:\n     index_name (str): the index name that has been created.\n     status (str): status_code from OpenSearch.indices.create()"
+    AgentAsToolConfig:
+      properties:
+        AGENT_ID:
+          type: string
+          title: Agent Id
+      additionalProperties: false
+      type: object
+      required:
+      - AGENT_ID
+      title: AgentAsToolConfig
+    PopulateIndexRequest:
+      properties:
+        index_name:
+          type: string
+          title: Index Name
+          description: name of the hybrid search index
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+          description: user_id (derived from auth context)
+        team_id:
+          type: string
+          title: Team Id
+          description: team_id (derived from auth context)
+        file_ids:
+          items:
+            type: string
+          type: array
+          title: File Ids
+          description: 'The list of ids of the parquet file in SeekrFlow. '
+        use_sparse_vector:
+          type: boolean
+          title: Use Sparse Vector
+          description: True if sparse_vector field should be populated.
+          default: false
+      type: object
+      required:
+      - index_name
+      - team_id
+      - file_ids
+      title: PopulateIndexRequest
+      description: "PopulateIndexRequest represents the request model for populating an index with the data to the given index.\n\nThis model is used to specify the parquet file containing QA pairs used to fine-tune a model. The file is retrieved\nusing SeekrFlow.\n\nAttributes:\n    index_name (str): name of the index\n    user_id (str): user id\n    team_id (str): team id\n    file_ids (list[str]): The parquet file id in SeekrFlow.\n    use_sparse_vector (bool): True if you want to use sparse vector for keyword search."
+    PopulateIndexResponse:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+          description: 'metaflow job id for populate_index. '
+        status:
+          type: string
+          title: Status
+          description: 'Status code after adding all the QA pairs. '
+      type: object
+      required:
+      - job_id
+      - status
+      title: PopulateIndexResponse
+      description: "PopulateIndexResponse represents the response model for populating an index.\n\nThis model is used to specify the parquet file containing QA pairs used to fine-tune a model. The file is retrieved\nusing SeekrFlow.\n\nAttributes:\n    num_docs (int): the number of docs added to the index.\n     status (str): the fine-tuned model id in SeekrFlow."
+    AgentOutputConfig:
+      properties:
+        frequency:
+          anyOf:
+          - $ref: '#/components/schemas/AgentOutputFrequency'
+          - type: 'null'
+          description: 'When the agent produces a written response: `always`, `automatic` (the agent decides), or `never`.'
+        instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instructions
+          description: Instructions for generating the agent's final response. When set, the top-level `instructions` guide only the agent's reasoning, and these guide the response.
+        model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model Id
+          description: The model used to generate the agent's final response, overriding the top-level `model_id`. Can be a base model or fine-tuned model.
+        temperature:
+          anyOf:
+          - type: number
+            maximum: 2
+            minimum: 0
+          - type: 'null'
+          title: Temperature
+          description: Controls the predictability of the agent's final response. Accepts a value from `0` to `2`. Defaults to `0.6`.
+      type: object
+      title: AgentOutputConfig
+    Deployment:
+      properties:
+        id:
+          type: string
+          title: Id
+        model_type:
+          $ref: '#/components/schemas/DeploymentType'
+        model_id:
+          type: string
+          title: Model Id
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+        memory:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Memory
+        hardware_type:
+          $ref: '#/components/schemas/HardwareType'
+          default: Dedicated
+        total_input_tokens:
+          type: integer
+          title: Total Input Tokens
+        total_output_tokens:
+          type: integer
+          title: Total Output Tokens
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        last_deployed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Deployed At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        processor:
+          $ref: '#/components/schemas/DeploymentProcessor'
+          default: GAUDI2
+        n_instances:
+          type: integer
+          title: N Instances
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        model_name:
+          type: string
+          title: Model Name
+        n_epochs:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: N Epochs
+        batch_size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Batch Size
+        learning_rate:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Learning Rate
+        training_files:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Training Files
+        project_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Project Id
+        project_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Name
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+        finetune_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Finetune Name
+        finetune_created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Finetune Created At
+        active_duration:
+          type: integer
+          minimum: 0
+          title: Active Duration
+          default: 0
+        is_lora_adapter:
+          type: boolean
+          title: Is Lora Adapter
+          default: false
+      type: object
+      required:
+      - id
+      - model_type
+      - model_id
+      - name
+      - description
+      - status
+      - total_input_tokens
+      - total_output_tokens
+      - created_at
+      - updated_at
+      - n_instances
+      - user_id
+      - team_id
+      - model_name
+      title: Deployment
+    PopulateIndexRequest_2:
+      properties:
+        index_name:
+          type: string
+          title: Index Name
+          description: Name of the vector database to use for population
+        user_id:
+          type: string
+          title: User Id
+          description: User ID
+        team_id:
+          type: string
+          title: Team Id
+          description: Team ID
+        file_ids:
+          items:
+            type: string
+          type: array
+          title: File Ids
+          description: List of training file IDs to create the index with
+      type: object
+      required:
+      - index_name
+      - user_id
+      - team_id
+      - file_ids
+      title: PopulateIndexRequest
+      description: Request model for populating explainability index
+    PricingEstimateResponseModel:
+      properties:
+        status:
+          type: integer
+          title: Status
+        pricing_estimate:
+          type: number
+          title: Pricing Estimate
+        billing_type:
+          $ref: '#/components/schemas/BillingType'
+        resource_type:
+          $ref: '#/components/schemas/HardwareType'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        deployment:
+          $ref: '#/components/schemas/NewDeploymentRequest'
+        description:
+          type: string
+          title: Description
+        tokens_used:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Tokens Used
+        calculation_parameters:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/CalculationParameter'
+            type: array
+          - type: 'null'
+          title: Calculation Parameters
+      type: object
+      required:
+      - status
+      - pricing_estimate
+      - billing_type
+      - resource_type
+      - created_at
+      - deployment
+      - description
+      title: PricingEstimateResponseModel
+    InfluenceLevel:
+      type: string
+      enum:
+      - high
+      - medium
+      - low
+      - irrelevant
+      title: InfluenceLevel
+    ImageResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        filename:
+          type: string
+          title: Filename
+        uploaded_at:
+          type: string
+          format: date-time
+          title: Uploaded At
+        bytes:
+          type: integer
+          title: Bytes
+        file_hash:
+          type: string
+          title: File Hash
+        algorithm:
+          type: string
+          title: Algorithm
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - filename
+      - uploaded_at
+      - bytes
+      - file_hash
+      - algorithm
+      title: ImageResponse
+    Case:
+      properties:
+        id:
+          type: string
+          title: Id
+        user_id:
+          type: string
+          title: User Id
+        question:
+          type: string
+          title: Question
+        ground_truth:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ground Truth
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        case_metadata:
+          additionalProperties: true
+          type: object
+          title: Case Metadata
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+        file_ids:
+          items:
+            type: string
+          type: array
+          title: File Ids
+      type: object
+      required:
+      - id
+      - user_id
+      - question
+      - created_at
+      - updated_at
+      title: Case
+    DeleteIndexRequest:
+      properties:
+        team_id:
+          type: string
+          title: Team Id
+          description: Team id (derived from auth context).
+        model_id:
+          type: string
+          title: Model Id
+          description: 'The deployment id of the fine-tuned model in SeekrFlow. '
+      type: object
+      required:
+      - team_id
+      - model_id
+      title: DeleteIndexRequest
+      description: "DeleteIndexRequest represents the request model for deleting an index.\n\nAttributes:\n     team_id (str): team id\n     model_id (str): the fine-tuned model id in SeekrFlow."
+    PricingEstimateFineTuningRequestModel:
+      properties:
+        deployment:
+          $ref: '#/components/schemas/NewDeploymentRequest'
+        num_of_epochs:
+          type: integer
+          maximum: 2000
+          minimum: 1
+          title: Num Of Epochs
+        file_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: File Ids
+      type: object
+      required:
+      - deployment
+      - num_of_epochs
+      title: PricingEstimateFineTuningRequestModel
+    llm_training__agents__tools__standalone__schemas__RunPython:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        type:
+          type: string
+          const: run_python
+          title: Type
+          default: run_python
+        config:
+          $ref: '#/components/schemas/RunPythonConfig'
+          default: {}
+      type: object
+      required:
+      - id
+      - name
+      title: RunPython
+      description: Configuration for the run Python tool, which lets the agent execute developer-defined Python functions.
+    MLModelType:
+      type: string
+      enum:
+      - Base
+      - Instruct
+      - Embedding
+      title: MLModelType
+    MCPConnectorToolResponseConfig:
+      properties:
+        URL:
+          type: string
+          minLength: 1
+          title: Url
+        TRANSPORT:
+          type: string
+          enum:
+          - sse
+          - streamable-http
+          title: Transport
+          default: streamable-http
+        AUTHORIZATION_URL:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Authorization Url
+      additionalProperties: false
+      type: object
+      required:
+      - URL
+      title: MCPConnectorToolResponseConfig
+    QuestionAnswerPair:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier for the QA pair
+        file_id:
+          type: string
+          title: File Id
+          description: ID of the source file
+        influence_level:
+          $ref: '#/components/schemas/InfluenceLevel'
+          description: Level of influence this QA pair has (high, medium, low, irrelevant)
+        messages:
+          type: string
+          title: Messages
+          description: The question-answer content
+      type: object
+      required:
+      - id
+      - file_id
+      - influence_level
+      - messages
+      title: QuestionAnswerPair
+    AgentOutputFrequency:
+      type: string
+      enum:
+      - always
+      - never
+      - automatic
+      title: AgentOutputFrequency
+    CreateIndexRequest:
+      properties:
+        index_name:
+          type: string
+          title: Index Name
+          description: 'The name of the index to be used for a fine-tuned model in SeekrFlow. '
+        use_sparse_vector:
+          type: boolean
+          title: Use Sparse Vector
+          description: True if you want to use sparse_vector for keyword search.
+          default: false
+      type: object
+      required:
+      - index_name
+      title: CreateIndexRequest
+      description: "CreateIndexRequest represents the request model for creating an index.\n\nAttributes:\n     index_name (str): the index name for a fine-tuned model in SeekrFlow.\n     use_sparse_vector (bool): True if the index should have sparse_vector field (required when ns method is used for search)."
+    StatusResponse:
+      properties:
+        status:
+          type: string
+          title: Status
+        version:
+          type: string
+          title: Version
+      type: object
+      required:
+      - status
+      - version
+      title: StatusResponse
+    GetMLModelsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/MLModel'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: GetMLModelsResponse
+    PricingEstimateDedicatedInferenceRequestModel:
+      properties:
+        deployment:
+          $ref: '#/components/schemas/NewDeploymentRequest'
+        estimated_compute_hours:
+          anyOf:
+          - type: integer
+            maximum: 8760
+            minimum: 1
+          - type: 'null'
+          title: Estimated Compute Hours
+      type: object
+      required:
+      - deployment
+      - estimated_compute_hours
+      title: PricingEstimateDedicatedInferenceRequestModel
+    UpdateCaseRequest:
+      properties:
+        question:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Question
+        ground_truth:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ground Truth
+        case_metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Case Metadata
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+      type: object
+      title: UpdateCaseRequest
+    PythonFunctionIdsRequest:
+      properties:
+        function_ids:
+          items:
+            type: string
+          type: array
+          title: Function Ids
+      type: object
+      required:
+      - function_ids
+      title: PythonFunctionIdsRequest
+      description: Request model for retrieving Python functions by a list of IDs.
+    GetHealthResponse:
+      properties:
+        deployment_pending_average:
+          type: integer
+          title: Deployment Pending Average
+        deployment_pending_maximum:
+          type: integer
+          title: Deployment Pending Maximum
+        deployment_pending_count:
+          type: integer
+          title: Deployment Pending Count
+        deployment_pending_by_model_name:
+          additionalProperties:
+            $ref: '#/components/schemas/SinceUpdateMetrics'
+          type: object
+          title: Deployment Pending By Model Name
+        version:
+          type: string
+          title: Version
+        agent_pending_average:
+          type: integer
+          title: Agent Pending Average
+        agent_pending_maximum:
+          type: integer
+          title: Agent Pending Maximum
+        agent_pending_count:
+          type: integer
+          title: Agent Pending Count
+        agent_failed_count:
+          type: integer
+          title: Agent Failed Count
+        finetune_queued_average:
+          type: integer
+          title: Finetune Queued Average
+        finetune_queued_maximum:
+          type: integer
+          title: Finetune Queued Maximum
+        finetune_queued_count:
+          type: integer
+          title: Finetune Queued Count
+        finetune_queued_by_model_name:
+          additionalProperties:
+            $ref: '#/components/schemas/SinceUpdateMetrics'
+          type: object
+          title: Finetune Queued By Model Name
+        alignment_queued_average:
+          type: integer
+          title: Alignment Queued Average
+        alignment_queued_maximum:
+          type: integer
+          title: Alignment Queued Maximum
+        alignment_queued_count:
+          type: integer
+          title: Alignment Queued Count
+        environment_management_on:
+          type: string
+          title: Environment Management On
+      type: object
+      required:
+      - deployment_pending_average
+      - deployment_pending_maximum
+      - deployment_pending_count
+      - deployment_pending_by_model_name
+      - version
+      - agent_pending_average
+      - agent_pending_maximum
+      - agent_pending_count
+      - agent_failed_count
+      - finetune_queued_average
+      - finetune_queued_maximum
+      - finetune_queued_count
+      - finetune_queued_by_model_name
+      - alignment_queued_average
+      - alignment_queued_maximum
+      - alignment_queued_count
+      - environment_management_on
+      title: GetHealthResponse
+    LatestRun:
+      properties:
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        agent_id:
+          type: string
+          title: Agent Id
+        last_run_created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Run Created At
+      type: object
+      required:
+      - run_id
+      - agent_id
+      - last_run_created_at
+      title: LatestRun
+      description: A minimal Run model to be used for determining the latest run of an agent.
+    HardwareType:
+      type: string
+      enum:
+      - Serverless
+      - Dedicated
+      title: HardwareType
+    PopulateIndexResponse_2:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+          description: Job ID for the index population task
+        status:
+          type: string
+          title: Status
+          description: Status of the index population task
+      type: object
+      required:
+      - job_id
+      - status
+      title: PopulateIndexResponse
+      description: Response model for populate index operation
+    MLModel:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          type: string
+          maxLength: 100
+          minLength: 5
+          title: Name
+        source:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Source
+        description:
+          type: string
+          maxLength: 1000
+          minLength: 5
+          title: Description
+        size:
+          type: integer
+          title: Size
+        logo:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Logo
+        category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Category
+        model_type:
+          $ref: '#/components/schemas/MLModelType'
+        inference_available:
+          type: boolean
+          title: Inference Available
+        training_available:
+          type: boolean
+          title: Training Available
+        deployment_available:
+          type: boolean
+          title: Deployment Available
+        supports_lora:
+          type: boolean
+          title: Supports Lora
+        max_lora_rank:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0
+          - type: 'null'
+          title: Max Lora Rank
+        vision_model:
+          type: boolean
+          title: Vision Model
+        hf_revision:
+          anyOf:
+          - type: string
+            maxLength: 128
+            minLength: 1
+          - type: 'null'
+          title: Hf Revision
+        internal_only:
+          type: boolean
+          title: Internal Only
+      type: object
+      required:
+      - id
+      - name
+      - source
+      - description
+      - size
+      - model_type
+      - inference_available
+      - training_available
+      - deployment_available
+      - supports_lora
+      - vision_model
+      - internal_only
+      title: MLModel
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    WorkflowPhaseResponse:
+      properties:
+        phase:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phase
+      additionalProperties: true
+      type: object
+      title: WorkflowPhaseResponse
+      description: 'Internal: the Argo workflow phase backing a job.
+
+
+        ``phase`` is the raw Argo phase (e.g. Running, Succeeded, Failed, Error) or
+
+        ``None`` when the workflow no longer exists / was never started. Not part of
+
+        the public SDK — used to verify a cancelled job''s workflow actually
+
+        terminated.'
+    DeploymentStatus:
+      type: string
+      enum:
+      - Inactive
+      - Pending
+      - Active
+      - Failed
+      - Started
+      - Success
+      title: DeploymentStatus
+    llm_training__agents__tools__standalone__schemas__AgentAsTool:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        type:
+          type: string
+          const: agent_as_tool
+          title: Type
+          default: agent_as_tool
+        config:
+          $ref: '#/components/schemas/AgentAsToolConfig'
+      type: object
+      required:
+      - id
+      - name
+      - config
+      title: AgentAsTool
+      description: Configuration for an agent-as-tool, which delegates subtasks to another agent and returns the result to the supervisor.
+    ValidatePythonFunctionIdsRequest:
+      properties:
+        function_ids:
+          items:
+            type: string
+          type: array
+          title: Function Ids
+        team_id:
+          type: string
+          title: Team Id
+      type: object
+      required:
+      - function_ids
+      - team_id
+      title: ValidatePythonFunctionIdsRequest
+      description: Request model for validating a list of Python function IDs for a team.
+    CalculationParameter:
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        value:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Value
+      type: object
+      required:
+      - name
+      - description
+      title: CalculationParameter
+    AgentStatus_2:
+      type: string
+      enum:
+      - Inactive
+      - Pending
+      - Active
+      - Updating
+      - Failed
+      title: AgentStatus
+    UpdateDeploymentStatusRequest:
+      properties:
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+        last_deployed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Deployed At
+      type: object
+      required:
+      - status
+      title: UpdateDeploymentStatusRequest
+    llm_training__agents__tools__standalone__schemas__MCPConnectorTool:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        type:
+          type: string
+          const: mcp_connector
+          title: Type
+          default: mcp_connector
+        config:
+          $ref: '#/components/schemas/MCPConnectorToolResponseConfig'
+      type: object
+      required:
+      - id
+      - name
+      - config
+      title: MCPConnectorTool
+      description: Configuration for the MCP connector tool, which connects the agent to external MCP providers through a secure gateway with OAuth-based authentication.
+    llm_training__agents__tools__standalone__schemas__WebSearch:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        type:
+          type: string
+          const: web_search
+          title: Type
+          default: web_search
+      type: object
+      required:
+      - id
+      - name
+      title: WebSearch
+      description: 'Configuration for the web search tool: real-time information retrieval from web sources.'
+    CreateFeedbackRequest:
+      properties:
+        model_id:
+          type: string
+          title: Model Id
+          description: The name of a model (TinyLlama/TinyLlama-1.1B-Chat-v1.0) deployment id
+        feedback:
+          additionalProperties: true
+          type: object
+          title: Feedback
+          description: Json object
+        version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+          description: The version of feedback data
+          default: ''
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+      type: object
+      required:
+      - model_id
+      - feedback
+      title: CreateFeedbackRequest
+    PricingEstimateServerlessInferenceRequestModel:
+      properties:
+        deployment:
+          $ref: '#/components/schemas/NewDeploymentRequest'
+        file_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: File Ids
+      type: object
+      required:
+      - deployment
+      title: PricingEstimateServerlessInferenceRequestModel
+    RunPythonConfig:
+      properties:
+        FUNCTION_IDS:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Function Ids
+      additionalProperties: false
+      type: object
+      title: RunPythonConfig
+    GetMLModelHfRevision:
+      properties:
+        name:
+          type: string
+          title: Name
+        hf_revision:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hf Revision
+      type: object
+      required:
+      - name
+      - hf_revision
+      title: GetMLModelHfRevision
+    ValidateFunctionIdsResponse:
+      properties:
+        valid:
+          type: boolean
+          title: Valid
+        missing:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Missing
+      type: object
+      required:
+      - valid
+      title: ValidateFunctionIdsResponse
+      description: Response model for function ID validation results.
+    DeploymentProcessor:
+      type: string
+      enum:
+      - GAUDI2
+      - GAUDI3
+      - A100
+      - A10
+      - AMD
+      - H100
+      - MI300X
+      title: DeploymentProcessor
+    DeploymentType:
+      type: string
+      enum:
+      - Fine-tuned Run
+      - Base Model
+      title: DeploymentType
+    AgentSchemaV2:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        instructions:
+          type: string
+          title: Instructions
+        status:
+          $ref: '#/components/schemas/AgentStatus_2'
+        model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model Id
+        planner_model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Planner Model Id
+        tool_model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tool Model Id
+        output:
+          anyOf:
+          - $ref: '#/components/schemas/AgentOutputConfig'
+          - type: 'null'
+        temperature:
+          anyOf:
+          - type: number
+            maximum: 2
+            minimum: 0
+          - type: 'null'
+          title: Temperature
+        reasoning_effort:
+          $ref: '#/components/schemas/ReasoningEffort'
+        planner_temperature:
+          anyOf:
+          - type: number
+            maximum: 2
+            minimum: 0
+          - type: 'null'
+          title: Planner Temperature
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        tools:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__FileSearch'
+            - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__RunPython'
+            - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__WebSearch'
+            - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__AgentAsTool'
+            - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__MCPConnectorTool'
+            discriminator:
+              propertyName: type
+              mapping:
+                agent_as_tool: '#/components/schemas/llm_training__agents__tools__standalone__schemas__AgentAsTool'
+                file_search: '#/components/schemas/llm_training__agents__tools__standalone__schemas__FileSearch'
+                mcp_connector: '#/components/schemas/llm_training__agents__tools__standalone__schemas__MCPConnectorTool'
+                run_python: '#/components/schemas/llm_training__agents__tools__standalone__schemas__RunPython'
+                web_search: '#/components/schemas/llm_training__agents__tools__standalone__schemas__WebSearch'
+          type: array
+          title: Tools
+          description: 'The tools available to the agent. Each item configures one tool and must match one of the supported tool types: file search, run Python, web search, agent-as-tool, or MCP connector.'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        last_deployed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Deployed At
+        active_duration:
+          type: integer
+          minimum: 0
+          title: Active Duration
+          default: 0
+      type: object
+      required:
+      - id
+      - name
+      - instructions
+      - status
+      - reasoning_effort
+      - user_id
+      - team_id
+      - created_at
+      - updated_at
+      title: AgentSchemaV2
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    FileSearchConfig:
+      properties:
+        FILE_SEARCH_INDEX:
+          type: string
+          minLength: 1
+          title: File Search Index
+        EMBEDDING_MODEL:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Embedding Model
+        TOP_K:
+          type: integer
+          maximum: 100
+          minimum: 1
+          title: Top K
+          description: Top K must be >= 1 and <= 100
+          default: 10
+        SCORE_THRESHOLD:
+          type: number
+          exclusiveMaximum: 1
+          minimum: 0
+          title: Score Threshold
+          description: Score must be ≥ 0.0 and < 1.0
+          default: 0
+      additionalProperties: false
+      type: object
+      required:
+      - FILE_SEARCH_INDEX
+      title: FileSearchConfig
+    AgentStatus:
+      type: string
+      enum:
+      - Inactive
+      - Pending
+      - Active
+      - Failed
+      title: AgentStatus
+      description: Available statuses for an agent.
+    AgentUpdateStatusRequest:
+      properties:
+        new_status:
+          $ref: '#/components/schemas/AgentStatus_2'
+      additionalProperties: false
+      type: object
+      required:
+      - new_status
+      title: AgentUpdateStatusRequest
+    AgentUpdateStatusResponseV2:
+      properties:
+        id:
+          type: string
+          title: Id
+        old_status:
+          $ref: '#/components/schemas/AgentStatus_2'
+        new_status:
+          $ref: '#/components/schemas/AgentStatus_2'
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        agent:
+          $ref: '#/components/schemas/AgentSchemaV2'
+      type: object
+      required:
+      - id
+      - old_status
+      - new_status
+      - user_id
+      - team_id
+      - agent
+      title: AgentUpdateStatusResponseV2
+    llm_training__agents__tools__standalone__schemas__FileSearch:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        type:
+          type: string
+          const: file_search
+          title: Type
+          default: file_search
+        config:
+          $ref: '#/components/schemas/FileSearchConfig'
+      type: object
+      required:
+      - id
+      - name
+      - config
+      title: FileSearch
+      description: 'Configuration for the file search tool: semantic search and retrieval across the agent''s vector databases.'
+    DeleteIndexResponse:
+      properties:
+        index_name:
+          type: string
+          title: Index Name
+          description: 'The name of the index created. '
+        status:
+          type: string
+          title: Status
+          description: 'Final status. '
+          default: ''
+      type: object
+      required:
+      - index_name
+      title: DeleteIndexResponse
+      description: "DeleteIndexResponse represents the response model for deleting an index.\n\nAttributes:\n     index_name (str): the index name that has been deleted.\n     status (str): response from OpenSearch.indices.delete()"
+    GetMLModelInfoResponse:
+      properties:
+        name:
+          type: string
+          title: Name
+        size:
+          type: integer
+          title: Size
+        model_type:
+          anyOf:
+          - $ref: '#/components/schemas/MLModelType'
+          - type: 'null'
+      type: object
+      required:
+      - name
+      - size
+      - model_type
+      title: GetMLModelInfoResponse
+    TagStrategy:
+      type: string
+      enum:
+      - contains
+      - overlap
+      title: TagStrategy
+    BillingType:
+      type: string
+      enum:
+      - Fine-Tuning
+      - Training
+      - Inference
+      title: BillingType
+    NewDeploymentRequest:
+      properties:
+        model_type:
+          $ref: '#/components/schemas/DeploymentType'
+        model_id:
+          type: string
+          title: Model Id
+        name:
+          type: string
+          maxLength: 100
+          minLength: 5
+          title: Name
+        description:
+          type: string
+          maxLength: 1000
+          minLength: 5
+          title: Description
+        n_instances:
+          type: integer
+          maximum: 50
+          minimum: 1
+          title: N Instances
+        hardware:
+          anyOf:
+          - $ref: '#/components/schemas/AcceleratorType'
+          - type: 'null'
+      type: object
+      required:
+      - model_type
+      - model_id
+      - name
+      - description
+      - n_instances
+      title: NewDeploymentRequest
+    FeedbackResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        user_id:
+          type: string
+          title: User Id
+        model_id:
+          type: string
+          title: Model Id
+        feedback:
+          additionalProperties: true
+          type: object
+          title: Feedback
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+        file_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: File Ids
+      type: object
+      required:
+      - id
+      - user_id
+      - model_id
+      - feedback
+      - timestamp
+      - updated_at
+      title: FeedbackResponse
+    GetDeploymentsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Deployment'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: GetDeploymentsResponse
+    CreateCaseForm:
+      properties:
+        question:
+          type: string
+          title: Question
+        ground_truth:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ground Truth
+        case_metadata:
+          additionalProperties: true
+          type: object
+          title: Case Metadata
+          default: {}
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+        files:
+          anyOf:
+          - items:
+              type: string
+              contentMediaType: application/octet-stream
+            type: array
+          - type: 'null'
+          title: Files
+      type: object
+      required:
+      - question
+      title: CreateCaseForm
+    AcceleratorType:
+      type: string
+      enum:
+      - GAUDI2
+      - GAUDI3
+      - A100
+      - A10
+      - H100
+      - MI300X
+      title: AcceleratorType
+    PythonFunctionResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        version:
+          type: integer
+          title: Version
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        active:
+          type: boolean
+          title: Active
+        code:
+          type: string
+          title: Code
+        user_id:
+          type: string
+          title: User Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - id
+      - version
+      - name
+      - description
+      - active
+      - code
+      - user_id
+      - created_at
+      - updated_at
+      title: PythonFunctionResponse
+      description: Response model for a Python function, including code and user info.
+    Body_upload_feedback_route_v1_flow_feedback_upload_post:
+      properties:
+        files:
+          items:
+            type: string
+            contentMediaType: application/octet-stream
+          type: array
+          title: Files
+        model_id:
+          type: string
+          title: Model Id
+        version:
+          type: string
+          title: Version
+        feedback:
+          type: string
+          title: Feedback
+          description: Stringified json object for feedback data
+        tags:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tags
+      type: object
+      required:
+      - model_id
+      - version
+      - feedback
+      title: Body_upload_feedback_route_v1_flow_feedback_upload_post
+    UpdateFeedbackRequest:
+      properties:
+        model_id:
+          type: string
+          title: Model Id
+          description: The name of a model (TinyLlama/TinyLlama-1.1B-Chat-v1.0) deployment id
+        feedback:
+          additionalProperties: true
+          type: object
+          title: Feedback
+          description: Json object. If images are included, they must be base64 encoded.
+        version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+          description: The version of feedback data
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+          description: List of tags
+      type: object
+      required:
+      - model_id
+      - feedback
+      title: UpdateFeedbackRequest
+    PopulateIndexJobStatusResponse:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+          description: populate index job id
+        status:
+          type: string
+          title: Status
+          description: The status of the Populate Index Job.
+      type: object
+      required:
+      - job_id
+      - status
+      title: PopulateIndexJobStatusResponse
+    InfluentialFinetuningDataResponse:
+      properties:
+        answer:
+          type: string
+          title: Answer
+          description: The answer from the model or provided by the user
+        version:
+          type: string
+          title: Version
+          description: Version of the index used
+        results:
+          items:
+            $ref: '#/components/schemas/QuestionAnswerPair'
+          type: array
+          title: Results
+          description: List of influential QA pairs
+      type: object
+      required:
+      - answer
+      - version
+      - results
+      title: InfluentialFinetuningDataResponse
+    SinceUpdateMetrics:
+      properties:
+        average:
+          type: integer
+          title: Average
+        maximum:
+          type: integer
+          title: Maximum
+        count:
+          type: integer
+          title: Count
+      type: object
+      required:
+      - average
+      - maximum
+      - count
+      title: SinceUpdateMetrics
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization
+    HTTPBearer:
+      type: http
+      scheme: bearer
+x-refined-from:
+- seekr-agents-openapi.json
+- seekr-explainability-openapi.json
+- seekr-llm-training-openapi.json

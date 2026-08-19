@@ -1,0 +1,1171 @@
+openapi: 3.2.0
+info:
+  title: SeekrFlow Data jobs API
+  description: SeekrFlow API Documentation
+  termsOfService: http://www.seekr.com/support
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  version: 5.108.1
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Data jobs
+paths:
+  /v1/flow/data-jobs/gen_system_prompt:
+    post:
+      tags:
+      - Data jobs
+      summary: Generate System Prompt
+      description: 'Generate a system prompt based on user instructions and optional document summary.
+
+        This endpoint is independent of a specific data job ID.'
+      operationId: generate_system_prompt_v1_flow_data_jobs_gen_system_prompt_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateSystemPromptRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Generate System Prompt V1 Flow Data Jobs Gen System Prompt Post
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/data-jobs:
+    post:
+      tags:
+      - Data jobs
+      summary: Submit Data Job
+      operationId: submit_data_job_v1_flow_data_jobs_post
+      security:
+      - APIKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataJobCreateRequest'
+      responses:
+        '201':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataJobResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Data jobs
+      summary: Get Data Jobs
+      operationId: get_data_jobs_v1_flow_data_jobs_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: job_type
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/DataJobType'
+          - type: 'null'
+          title: Job Type
+      - name: sort_by
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortableField'
+          default: created_at
+      - name: sort_order
+        in: query
+        required: false
+        schema:
+          type: string
+          pattern: ^(asc|desc)$
+          default: desc
+          title: Sort Order
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 25
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataJobListResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/data-jobs/{data_job_id}:
+    get:
+      tags:
+      - Data jobs
+      summary: Get Data Job
+      operationId: get_data_job_v1_flow_data_jobs__data_job_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: data_job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Data Job Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataJobDetailResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Data jobs
+      summary: Patch Data Job
+      operationId: patch_data_job_v1_flow_data_jobs__data_job_id__patch
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: data_job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Data Job Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataJobUpdateRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataJobDetailResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Data jobs
+      summary: Delete Data Job
+      operationId: delete_data_job_v1_flow_data_jobs__data_job_id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: data_job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Data Job Id
+      responses:
+        '204':
+          description: Success, no content returned
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/data-jobs/{data_job_id}/add-files:
+    post:
+      tags:
+      - Data jobs
+      summary: Add Files To Data Job
+      operationId: add_files_to_data_job_v1_flow_data_jobs__data_job_id__add_files_post
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: data_job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Data Job Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataJobAddFileRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataJobDetailResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/data-jobs/{data_job_id}/remove-files:
+    post:
+      tags:
+      - Data jobs
+      summary: Remove Files From Data Job
+      operationId: remove_files_from_data_job_v1_flow_data_jobs__data_job_id__remove_files_post
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: data_job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Data Job Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataJobRemoveFilesRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataJobDetailResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/data-jobs/{data_job_id}/start:
+    post:
+      tags:
+      - Data jobs
+      summary: Start Data Job Alignment
+      operationId: start_data_job_alignment_v1_flow_data_jobs__data_job_id__start_post
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: data_job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Data Job Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataJobDetailResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/data-jobs/{data_job_id}/cancel:
+    post:
+      tags:
+      - Data jobs
+      summary: Cancel Data Job
+      description: Cancel the alignment job associated with a data job.
+      operationId: cancel_data_job_v1_flow_data_jobs__data_job_id__cancel_post
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: data_job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Data Job Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataJobDetailResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/data-jobs/{data_job_id}/clone:
+    post:
+      tags:
+      - Data jobs
+      summary: Clone Data Job
+      description: Create a new, editable data job pre-populated from an existing one.
+      operationId: clone_data_job_v1_flow_data_jobs__data_job_id__clone_post
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: data_job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Data Job Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataJobCloneRequest'
+      responses:
+        '201':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataJobDetailResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    DataJobCloneRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+            maxLength: 255
+            minLength: 1
+          - type: 'null'
+          title: Name
+      type: object
+      title: DataJobCloneRequest
+    DataJobResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        user_id:
+          type: string
+          title: User Id
+        name:
+          type: string
+          title: Name
+        job_type:
+          type: string
+          title: Job Type
+        alignment_job_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Alignment Job Id
+        origin_data_job_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Origin Data Job Id
+        deleted:
+          type: boolean
+          title: Deleted
+          default: false
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/DataJobStatus'
+          - $ref: '#/components/schemas/AlignmentJobStatus'
+          title: Status
+        status_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status Message
+        system_prompt:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: System Prompt
+        system_prompt_updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: System Prompt Updated At
+        instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instructions
+        instructions_updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Instructions Updated At
+        resolved_instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Resolved Instructions
+        vector_database_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Vector Database Id
+      type: object
+      required:
+      - id
+      - user_id
+      - name
+      - job_type
+      - alignment_job_id
+      - created_at
+      - updated_at
+      - status
+      title: DataJobResponse
+      description: Lightweight response for list view performance.
+    DataJobFile:
+      properties:
+        file_id:
+          type: string
+          title: File Id
+          description: Alignment file identifier
+        record_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Record Id
+          description: Ingestion job file record identifier (if any)
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: Human readable file name
+        type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Type
+          description: Detected file type
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: Creation timestamp of the underlying file
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+          description: Processing status for ingestion records
+        suggested_fix:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Suggested Fix
+          description: Suggested fix when ingestion failed
+        bytes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Bytes
+          description: File size in bytes
+      type: object
+      required:
+      - file_id
+      title: DataJobFile
+    DataJobListResponse:
+      properties:
+        object:
+          type: string
+          const: list
+          title: Object
+          default: list
+        data:
+          items:
+            $ref: '#/components/schemas/DataJobResponse'
+          type: array
+          title: Data
+      type: object
+      title: DataJobListResponse
+    FilePurpose:
+      type: string
+      enum:
+      - reinforcement-fine-tune
+      - fine-tune
+      - preference-fine-tune
+      - pre-train
+      - alignment
+      title: FilePurpose
+    DataJobCreateRequest:
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Name
+        job_type:
+          $ref: '#/components/schemas/DataJobType'
+        system_prompt:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          title: System Prompt
+          description: System prompt included with every conversation in the generated dataset. It becomes part of the training data the fine-tuned model learns from, unlike `instructions`, which only shapes how the dataset is generated. If omitted, one is generated for you from `instructions` and the source documents.
+        instructions:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          title: Instructions
+          description: Natural-language description of the task the generated dataset should support. Alignment uses it to shape the examples it produces, such as the topics and the kinds of questions a fine-tuned model should be able to handle.
+        vector_database_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Vector Database Id
+      type: object
+      required:
+      - name
+      - job_type
+      title: DataJobCreateRequest
+    SortableField:
+      type: string
+      enum:
+      - name
+      - created_at
+      - job_type
+      title: SortableField
+      description: Valid fields for sorting data jobs.
+    DataJobDetailResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        user_id:
+          type: string
+          title: User Id
+        name:
+          type: string
+          title: Name
+        job_type:
+          type: string
+          title: Job Type
+        alignment_job_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Alignment Job Id
+        origin_data_job_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Origin Data Job Id
+        deleted:
+          type: boolean
+          title: Deleted
+          default: false
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/DataJobStatus'
+          - $ref: '#/components/schemas/AlignmentJobStatus'
+          title: Status
+        status_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status Message
+        system_prompt:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: System Prompt
+        system_prompt_updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: System Prompt Updated At
+        instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instructions
+        instructions_updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Instructions Updated At
+        resolved_instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Resolved Instructions
+        vector_database_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Vector Database Id
+        additional_alignment_file_ids:
+          items:
+            type: string
+          type: array
+          title: Additional Alignment File Ids
+        ingestion_jobs:
+          items:
+            $ref: '#/components/schemas/IngestionJobDetail'
+          type: array
+          title: Ingestion Jobs
+        alignment_job:
+          anyOf:
+          - $ref: '#/components/schemas/AlignmentResponse'
+          - type: 'null'
+        files:
+          items:
+            $ref: '#/components/schemas/DataJobFile'
+          type: array
+          title: Files
+        fine_tuning_job_ids:
+          items:
+            type: string
+          type: array
+          title: Fine Tuning Job Ids
+        timeline:
+          items:
+            $ref: '#/components/schemas/TimelineEvent'
+          type: array
+          title: Timeline
+      type: object
+      required:
+      - id
+      - user_id
+      - name
+      - job_type
+      - alignment_job_id
+      - created_at
+      - updated_at
+      - status
+      title: DataJobDetailResponse
+      description: Extends DataJobResponse Full detail payload for the per-job view.
+    GenerateSystemPromptRequest:
+      properties:
+        instructions:
+          type: string
+          title: Instructions
+          description: Natural-language description of the task the generated dataset should support. Used to generate a system prompt for that dataset.
+        document_summary:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Document Summary
+          description: Summary of the source documents, incorporated into the generated system prompt so it reflects their content. If omitted, the system prompt is generated from `instructions` alone.
+      type: object
+      required:
+      - instructions
+      title: GenerateSystemPromptRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    DataJobType:
+      type: string
+      enum:
+      - principle_files
+      - context_grounded_files
+      - context_grounded_vector_db
+      title: DataJobType
+      description: Valid job types for data jobs.
+    IngestionJobDetail:
+      properties:
+        id:
+          type: string
+          title: Id
+        status:
+          $ref: '#/components/schemas/IngestionJobStatus'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        file_ids:
+          items:
+            type: string
+          type: array
+          title: File Ids
+        records:
+          items:
+            $ref: '#/components/schemas/IngestionFileRecord'
+          type: array
+          title: Records
+      type: object
+      required:
+      - id
+      - status
+      - created_at
+      - updated_at
+      title: IngestionJobDetail
+    TimelineEvent:
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        event_type:
+          type: string
+          title: Event Type
+        message:
+          type: string
+          title: Message
+        metadata:
+          additionalProperties: true
+          type: object
+          title: Metadata
+      type: object
+      required:
+      - timestamp
+      - event_type
+      - message
+      title: TimelineEvent
+    DataJobRemoveFilesRequest:
+      properties:
+        file_ids:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          title: File Ids
+          description: File IDs to remove
+      type: object
+      required:
+      - file_ids
+      title: DataJobRemoveFilesRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    IngestionJobStatus:
+      type: string
+      enum:
+      - queued
+      - running
+      - completed
+      - failed
+      title: IngestionJobStatus
+    TrainingFileType:
+      type: string
+      enum:
+      - jsonl
+      - parquet
+      - pt
+      title: TrainingFileType
+    IngestionFileRecord:
+      properties:
+        record_id:
+          type: string
+          title: Record Id
+          description: File record ID
+        ingestion_job_id:
+          type: string
+          title: Ingestion Job Id
+          description: Parent ingestion job ID
+        alignment_file_id:
+          type: string
+          title: Alignment File Id
+          description: Alignment file ID
+        user_id:
+          type: string
+          title: User Id
+          description: Owner of the ingestion job
+        filename:
+          type: string
+          title: Filename
+          description: Filename
+        metaflow_job_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Metaflow Job Id
+          description: Metaflow job handling this file
+        method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Method
+          description: Ingestion method used for processing
+        status:
+          type: string
+          title: Status
+          description: File processing status
+        queue_position:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Queue Position
+          description: Position in queue if status is queued
+        error_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error Message
+          description: Error message if failed
+        suggested_fix:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Suggested Fix
+          description: Suggested fix when processing fails
+        worker_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Worker Id
+          description: Worker currently handling the file
+        deleted:
+          type: boolean
+          title: Deleted
+          description: Whether this record has been soft-deleted
+          default: false
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        processing_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Processing At
+          description: Timestamp when processing started
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+          description: Timestamp when processing completed
+        failed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Failed At
+          description: Timestamp when processing failed
+      additionalProperties: true
+      type: object
+      required:
+      - record_id
+      - ingestion_job_id
+      - alignment_file_id
+      - user_id
+      - filename
+      - status
+      - created_at
+      title: IngestionFileRecord
+    DataJobUpdateRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+            maxLength: 255
+            minLength: 1
+          - type: 'null'
+          title: Name
+        system_prompt:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          title: System Prompt
+          description: System prompt included with every conversation in the generated dataset. It becomes part of the training data the fine-tuned model learns from, unlike `instructions`, which only shapes how the dataset is generated. If omitted, one is generated for you from `instructions` and the source documents.
+        instructions:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          title: Instructions
+          description: Natural-language description of the task the generated dataset should support. Alignment uses it to shape the examples it produces, such as the topics and the kinds of questions a fine-tuned model should be able to handle.
+        vector_database_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Vector Database Id
+      type: object
+      title: DataJobUpdateRequest
+    DataJobAddFileRequest:
+      properties:
+        file_ids:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          title: File Ids
+          description: Files to associate with the data job
+        method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Method
+          description: Ingestion method used for non-alignment-ready files
+          default: best
+      type: object
+      required:
+      - file_ids
+      title: DataJobAddFileRequest
+    DataJobStatus:
+      type: string
+      enum:
+      - file_processing
+      - needs_review
+      - ready_to_start
+      title: DataJobStatus
+      description: 'Status values that exist BEFORE an alignment job is linked. Once
+
+        linked, the real status comes from AlignmentJobStatus directly — see
+
+        DataJobResponse.status''s union type and derive_data_job_status.'
+    AlignmentFileType:
+      type: string
+      enum:
+      - html
+      - md
+      - rst
+      - rtf
+      - txt
+      - xml
+      - json
+      - jsonl
+      - csv
+      - doc
+      - docx
+      - pdf
+      - ppt
+      - pptx
+      title: AlignmentFileType
+    AlignmentResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+        stopped_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Stopped At
+        status:
+          $ref: '#/components/schemas/AlignmentJobStatus'
+        current_step:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Current Step
+          description: The processing step the job is currently working on. `null` until the job starts running.
+        step_progress:
+          anyOf:
+          - type: number
+          - type: string
+          - type: 'null'
+          title: Step Progress
+          description: Progress through the current step. `null` when no step is in progress.
+        progress:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Progress
+          description: Overall completion of the job across all steps. `null` until progress can be calculated.
+        estimated_completion_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Estimated Completion At
+          description: Projected completion timestamp (UTC). `null` until enough progress data is available to produce an estimate.
+        eta_minutes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Eta Minutes
+          description: Estimated number of minutes remaining until the job completes. `null` until an estimate is available.
+        status_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status Message
+          description: Human-readable description of the job's current state, suitable for display to end users.
+        output_files:
+          items:
+            $ref: '#/components/schemas/AlignmentOutput'
+          type: array
+          title: Output Files
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - created_at
+      - status
+      title: AlignmentResponse
+    AlignmentJobStatus:
+      type: string
+      enum:
+      - pending
+      - queued
+      - running
+      - cancelled
+      - failed
+      - completed
+      - stopped
+      title: AlignmentJobStatus
+    AlignmentOutput:
+      properties:
+        id:
+          type: string
+          title: Id
+        filename:
+          type: string
+          title: Filename
+        bytes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Bytes
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        file_type:
+          anyOf:
+          - $ref: '#/components/schemas/TrainingFileType'
+          - $ref: '#/components/schemas/AlignmentFileType'
+          - type: 'null'
+          title: File Type
+        purpose:
+          anyOf:
+          - $ref: '#/components/schemas/FilePurpose'
+          - type: 'null'
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - filename
+      title: AlignmentOutput
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization

@@ -1,0 +1,614 @@
+openapi: 3.2.0
+info:
+  title: Seekr Models API
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  termsOfService: http://www.seekr.com/support
+  version: '1.0'
+  description: 'Operations tagged Models across 2 of this provider''s published API definitions: seekr-llm-training-openapi.json, seekr-serving-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Models
+paths:
+  /v1/flow/models:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Models
+      summary: Ml Models
+      operationId: ml_models_v1_flow_models_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: model_type
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/MLModelType'
+          - type: 'null'
+          title: Model Type
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMLModelsResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/models/info:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Models
+      summary: Ml Model By Model Id
+      operationId: ml_model_by_model_id_v1_flow_models_info_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: model_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Model Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMLModelInfoResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/models/hf_revision:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Models
+      summary: Ml Model Hf Revision By Model Name
+      operationId: ml_model_hf_revision_by_model_name_v1_flow_models_hf_revision_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: model_name
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Model Name
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMLModelHfRevision'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/internal/models:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Models
+      summary: Ml Models
+      operationId: ml_models_v1_flow_internal_models_get
+      parameters:
+      - name: model_type
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/MLModelType'
+          - type: 'null'
+          title: Model Type
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMLModelsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/internal/deployments:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Models
+      summary: Deployments
+      operationId: deployments_v1_flow_internal_deployments_get
+      parameters:
+      - name: team-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDeploymentsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/internal/models/info:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Models
+      summary: Ml Model By Model Id
+      operationId: ml_model_by_model_id_v1_flow_internal_models_info_get
+      parameters:
+      - name: model_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Model Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMLModelInfoResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/internal/models/hf_revision:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Models
+      summary: Ml Model Hf Revision By Model Name
+      operationId: ml_model_hf_revision_by_model_name_v1_flow_internal_models_hf_revision_get
+      parameters:
+      - name: model_name
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Model Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMLModelHfRevision'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/models:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      summary: Show Models
+      description: "Returns a list of all models available in the stack.\n\nArgs:\n    token_data: User data specified by api-key\n\nReturns:\n    JSONResponse: A JSON response containing the list of models.\n\nRaises:\n    Exception: If there is an error in retrieving the endpoint information."
+      operationId: show_models_v1_models_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - APIKeyHeader: []
+      x-excluded: true
+      tags:
+      - Models
+components:
+  schemas:
+    MLModelType:
+      type: string
+      enum:
+      - Base
+      - Instruct
+      - Embedding
+      title: MLModelType
+    GetMLModelInfoResponse:
+      properties:
+        name:
+          type: string
+          title: Name
+        size:
+          type: integer
+          title: Size
+        model_type:
+          anyOf:
+          - $ref: '#/components/schemas/MLModelType'
+          - type: 'null'
+      type: object
+      required:
+      - name
+      - size
+      - model_type
+      title: GetMLModelInfoResponse
+    GetMLModelHfRevision:
+      properties:
+        name:
+          type: string
+          title: Name
+        hf_revision:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hf Revision
+      type: object
+      required:
+      - name
+      - hf_revision
+      title: GetMLModelHfRevision
+    GetMLModelsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/MLModel'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: GetMLModelsResponse
+    DeploymentProcessor:
+      type: string
+      enum:
+      - GAUDI2
+      - GAUDI3
+      - A100
+      - A10
+      - AMD
+      - H100
+      - MI300X
+      title: DeploymentProcessor
+    GetDeploymentsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Deployment'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: GetDeploymentsResponse
+    HardwareType:
+      type: string
+      enum:
+      - Serverless
+      - Dedicated
+      title: HardwareType
+    DeploymentType:
+      type: string
+      enum:
+      - Fine-tuned Run
+      - Base Model
+      title: DeploymentType
+    MLModel:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          type: string
+          maxLength: 100
+          minLength: 5
+          title: Name
+        source:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Source
+        description:
+          type: string
+          maxLength: 1000
+          minLength: 5
+          title: Description
+        size:
+          type: integer
+          title: Size
+        logo:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Logo
+        category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Category
+        model_type:
+          $ref: '#/components/schemas/MLModelType'
+        inference_available:
+          type: boolean
+          title: Inference Available
+        training_available:
+          type: boolean
+          title: Training Available
+        deployment_available:
+          type: boolean
+          title: Deployment Available
+        supports_lora:
+          type: boolean
+          title: Supports Lora
+        max_lora_rank:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0
+          - type: 'null'
+          title: Max Lora Rank
+        vision_model:
+          type: boolean
+          title: Vision Model
+        hf_revision:
+          anyOf:
+          - type: string
+            maxLength: 128
+            minLength: 1
+          - type: 'null'
+          title: Hf Revision
+        internal_only:
+          type: boolean
+          title: Internal Only
+      type: object
+      required:
+      - id
+      - name
+      - source
+      - description
+      - size
+      - model_type
+      - inference_available
+      - training_available
+      - deployment_available
+      - supports_lora
+      - vision_model
+      - internal_only
+      title: MLModel
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    DeploymentStatus:
+      type: string
+      enum:
+      - Inactive
+      - Pending
+      - Active
+      - Failed
+      - Started
+      - Success
+      title: DeploymentStatus
+    Deployment:
+      properties:
+        id:
+          type: string
+          title: Id
+        model_type:
+          $ref: '#/components/schemas/DeploymentType'
+        model_id:
+          type: string
+          title: Model Id
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+        memory:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Memory
+        hardware_type:
+          $ref: '#/components/schemas/HardwareType'
+          default: Dedicated
+        total_input_tokens:
+          type: integer
+          title: Total Input Tokens
+        total_output_tokens:
+          type: integer
+          title: Total Output Tokens
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        last_deployed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Deployed At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        processor:
+          $ref: '#/components/schemas/DeploymentProcessor'
+          default: GAUDI2
+        n_instances:
+          type: integer
+          title: N Instances
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        model_name:
+          type: string
+          title: Model Name
+        n_epochs:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: N Epochs
+        batch_size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Batch Size
+        learning_rate:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Learning Rate
+        training_files:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Training Files
+        project_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Project Id
+        project_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Name
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+        finetune_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Finetune Name
+        finetune_created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Finetune Created At
+        active_duration:
+          type: integer
+          minimum: 0
+          title: Active Duration
+          default: 0
+        is_lora_adapter:
+          type: boolean
+          title: Is Lora Adapter
+          default: false
+      type: object
+      required:
+      - id
+      - model_type
+      - model_id
+      - name
+      - description
+      - status
+      - total_input_tokens
+      - total_output_tokens
+      - created_at
+      - updated_at
+      - n_instances
+      - user_id
+      - team_id
+      - model_name
+      title: Deployment
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization
+x-refined-from:
+- seekr-llm-training-openapi.json
+- seekr-serving-openapi.json

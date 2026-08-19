@@ -1,0 +1,333 @@
+openapi: 3.2.0
+info:
+  title: SeekrFlow Observability API
+  description: SeekrFlow API Documentation
+  termsOfService: http://www.seekr.com/support
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  version: 5.45.1
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Observability
+paths:
+  /v1/observability/spans:
+    post:
+      tags:
+      - Observability
+      summary: Query Spans
+      description: Retrieves observability traces according to the provided user and facts.
+      operationId: query_spans_v1_observability_spans_post
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: x-team-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Team-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpanSummaryRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SpanSummaryResult'
+                title: Response Query Spans V1 Observability Spans Post
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/observability/spans/{span_id}:
+    get:
+      tags:
+      - Observability
+      summary: Retrieve Span
+      description: Retrieves a particular span given its ID.
+      operationId: retrieve_span_v1_observability_spans__span_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: span_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Span Id
+      - name: x-team-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Team-Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - type: object
+                  additionalProperties: true
+                - type: 'null'
+                title: Response Retrieve Span V1 Observability Spans  Span Id  Get
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    SpanSummaryRequest:
+      properties:
+        min_start_datetime:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Min Start Datetime
+        max_start_datetime:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Max Start Datetime
+        agent_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agent Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        trace_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trace Id
+        thread_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Thread Id
+        group:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Group
+        metadata:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Metadata
+        limit:
+          type: integer
+          title: Limit
+          default: 100
+        order:
+          $ref: '#/components/schemas/OrderEnum'
+          default: desc
+        offset:
+          type: integer
+          title: Offset
+          default: 0
+      type: object
+      title: SpanSummaryRequest
+      description: Object to contain request data for retrieving spans in bulk.
+    OrderEnum:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: OrderEnum
+      description: Options for order query param in list endpoints.
+    SpanSummaryResult:
+      properties:
+        run_id:
+          type: string
+          title: Run Id
+        group:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Group
+        thread_id:
+          type: string
+          title: Thread Id
+        agent_id:
+          type: string
+          title: Agent Id
+        trace_id:
+          type: string
+          title: Trace Id
+        span_id:
+          type: string
+          title: Span Id
+        parent_span_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Parent Span Id
+        span_name:
+          type: string
+          title: Span Name
+        level:
+          type: integer
+          title: Level
+        service_name:
+          type: string
+          title: Service Name
+        otel_scope_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otel Scope Name
+        start_timestamp:
+          type: string
+          format: date-time
+          title: Start Timestamp
+        end_timestamp:
+          type: string
+          format: date-time
+          title: End Timestamp
+        kind:
+          $ref: '#/components/schemas/Kind'
+        message:
+          type: string
+          title: Message
+        is_exception:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Exception
+        exception_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Exception Type
+        gen_ai_operation_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gen Ai Operation Name
+        gen_ai_request_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gen Ai Request Model
+        gen_ai_response_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gen Ai Response Model
+        gen_ai_system:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gen Ai System
+        gen_ai_usage_input_tokens:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gen Ai Usage Input Tokens
+        gen_ai_usage_output_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gen Ai Usage Output Token
+        seekr_metadata:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Seekr Metadata
+      type: object
+      required:
+      - run_id
+      - thread_id
+      - agent_id
+      - trace_id
+      - span_id
+      - span_name
+      - level
+      - service_name
+      - start_timestamp
+      - end_timestamp
+      - kind
+      - message
+      title: SpanSummaryResult
+      description: Summary object of a span, meant to be retrieved in bulk and used to provide data on spans to be able to fetch more data.
+    Kind:
+      type: string
+      enum:
+      - span
+      - pending_span
+      - log
+      - span_event
+      title: Kind
+      description: Indicates the type of record for a logfire record.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization

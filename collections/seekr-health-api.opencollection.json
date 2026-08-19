@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Seekr Health API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Health",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/version"
+          },
+          "docs": "Return the deployed agent router version."
+        },
+        {
+          "info": {
+            "name": "Health Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/health"
+          },
+          "docs": "Health endpoint to check tracker status."
+        },
+        {
+          "info": {
+            "name": "Agent Health Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/health/:agent_id",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Health endpoint to check agent status."
+        },
+        {
+          "info": {
+            "name": "Get Health External",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/health"
+          },
+          "docs": "Get Health External"
+        },
+        {
+          "info": {
+            "name": "Get Health Internal",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/internal/health"
+          },
+          "docs": "Adds the commit id to the app version."
+        },
+        {
+          "info": {
+            "name": "Health",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/health"
+          },
+          "docs": "Endpoint to check the health status of various components.\n\nThis function verifies the health of the service discovery module and\nthe engine stats scraper. If either component is down, it returns a\n503 response with the appropriate status message. If both components\nare healthy, it returns a 200 OK response.\n\nReturns:\n    Response: A JSONResponse with status code 503 if a component is\n    down, or a plain Response with status code 200 if all components\n    are healthy."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

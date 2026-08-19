@@ -1,0 +1,472 @@
+{
+  "item": [
+    {
+      "id": "3344216c-519f-4f23-a4c9-e5ab58d7f093",
+      "name": "Ingestion",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "529e3fae-ebb0-4b44-8941-c38aa0a7bc24",
+          "name": "Ingestion List",
+          "request": {
+            "name": "Ingestion List",
+            "description": {
+              "content": "List all ingestion jobs for the user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "ingestion"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9319801a-6e8a-401d-b4ca-b105c912d80c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "ingestion"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"string\",\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"created_at\": \"2023-05-24T09:45:42.521Z\",\n      \"status\": \"running\",\n      \"output_files\": [\n        \"string\",\n        \"string\"\n      ],\n      \"file_records\": [\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1960-03-31T07:38:00.742Z\",\n          \"metaflow_job_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"method\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"queue_position\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"error_message\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"suggested_fix\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"worker_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"deleted\": false,\n          \"processing_at\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"completed_at\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"failed_at\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1951-09-14T07:28:45.825Z\",\n          \"metaflow_job_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"method\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"queue_position\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"error_message\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"suggested_fix\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"worker_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"deleted\": false,\n          \"processing_at\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"completed_at\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"failed_at\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"created_at\": \"1993-03-17T01:05:44.619Z\",\n      \"status\": \"completed\",\n      \"output_files\": [\n        \"string\",\n        \"string\"\n      ],\n      \"file_records\": [\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1995-04-18T18:28:19.200Z\",\n          \"metaflow_job_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"method\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"queue_position\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"error_message\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"suggested_fix\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"worker_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"deleted\": false,\n          \"processing_at\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"completed_at\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"failed_at\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1999-12-16T17:40:30.241Z\",\n          \"metaflow_job_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"method\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"queue_position\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"error_message\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"suggested_fix\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"worker_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"deleted\": false,\n          \"processing_at\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"completed_at\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"failed_at\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a103bd35-7c11-434a-9b20-e2abf66a0e16",
+          "name": "Ingest Files",
+          "request": {
+            "name": "Ingest Files",
+            "description": {
+              "content": "Convert PDF files to Markdown using the ingestion service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "ingestion"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"files\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"method\": \"best\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d9ccd659-3c1a-48e8-90b5-0b49f6b84c5f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "ingestion"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"files\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"method\": \"best\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"created_at\": \"1963-08-28T21:00:43.507Z\",\n  \"status\": \"running\",\n  \"output_files\": [\n    \"string\",\n    \"string\"\n  ],\n  \"file_records\": [\n    {\n      \"record_id\": \"string\",\n      \"ingestion_job_id\": \"string\",\n      \"alignment_file_id\": \"string\",\n      \"user_id\": \"string\",\n      \"filename\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"1986-04-17T14:13:05.503Z\",\n      \"metaflow_job_id\": \"string\",\n      \"method\": \"string\",\n      \"queue_position\": 2708,\n      \"error_message\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"worker_id\": \"string\",\n      \"deleted\": false,\n      \"processing_at\": \"1971-08-31T00:42:34.630Z\",\n      \"completed_at\": \"1961-01-21T20:41:52.722Z\",\n      \"failed_at\": \"2019-11-28T12:00:41.386Z\"\n    },\n    {\n      \"record_id\": \"string\",\n      \"ingestion_job_id\": \"string\",\n      \"alignment_file_id\": \"string\",\n      \"user_id\": \"string\",\n      \"filename\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"1984-07-21T11:30:57.480Z\",\n      \"metaflow_job_id\": \"string\",\n      \"method\": \"string\",\n      \"queue_position\": 5459,\n      \"error_message\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"worker_id\": \"string\",\n      \"deleted\": false,\n      \"processing_at\": \"1967-02-26T00:52:25.195Z\",\n      \"completed_at\": \"1985-11-06T02:48:17.931Z\",\n      \"failed_at\": \"1991-11-25T06:53:35.187Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c7c1bdb-0fa6-477f-93ca-021b269a12b6",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "ingestion"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"files\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"method\": \"best\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49efa868-8330-4ec2-8854-2e94824a6f3d",
+          "name": "Ingestion Get",
+          "request": {
+            "name": "Ingestion Get",
+            "description": {
+              "content": "Get ingestion job with file records and queue positions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "ingestion",
+                ":ingestion_job_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ingestion_job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c90e6f1a-2fc9-4dfe-ada8-c86b9207f2f6",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "ingestion",
+                    ":ingestion_job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ingestion_job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"created_at\": \"1963-08-28T21:00:43.507Z\",\n  \"status\": \"running\",\n  \"output_files\": [\n    \"string\",\n    \"string\"\n  ],\n  \"file_records\": [\n    {\n      \"record_id\": \"string\",\n      \"ingestion_job_id\": \"string\",\n      \"alignment_file_id\": \"string\",\n      \"user_id\": \"string\",\n      \"filename\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"1986-04-17T14:13:05.503Z\",\n      \"metaflow_job_id\": \"string\",\n      \"method\": \"string\",\n      \"queue_position\": 2708,\n      \"error_message\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"worker_id\": \"string\",\n      \"deleted\": false,\n      \"processing_at\": \"1971-08-31T00:42:34.630Z\",\n      \"completed_at\": \"1961-01-21T20:41:52.722Z\",\n      \"failed_at\": \"2019-11-28T12:00:41.386Z\"\n    },\n    {\n      \"record_id\": \"string\",\n      \"ingestion_job_id\": \"string\",\n      \"alignment_file_id\": \"string\",\n      \"user_id\": \"string\",\n      \"filename\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"1984-07-21T11:30:57.480Z\",\n      \"metaflow_job_id\": \"string\",\n      \"method\": \"string\",\n      \"queue_position\": 5459,\n      \"error_message\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"worker_id\": \"string\",\n      \"deleted\": false,\n      \"processing_at\": \"1967-02-26T00:52:25.195Z\",\n      \"completed_at\": \"1985-11-06T02:48:17.931Z\",\n      \"failed_at\": \"1991-11-25T06:53:35.187Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76b07e7c-45f7-41a1-b608-ac8fbee18f73",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "ingestion",
+                    ":ingestion_job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ingestion_job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e72f35ae-b804-409b-acb1-d97a5e91b20a",
+    "name": "SeekrFlow Ingestion API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "SeekrFlow API Documentation\n\nContact Support:\n Name: Seekr API Support\n Email: contact@seekr.com",
+      "type": "text/plain"
+    }
+  }
+}

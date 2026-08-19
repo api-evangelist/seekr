@@ -1,0 +1,1029 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Seekr Internal API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Internal",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Agent Latest Runs Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/internal/runs/latest",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a dictionary of agent_ids with their latest run."
+        },
+        {
+          "info": {
+            "name": "List Registered Agents Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/internal/agents"
+          },
+          "docs": "List all agents currently registered with agents-router."
+        },
+        {
+          "info": {
+            "name": "Validate Function Ids",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/internal/functions/validate-function-ids",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validate that the provided function IDs exist and belong to the team (if provided)."
+        },
+        {
+          "info": {
+            "name": "Get Functions By Ids",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/internal/functions/by-ids",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve Python functions by a list of IDs."
+        },
+        {
+          "info": {
+            "name": "Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/version"
+          },
+          "docs": "Version"
+        },
+        {
+          "info": {
+            "name": "Read Root",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/explainability/"
+          },
+          "docs": "Read Root"
+        },
+        {
+          "info": {
+            "name": "Check Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/explainability/status"
+          },
+          "docs": "Check the status of the retriever service.\n\nReturns:\n    JSONResponse: The status response containing the status and version information."
+        },
+        {
+          "info": {
+            "name": "Create Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/explainability/create-index",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create index."
+        },
+        {
+          "info": {
+            "name": "Populate Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/explainability/populate-index",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Populate the index with qa pairs in the parquet files."
+        },
+        {
+          "info": {
+            "name": "Delete Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/explainability/delete-index",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete Index"
+        },
+        {
+          "info": {
+            "name": "Get Influential Finetuning Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/explainability/influential-finetuning-data",
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "question",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "model_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "system_prompt",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "answer",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "method",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "k",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "alpha",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "index_version",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "threshold",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Perform hybrid search of the index for the given query.\n\nParameters:\n- team_id (str): team scope for the request.\n- question (str): question from user.\n- model_id (str): model_id of the finetuned model.\n- system_prompt (str | None): optional system prompt used only when answer must be generated.\n- answer (str | None): answer from the finetuned model to the question; if not provided, the service retrieves\n  an answer from the finetuned model specified by model_id.\n- method (str): Specify the type"
+        },
+        {
+          "info": {
+            "name": "Populate Index Job Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/explainability/populate-index-job-status",
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Populate Index Job Status"
+        },
+        {
+          "info": {
+            "name": "Update Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://flow.seekr.com/v2/flow/internal/agents/:agent_id/update-status",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "An internal-only endpoint (no built-in auth validation) to update the agent's status in the DB, if it exists.\n\nIf the provided status is 'Active', and the Agent's current status is NOT 'Active', the `last_deployed_at` field\nis also updated in the DB to reflect the current date/time.\n\nIf the provided status is changed to 'Failed' from any other status, the Agent yaml is deleted from the git repo,\nand the status is updated to 'Failed' in the DB.\n\nArguments:\n    agent_id: the ID of the agent to upd"
+        },
+        {
+          "info": {
+            "name": "Alignment Workflow Phase",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/alignment/:alignment_job_id/workflow-phase",
+            "params": [
+              {
+                "name": "alignment_job_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Internal: the live Argo workflow phase for an alignment job.\n\nNot part of the public SDK. Lets the integration suite confirm a cancelled\njob's workflow actually terminated (the DB `cancelled` write alone doesn't\nprove the Argo stop landed). ``phase`` is None when the workflow was never\nstarted or no longer exists in Argo."
+        },
+        {
+          "info": {
+            "name": "Health",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow_internal/health"
+          },
+          "docs": "Health"
+        },
+        {
+          "info": {
+            "name": "List Cases Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/evals/cases",
+            "params": [
+              {
+                "name": "min_datetime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "max_datetime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tag_strategy",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List cases with optional filtering."
+        },
+        {
+          "info": {
+            "name": "Create Case Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/evals/cases",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Case Route"
+        },
+        {
+          "info": {
+            "name": "Get Case Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/evals/cases/:case_id",
+            "params": [
+              {
+                "name": "case_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the case to retrieve"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a specific case by ID."
+        },
+        {
+          "info": {
+            "name": "Update Case Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://flow.seekr.com/v1/flow/evals/cases/:case_id",
+            "params": [
+              {
+                "name": "case_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the case to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a case by ID."
+        },
+        {
+          "info": {
+            "name": "Delete Case Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://flow.seekr.com/v1/flow/evals/cases/:case_id",
+            "params": [
+              {
+                "name": "case_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the case to delete"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a case by ID."
+        },
+        {
+          "info": {
+            "name": "Upload Feedback Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/feedback/upload",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upload Feedback Route"
+        },
+        {
+          "info": {
+            "name": "Get Feedback Image Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/feedback/images/:image_id",
+            "params": [
+              {
+                "name": "image_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Feedback Image Route"
+        },
+        {
+          "info": {
+            "name": "List Feedback Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/feedback/",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "min_datetime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "max_datetime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tag_strategy",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List Feedback Route"
+        },
+        {
+          "info": {
+            "name": "Create Feedback Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/feedback/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Feedback Route"
+        },
+        {
+          "info": {
+            "name": "Get Feedback Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/feedback/:feedback_id",
+            "params": [
+              {
+                "name": "feedback_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Feedback Route"
+        },
+        {
+          "info": {
+            "name": "Update Feedback Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://flow.seekr.com/v1/flow/feedback/:feedback_id",
+            "params": [
+              {
+                "name": "feedback_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update Feedback Route"
+        },
+        {
+          "info": {
+            "name": "Delete Feedback Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://flow.seekr.com/v1/flow/feedback/:feedback_id",
+            "params": [
+              {
+                "name": "feedback_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete feedback by id."
+        },
+        {
+          "info": {
+            "name": "Get Image Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/internal/images/:image_id",
+            "params": [
+              {
+                "name": "image_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the ImageResponse metadata for a given image_id."
+        },
+        {
+          "info": {
+            "name": "Delete Image Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://flow.seekr.com/v1/flow/internal/images/:image_id",
+            "params": [
+              {
+                "name": "image_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Image Route"
+        },
+        {
+          "info": {
+            "name": "Get Image Content Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/internal/images/:image_id/content",
+            "params": [
+              {
+                "name": "image_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Internal route without auth for proxying image from object storage."
+        },
+        {
+          "info": {
+            "name": "Create Images Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/internal/images",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Create Images Route"
+        },
+        {
+          "info": {
+            "name": "Fine Tune Workflow Phase",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/fine-tunes/:fine_tune_id/workflow-phase",
+            "params": [
+              {
+                "name": "fine_tune_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Internal: the live Argo workflow phase for a fine-tune job.\n\nNot part of the public SDK. Lets the integration suite confirm a cancelled\njob's workflow actually terminated (the DB `cancelled` write alone doesn't\nprove the Argo stop landed). ``phase`` is None when the workflow was never\nstarted or no longer exists in Argo."
+        },
+        {
+          "info": {
+            "name": "Demote Model",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/fine-tunes/:fine_tune_id/demote-model",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "fine_tune_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Demote Model"
+        },
+        {
+          "info": {
+            "name": "Promote Model",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/fine-tunes/:fine_tune_id/promote-model",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "fine_tune_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Promote Model"
+        },
+        {
+          "info": {
+            "name": "Training Status Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/internal/finetune/:fine_tune_id/status",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "fine_tune_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Training Status Update"
+        },
+        {
+          "info": {
+            "name": "Get Health Internal",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/internal/health"
+          },
+          "docs": "Adds the commit id to the app version."
+        },
+        {
+          "info": {
+            "name": "Generate Price Estimate For Serverless Inference",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/pricing/inference/serverless",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Generates a price estimate for running inference using a base-model in a server-less deployment environment.\n**Note:** We currently only support inference for fine-tuned models in dedicated servers.\n\n### Key Input Fields:\n\n- **pricing_estimate_request.deployment.model_id**: Used to fetch the model and determine the `model_size`, which influences the pricing multipliers applied in the calculation. Also used in logic in determining whether model deployed is a fine-tuned or base model.\n\n- **pricing"
+        },
+        {
+          "info": {
+            "name": "Generate Price Estimate For Finetuning",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/pricing/fine-tuning",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Generates a price estimate for applying a fine-tuning job for a given model.\n\n### Key input fields:\n- **pricing_estimate_request.deployment.model_id**: - used to fetch the model, and determine the model_size which in turn is used for calculating multipliers used in equations\n- **pricing_estimate_request.num_of_epochs**: - number of times training set is passed through model during training.\n    A direct input into the equation calculations\n\n**Returns:** A JSON object with the price estimate."
+        },
+        {
+          "info": {
+            "name": "Generate Price Estimate For Dedicated Inference",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/pricing/inference/dedicated",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Generates a price estimate for running inference using a base or fine-tuned model in a dedicated deployment environment.\nNote: We currently only support GAUDI2 for our hardware but recognize future use of A100, H100, GAUDI3 accelerator types.\nKey input fields:\n- **pricing_estimate_request.estimated_compute_hours**: - hours of total usage of the model. A direct input used in calculation\n    Also has a default if nothing is entered\n- **pricing_estimate_request.deployment.n_instances**: - instances"
+        },
+        {
+          "info": {
+            "name": "Internal Deployment By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/internal/deployments/:deployment_id",
+            "headers": [
+              {
+                "name": "team-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "deployment_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Internal Deployment By Id"
+        },
+        {
+          "info": {
+            "name": "Update the status of a deployment (Internal)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/internal/deployments/:deployment_id/status",
+            "params": [
+              {
+                "name": "deployment_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Internal endpoint for the Kubernetes event tracker to update the status of a deployment."
+        },
+        {
+          "info": {
+            "name": "Ml Models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/internal/models",
+            "params": [
+              {
+                "name": "model_type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Ml Models"
+        },
+        {
+          "info": {
+            "name": "Deployments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/internal/deployments",
+            "headers": [
+              {
+                "name": "team-id",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Deployments"
+        },
+        {
+          "info": {
+            "name": "Ml Model By Model Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/internal/models/info",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Ml Model By Model Id"
+        },
+        {
+          "info": {
+            "name": "Ml Model Hf Revision By Model Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/internal/models/hf_revision",
+            "params": [
+              {
+                "name": "model_name",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Ml Model Hf Revision By Model Name"
+        },
+        {
+          "info": {
+            "name": "Populate Explainability Index Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/internal/explain/populate-index",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Populate the explainability index with data from a vector database.\nThis is an internal endpoint that calls the explainability service."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

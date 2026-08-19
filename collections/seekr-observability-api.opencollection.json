@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SeekrFlow Observability API",
+    "version": "5.45.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Observability",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query Spans",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/observability/spans",
+            "headers": [
+              {
+                "name": "x-team-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves observability traces according to the provided user and facts."
+        },
+        {
+          "info": {
+            "name": "Retrieve Span",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/observability/spans/:span_id",
+            "headers": [
+              {
+                "name": "x-team-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "span_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves a particular span given its ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

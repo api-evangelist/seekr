@@ -1,0 +1,1162 @@
+{
+  "item": [
+    {
+      "id": "d9957574-3572-4e6a-b22a-47fbca910460",
+      "name": "Models",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b12d0b20-c1a8-48f6-a22a-2f4b6279aa11",
+          "name": "Ml Models",
+          "request": {
+            "name": "Ml Models",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "models"
+              ],
+              "host": [
+                "{{v1-flow-models-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "model_type",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5471d300-af14-48b3-a74b-fe946730ba83",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "models"
+                  ],
+                  "host": [
+                    "{{v1-flow-models-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model_type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 5025,\n      \"name\": \"string\",\n      \"source\": \"string\",\n      \"description\": \"string\",\n      \"size\": 809,\n      \"model_type\": \"<string>\",\n      \"inference_available\": true,\n      \"training_available\": true,\n      \"deployment_available\": false,\n      \"supports_lora\": true,\n      \"vision_model\": false,\n      \"internal_only\": false,\n      \"logo\": \"string\",\n      \"category\": \"string\",\n      \"max_lora_rank\": 7351,\n      \"hf_revision\": \"string\"\n    },\n    {\n      \"id\": 3145,\n      \"name\": \"string\",\n      \"source\": \"string\",\n      \"description\": \"string\",\n      \"size\": 7771,\n      \"model_type\": \"<string>\",\n      \"inference_available\": false,\n      \"training_available\": true,\n      \"deployment_available\": true,\n      \"supports_lora\": false,\n      \"vision_model\": false,\n      \"internal_only\": true,\n      \"logo\": \"string\",\n      \"category\": \"string\",\n      \"max_lora_rank\": 4814,\n      \"hf_revision\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f47488f-d98a-404c-9233-bf3fb15a0166",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "models"
+                  ],
+                  "host": [
+                    "{{v1-flow-models-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model_type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7aa54237-2306-4c80-9511-14f7f2ad5eef",
+          "name": "Ml Model By Model Id",
+          "request": {
+            "name": "Ml Model By Model Id",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "models",
+                "info"
+              ],
+              "host": [
+                "{{v1-flow-models-info-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "model_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "77805145-7e14-4462-a1a6-ffa913e07c91",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "models",
+                    "info"
+                  ],
+                  "host": [
+                    "{{v1-flow-models-info-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"size\": 5260,\n  \"model_type\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69808777-37f2-41a2-bce0-4a964c77623f",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "models",
+                    "info"
+                  ],
+                  "host": [
+                    "{{v1-flow-models-info-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ece69b81-cb59-429b-a0a5-23fec7916693",
+          "name": "Ml Model Hf Revision By Model Name",
+          "request": {
+            "name": "Ml Model Hf Revision By Model Name",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "models",
+                "hf_revision"
+              ],
+              "host": [
+                "{{v1-flow-models-hf_revision-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "model_name",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0c12d9be-6665-478a-91a6-9676e81f781b",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "models",
+                    "hf_revision"
+                  ],
+                  "host": [
+                    "{{v1-flow-models-hf_revision-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"hf_revision\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dcb63426-1443-40f1-b6ac-83eabd6cb62c",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "models",
+                    "hf_revision"
+                  ],
+                  "host": [
+                    "{{v1-flow-models-hf_revision-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "43c3dee7-5835-4619-a363-93cdd7197350",
+          "name": "Ml Models",
+          "request": {
+            "name": "Ml Models",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "internal",
+                "models"
+              ],
+              "host": [
+                "{{v1-flow-internal-models-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "model_type",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5540e08c-f6f4-437d-b953-1408fc61fd09",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "internal",
+                    "models"
+                  ],
+                  "host": [
+                    "{{v1-flow-internal-models-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model_type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 9559,\n      \"name\": \"string\",\n      \"source\": \"string\",\n      \"description\": \"string\",\n      \"size\": 9243,\n      \"model_type\": \"<string>\",\n      \"inference_available\": true,\n      \"training_available\": false,\n      \"deployment_available\": true,\n      \"supports_lora\": false,\n      \"vision_model\": true,\n      \"internal_only\": false,\n      \"logo\": \"string\",\n      \"category\": \"string\",\n      \"max_lora_rank\": 8368,\n      \"hf_revision\": \"string\"\n    },\n    {\n      \"id\": 8891,\n      \"name\": \"string\",\n      \"source\": \"string\",\n      \"description\": \"string\",\n      \"size\": 9838,\n      \"model_type\": \"<string>\",\n      \"inference_available\": true,\n      \"training_available\": false,\n      \"deployment_available\": true,\n      \"supports_lora\": false,\n      \"vision_model\": false,\n      \"internal_only\": true,\n      \"logo\": \"string\",\n      \"category\": \"string\",\n      \"max_lora_rank\": 9976,\n      \"hf_revision\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b0557a28-8fa7-4f36-aecf-63e0fc2e4eaf",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "internal",
+                    "models"
+                  ],
+                  "host": [
+                    "{{v1-flow-internal-models-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model_type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "89fc849f-ed32-4537-a710-399fa5f22691",
+          "name": "Deployments",
+          "request": {
+            "name": "Deployments",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "internal",
+                "deployments"
+              ],
+              "host": [
+                "{{v1-flow-internal-deployments-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "team-id",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "59586cd2-3c20-4381-ae7c-88c16a0f82b8",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "internal",
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{v1-flow-internal-deployments-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "team-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"model_type\": \"Base Model\",\n      \"model_id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"status\": \"Success\",\n      \"total_input_tokens\": 9123,\n      \"total_output_tokens\": 3726,\n      \"created_at\": \"1984-07-02T06:29:52.685Z\",\n      \"updated_at\": \"1994-10-29T16:06:20.976Z\",\n      \"n_instances\": 8163,\n      \"user_id\": \"string\",\n      \"team_id\": \"string\",\n      \"model_name\": \"string\",\n      \"memory\": \"string\",\n      \"hardware_type\": \"Dedicated\",\n      \"last_deployed_at\": \"2010-11-29T23:15:43.779Z\",\n      \"processor\": \"H100\",\n      \"n_epochs\": 5051,\n      \"batch_size\": 9250,\n      \"learning_rate\": 2358.891333493057,\n      \"training_files\": [\n        \"string\",\n        \"string\"\n      ],\n      \"project_id\": 8485,\n      \"project_name\": \"string\",\n      \"completed_at\": \"1988-05-25T04:11:30.174Z\",\n      \"finetune_name\": \"string\",\n      \"finetune_created_at\": \"1979-12-07T22:12:03.114Z\",\n      \"active_duration\": 0,\n      \"is_lora_adapter\": false\n    },\n    {\n      \"id\": \"string\",\n      \"model_type\": \"Fine-tuned Run\",\n      \"model_id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"status\": \"Failed\",\n      \"total_input_tokens\": 4303,\n      \"total_output_tokens\": 2802,\n      \"created_at\": \"1975-08-24T01:38:19.651Z\",\n      \"updated_at\": \"1970-08-17T09:27:49.720Z\",\n      \"n_instances\": 6501,\n      \"user_id\": \"string\",\n      \"team_id\": \"string\",\n      \"model_name\": \"string\",\n      \"memory\": \"string\",\n      \"hardware_type\": \"Serverless\",\n      \"last_deployed_at\": \"1968-10-27T01:53:32.847Z\",\n      \"processor\": \"MI300X\",\n      \"n_epochs\": 3355,\n      \"batch_size\": 7209,\n      \"learning_rate\": 1694.3844843655565,\n      \"training_files\": [\n        \"string\",\n        \"string\"\n      ],\n      \"project_id\": 6626,\n      \"project_name\": \"string\",\n      \"completed_at\": \"1955-03-28T17:17:15.056Z\",\n      \"finetune_name\": \"string\",\n      \"finetune_created_at\": \"1965-08-06T10:59:47.383Z\",\n      \"active_duration\": 0,\n      \"is_lora_adapter\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "126023e5-ab58-4ab5-8fea-5f5c6a815e58",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "internal",
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{v1-flow-internal-deployments-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "team-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "69aa102a-af58-47d9-9aab-417acf578cd1",
+          "name": "Ml Model By Model Id",
+          "request": {
+            "name": "Ml Model By Model Id",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "internal",
+                "models",
+                "info"
+              ],
+              "host": [
+                "{{v1-flow-internal-models-info-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "model_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c5636a74-7e17-4c8e-8115-eb7ff55c4f56",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "internal",
+                    "models",
+                    "info"
+                  ],
+                  "host": [
+                    "{{v1-flow-internal-models-info-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"size\": 5260,\n  \"model_type\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d49dd6f-3db5-43f8-9c5f-dff96f027a5e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "internal",
+                    "models",
+                    "info"
+                  ],
+                  "host": [
+                    "{{v1-flow-internal-models-info-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c833605c-4854-45d9-a12f-8d920b03b362",
+          "name": "Ml Model Hf Revision By Model Name",
+          "request": {
+            "name": "Ml Model Hf Revision By Model Name",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "internal",
+                "models",
+                "hf_revision"
+              ],
+              "host": [
+                "{{v1-flow-internal-models-hf_revision-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "model_name",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "049dfa09-fe38-46c0-82c4-de2a0a52a1b3",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "internal",
+                    "models",
+                    "hf_revision"
+                  ],
+                  "host": [
+                    "{{v1-flow-internal-models-hf_revision-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"hf_revision\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e88a630a-8d9a-4fe6-a13e-e9f5d6f3e095",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "internal",
+                    "models",
+                    "hf_revision"
+                  ],
+                  "host": [
+                    "{{v1-flow-internal-models-hf_revision-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8b2eade-d4f4-48bf-a5c6-c434fcc1e024",
+          "name": "Show Models",
+          "request": {
+            "name": "Show Models",
+            "description": {
+              "content": "Returns a list of all models available in the stack.\n\nArgs:\n    token_data: User data specified by api-key\n\nReturns:\n    JSONResponse: A JSON response containing the list of models.\n\nRaises:\n    Exception: If there is an error in retrieving the endpoint information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "models"
+              ],
+              "host": [
+                "{{v1-models-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e2527244-1843-4b13-b330-d0965b4937c4",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "models"
+                  ],
+                  "host": [
+                    "{{v1-models-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "v1-flow-models-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "v1-flow-models-info-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "v1-flow-models-hf_revision-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "v1-flow-internal-models-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "v1-flow-internal-deployments-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "v1-flow-internal-models-info-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "v1-flow-internal-models-hf_revision-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "v1-models-Url"
+    }
+  ],
+  "info": {
+    "_postman_id": "d353bdb9-18d4-4262-8bdf-7bf511497841",
+    "name": "Seekr Models API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged Models across 2 of this provider's published API definitions: seekr-llm-training-openapi.json, seekr-serving-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: Seekr API Support\n Email: contact@seekr.com",
+      "type": "text/plain"
+    }
+  }
+}

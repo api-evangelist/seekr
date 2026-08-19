@@ -1,0 +1,563 @@
+{
+  "item": [
+    {
+      "id": "be0e9a32-7960-4651-97a9-9317f7594ed3",
+      "name": "Pricing",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2ab0d526-6aca-4cd5-8e3b-69ca0551b259",
+          "name": "Generate Price Estimate For Serverless Inference",
+          "request": {
+            "name": "Generate Price Estimate For Serverless Inference",
+            "description": {
+              "content": "Generates a price estimate for running inference using a base-model in a server-less deployment environment.\n**Note:** We currently only support inference for fine-tuned models in dedicated servers.\n\n### Key Input Fields:\n\n- **pricing_estimate_request.deployment.model_id**: Used to fetch the model and determine the `model_size`, which influences the pricing multipliers applied in the calculation. Also used in logic in determining whether model deployed is a fine-tuned or base model.\n\n- **pricing_estimate_request.file_ids**: A list of file IDs used to pull files from S3 and parse them for token counts. These token counts will be used as `input_tokens` in the pricing equation, while `output_tokens` will use default values. If no `file_ids` are provided, `input_tokens` will default to predefined values.\n\n**Returns:** A JSON object with the price estimate.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "pricing",
+                "inference",
+                "serverless"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deployment\": {\n    \"model_type\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"n_instances\": \"<integer>\",\n    \"hardware\": \"<string>\"\n  },\n  \"file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8750d7e9-72bf-4f4c-8d09-9dd7c1361bce",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "pricing",
+                    "inference",
+                    "serverless"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deployment\": {\n    \"model_type\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"n_instances\": \"<integer>\",\n    \"hardware\": \"<string>\"\n  },\n  \"file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 8643,\n  \"pricing_estimate\": 5323.0900934834735,\n  \"billing_type\": \"Fine-Tuning\",\n  \"resource_type\": \"Dedicated\",\n  \"created_at\": \"2020-06-07T19:46:55.993Z\",\n  \"deployment\": {\n    \"model_type\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"n_instances\": \"<integer>\",\n    \"hardware\": \"<string>\"\n  },\n  \"description\": \"string\",\n  \"tokens_used\": 8325,\n  \"calculation_parameters\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"value\": {}\n    },\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"value\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89ecba39-a446-4875-a912-36b36e51d1e0",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "pricing",
+                    "inference",
+                    "serverless"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deployment\": {\n    \"model_type\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"n_instances\": \"<integer>\",\n    \"hardware\": \"<string>\"\n  },\n  \"file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00afdefa-8096-468f-a5d7-81084dbb92bc",
+          "name": "Generate Price Estimate For Finetuning",
+          "request": {
+            "name": "Generate Price Estimate For Finetuning",
+            "description": {
+              "content": "Generates a price estimate for applying a fine-tuning job for a given model.\n\n### Key input fields:\n- **pricing_estimate_request.deployment.model_id**: - used to fetch the model, and determine the model_size which in turn is used for calculating multipliers used in equations\n- **pricing_estimate_request.num_of_epochs**: - number of times training set is passed through model during training.\n    A direct input into the equation calculations\n\n**Returns:** A JSON object with the price estimate.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "pricing",
+                "fine-tuning"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deployment\": {\n    \"model_type\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"n_instances\": \"<integer>\",\n    \"hardware\": \"<string>\"\n  },\n  \"num_of_epochs\": \"<integer>\",\n  \"file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "56dcd7a0-94ff-41e3-a556-3491cfca85b1",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "pricing",
+                    "fine-tuning"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deployment\": {\n    \"model_type\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"n_instances\": \"<integer>\",\n    \"hardware\": \"<string>\"\n  },\n  \"num_of_epochs\": \"<integer>\",\n  \"file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 7950,\n  \"pricing_estimate\": 998.3885511306468,\n  \"billing_type\": \"Training\",\n  \"resource_type\": \"Serverless\",\n  \"created_at\": \"1947-09-06T17:07:45.969Z\",\n  \"deployment\": {\n    \"model_type\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"n_instances\": \"<integer>\",\n    \"hardware\": \"<string>\"\n  },\n  \"description\": \"string\",\n  \"tokens_used\": 587,\n  \"calculation_parameters\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"value\": {}\n    },\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"value\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "275ca971-9bad-4513-9b9b-14c230316a19",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "pricing",
+                    "fine-tuning"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deployment\": {\n    \"model_type\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"n_instances\": \"<integer>\",\n    \"hardware\": \"<string>\"\n  },\n  \"num_of_epochs\": \"<integer>\",\n  \"file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0e026831-9d7e-4a39-8321-7757355c46bd",
+          "name": "Generate Price Estimate For Dedicated Inference",
+          "request": {
+            "name": "Generate Price Estimate For Dedicated Inference",
+            "description": {
+              "content": "Generates a price estimate for running inference using a base or fine-tuned model in a dedicated deployment environment.\nNote: We currently only support GAUDI2 for our hardware but recognize future use of A100, H100, GAUDI3 accelerator types.\nKey input fields:\n- **pricing_estimate_request.estimated_compute_hours**: - hours of total usage of the model. A direct input used in calculation\n    Also has a default if nothing is entered\n- **pricing_estimate_request.deployment.n_instances**: - instances of the hardware resource used. A direct input used in calculations\n- **pricing_estimate_request.deployment.hardware**: - used to calculate pricing multiplier based on the mapping (CPU, GPU, HPU) listed.\n    For the input value `GAUDI2` we actually bypass the mapping and set the multiplier by 1, because it is our default offering.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "pricing",
+                "inference",
+                "dedicated"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deployment\": {\n    \"model_type\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"n_instances\": \"<integer>\",\n    \"hardware\": \"<string>\"\n  },\n  \"estimated_compute_hours\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "677b503c-4464-41a7-b62d-491718507305",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "pricing",
+                    "inference",
+                    "dedicated"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deployment\": {\n    \"model_type\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"n_instances\": \"<integer>\",\n    \"hardware\": \"<string>\"\n  },\n  \"estimated_compute_hours\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 7950,\n  \"pricing_estimate\": 998.3885511306468,\n  \"billing_type\": \"Training\",\n  \"resource_type\": \"Serverless\",\n  \"created_at\": \"1947-09-06T17:07:45.969Z\",\n  \"deployment\": {\n    \"model_type\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"n_instances\": \"<integer>\",\n    \"hardware\": \"<string>\"\n  },\n  \"description\": \"string\",\n  \"tokens_used\": 587,\n  \"calculation_parameters\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"value\": {}\n    },\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"value\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66e7768b-df76-4aca-8548-28d5fb3cee96",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "pricing",
+                    "inference",
+                    "dedicated"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deployment\": {\n    \"model_type\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"n_instances\": \"<integer>\",\n    \"hardware\": \"<string>\"\n  },\n  \"estimated_compute_hours\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7671dca2-2afb-46b7-9b44-515167bcaf3e",
+    "name": "SeekrFlow Pricing API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "SeekrFlow API Documentation\n\nContact Support:\n Name: Seekr API Support\n Email: contact@seekr.com",
+      "type": "text/plain"
+    }
+  }
+}

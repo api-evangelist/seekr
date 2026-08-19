@@ -1,0 +1,269 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Seekr Agents API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Agents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Registered Agents Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/internal/agents"
+          },
+          "docs": "List all agents currently registered with agents-router."
+        },
+        {
+          "info": {
+            "name": "List Agents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v2/flow/agents/",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all agents for the user"
+        },
+        {
+          "info": {
+            "name": "Get Agent By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v2/flow/agents/:agent_id",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Agent By Id"
+        },
+        {
+          "info": {
+            "name": "Patch",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://flow.seekr.com/v2/flow/agents/:agent_id",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Partially updates an agent. Only explicitly provided fields are changed.\n\nOn success, the agent and its descendants are redeployed.\nOn deploy failure the agent status is set to FAILED.\nTool ownership and model validation are enforced before any write occurs."
+        },
+        {
+          "info": {
+            "name": "Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://flow.seekr.com/v2/flow/agents/:agent_id",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Destructive endpoint that demotes an agent (if deployed) followed by a DELETE from the DB. For demote-only, use the demote endpoint."
+        },
+        {
+          "info": {
+            "name": "Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v2/flow/agents/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create"
+        },
+        {
+          "info": {
+            "name": "Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://flow.seekr.com/v2/flow/agents/:agent_id/update",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates an agent's details entirely. Requires all agent fields to be provided.\nPromotes the updated agent and returns it."
+        },
+        {
+          "info": {
+            "name": "Promote",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://flow.seekr.com/v2/flow/agents/:agent_id/promote",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Promote"
+        },
+        {
+          "info": {
+            "name": "Demote",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://flow.seekr.com/v2/flow/agents/:agent_id/demote",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Demote"
+        },
+        {
+          "info": {
+            "name": "Diff",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://flow.seekr.com/v2/flow/agents/:agent_id/diff",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Preview the diff of a proposed patch without applying any changes.\n\nBehaves as a dry-run.  Nothing is written to the DB or redeployed."
+        },
+        {
+          "info": {
+            "name": "Update Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://flow.seekr.com/v2/flow/internal/agents/:agent_id/update-status",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "An internal-only endpoint (no built-in auth validation) to update the agent's status in the DB, if it exists.\n\nIf the provided status is 'Active', and the Agent's current status is NOT 'Active', the `last_deployed_at` field\nis also updated in the DB to reflect the current date/time.\n\nIf the provided status is changed to 'Failed' from any other status, the Agent yaml is deleted from the git repo,\nand the status is updated to 'Failed' in the DB.\n\nArguments:\n    agent_id: the ID of the agent to upd"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

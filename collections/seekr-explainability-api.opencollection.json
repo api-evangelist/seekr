@@ -1,0 +1,228 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SeekrFlow Explainability API",
+    "version": "5.17.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Explainability",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/version"
+          },
+          "docs": "Version"
+        },
+        {
+          "info": {
+            "name": "Read Root",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/explainability/"
+          },
+          "docs": "Read Root"
+        },
+        {
+          "info": {
+            "name": "Check Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/explainability/status"
+          },
+          "docs": "Check the status of the retriever service.\n\nReturns:\n    JSONResponse: The status response containing the status and version information."
+        },
+        {
+          "info": {
+            "name": "Create Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/explainability/create-index",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create index."
+        },
+        {
+          "info": {
+            "name": "Populate Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/explainability/populate-index",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Populate the index with qa pairs in the parquet files."
+        },
+        {
+          "info": {
+            "name": "Delete Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/explainability/delete-index",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete Index"
+        },
+        {
+          "info": {
+            "name": "Get Influential Finetuning Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/explainability/influential-finetuning-data",
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "question",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "model_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "system_prompt",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "answer",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "method",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "k",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "alpha",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "index_version",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "threshold",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Perform hybrid search of the index for the given query.\n\nParameters:\n- team_id (str): team scope for the request.\n- question (str): question from user.\n- model_id (str): model_id of the finetuned model.\n- system_prompt (str | None): optional system prompt used only when answer must be generated.\n- answer (str | None): answer from the finetuned model to the question; if not provided, the service retrieves\n  an answer from the finetuned model specified by model_id.\n- method (str): Specify the type"
+        },
+        {
+          "info": {
+            "name": "Populate Index Job Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/explainability/populate-index-job-status",
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Populate Index Job Status"
+        },
+        {
+          "info": {
+            "name": "Get Context Attribution",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/explainability/context-attributor",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Compute context attribution scores for a model response.\n\nDetermines which parts of the provided context contributed to the model's response\nusing the ContextCite algorithm.\n\nRequired fields:\n    - context: The context text that was provided to the model\n    - query: The user's query/question\n    - response: The model's response to attribute\n\nOptional fields:\n    - model: Model name for attribution computation (default: Llama-3.1-8B-Instruct)\n    - highlight: Specific portion of response to attr"
+        },
+        {
+          "info": {
+            "name": "Get Context Attribution From Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/explainability/context-attributor-from-run",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Compute context attribution scores from an agent run.\n\nExtracts context (tool results from message parts, or logfire spans as a SaaS\nfallback), the agent's system prompt (from ``agent.instructions``), the query\n(user input), and the response (assistant output), then runs context\nattribution analysis.\n\nRequired fields:\n    - thread_id: ID of the thread to analyze\n\nOptional fields:\n    - run_id: If not provided, uses the latest completed run\n    - highlight: Specific portion of response to attribu"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

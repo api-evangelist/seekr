@@ -1,0 +1,1377 @@
+openapi: 3.2.0
+info:
+  title: SeekrFlow Tools API
+  description: SeekrFlow API Documentation
+  termsOfService: http://www.seekr.com/support
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  version: 5.108.1
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Tools
+paths:
+  /v1/flow/tools:
+    post:
+      tags:
+      - Tools
+      summary: Create Tool
+      description: "Create a new tool.\n\nArgs:\n    user: Authenticated user\n    request: Tool creation request\n\nReturns:\n    Created tool response"
+      operationId: create_tool_v1_flow_tools_post
+      security:
+      - APIKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__CreateFileSearch'
+              - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__CreateRunPython'
+              - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__CreateWebSearch'
+              - $ref: '#/components/schemas/CreateAgentAsTool'
+              - $ref: '#/components/schemas/CreateMCPConnectorTool'
+              title: Request
+            examples:
+              file_search:
+                summary: File search request
+                value:
+                  name: my file search tool
+                  description: 'contains files about '
+                  type: file_search
+                  config:
+                    file_search_index: my-document-index
+                    top_k: 10
+                    score_threshold: 0.7
+              run_python:
+                summary: Code interpreter / Custom functions request
+                value:
+                  name: my python functions tool
+                  type: run_python
+                  description: Execute Python code for data analysis and calculations
+                  config:
+                    function_ids:
+                    - func-123
+                    - func-456
+              web_search:
+                summary: Web search request
+                value:
+                  name: my web search tool
+                  type: web_search
+                  description: Search the web for current information
+              agent_as_tool:
+                summary: Create agent as a tool request
+                value:
+                  name: sports history bot
+                  description: an expert on the history of sports
+                  config:
+                    agent_id: agent-00c6a3dc-4d32-4f52-9594-912aa345fffa
+              mcp_connector:
+                summary: MCP Connector Tool request
+                value:
+                  name: mcp connector tool
+                  description: MCP connector tool with external authorization
+                  type: mcp_connector
+                  config:
+                    url: https://example.com/mcp-connector
+      responses:
+        '202':
+          description: Request accepted for processing
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/FileSearchResponse'
+                - $ref: '#/components/schemas/RunPythonResponse'
+                - $ref: '#/components/schemas/WebSearchResponse'
+                - $ref: '#/components/schemas/AgentAsToolResponse'
+                - $ref: '#/components/schemas/MCPConnectorToolResponse'
+                discriminator:
+                  propertyName: type
+                  mapping:
+                    file_search: '#/components/schemas/FileSearchResponse'
+                    run_python: '#/components/schemas/RunPythonResponse'
+                    web_search: '#/components/schemas/WebSearchResponse'
+                    agent_as_tool: '#/components/schemas/AgentAsToolResponse'
+                    mcp_connector: '#/components/schemas/MCPConnectorToolResponse'
+                title: Response Create Tool V1 Flow Tools Post
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Tools
+      summary: List Tools
+      description: "List tools with pagination and filtering.\n\nArgs:\n    user: Authenticated user\n    offset: Number of records to skip\n    limit: Maximum number of records to return\n    tool_type: Filter by tool type\n    tool_status: Filter by tool status\n\nReturns:\n    Paginated list of tools"
+      operationId: list_tools_v1_flow_tools_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 1000
+          minimum: 1
+          default: 100
+          title: Limit
+      - name: tool_type
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/ToolType'
+          - type: 'null'
+          description: Filter by tool type
+          title: Tool Type
+        description: Filter by tool type
+      - name: tool_status
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/ToolStatus'
+          - type: 'null'
+          description: Filter by tool status
+          title: Tool Status
+        description: Filter by tool status
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetToolsResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/tools/{tool_id}:
+    get:
+      tags:
+      - Tools
+      summary: Get Tool
+      description: "Get a specific tool by ID.\n\nArgs:\n    user: Authenticated user\n    tool_id: Tool ID to retrieve\n\nReturns:\n    Tool response"
+      operationId: get_tool_v1_flow_tools__tool_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: tool_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Tool Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/FileSearchResponse'
+                - $ref: '#/components/schemas/RunPythonResponse'
+                - $ref: '#/components/schemas/WebSearchResponse'
+                - $ref: '#/components/schemas/AgentAsToolResponse'
+                - $ref: '#/components/schemas/MCPConnectorToolResponse'
+                discriminator:
+                  propertyName: type
+                  mapping:
+                    file_search: '#/components/schemas/FileSearchResponse'
+                    run_python: '#/components/schemas/RunPythonResponse'
+                    web_search: '#/components/schemas/WebSearchResponse'
+                    agent_as_tool: '#/components/schemas/AgentAsToolResponse'
+                    mcp_connector: '#/components/schemas/MCPConnectorToolResponse'
+                title: Response Get Tool V1 Flow Tools  Tool Id  Get
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Tools
+      summary: Update tool
+      description: Partially update an existing tool. Omitted fields remain unchanged.
+      operationId: patch_tool_v1_flow_tools__tool_id__patch
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: tool_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Tool Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchToolBaseRequest'
+            examples:
+              file_search:
+                summary: File search patch request
+                value:
+                  name: my file search tool
+                  description: 'contains files about '
+                  config:
+                    file_search_index: my-document-index
+                    top_k: 10
+                    score_threshold: 0.7
+              run_python:
+                summary: Code interpreter / Custom functions patch request
+                value:
+                  name: my python functions tool
+                  description: Execute Python code for data analysis and calculations
+                  config:
+                    function_ids:
+                    - func-123
+                    - func-456
+              web_search:
+                summary: Web search patch request
+                value:
+                  name: my web search tool
+                  description: Search the web for current information
+              agent_as_tool:
+                summary: Agent as tool patch request
+                value:
+                  name: sports history bot
+                  description: an expert on the history of sports
+              mcp_connector:
+                summary: MCP Connector Tool patch request
+                value:
+                  name: mcp connector tool
+                  description: MCP connector tool with external authorization
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/FileSearchResponse'
+                - $ref: '#/components/schemas/RunPythonResponse'
+                - $ref: '#/components/schemas/WebSearchResponse'
+                - $ref: '#/components/schemas/AgentAsToolResponse'
+                - $ref: '#/components/schemas/MCPConnectorToolResponse'
+                discriminator:
+                  propertyName: type
+                  mapping:
+                    file_search: '#/components/schemas/FileSearchResponse'
+                    run_python: '#/components/schemas/RunPythonResponse'
+                    web_search: '#/components/schemas/WebSearchResponse'
+                    agent_as_tool: '#/components/schemas/AgentAsToolResponse'
+                    mcp_connector: '#/components/schemas/MCPConnectorToolResponse'
+                title: Response Patch Tool V1 Flow Tools  Tool Id  Patch
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - Tools
+      summary: Replace tool
+      description: "Update an existing tool. Full tool schema required.\n\nArgs:\n    user: Authenticated user\n    tool_id: Tool ID to update\n    request: Tool update request\n\nReturns:\n    Updated tool response"
+      operationId: update_tool_v1_flow_tools__tool_id__put
+      deprecated: true
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: tool_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Tool Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__CreateFileSearch'
+              - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__CreateRunPython'
+              - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__CreateWebSearch'
+              - $ref: '#/components/schemas/CreateAgentAsTool'
+              - $ref: '#/components/schemas/CreateMCPConnectorTool'
+              title: Request
+            examples:
+              file_search:
+                summary: File search request
+                value:
+                  name: my file search tool
+                  description: 'contains files about '
+                  type: file_search
+                  config:
+                    file_search_index: my-document-index
+                    top_k: 10
+                    score_threshold: 0.7
+              run_python:
+                summary: Code interpreter / Custom functions request
+                value:
+                  name: my python functions tool
+                  type: run_python
+                  description: Execute Python code for data analysis and calculations
+                  config:
+                    function_ids:
+                    - func-123
+                    - func-456
+              web_search:
+                summary: Web search request
+                value:
+                  name: my web search tool
+                  type: web_search
+                  description: Search the web for current information
+              agent_as_tool:
+                summary: Create agent as a tool request
+                value:
+                  name: sports history bot
+                  description: an expert on the history of sports
+                  config:
+                    agent_id: agent-00c6a3dc-4d32-4f52-9594-912aa345fffa
+              mcp_connector:
+                summary: MCP Connector Tool request
+                value:
+                  name: mcp connector tool
+                  description: MCP connector tool with external authorization
+                  type: mcp_connector
+                  config:
+                    url: https://example.com/mcp-connector
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/FileSearchResponse'
+                - $ref: '#/components/schemas/RunPythonResponse'
+                - $ref: '#/components/schemas/WebSearchResponse'
+                - $ref: '#/components/schemas/AgentAsToolResponse'
+                - $ref: '#/components/schemas/MCPConnectorToolResponse'
+                discriminator:
+                  propertyName: type
+                  mapping:
+                    file_search: '#/components/schemas/FileSearchResponse'
+                    run_python: '#/components/schemas/RunPythonResponse'
+                    web_search: '#/components/schemas/WebSearchResponse'
+                    agent_as_tool: '#/components/schemas/AgentAsToolResponse'
+                    mcp_connector: '#/components/schemas/MCPConnectorToolResponse'
+                title: Response Update Tool V1 Flow Tools  Tool Id  Put
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Tools
+      summary: Delete Tool
+      description: "Delete a tool if it's not referenced by active agents.\n\nArgs:\n    user: Authenticated user\n    tool_id: Tool ID to delete\n\nReturns:\n    Deletion response"
+      operationId: delete_tool_v1_flow_tools__tool_id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: tool_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Tool Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToolDeleteResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/tools/{tool_id}/agents:
+    get:
+      tags:
+      - Tools
+      summary: Get Agents For Tool
+      description: "Get a list of agents linked to a specific tool by ID.\n\nArgs:\n    user: Authenticated user\n    tool_id: Tool ID linked to agents\n\nReturns:\n    ToolAgentSummarySchema response"
+      operationId: get_agents_for_tool_v1_flow_tools__tool_id__agents_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: tool_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Tool Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ToolAgentSummarySchema'
+                title: Response Get Agents For Tool V1 Flow Tools  Tool Id  Agents Get
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/tools/{tool_id}/diff:
+    patch:
+      tags:
+      - Tools
+      summary: Preview tool update
+      description: Preview the changes a patch request would make to a tool without applying them. Returns a before-and-after diff of the affected fields.
+      operationId: diff_tool_changes_v1_flow_tools__tool_id__diff_patch
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: tool_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Tool Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchToolBaseRequest'
+            examples:
+              file_search:
+                summary: File search patch request
+                value:
+                  name: my file search tool
+                  description: 'contains files about '
+                  config:
+                    file_search_index: my-document-index
+                    top_k: 10
+                    score_threshold: 0.7
+              run_python:
+                summary: Code interpreter / Custom functions patch request
+                value:
+                  name: my python functions tool
+                  description: Execute Python code for data analysis and calculations
+                  config:
+                    function_ids:
+                    - func-123
+                    - func-456
+              web_search:
+                summary: Web search patch request
+                value:
+                  name: my web search tool
+                  description: Search the web for current information
+              agent_as_tool:
+                summary: Agent as tool patch request
+                value:
+                  name: sports history bot
+                  description: an expert on the history of sports
+              mcp_connector:
+                summary: MCP Connector Tool patch request
+                value:
+                  name: mcp connector tool
+                  description: MCP connector tool with external authorization
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatchToolResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/tools/{tool_id}/duplicate:
+    post:
+      tags:
+      - Tools
+      summary: Duplicate Tool
+      description: "Duplicate an existing tool with a new name.\n\nArgs:\n    user: Authenticated user\n    tool_id: Tool ID to duplicate\n    request: Duplication request with optional new name\n\nReturns:\n    New tool response"
+      operationId: duplicate_tool_v1_flow_tools__tool_id__duplicate_post
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: tool_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Tool Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/ToolDuplicateRequest'
+              - type: 'null'
+              title: Request
+      responses:
+        '201':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/FileSearchResponse'
+                - $ref: '#/components/schemas/RunPythonResponse'
+                - $ref: '#/components/schemas/WebSearchResponse'
+                - $ref: '#/components/schemas/AgentAsToolResponse'
+                - $ref: '#/components/schemas/MCPConnectorToolResponse'
+                discriminator:
+                  propertyName: type
+                  mapping:
+                    file_search: '#/components/schemas/FileSearchResponse'
+                    run_python: '#/components/schemas/RunPythonResponse'
+                    web_search: '#/components/schemas/WebSearchResponse'
+                    agent_as_tool: '#/components/schemas/AgentAsToolResponse'
+                    mcp_connector: '#/components/schemas/MCPConnectorToolResponse'
+                title: Response Duplicate Tool V1 Flow Tools  Tool Id  Duplicate Post
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/internal/tools/mcp-connector/sync:
+    post:
+      tags:
+      - Tools
+      summary: Sync MCP connector tool lifecycle state
+      description: Sync MCP connector lifecycle state from mcp-vault.
+      operationId: sync_mcp_connector_tool_state_v1_flow_internal_tools_mcp_connector_sync_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MCPConnectorSyncRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MCPConnectorSyncResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/internal/tools/tool-metadata/{tool_id}:
+    get:
+      tags:
+      - Tools
+      summary: Resolve tool metadata by tool ID
+      operationId: get_tool_metadata_v1_flow_internal_tools_tool_metadata__tool_id__get
+      parameters:
+      - name: tool_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Tool Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/FileSearchResponse'
+                - $ref: '#/components/schemas/RunPythonResponse'
+                - $ref: '#/components/schemas/WebSearchResponse'
+                - $ref: '#/components/schemas/AgentAsToolResponse'
+                - $ref: '#/components/schemas/MCPConnectorToolResponse'
+                discriminator:
+                  propertyName: type
+                  mapping:
+                    file_search: '#/components/schemas/FileSearchResponse'
+                    run_python: '#/components/schemas/RunPythonResponse'
+                    web_search: '#/components/schemas/WebSearchResponse'
+                    agent_as_tool: '#/components/schemas/AgentAsToolResponse'
+                    mcp_connector: '#/components/schemas/MCPConnectorToolResponse'
+                title: Response Get Tool Metadata V1 Flow Internal Tools Tool Metadata  Tool Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+components:
+  schemas:
+    ToolDeleteResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        deleted:
+          type: boolean
+          title: Deleted
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - id
+      - deleted
+      - message
+      title: ToolDeleteResponse
+      description: Response schema for tool deletion.
+    MCPConnectorToolConfig:
+      properties:
+        URL:
+          type: string
+          minLength: 1
+          title: Url
+        CLIENT_ID:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          title: Client Id
+        CLIENT_SECRET:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          title: Client Secret
+      additionalProperties: false
+      type: object
+      required:
+      - URL
+      title: MCPConnectorToolConfig
+    AgentAsToolConfig:
+      properties:
+        AGENT_ID:
+          type: string
+          title: Agent Id
+      additionalProperties: false
+      type: object
+      required:
+      - AGENT_ID
+      title: AgentAsToolConfig
+    MCPConnectorToolResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        type:
+          type: string
+          const: mcp_connector
+          title: Type
+          default: mcp_connector
+        config:
+          $ref: '#/components/schemas/MCPConnectorToolResponseConfig'
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        status:
+          $ref: '#/components/schemas/ToolStatus'
+        version:
+          type: integer
+          title: Version
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - id
+      - name
+      - config
+      - user_id
+      - team_id
+      - status
+      - version
+      - created_at
+      - updated_at
+      title: MCPConnectorToolResponse
+    CreateMCPConnectorTool:
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        type:
+          type: string
+          const: mcp_connector
+          title: Type
+          default: mcp_connector
+        config:
+          $ref: '#/components/schemas/MCPConnectorToolConfig'
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - description
+      - config
+      title: CreateMCPConnectorTool
+    ToolConfig:
+      properties: {}
+      additionalProperties: false
+      type: object
+      title: ToolConfig
+    PatchToolBaseRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        type:
+          anyOf:
+          - $ref: '#/components/schemas/ToolType'
+          - type: 'null'
+        config:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Config
+      additionalProperties: false
+      type: object
+      title: PatchToolBaseRequest
+    CreateAgentAsTool:
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        type:
+          type: string
+          const: agent_as_tool
+          title: Type
+          default: agent_as_tool
+        config:
+          $ref: '#/components/schemas/AgentAsToolConfig'
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - description
+      - config
+      title: CreateAgentAsTool
+    MCPConnectorToolResponseConfig:
+      properties:
+        URL:
+          type: string
+          minLength: 1
+          title: Url
+        TRANSPORT:
+          type: string
+          enum:
+          - sse
+          - streamable-http
+          title: Transport
+          default: streamable-http
+        AUTHORIZATION_URL:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Authorization Url
+      additionalProperties: false
+      type: object
+      required:
+      - URL
+      title: MCPConnectorToolResponseConfig
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    MCPConnectorSyncState:
+      type: string
+      enum:
+      - Active
+      - Failed
+      title: MCPConnectorSyncState
+      description: Lifecycle state values sent by mcp-vault.
+    llm_training__agents__tools__standalone__schemas__CreateFileSearch:
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        type:
+          type: string
+          const: file_search
+          title: Type
+          default: file_search
+        config:
+          $ref: '#/components/schemas/FileSearchConfig'
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - description
+      - config
+      title: CreateFileSearch
+    RunPythonResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        type:
+          type: string
+          const: run_python
+          title: Type
+          default: run_python
+        config:
+          $ref: '#/components/schemas/RunPythonConfig'
+          default: {}
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        status:
+          $ref: '#/components/schemas/ToolStatus'
+        version:
+          type: integer
+          title: Version
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - id
+      - name
+      - user_id
+      - team_id
+      - status
+      - version
+      - created_at
+      - updated_at
+      title: RunPythonResponse
+    RunPythonConfig:
+      properties:
+        FUNCTION_IDS:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Function Ids
+      additionalProperties: false
+      type: object
+      title: RunPythonConfig
+    ToolAgentSummarySchema:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        status:
+          $ref: '#/components/schemas/AgentStatus'
+      type: object
+      required:
+      - id
+      - name
+      - status
+      title: ToolAgentSummarySchema
+      description: Schema for tool agent summary.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    FileSearchConfig:
+      properties:
+        FILE_SEARCH_INDEX:
+          type: string
+          minLength: 1
+          title: File Search Index
+        EMBEDDING_MODEL:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Embedding Model
+        TOP_K:
+          type: integer
+          maximum: 100
+          minimum: 1
+          title: Top K
+          description: Top K must be >= 1 and <= 100
+          default: 10
+        SCORE_THRESHOLD:
+          type: number
+          exclusiveMaximum: 1
+          minimum: 0
+          title: Score Threshold
+          description: Score must be ≥ 0.0 and < 1.0
+          default: 0
+      additionalProperties: false
+      type: object
+      required:
+      - FILE_SEARCH_INDEX
+      title: FileSearchConfig
+    AgentStatus:
+      type: string
+      enum:
+      - Inactive
+      - Pending
+      - Active
+      - Updating
+      - Failed
+      title: AgentStatus
+    llm_training__agents__tools__standalone__schemas__CreateRunPython:
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        type:
+          type: string
+          const: run_python
+          title: Type
+          default: run_python
+        config:
+          $ref: '#/components/schemas/RunPythonConfig'
+          default: {}
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - description
+      title: CreateRunPython
+    MCPConnectorSyncResponse:
+      properties:
+        tool_id:
+          type: string
+          title: Tool Id
+        status:
+          type: string
+          title: Status
+        applied:
+          type: boolean
+          title: Applied
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+      type: object
+      required:
+      - tool_id
+      - status
+      - applied
+      title: MCPConnectorSyncResponse
+      description: Response body when a state transition is applied.
+    ToolType:
+      type: string
+      enum:
+      - file_search
+      - web_search
+      - run_python
+      - agent_as_tool
+      - mcp_connector
+      title: ToolType
+    ToolDuplicateRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+      type: object
+      title: ToolDuplicateRequest
+      description: Request schema for duplicating a tool.
+    MCPConnectorSyncRequest:
+      properties:
+        tool_id:
+          type: string
+          title: Tool Id
+          description: Tool ID in llm-training
+        state:
+          $ref: '#/components/schemas/MCPConnectorSyncState'
+          description: Lifecycle state from mcp-vault
+        connection_version:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Connection Version
+          description: Optional connection version for rotation tracking
+      type: object
+      required:
+      - tool_id
+      - state
+      title: MCPConnectorSyncRequest
+      description: Request body for MCP connector lifecycle sync.
+    ToolStatus:
+      type: string
+      enum:
+      - Active
+      - Inactive
+      - Deprecated
+      - Pending_authorization
+      - Failed
+      title: ToolStatus
+    PatchToolResponse:
+      properties:
+        before:
+          oneOf:
+          - $ref: '#/components/schemas/FileSearchResponse'
+          - $ref: '#/components/schemas/RunPythonResponse'
+          - $ref: '#/components/schemas/WebSearchResponse'
+          - $ref: '#/components/schemas/AgentAsToolResponse'
+          - $ref: '#/components/schemas/MCPConnectorToolResponse'
+          title: Before
+          discriminator:
+            propertyName: type
+            mapping:
+              agent_as_tool: '#/components/schemas/AgentAsToolResponse'
+              file_search: '#/components/schemas/FileSearchResponse'
+              mcp_connector: '#/components/schemas/MCPConnectorToolResponse'
+              run_python: '#/components/schemas/RunPythonResponse'
+              web_search: '#/components/schemas/WebSearchResponse'
+        after:
+          oneOf:
+          - $ref: '#/components/schemas/FileSearchResponse'
+          - $ref: '#/components/schemas/RunPythonResponse'
+          - $ref: '#/components/schemas/WebSearchResponse'
+          - $ref: '#/components/schemas/AgentAsToolResponse'
+          - $ref: '#/components/schemas/MCPConnectorToolResponse'
+          title: After
+          discriminator:
+            propertyName: type
+            mapping:
+              agent_as_tool: '#/components/schemas/AgentAsToolResponse'
+              file_search: '#/components/schemas/FileSearchResponse'
+              mcp_connector: '#/components/schemas/MCPConnectorToolResponse'
+              run_python: '#/components/schemas/RunPythonResponse'
+              web_search: '#/components/schemas/WebSearchResponse'
+        diff:
+          additionalProperties:
+            additionalProperties: true
+            type: object
+          type: object
+          title: Diff
+          default: {}
+      type: object
+      required:
+      - before
+      - after
+      title: PatchToolResponse
+    GetToolsResponse:
+      properties:
+        data:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/FileSearchResponse'
+            - $ref: '#/components/schemas/RunPythonResponse'
+            - $ref: '#/components/schemas/WebSearchResponse'
+            - $ref: '#/components/schemas/AgentAsToolResponse'
+            - $ref: '#/components/schemas/MCPConnectorToolResponse'
+            discriminator:
+              propertyName: type
+              mapping:
+                agent_as_tool: '#/components/schemas/AgentAsToolResponse'
+                file_search: '#/components/schemas/FileSearchResponse'
+                mcp_connector: '#/components/schemas/MCPConnectorToolResponse'
+                run_python: '#/components/schemas/RunPythonResponse'
+                web_search: '#/components/schemas/WebSearchResponse'
+          type: array
+          title: Data
+        total:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total
+      type: object
+      required:
+      - data
+      title: GetToolsResponse
+      description: Response schema for paginated tool list.
+    WebSearchResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        type:
+          type: string
+          const: web_search
+          title: Type
+          default: web_search
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        status:
+          $ref: '#/components/schemas/ToolStatus'
+        version:
+          type: integer
+          title: Version
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - id
+      - name
+      - user_id
+      - team_id
+      - status
+      - version
+      - created_at
+      - updated_at
+      title: WebSearchResponse
+    FileSearchResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        type:
+          type: string
+          const: file_search
+          title: Type
+          default: file_search
+        config:
+          $ref: '#/components/schemas/FileSearchConfig'
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        status:
+          $ref: '#/components/schemas/ToolStatus'
+        version:
+          type: integer
+          title: Version
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - id
+      - name
+      - config
+      - user_id
+      - team_id
+      - status
+      - version
+      - created_at
+      - updated_at
+      title: FileSearchResponse
+    llm_training__agents__tools__standalone__schemas__CreateWebSearch:
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        type:
+          type: string
+          const: web_search
+          title: Type
+          default: web_search
+        config:
+          $ref: '#/components/schemas/ToolConfig'
+          default: {}
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - description
+      title: CreateWebSearch
+    AgentAsToolResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        type:
+          type: string
+          const: agent_as_tool
+          title: Type
+          default: agent_as_tool
+        config:
+          $ref: '#/components/schemas/AgentAsToolConfig'
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        status:
+          $ref: '#/components/schemas/ToolStatus'
+        version:
+          type: integer
+          title: Version
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - id
+      - name
+      - config
+      - user_id
+      - team_id
+      - status
+      - version
+      - created_at
+      - updated_at
+      title: AgentAsToolResponse
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization

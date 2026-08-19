@@ -1,0 +1,41 @@
+openapi: 3.2.0
+info:
+  title: SeekrFlow Versions API
+  description: SeekrFlow API Documentation
+  termsOfService: http://www.seekr.com/support
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  version: 5.108.1
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Versions
+paths:
+  /v1/flow/versions:
+    get:
+      tags:
+      - Versions
+      summary: Get Versions
+      operationId: get_versions_v1_flow_versions_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+                title: Response Get Versions V1 Flow Versions Get
+      security:
+      - APIKeyHeader: []
+components:
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization

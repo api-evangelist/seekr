@@ -1,0 +1,1757 @@
+{
+  "item": [
+    {
+      "id": "3ae8f9e8-3e8a-44d9-8e5e-118e849c9c21",
+      "name": "Agents v1 - legacy",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c06c70a6-2ebf-46ea-851b-75b9909ea6bf",
+          "name": "List Agents",
+          "request": {
+            "name": "List Agents",
+            "description": {
+              "content": "List all agents for the user",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "agents",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bbc106e6-a333-4d98-9b32-dcdf524931d4",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "agents",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"instructions\": \"string\",\n      \"status\": \"Active\",\n      \"reasoning_effort\": \"high\",\n      \"user_id\": \"string\",\n      \"team_id\": \"string\",\n      \"created_at\": \"2001-07-19T17:27:27.600Z\",\n      \"updated_at\": \"1961-12-05T10:05:17.906Z\",\n      \"model_id\": \"string\",\n      \"planner_model_id\": \"string\",\n      \"tool_model_id\": \"string\",\n      \"output\": {\n        \"frequency\": \"always\",\n        \"instructions\": \"string\",\n        \"model_id\": \"string\",\n        \"temperature\": 1.847897610131402\n      },\n      \"temperature\": 1.266751786232884,\n      \"planner_temperature\": 1.809344962273723,\n      \"tools\": [\n        {\n          \"name\": \"string\",\n          \"tool_env\": {\n            \"FILE_SEARCH_INDEX\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"DOCUMENT_TOOL_DESC\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"EMBEDDING_MODEL\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"TOP_K\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"SCORE_THRESHOLD\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"id\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"tool_env\": {\n            \"FILE_SEARCH_INDEX\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"DOCUMENT_TOOL_DESC\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"EMBEDDING_MODEL\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"TOP_K\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"SCORE_THRESHOLD\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"id\": \"string\"\n        }\n      ],\n      \"last_deployed_at\": \"1996-05-21T13:00:11.317Z\",\n      \"active_duration\": 0\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"instructions\": \"string\",\n      \"status\": \"Active\",\n      \"reasoning_effort\": \"speed_optimized\",\n      \"user_id\": \"string\",\n      \"team_id\": \"string\",\n      \"created_at\": \"1992-01-13T04:12:50.729Z\",\n      \"updated_at\": \"2025-03-06T11:08:41.763Z\",\n      \"model_id\": \"string\",\n      \"planner_model_id\": \"string\",\n      \"tool_model_id\": \"string\",\n      \"output\": {\n        \"frequency\": \"never\",\n        \"instructions\": \"string\",\n        \"model_id\": \"string\",\n        \"temperature\": 0.3652028810751007\n      },\n      \"temperature\": 1.9430969038851715,\n      \"planner_temperature\": 0.5678387900568174,\n      \"tools\": [\n        {\n          \"name\": \"string\",\n          \"tool_env\": {\n            \"FILE_SEARCH_INDEX\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"DOCUMENT_TOOL_DESC\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"EMBEDDING_MODEL\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"TOP_K\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"SCORE_THRESHOLD\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"id\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"tool_env\": {\n            \"FILE_SEARCH_INDEX\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"DOCUMENT_TOOL_DESC\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"EMBEDDING_MODEL\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"TOP_K\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"SCORE_THRESHOLD\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"id\": \"string\"\n        }\n      ],\n      \"last_deployed_at\": \"2017-05-02T22:40:09.224Z\",\n      \"active_duration\": 0\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f436d042-a06c-4bbe-80f3-182261ed862d",
+          "name": "Get Agent By Id",
+          "request": {
+            "name": "Get Agent By Id",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "agents",
+                ":agent_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8b1691f0-8e56-40b5-a388-f9dac01e9abe",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "agents",
+                    ":agent_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"instructions\": \"string\",\n  \"status\": \"Failed\",\n  \"reasoning_effort\": \"performance_optimized\",\n  \"user_id\": \"string\",\n  \"team_id\": \"string\",\n  \"created_at\": \"1966-02-01T06:27:30.138Z\",\n  \"updated_at\": \"1967-02-23T01:00:17.571Z\",\n  \"model_id\": \"string\",\n  \"planner_model_id\": \"string\",\n  \"tool_model_id\": \"string\",\n  \"output\": {\n    \"frequency\": \"never\",\n    \"instructions\": \"string\",\n    \"model_id\": \"string\",\n    \"temperature\": 1.1645505244288132\n  },\n  \"temperature\": 0.0363459996281037,\n  \"planner_temperature\": 1.3053999617932257,\n  \"tools\": [\n    {\n      \"name\": \"string\",\n      \"tool_env\": {\n        \"FILE_SEARCH_INDEX\": \"string\",\n        \"DOCUMENT_TOOL_DESC\": \"string\",\n        \"EMBEDDING_MODEL\": \"string\",\n        \"TOP_K\": 10,\n        \"SCORE_THRESHOLD\": 0\n      },\n      \"id\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"tool_env\": {\n        \"FILE_SEARCH_INDEX\": \"string\",\n        \"DOCUMENT_TOOL_DESC\": \"string\",\n        \"EMBEDDING_MODEL\": \"string\",\n        \"TOP_K\": 10,\n        \"SCORE_THRESHOLD\": 0\n      },\n      \"id\": \"string\"\n    }\n  ],\n  \"last_deployed_at\": \"1980-03-05T07:59:38.754Z\",\n  \"active_duration\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4fbaa67e-afc4-4e69-93de-f0fcf464d2e3",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "agents",
+                    ":agent_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "72541a52-2578-43df-a084-6c912602b6bf",
+          "name": "Update agent",
+          "request": {
+            "name": "Update agent",
+            "description": {
+              "content": "Partially update an agent's configuration. Omitted fields remain unchanged.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "agents",
+                ":agent_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"model_id\": \"<string>\",\n  \"planner_model_id\": \"<string>\",\n  \"tool_model_id\": \"<string>\",\n  \"output\": {\n    \"frequency\": \"<string>\",\n    \"instructions\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"temperature\": \"<number>\"\n  },\n  \"temperature\": \"<number>\",\n  \"tool_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"reasoning_effort\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "37072e28-ab27-4dcf-a66f-f5ddd4dcfc72",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "agents",
+                    ":agent_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Agent\",\n  \"instructions\": \"You are a helpful assistant that can search files, browse the web, and run Python code.\",\n  \"model_id\": \"deployment-123\",\n  \"temperature\": 0.4,\n  \"reasoning_effort\": \"medium\",\n  \"tool_ids\": [\n    \"tool-123\",\n    \"tool-456\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"instructions\": \"string\",\n  \"status\": \"Failed\",\n  \"reasoning_effort\": \"<string>\",\n  \"user_id\": \"string\",\n  \"team_id\": \"string\",\n  \"created_at\": \"1957-07-22T10:16:45.005Z\",\n  \"updated_at\": \"1979-12-01T23:16:50.134Z\",\n  \"model_id\": \"string\",\n  \"planner_model_id\": \"string\",\n  \"tool_model_id\": \"string\",\n  \"output\": {\n    \"frequency\": \"<string>\",\n    \"instructions\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"temperature\": \"<number>\"\n  },\n  \"temperature\": 0.6362939045142579,\n  \"planner_temperature\": 1.2494290732778464,\n  \"tools\": [\n    {\n      \"name\": \"string\",\n      \"tool_env\": {\n        \"FILE_SEARCH_INDEX\": \"string\",\n        \"DOCUMENT_TOOL_DESC\": \"string\",\n        \"EMBEDDING_MODEL\": \"string\",\n        \"TOP_K\": 10,\n        \"SCORE_THRESHOLD\": 0\n      },\n      \"id\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"tool_env\": {\n        \"FILE_SEARCH_INDEX\": \"string\",\n        \"DOCUMENT_TOOL_DESC\": \"string\",\n        \"EMBEDDING_MODEL\": \"string\",\n        \"TOP_K\": 10,\n        \"SCORE_THRESHOLD\": 0\n      },\n      \"id\": \"string\"\n    }\n  ],\n  \"last_deployed_at\": \"2012-02-29T19:32:09.784Z\",\n  \"active_duration\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9909727-33a6-436c-b745-48e65336becd",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "agents",
+                    ":agent_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Agent\",\n  \"instructions\": \"You are a helpful assistant that can search files, browse the web, and run Python code.\",\n  \"model_id\": \"deployment-123\",\n  \"temperature\": 0.4,\n  \"reasoning_effort\": \"medium\",\n  \"tool_ids\": [\n    \"tool-123\",\n    \"tool-456\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42157b4b-2f88-4104-a1d4-5b81bfc507f3",
+          "name": "Delete",
+          "request": {
+            "name": "Delete",
+            "description": {
+              "content": "Destructive endpoint that demotes an agent (if deployed) followed by a DELETE from the DB. For demote-only, use the demote endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "agents",
+                ":agent_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3d39143b-564e-49fa-a569-610441ec026f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "agents",
+                    ":agent_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"deleted\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "618d2218-2b90-423a-8d32-e7e9e4c648f2",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "agents",
+                    ":agent_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "876b5496-ee32-4921-8d6b-9faf444a6263",
+          "name": "Create",
+          "request": {
+            "name": "Create",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "agents",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"tools\": [\n    {\n      \"name\": \"<string>\",\n      \"tool_env\": {\n        \"FILE_SEARCH_INDEX\": \"<string>\",\n        \"DOCUMENT_TOOL_DESC\": \"<string>\",\n        \"EMBEDDING_MODEL\": \"<string>\",\n        \"TOP_K\": 10,\n        \"SCORE_THRESHOLD\": 0\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"tool_env\": {\n        \"FILE_SEARCH_INDEX\": \"<string>\",\n        \"DOCUMENT_TOOL_DESC\": \"<string>\",\n        \"EMBEDDING_MODEL\": \"<string>\",\n        \"TOP_K\": 10,\n        \"SCORE_THRESHOLD\": 0\n      }\n    }\n  ],\n  \"tool_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"model_id\": \"<string>\",\n  \"planner_model_id\": \"<string>\",\n  \"tool_model_id\": \"<string>\",\n  \"output\": {\n    \"frequency\": \"<string>\",\n    \"instructions\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"temperature\": \"<number>\"\n  },\n  \"temperature\": \"<number>\",\n  \"reasoning_effort\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aae2ae16-f37e-401f-a051-e946b33c57ce",
+              "name": "Resource created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "agents",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Agent\",\n  \"instructions\": \"You are a helpful assistant that can search files, browse the web, and run Python code.\",\n  \"model_id\": \"deployment-123\",\n  \"temperature\": 0.4,\n  \"reasoning_effort\": \"medium\",\n  \"tool_ids\": [\n    \"tool-123\",\n    \"tool-456\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"instructions\": \"string\",\n  \"status\": \"Updating\",\n  \"reasoning_effort\": \"<string>\",\n  \"user_id\": \"string\",\n  \"team_id\": \"string\",\n  \"created_at\": \"2021-02-24T02:46:53.118Z\",\n  \"updated_at\": \"1951-05-05T19:15:39.062Z\",\n  \"model_id\": \"string\",\n  \"planner_model_id\": \"string\",\n  \"tool_model_id\": \"string\",\n  \"output\": {\n    \"frequency\": \"<string>\",\n    \"instructions\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"temperature\": \"<number>\"\n  },\n  \"temperature\": 0.243320390882799,\n  \"planner_temperature\": 0.4133708836931631,\n  \"tools\": [\n    {\n      \"name\": \"string\",\n      \"tool_env\": {\n        \"FILE_SEARCH_INDEX\": \"<string>\",\n        \"DOCUMENT_TOOL_DESC\": \"<string>\",\n        \"EMBEDDING_MODEL\": \"<string>\",\n        \"TOP_K\": 10,\n        \"SCORE_THRESHOLD\": 0\n      },\n      \"id\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"tool_env\": {\n        \"FILE_SEARCH_INDEX\": \"<string>\",\n        \"DOCUMENT_TOOL_DESC\": \"<string>\",\n        \"EMBEDDING_MODEL\": \"<string>\",\n        \"TOP_K\": 10,\n        \"SCORE_THRESHOLD\": 0\n      },\n      \"id\": \"string\"\n    }\n  ],\n  \"last_deployed_at\": \"1956-05-23T02:26:38.068Z\",\n  \"active_duration\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ce8e79b-7cd8-42ce-99f4-e4e64e07aa90",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "agents",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Agent\",\n  \"instructions\": \"You are a helpful assistant that can search files, browse the web, and run Python code.\",\n  \"model_id\": \"deployment-123\",\n  \"temperature\": 0.4,\n  \"reasoning_effort\": \"medium\",\n  \"tool_ids\": [\n    \"tool-123\",\n    \"tool-456\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8fb9e410-b70a-469b-af25-573236e5b423",
+          "name": "Replace agent",
+          "request": {
+            "name": "Replace agent",
+            "description": {
+              "content": "Updates an agent's details entirely. Requires all agent fields to be provided.\nPromotes the updated agent and returns it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "agents",
+                ":agent_id",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"tools\": [\n    {\n      \"name\": \"<string>\",\n      \"tool_env\": {\n        \"FILE_SEARCH_INDEX\": \"<string>\",\n        \"DOCUMENT_TOOL_DESC\": \"<string>\",\n        \"EMBEDDING_MODEL\": \"<string>\",\n        \"TOP_K\": 10,\n        \"SCORE_THRESHOLD\": 0\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"tool_env\": {\n        \"FILE_SEARCH_INDEX\": \"<string>\",\n        \"DOCUMENT_TOOL_DESC\": \"<string>\",\n        \"EMBEDDING_MODEL\": \"<string>\",\n        \"TOP_K\": 10,\n        \"SCORE_THRESHOLD\": 0\n      }\n    }\n  ],\n  \"tool_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"model_id\": \"<string>\",\n  \"planner_model_id\": \"<string>\",\n  \"tool_model_id\": \"<string>\",\n  \"output\": {\n    \"frequency\": \"<string>\",\n    \"instructions\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"temperature\": \"<number>\"\n  },\n  \"temperature\": \"<number>\",\n  \"reasoning_effort\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "41ef5bb6-ce2d-4c9a-acdf-ad955114cab4",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "agents",
+                    ":agent_id",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Agent\",\n  \"instructions\": \"You are a helpful assistant that can search files, browse the web, and run Python code.\",\n  \"model_id\": \"deployment-123\",\n  \"temperature\": 0.4,\n  \"reasoning_effort\": \"medium\",\n  \"tool_ids\": [\n    \"tool-123\",\n    \"tool-456\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"instructions\": \"string\",\n  \"status\": \"Updating\",\n  \"reasoning_effort\": \"<string>\",\n  \"user_id\": \"string\",\n  \"team_id\": \"string\",\n  \"created_at\": \"2021-02-24T02:46:53.118Z\",\n  \"updated_at\": \"1951-05-05T19:15:39.062Z\",\n  \"model_id\": \"string\",\n  \"planner_model_id\": \"string\",\n  \"tool_model_id\": \"string\",\n  \"output\": {\n    \"frequency\": \"<string>\",\n    \"instructions\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"temperature\": \"<number>\"\n  },\n  \"temperature\": 0.243320390882799,\n  \"planner_temperature\": 0.4133708836931631,\n  \"tools\": [\n    {\n      \"name\": \"string\",\n      \"tool_env\": {\n        \"FILE_SEARCH_INDEX\": \"<string>\",\n        \"DOCUMENT_TOOL_DESC\": \"<string>\",\n        \"EMBEDDING_MODEL\": \"<string>\",\n        \"TOP_K\": 10,\n        \"SCORE_THRESHOLD\": 0\n      },\n      \"id\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"tool_env\": {\n        \"FILE_SEARCH_INDEX\": \"<string>\",\n        \"DOCUMENT_TOOL_DESC\": \"<string>\",\n        \"EMBEDDING_MODEL\": \"<string>\",\n        \"TOP_K\": 10,\n        \"SCORE_THRESHOLD\": 0\n      },\n      \"id\": \"string\"\n    }\n  ],\n  \"last_deployed_at\": \"1956-05-23T02:26:38.068Z\",\n  \"active_duration\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1a11c12-da39-44fe-83dc-b9ed82cdf2f3",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "agents",
+                    ":agent_id",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Agent\",\n  \"instructions\": \"You are a helpful assistant that can search files, browse the web, and run Python code.\",\n  \"model_id\": \"deployment-123\",\n  \"temperature\": 0.4,\n  \"reasoning_effort\": \"medium\",\n  \"tool_ids\": [\n    \"tool-123\",\n    \"tool-456\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c2a7786-4837-4910-bddd-fc880a3c8702",
+          "name": "Promote",
+          "request": {
+            "name": "Promote",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "agents",
+                ":agent_id",
+                "promote"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6f7f927f-4ad6-4056-9b1b-c510bd30a8c4",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "agents",
+                    ":agent_id",
+                    "promote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"instructions\": \"string\",\n  \"status\": \"Updating\",\n  \"reasoning_effort\": \"<string>\",\n  \"user_id\": \"string\",\n  \"team_id\": \"string\",\n  \"created_at\": \"2021-02-24T02:46:53.118Z\",\n  \"updated_at\": \"1951-05-05T19:15:39.062Z\",\n  \"model_id\": \"string\",\n  \"planner_model_id\": \"string\",\n  \"tool_model_id\": \"string\",\n  \"output\": {\n    \"frequency\": \"<string>\",\n    \"instructions\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"temperature\": \"<number>\"\n  },\n  \"temperature\": 0.243320390882799,\n  \"planner_temperature\": 0.4133708836931631,\n  \"tools\": [\n    {\n      \"name\": \"string\",\n      \"tool_env\": {\n        \"FILE_SEARCH_INDEX\": \"<string>\",\n        \"DOCUMENT_TOOL_DESC\": \"<string>\",\n        \"EMBEDDING_MODEL\": \"<string>\",\n        \"TOP_K\": 10,\n        \"SCORE_THRESHOLD\": 0\n      },\n      \"id\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"tool_env\": {\n        \"FILE_SEARCH_INDEX\": \"<string>\",\n        \"DOCUMENT_TOOL_DESC\": \"<string>\",\n        \"EMBEDDING_MODEL\": \"<string>\",\n        \"TOP_K\": 10,\n        \"SCORE_THRESHOLD\": 0\n      },\n      \"id\": \"string\"\n    }\n  ],\n  \"last_deployed_at\": \"1956-05-23T02:26:38.068Z\",\n  \"active_duration\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52ca7f43-1b93-4211-b371-ecb08904a351",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "agents",
+                    ":agent_id",
+                    "promote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "efb6849e-f4c7-4240-82e7-475834e2f0a7",
+          "name": "Demote",
+          "request": {
+            "name": "Demote",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "agents",
+                ":agent_id",
+                "demote"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3705c80e-8bf9-4c8e-b0b0-d402a8a8eb1c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "agents",
+                    ":agent_id",
+                    "demote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"instructions\": \"string\",\n  \"status\": \"Updating\",\n  \"reasoning_effort\": \"<string>\",\n  \"user_id\": \"string\",\n  \"team_id\": \"string\",\n  \"created_at\": \"2021-02-24T02:46:53.118Z\",\n  \"updated_at\": \"1951-05-05T19:15:39.062Z\",\n  \"model_id\": \"string\",\n  \"planner_model_id\": \"string\",\n  \"tool_model_id\": \"string\",\n  \"output\": {\n    \"frequency\": \"<string>\",\n    \"instructions\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"temperature\": \"<number>\"\n  },\n  \"temperature\": 0.243320390882799,\n  \"planner_temperature\": 0.4133708836931631,\n  \"tools\": [\n    {\n      \"name\": \"string\",\n      \"tool_env\": {\n        \"FILE_SEARCH_INDEX\": \"<string>\",\n        \"DOCUMENT_TOOL_DESC\": \"<string>\",\n        \"EMBEDDING_MODEL\": \"<string>\",\n        \"TOP_K\": 10,\n        \"SCORE_THRESHOLD\": 0\n      },\n      \"id\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"tool_env\": {\n        \"FILE_SEARCH_INDEX\": \"<string>\",\n        \"DOCUMENT_TOOL_DESC\": \"<string>\",\n        \"EMBEDDING_MODEL\": \"<string>\",\n        \"TOP_K\": 10,\n        \"SCORE_THRESHOLD\": 0\n      },\n      \"id\": \"string\"\n    }\n  ],\n  \"last_deployed_at\": \"1956-05-23T02:26:38.068Z\",\n  \"active_duration\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d63995e-5283-4c61-b1f0-aec6a469ac03",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "agents",
+                    ":agent_id",
+                    "demote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a8cae97-4626-4310-81b2-593c3f3d08f4",
+          "name": "Preview agent update",
+          "request": {
+            "name": "Preview agent update",
+            "description": {
+              "content": "Preview the changes a patch request would make to an agent without applying them. Returns a before-and-after diff of the affected fields.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "agents",
+                ":agent_id",
+                "diff"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"model_id\": \"<string>\",\n  \"planner_model_id\": \"<string>\",\n  \"tool_model_id\": \"<string>\",\n  \"output\": {\n    \"frequency\": \"<string>\",\n    \"instructions\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"temperature\": \"<number>\"\n  },\n  \"temperature\": \"<number>\",\n  \"tool_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"reasoning_effort\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "95b80504-7485-4e74-803c-421f36548f3f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "agents",
+                    ":agent_id",
+                    "diff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Agent\",\n  \"instructions\": \"You are a helpful assistant that can search files, browse the web, and run Python code.\",\n  \"model_id\": \"deployment-123\",\n  \"temperature\": 0.4,\n  \"reasoning_effort\": \"medium\",\n  \"tool_ids\": [\n    \"tool-123\",\n    \"tool-456\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"before\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"instructions\": \"string\",\n    \"status\": \"Failed\",\n    \"reasoning_effort\": \"<string>\",\n    \"user_id\": \"string\",\n    \"team_id\": \"string\",\n    \"created_at\": \"1947-04-14T13:27:39.940Z\",\n    \"updated_at\": \"1996-11-04T11:49:07.123Z\",\n    \"model_id\": \"string\",\n    \"planner_model_id\": \"string\",\n    \"tool_model_id\": \"string\",\n    \"output\": {\n      \"frequency\": \"<string>\",\n      \"instructions\": \"<string>\",\n      \"model_id\": \"<string>\",\n      \"temperature\": \"<number>\"\n    },\n    \"temperature\": 0.26115727232353425,\n    \"planner_temperature\": 0.8565559153389306,\n    \"tools\": [\n      {\n        \"name\": \"string\",\n        \"tool_env\": {\n          \"FILE_SEARCH_INDEX\": \"<string>\",\n          \"DOCUMENT_TOOL_DESC\": \"<string>\",\n          \"EMBEDDING_MODEL\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TOP_K\": 10,\n          \"SCORE_THRESHOLD\": 0\n        },\n        \"id\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"tool_env\": {\n          \"FILE_SEARCH_INDEX\": \"<string>\",\n          \"DOCUMENT_TOOL_DESC\": \"<string>\",\n          \"EMBEDDING_MODEL\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TOP_K\": 10,\n          \"SCORE_THRESHOLD\": 0\n        },\n        \"id\": \"string\"\n      }\n    ],\n    \"last_deployed_at\": \"1960-03-17T14:13:05.345Z\",\n    \"active_duration\": 0\n  },\n  \"after\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"instructions\": \"string\",\n    \"status\": \"Updating\",\n    \"reasoning_effort\": \"<string>\",\n    \"user_id\": \"string\",\n    \"team_id\": \"string\",\n    \"created_at\": \"1954-04-02T03:14:22.712Z\",\n    \"updated_at\": \"1981-03-06T14:20:18.176Z\",\n    \"model_id\": \"string\",\n    \"planner_model_id\": \"string\",\n    \"tool_model_id\": \"string\",\n    \"output\": {\n      \"frequency\": \"<string>\",\n      \"instructions\": \"<string>\",\n      \"model_id\": \"<string>\",\n      \"temperature\": \"<number>\"\n    },\n    \"temperature\": 0.4448387298487413,\n    \"planner_temperature\": 1.1993437359480439,\n    \"tools\": [\n      {\n        \"name\": \"string\",\n        \"tool_env\": {\n          \"FILE_SEARCH_INDEX\": \"<string>\",\n          \"DOCUMENT_TOOL_DESC\": \"<string>\",\n          \"EMBEDDING_MODEL\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TOP_K\": 10,\n          \"SCORE_THRESHOLD\": 0\n        },\n        \"id\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"tool_env\": {\n          \"FILE_SEARCH_INDEX\": \"<string>\",\n          \"DOCUMENT_TOOL_DESC\": \"<string>\",\n          \"EMBEDDING_MODEL\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TOP_K\": 10,\n          \"SCORE_THRESHOLD\": 0\n        },\n        \"id\": \"string\"\n      }\n    ],\n    \"last_deployed_at\": \"2014-03-24T17:42:24.405Z\",\n    \"active_duration\": 0\n  },\n  \"diff\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1290333e-4912-44f4-b60d-a2bda3e02ef9",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "agents",
+                    ":agent_id",
+                    "diff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Agent\",\n  \"instructions\": \"You are a helpful assistant that can search files, browse the web, and run Python code.\",\n  \"model_id\": \"deployment-123\",\n  \"temperature\": 0.4,\n  \"reasoning_effort\": \"medium\",\n  \"tool_ids\": [\n    \"tool-123\",\n    \"tool-456\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7f969b90-5691-475c-8dbf-537e204aae11",
+          "name": "Update Status",
+          "request": {
+            "name": "Update Status",
+            "description": {
+              "content": "An internal-only endpoint (no built-in auth validation) to update the agent's status in the DB, if it exists.\n\nIf the provided status is 'Active', and the Agent's current status is NOT 'Active', the `last_deployed_at` field\nis also updated in the DB to reflect the current date/time.\n\nIf the provided status is changed to 'Failed' from any other status, the Agent yaml is deleted from the git repo,\nand the status is updated to 'Failed' in the DB.\n\nArguments:\n    agent_id: the ID of the agent to update\n    update_request: the AgentUpdateStatusRequest object from the body containing the new status\n\nReturns:\n    An AgentUpdateStatusResponse containing the Agent's ID, old and new status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "internal",
+                "agents",
+                ":agent_id",
+                "update-status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"new_status\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d15a44b5-909c-4b7d-a5c0-ed6c71784022",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "internal",
+                    "agents",
+                    ":agent_id",
+                    "update-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"new_status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"old_status\": \"<string>\",\n  \"new_status\": \"<string>\",\n  \"user_id\": \"string\",\n  \"team_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2c819ae-9555-4cf6-a42c-7aa38c803cec",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "internal",
+                    "agents",
+                    ":agent_id",
+                    "update-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"new_status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "42bf7795-f0ba-4f4f-a7b1-ca55a36883d7",
+    "name": "SeekrFlow Agents v1 - legacy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "SeekrFlow API Documentation\n\nContact Support:\n Name: Seekr API Support\n Email: contact@seekr.com",
+      "type": "text/plain"
+    }
+  }
+}

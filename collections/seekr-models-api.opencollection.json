@@ -1,0 +1,178 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Seekr Models API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Models",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ml Models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/models",
+            "params": [
+              {
+                "name": "model_type",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Ml Models"
+        },
+        {
+          "info": {
+            "name": "Ml Model By Model Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/models/info",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Ml Model By Model Id"
+        },
+        {
+          "info": {
+            "name": "Ml Model Hf Revision By Model Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/models/hf_revision",
+            "params": [
+              {
+                "name": "model_name",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Ml Model Hf Revision By Model Name"
+        },
+        {
+          "info": {
+            "name": "Ml Models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/internal/models",
+            "params": [
+              {
+                "name": "model_type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Ml Models"
+        },
+        {
+          "info": {
+            "name": "Deployments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/internal/deployments",
+            "headers": [
+              {
+                "name": "team-id",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Deployments"
+        },
+        {
+          "info": {
+            "name": "Ml Model By Model Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/internal/models/info",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Ml Model By Model Id"
+        },
+        {
+          "info": {
+            "name": "Ml Model Hf Revision By Model Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/internal/models/hf_revision",
+            "params": [
+              {
+                "name": "model_name",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Ml Model Hf Revision By Model Name"
+        },
+        {
+          "info": {
+            "name": "Show Models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/models",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of all models available in the stack.\n\nArgs:\n    token_data: User data specified by api-key\n\nReturns:\n    JSONResponse: A JSON response containing the list of models.\n\nRaises:\n    Exception: If there is an error in retrieving the endpoint information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

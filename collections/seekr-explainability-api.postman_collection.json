@@ -1,0 +1,1415 @@
+{
+  "item": [
+    {
+      "id": "731163a9-a3f0-4180-815b-eb5d9df64107",
+      "name": "Explainability",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b5039723-202f-4eeb-8ffc-c9725c3eb3e7",
+          "name": "Version",
+          "request": {
+            "name": "Version",
+            "description": {},
+            "url": {
+              "path": [
+                "version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ce16ccd6-40b6-4cb8-b13a-4445a3f47312",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\",\n  \"key_1\": \"string\",\n  \"key_2\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "963615a3-7d5d-4e4a-be46-95bc66ff6301",
+          "name": "Read Root",
+          "request": {
+            "name": "Read Root",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "explainability",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "442f998b-0a65-42fb-8cb6-c9bf928bac78",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "explainability",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a8c361fe-4790-44e1-956b-ece45960b8db",
+          "name": "Check Status",
+          "request": {
+            "name": "Check Status",
+            "description": {
+              "content": "Check the status of the retriever service.\n\nReturns:\n    JSONResponse: The status response containing the status and version information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "explainability",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ccc6736e-2365-47cc-9df0-9fb3e2af1a8c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "explainability",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"version\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2dc46e6d-20af-42d5-a7df-855fee6a0c04",
+          "name": "Create Index",
+          "request": {
+            "name": "Create Index",
+            "description": {
+              "content": "Create index.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "explainability",
+                "create-index"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"index_name\": \"<string>\",\n  \"use_sparse_vector\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "13540bc0-362c-46ec-a2da-dd2f12932dbd",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "explainability",
+                    "create-index"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"index_name\": \"<string>\",\n  \"use_sparse_vector\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"index_name\": \"string\",\n  \"status\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0ddc0ce-a20d-4170-a9d8-5f0d6ca16574",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "explainability",
+                    "create-index"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"index_name\": \"<string>\",\n  \"use_sparse_vector\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7dc7ca3f-ed00-4e8b-b39e-169545967bd5",
+          "name": "Populate Index",
+          "request": {
+            "name": "Populate Index",
+            "description": {
+              "content": "Populate the index with qa pairs in the parquet files.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "explainability",
+                "populate-index"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"index_name\": \"<string>\",\n  \"team_id\": \"<string>\",\n  \"file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_id\": \"<string>\",\n  \"use_sparse_vector\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8f514f1c-18fe-47cf-9248-a3724efcb642",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "explainability",
+                    "populate-index"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"index_name\": \"<string>\",\n  \"team_id\": \"<string>\",\n  \"file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_id\": \"<string>\",\n  \"use_sparse_vector\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job_id\": \"string\",\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9dfe681b-601d-4864-ade0-d1a0ccbf0432",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "explainability",
+                    "populate-index"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"index_name\": \"<string>\",\n  \"team_id\": \"<string>\",\n  \"file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_id\": \"<string>\",\n  \"use_sparse_vector\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "44cef925-7c52-4dd1-9ae0-007c5fa60f5c",
+          "name": "Delete Index",
+          "request": {
+            "name": "Delete Index",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "explainability",
+                "delete-index"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"team_id\": \"<string>\",\n  \"model_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c7fd5a51-9df5-4571-ace8-973868992aaf",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "explainability",
+                    "delete-index"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"team_id\": \"<string>\",\n  \"model_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"index_name\": \"string\",\n  \"status\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23765fdb-5f1d-4713-87e0-9eca13753d3e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "explainability",
+                    "delete-index"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"team_id\": \"<string>\",\n  \"model_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7cf6a583-3ade-4eb6-ab30-a0903a6b38b9",
+          "name": "Get Influential Finetuning Data",
+          "request": {
+            "name": "Get Influential Finetuning Data",
+            "description": {
+              "content": "Perform hybrid search of the index for the given query.\n\nParameters:\n- team_id (str): team scope for the request.\n- question (str): question from user.\n- model_id (str): model_id of the finetuned model.\n- system_prompt (str | None): optional system prompt used only when answer must be generated.\n- answer (str | None): answer from the finetuned model to the question; if not provided, the service retrieves\n  an answer from the finetuned model specified by model_id.\n- method (str): Specify the types of the hybrid query. Possible values are:\n        match (default): match query for text/keyword search,\n        mlt: more_like_this query for text/keyword search,\n        ns: neural_sparse query for keyword search,\n        bool: boolean query for text/keyword search,\n- k (int): the number of results to be retrieved (5 by default).\n- alpha (float): hybrid query weighting parameter in [0, 1] (default 0.9).\n- index_version (str): index version identifier carried in the request (default \"v0\").\n- threshold (float): score threshold value carried in the request in [0, 1] (default 0.0).\n- api_key: API key passed via HTTP header. Required when answer should be computed\n  using the finetuned model.\n\nReturns:\n    InfluentialFinetuningDataResponse",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "explainability",
+                "influential-finetuning-data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "team_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "question",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "model_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "system_prompt",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "answer",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "method",
+                  "value": "match"
+                },
+                {
+                  "disabled": false,
+                  "key": "k",
+                  "value": "5"
+                },
+                {
+                  "disabled": false,
+                  "key": "alpha",
+                  "value": "0.9"
+                },
+                {
+                  "disabled": false,
+                  "key": "index_version",
+                  "value": "v0"
+                },
+                {
+                  "disabled": false,
+                  "key": "threshold",
+                  "value": "0"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "592a5b46-1bea-42ca-b1e6-637a59030b33",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "explainability",
+                    "influential-finetuning-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "question",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "model_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "system_prompt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "answer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "method",
+                      "value": "match"
+                    },
+                    {
+                      "key": "k",
+                      "value": "5"
+                    },
+                    {
+                      "key": "alpha",
+                      "value": "0.9"
+                    },
+                    {
+                      "key": "index_version",
+                      "value": "v0"
+                    },
+                    {
+                      "key": "threshold",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"answer\": \"string\",\n  \"version\": \"string\",\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"file_id\": \"string\",\n      \"influence_level\": \"low\",\n      \"messages\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"file_id\": \"string\",\n      \"influence_level\": \"irrelevant\",\n      \"messages\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99313dfc-41c6-4a05-a167-3b354d3b04ea",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "explainability",
+                    "influential-finetuning-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "question",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "model_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "system_prompt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "answer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "method",
+                      "value": "match"
+                    },
+                    {
+                      "key": "k",
+                      "value": "5"
+                    },
+                    {
+                      "key": "alpha",
+                      "value": "0.9"
+                    },
+                    {
+                      "key": "index_version",
+                      "value": "v0"
+                    },
+                    {
+                      "key": "threshold",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb656832-434c-49e6-914d-75c1413cd1a6",
+          "name": "Populate Index Job Status",
+          "request": {
+            "name": "Populate Index Job Status",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "explainability",
+                "populate-index-job-status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "team_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "job_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ea033b6-d80d-4446-898a-34a11f108eed",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "explainability",
+                    "populate-index-job-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "job_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job_id\": \"string\",\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c630dc7-019a-4fa8-96d7-c9d2e13141e7",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "explainability",
+                    "populate-index-job-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "job_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9dc1accc-d7fc-4e35-b5a6-f253e46e041e",
+          "name": "Get Context Attribution",
+          "request": {
+            "name": "Get Context Attribution",
+            "description": {
+              "content": "Compute context attribution scores for a model response.\n\nDetermines which parts of the provided context contributed to the model's response\nusing the ContextCite algorithm.\n\nRequired fields:\n    - context: The context text that was provided to the model\n    - query: The user's query/question\n    - response: The model's response to attribute\n\nOptional fields:\n    - model: Model name for attribution computation (default: Llama-3.1-8B-Instruct)\n    - highlight: Specific portion of response to attribute. If omitted,\n      returns attributions for all response segments.\n    - granularity: Context partitioning granularity (sentence/chunk)\n    - top_k: Number of top sources to return per segment\n    - num_ablations (32-256): Advanced tuning\n\nReturns:\n    ContextAttributionResult with either:\n    - Single-highlight format (when highlight provided): response_text, highlight, sources\n    - Segment-based format (when highlight omitted): response_text, segments[]",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "explainability",
+                "context-attributor"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"context\": \"<string>\",\n  \"query\": \"<string>\",\n  \"response\": \"<string>\",\n  \"highlight\": \"<string>\",\n  \"granularity\": \"<string>\",\n  \"top_k\": 5,\n  \"num_ablations\": \"<integer>\",\n  \"return_diagnostics\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "69c46623-db2f-4b71-99f4-fa2e76c32336",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "explainability",
+                    "context-attributor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"context\": \"<string>\",\n  \"query\": \"<string>\",\n  \"response\": \"<string>\",\n  \"highlight\": \"<string>\",\n  \"granularity\": \"<string>\",\n  \"top_k\": 5,\n  \"num_ablations\": \"<integer>\",\n  \"return_diagnostics\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response_text\": \"string\",\n  \"highlight\": \"string\",\n  \"sources\": [\n    {\n      \"id\": 2759,\n      \"text\": \"string\",\n      \"attribution\": 5259.697606069876,\n      \"offset\": 7295,\n      \"tool_name\": \"string\",\n      \"tool_call_id\": \"string\",\n      \"tool\": {\n        \"url\": \"string\",\n        \"search_query\": \"string\",\n        \"type\": \"web_search\",\n        \"title\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"source_type\": \"tool_response\"\n    },\n    {\n      \"id\": 4254,\n      \"text\": \"string\",\n      \"attribution\": 5073.521083430389,\n      \"offset\": 1935,\n      \"tool_name\": \"string\",\n      \"tool_call_id\": \"string\",\n      \"tool\": {\n        \"url\": \"string\",\n        \"search_query\": \"string\",\n        \"type\": \"web_search\",\n        \"title\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"source_type\": \"tool_response\"\n    }\n  ],\n  \"diagnostics\": {\n    \"num_sources\": 3940,\n    \"num_ablations\": 6676,\n    \"lasso_alpha\": 8236.625569859872,\n    \"mask_probability\": 7275.382062972832,\n    \"y_vector_stats\": {\n      \"key_0\": 4290\n    },\n    \"raw_coef_stats\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": 736,\n      \"key_3\": true\n    },\n    \"scaler_stats\": {\n      \"key_0\": false,\n      \"key_1\": true,\n      \"key_2\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a144ac5a-c4ad-4c96-a690-88ded04a0692",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "explainability",
+                    "context-attributor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"context\": \"<string>\",\n  \"query\": \"<string>\",\n  \"response\": \"<string>\",\n  \"highlight\": \"<string>\",\n  \"granularity\": \"<string>\",\n  \"top_k\": 5,\n  \"num_ablations\": \"<integer>\",\n  \"return_diagnostics\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7f2e6cc2-a526-4963-a72e-ae2fc1e721b4",
+          "name": "Get Context Attribution From Run",
+          "request": {
+            "name": "Get Context Attribution From Run",
+            "description": {
+              "content": "Compute context attribution scores from an agent run.\n\nExtracts context (tool results from message parts, or logfire spans as a SaaS\nfallback), the agent's system prompt (from ``agent.instructions``), the query\n(user input), and the response (assistant output), then runs context\nattribution analysis.\n\nRequired fields:\n    - thread_id: ID of the thread to analyze\n\nOptional fields:\n    - run_id: If not provided, uses the latest completed run\n    - highlight: Specific portion of response to attribute\n    - granularity: Context partitioning granularity (sentence/chunk)\n    - top_k: Number of top sources to return per segment\n\nReturns:\n    ContextAttributionResult with either:\n    - Single-highlight format (when highlight provided): response_text, highlight, sources\n    - Segment-based format (when highlight omitted): response_text, segments[]\n\nRaises:\n    404: If no completed run or spans found\n    422: If no user query or assistant response found",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "explainability",
+                "context-attributor-from-run"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"thread_id\": \"<string>\",\n  \"run_id\": \"<string>\",\n  \"highlight\": \"<string>\",\n  \"granularity\": \"<string>\",\n  \"top_k\": 5,\n  \"num_ablations\": \"<integer>\",\n  \"return_diagnostics\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ed678566-1e5e-42bb-a6fd-65ab4c7ca74c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "explainability",
+                    "context-attributor-from-run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"thread_id\": \"<string>\",\n  \"run_id\": \"<string>\",\n  \"highlight\": \"<string>\",\n  \"granularity\": \"<string>\",\n  \"top_k\": 5,\n  \"num_ablations\": \"<integer>\",\n  \"return_diagnostics\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response_text\": \"string\",\n  \"highlight\": \"string\",\n  \"sources\": [\n    {\n      \"id\": 290,\n      \"text\": \"string\",\n      \"attribution\": 1326.6908989771698,\n      \"offset\": 8405,\n      \"tool_name\": \"string\",\n      \"tool_call_id\": \"string\",\n      \"tool\": {\n        \"url\": \"string\",\n        \"search_query\": \"string\",\n        \"type\": \"web_search\",\n        \"title\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"source_type\": \"tool_response\"\n    },\n    {\n      \"id\": 3106,\n      \"text\": \"string\",\n      \"attribution\": 7797.439394913904,\n      \"offset\": 7644,\n      \"tool_name\": \"string\",\n      \"tool_call_id\": \"string\",\n      \"tool\": {\n        \"url\": \"string\",\n        \"search_query\": \"string\",\n        \"type\": \"web_search\",\n        \"title\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"source_type\": \"tool_response\"\n    }\n  ],\n  \"diagnostics\": {\n    \"num_sources\": 8483,\n    \"num_ablations\": 3604,\n    \"lasso_alpha\": 1437.618793006672,\n    \"mask_probability\": 8431.472117229758,\n    \"y_vector_stats\": {\n      \"key_0\": true,\n      \"key_1\": \"string\",\n      \"key_2\": false\n    },\n    \"raw_coef_stats\": {\n      \"key_0\": \"string\"\n    },\n    \"scaler_stats\": {\n      \"key_0\": \"string\",\n      \"key_1\": true\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af879dea-601b-4598-8037-fcf5d292f60e",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "explainability",
+                    "context-attributor-from-run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"thread_id\": \"<string>\",\n  \"run_id\": \"<string>\",\n  \"highlight\": \"<string>\",\n  \"granularity\": \"<string>\",\n  \"top_k\": 5,\n  \"num_ablations\": \"<integer>\",\n  \"return_diagnostics\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a707b99e-266a-48f1-9282-e89ba9e69b02",
+    "name": "SeekrFlow Explainability API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "SeekrFlow API Documentation\n\nContact Support:\n Name: Seekr API Support\n Email: contact@seekr.com",
+      "type": "text/plain"
+    }
+  }
+}

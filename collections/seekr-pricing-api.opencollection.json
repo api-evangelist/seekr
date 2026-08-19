@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SeekrFlow Pricing API",
+    "version": "5.108.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pricing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate Price Estimate For Serverless Inference",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/pricing/inference/serverless",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Generates a price estimate for running inference using a base-model in a server-less deployment environment.\n**Note:** We currently only support inference for fine-tuned models in dedicated servers.\n\n### Key Input Fields:\n\n- **pricing_estimate_request.deployment.model_id**: Used to fetch the model and determine the `model_size`, which influences the pricing multipliers applied in the calculation. Also used in logic in determining whether model deployed is a fine-tuned or base model.\n\n- **pricing"
+        },
+        {
+          "info": {
+            "name": "Generate Price Estimate For Finetuning",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/pricing/fine-tuning",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Generates a price estimate for applying a fine-tuning job for a given model.\n\n### Key input fields:\n- **pricing_estimate_request.deployment.model_id**: - used to fetch the model, and determine the model_size which in turn is used for calculating multipliers used in equations\n- **pricing_estimate_request.num_of_epochs**: - number of times training set is passed through model during training.\n    A direct input into the equation calculations\n\n**Returns:** A JSON object with the price estimate."
+        },
+        {
+          "info": {
+            "name": "Generate Price Estimate For Dedicated Inference",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/pricing/inference/dedicated",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Generates a price estimate for running inference using a base or fine-tuned model in a dedicated deployment environment.\nNote: We currently only support GAUDI2 for our hardware but recognize future use of A100, H100, GAUDI3 accelerator types.\nKey input fields:\n- **pricing_estimate_request.estimated_compute_hours**: - hours of total usage of the model. A direct input used in calculation\n    Also has a default if nothing is entered\n- **pricing_estimate_request.deployment.n_instances**: - instances"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

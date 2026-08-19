@@ -1,0 +1,102 @@
+{
+  "item": [
+    {
+      "id": "c1cb3c4d-cdd2-447d-bada-26936016de41",
+      "name": "Metrics",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e0684b07-ef18-4f93-9363-39189a66e19e",
+          "name": "Metrics",
+          "request": {
+            "name": "Metrics",
+            "description": {
+              "content": "Endpoint to expose Prometheus metrics for the vLLM router.\n\nThis function gathers request statistics, engine metrics, and health status\nof the service endpoints to update Prometheus gauges. It exports metrics\nsuch as queries per second (QPS), average decoding length, number of prefill\nand decoding requests, average latency, average inter-token latency, number\nof swapped requests, and the number of healthy pods for each server. The\nmetrics are used to monitor the performance and health of the vLLM router\nservices.\n\nReturns:\n    Response: A HTTP response containing the latest Prometheus metrics in\n    the appropriate content type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "491a4ca8-affc-41e8-965f-ffc552c7b137",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2e92381b-71a1-4395-bcf9-2fa764855cc7",
+    "name": "SeekrFlow Metrics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "SeekrFlow API Documentation\n\nContact Support:\n Name: Seekr API Support\n Email: contact@seekr.com",
+      "type": "text/plain"
+    }
+  }
+}

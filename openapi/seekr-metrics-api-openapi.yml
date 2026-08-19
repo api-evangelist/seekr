@@ -1,0 +1,37 @@
+openapi: 3.2.0
+info:
+  title: SeekrFlow Metrics API
+  description: SeekrFlow API Documentation
+  termsOfService: http://www.seekr.com/support
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  version: 0.1.0
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Metrics
+paths:
+  /metrics:
+    get:
+      summary: Metrics
+      description: "Endpoint to expose Prometheus metrics for the vLLM router.\n\nThis function gathers request statistics, engine metrics, and health status\nof the service endpoints to update Prometheus gauges. It exports metrics\nsuch as queries per second (QPS), average decoding length, number of prefill\nand decoding requests, average latency, average inter-token latency, number\nof swapped requests, and the number of healthy pods for each server. The\nmetrics are used to monitor the performance and health of the vLLM router\nservices.\n\nReturns:\n    Response: A HTTP response containing the latest Prometheus metrics in\n    the appropriate content type."
+      operationId: metrics_metrics_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      x-excluded: true
+      tags:
+      - Metrics
+components:
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization

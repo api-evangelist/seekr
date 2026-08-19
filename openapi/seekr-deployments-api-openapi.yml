@@ -1,0 +1,718 @@
+openapi: 3.2.0
+info:
+  title: SeekrFlow Deployments API
+  description: SeekrFlow API Documentation
+  termsOfService: http://www.seekr.com/support
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  version: 5.108.1
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Deployments
+paths:
+  /v1/flow/metrics/deployments:
+    get:
+      tags:
+      - Deployments
+      summary: Get Deployment Metrics
+      operationId: get_deployment_metrics_v1_flow_metrics_deployments_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentMetrics'
+      security:
+      - APIKeyHeader: []
+  /v1/flow/events/deployments/{deployment_id}:
+    get:
+      tags:
+      - Deployments
+      summary: Get Deployment Events By Id
+      operationId: get_deployment_events_by_id_v1_flow_events_deployments__deployment_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: deployment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Deployment Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetEventsResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/deployments:
+    get:
+      tags:
+      - Deployments
+      summary: Get Deployments
+      operationId: get_deployments_v1_flow_deployments_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: deployment_status
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/DeploymentStatus'
+          - type: 'null'
+          title: Deployment Status
+      - name: fine_tune_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Fine Tune Id
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Skip
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 1000
+          minimum: 1
+          default: 100
+          title: Limit
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDeploymentsResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - Deployments
+      summary: Deploy
+      operationId: deploy_v1_flow_deployments_post
+      security:
+      - APIKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewDeploymentRequest'
+      responses:
+        '201':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/deployments/{deployment_id}:
+    get:
+      tags:
+      - Deployments
+      summary: Deployment By Id
+      operationId: deployment_by_id_v1_flow_deployments__deployment_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: deployment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Deployment Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Deployments
+      summary: Update Deployment
+      operationId: update_deployment_v1_flow_deployments__deployment_id__patch
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: deployment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Deployment Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDeploymentRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/deployments/{deployment_id}/promote:
+    put:
+      tags:
+      - Deployments
+      summary: Promote
+      operationId: promote_v1_flow_deployments__deployment_id__promote_put
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: deployment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Deployment Id
+      responses:
+        '201':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/deployments/{deployment_id}/demote:
+    put:
+      tags:
+      - Deployments
+      summary: Demote
+      operationId: demote_v1_flow_deployments__deployment_id__demote_put
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: deployment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Deployment Id
+      responses:
+        '201':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/internal/deployments/{deployment_id}:
+    get:
+      tags:
+      - Deployments
+      summary: Internal Deployment By Id
+      operationId: internal_deployment_by_id_v1_flow_internal_deployments__deployment_id__get
+      parameters:
+      - name: deployment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Deployment Id
+      - name: team-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/internal/deployments/{deployment_id}/status:
+    post:
+      tags:
+      - Deployments
+      summary: Update the status of a deployment (Internal)
+      description: Internal endpoint for the Kubernetes event tracker to update the status of a deployment.
+      operationId: update_deployment_status_internal_v1_flow_internal_deployments__deployment_id__status_post
+      parameters:
+      - name: deployment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Deployment Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDeploymentStatusRequest'
+      responses:
+        '200':
+          description: Confirmation message of the status update.
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+components:
+  schemas:
+    UpdateDeploymentRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      title: UpdateDeploymentRequest
+    NewDeploymentRequest:
+      properties:
+        model_type:
+          $ref: '#/components/schemas/DeploymentType'
+        model_id:
+          type: string
+          title: Model Id
+        name:
+          type: string
+          maxLength: 100
+          minLength: 5
+          title: Name
+        description:
+          type: string
+          maxLength: 1000
+          minLength: 5
+          title: Description
+        n_instances:
+          type: integer
+          maximum: 50
+          minimum: 1
+          title: N Instances
+        hardware:
+          anyOf:
+          - $ref: '#/components/schemas/AcceleratorType'
+          - type: 'null'
+      type: object
+      required:
+      - model_type
+      - model_id
+      - name
+      - description
+      - n_instances
+      title: NewDeploymentRequest
+    DeploymentProcessor:
+      type: string
+      enum:
+      - GAUDI2
+      - GAUDI3
+      - A100
+      - A10
+      - AMD
+      - H100
+      - MI300X
+      title: DeploymentProcessor
+    Event:
+      properties:
+        id:
+          type: integer
+          title: Id
+        type:
+          $ref: '#/components/schemas/EventType'
+        type_id:
+          type: string
+          title: Type Id
+        status:
+          $ref: '#/components/schemas/EventStatus'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - id
+      - type
+      - type_id
+      - status
+      - created_at
+      title: Event
+    DeploymentMetrics:
+      properties:
+        count_by_deployment_status:
+          $ref: '#/components/schemas/DeploymentStatusCounts'
+        total_inbound_tokens:
+          type: integer
+          title: Total Inbound Tokens
+        total_outbound_tokens:
+          type: integer
+          title: Total Outbound Tokens
+      type: object
+      required:
+      - count_by_deployment_status
+      - total_inbound_tokens
+      - total_outbound_tokens
+      title: DeploymentMetrics
+    DeploymentStatusCounts:
+      properties:
+        active:
+          type: integer
+          title: Active
+        inactive:
+          type: integer
+          title: Inactive
+        failed:
+          type: integer
+          title: Failed
+        pending:
+          type: integer
+          title: Pending
+      type: object
+      required:
+      - active
+      - inactive
+      - failed
+      - pending
+      title: DeploymentStatusCounts
+    HardwareType:
+      type: string
+      enum:
+      - Serverless
+      - Dedicated
+      title: HardwareType
+    DeploymentType:
+      type: string
+      enum:
+      - Fine-tuned Run
+      - Base Model
+      title: DeploymentType
+    GetDeploymentsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Deployment'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: GetDeploymentsResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AcceleratorType:
+      type: string
+      enum:
+      - GAUDI2
+      - GAUDI3
+      - A100
+      - A10
+      - H100
+      - MI300X
+      title: AcceleratorType
+    DeploymentStatus:
+      type: string
+      enum:
+      - Inactive
+      - Pending
+      - Active
+      - Failed
+      - Started
+      - Success
+      title: DeploymentStatus
+    Deployment:
+      properties:
+        id:
+          type: string
+          title: Id
+        model_type:
+          $ref: '#/components/schemas/DeploymentType'
+        model_id:
+          type: string
+          title: Model Id
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+        memory:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Memory
+        hardware_type:
+          $ref: '#/components/schemas/HardwareType'
+          default: Dedicated
+        total_input_tokens:
+          type: integer
+          title: Total Input Tokens
+        total_output_tokens:
+          type: integer
+          title: Total Output Tokens
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        last_deployed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Deployed At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        processor:
+          $ref: '#/components/schemas/DeploymentProcessor'
+          default: GAUDI2
+        n_instances:
+          type: integer
+          title: N Instances
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        model_name:
+          type: string
+          title: Model Name
+        n_epochs:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: N Epochs
+        batch_size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Batch Size
+        learning_rate:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Learning Rate
+        training_files:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Training Files
+        project_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Project Id
+        project_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Name
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+        finetune_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Finetune Name
+        finetune_created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Finetune Created At
+        active_duration:
+          type: integer
+          minimum: 0
+          title: Active Duration
+          default: 0
+        is_lora_adapter:
+          type: boolean
+          title: Is Lora Adapter
+          default: false
+      type: object
+      required:
+      - id
+      - model_type
+      - model_id
+      - name
+      - description
+      - status
+      - total_input_tokens
+      - total_output_tokens
+      - created_at
+      - updated_at
+      - n_instances
+      - user_id
+      - team_id
+      - model_name
+      title: Deployment
+    EventStatus:
+      type: string
+      enum:
+      - Inactive
+      - Pending
+      - Active
+      - Failed
+      - Started
+      - Success
+      - Uploading
+      - Completed
+      - Deleted
+      - Cancelled
+      - Queued
+      - Running
+      title: EventStatus
+    EventType:
+      type: string
+      enum:
+      - Files
+      - Finetune
+      - Deployments
+      - Alignment
+      title: EventType
+    GetEventsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Event'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: GetEventsResponse
+    UpdateDeploymentStatusRequest:
+      properties:
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+        last_deployed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Deployed At
+      type: object
+      required:
+      - status
+      title: UpdateDeploymentStatusRequest
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization

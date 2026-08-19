@@ -1,0 +1,410 @@
+{
+  "item": [
+    {
+      "id": "1b8573f5-71ab-46be-b26e-ce8b85562b02",
+      "name": "Observability",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9bc1e298-58ae-4db9-942c-d86a72641d3d",
+          "name": "Query Spans",
+          "request": {
+            "name": "Query Spans",
+            "description": {
+              "content": "Retrieves observability traces according to the provided user and facts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "observability",
+                "spans"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-team-id",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"min_start_datetime\": \"<dateTime>\",\n  \"max_start_datetime\": \"<dateTime>\",\n  \"agent_id\": \"<string>\",\n  \"run_id\": \"<string>\",\n  \"trace_id\": \"<string>\",\n  \"thread_id\": \"<string>\",\n  \"group\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"limit\": 100,\n  \"order\": \"<string>\",\n  \"offset\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d2445e18-a551-4728-9941-982663395052",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "observability",
+                    "spans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-team-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"min_start_datetime\": \"<dateTime>\",\n  \"max_start_datetime\": \"<dateTime>\",\n  \"agent_id\": \"<string>\",\n  \"run_id\": \"<string>\",\n  \"trace_id\": \"<string>\",\n  \"thread_id\": \"<string>\",\n  \"group\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  },\n  \"limit\": 100,\n  \"order\": \"<string>\",\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"run_id\": \"string\",\n    \"thread_id\": \"string\",\n    \"agent_id\": \"string\",\n    \"trace_id\": \"string\",\n    \"span_id\": \"string\",\n    \"span_name\": \"string\",\n    \"level\": 1149,\n    \"service_name\": \"string\",\n    \"start_timestamp\": \"1977-11-11T09:14:15.156Z\",\n    \"end_timestamp\": \"1993-03-22T16:19:45.570Z\",\n    \"kind\": \"log\",\n    \"message\": \"string\",\n    \"group\": \"string\",\n    \"parent_span_id\": \"string\",\n    \"otel_scope_name\": \"string\",\n    \"is_exception\": false,\n    \"exception_type\": \"string\",\n    \"gen_ai_operation_name\": \"string\",\n    \"gen_ai_request_model\": \"string\",\n    \"gen_ai_response_model\": \"string\",\n    \"gen_ai_system\": \"string\",\n    \"gen_ai_usage_input_tokens\": \"string\",\n    \"gen_ai_usage_output_token\": \"string\",\n    \"seekr_metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  },\n  {\n    \"run_id\": \"string\",\n    \"thread_id\": \"string\",\n    \"agent_id\": \"string\",\n    \"trace_id\": \"string\",\n    \"span_id\": \"string\",\n    \"span_name\": \"string\",\n    \"level\": 4887,\n    \"service_name\": \"string\",\n    \"start_timestamp\": \"1950-11-29T08:14:47.796Z\",\n    \"end_timestamp\": \"1969-06-01T12:19:26.768Z\",\n    \"kind\": \"pending_span\",\n    \"message\": \"string\",\n    \"group\": \"string\",\n    \"parent_span_id\": \"string\",\n    \"otel_scope_name\": \"string\",\n    \"is_exception\": false,\n    \"exception_type\": \"string\",\n    \"gen_ai_operation_name\": \"string\",\n    \"gen_ai_request_model\": \"string\",\n    \"gen_ai_response_model\": \"string\",\n    \"gen_ai_system\": \"string\",\n    \"gen_ai_usage_input_tokens\": \"string\",\n    \"gen_ai_usage_output_token\": \"string\",\n    \"seekr_metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a226f436-3b7c-4dc8-bdc5-d8eb6babeb77",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "observability",
+                    "spans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-team-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"min_start_datetime\": \"<dateTime>\",\n  \"max_start_datetime\": \"<dateTime>\",\n  \"agent_id\": \"<string>\",\n  \"run_id\": \"<string>\",\n  \"trace_id\": \"<string>\",\n  \"thread_id\": \"<string>\",\n  \"group\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  },\n  \"limit\": 100,\n  \"order\": \"<string>\",\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "418467da-6795-4b3b-ae1c-04fba609587e",
+          "name": "Retrieve Span",
+          "request": {
+            "name": "Retrieve Span",
+            "description": {
+              "content": "Retrieves a particular span given its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "observability",
+                "spans",
+                ":span_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "span_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-team-id",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cf403a6e-1e40-48d8-92eb-8b8e1de9c072",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "observability",
+                    "spans",
+                    ":span_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "span_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-team-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\",\n  \"key_1\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5890ed03-c500-4683-bc77-6d67e654f183",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "observability",
+                    "spans",
+                    ":span_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "span_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-team-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1ce5db24-8980-4eb2-ab31-6faf3fe69763",
+    "name": "SeekrFlow Observability API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "SeekrFlow API Documentation\n\nContact Support:\n Name: Seekr API Support\n Email: contact@seekr.com",
+      "type": "text/plain"
+    }
+  }
+}

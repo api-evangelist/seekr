@@ -1,0 +1,306 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SeekrFlow Data jobs API",
+    "version": "5.108.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Data jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate System Prompt",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/data-jobs/gen_system_prompt",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a system prompt based on user instructions and optional document summary.\nThis endpoint is independent of a specific data job ID."
+        },
+        {
+          "info": {
+            "name": "Get Data Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/data-jobs",
+            "params": [
+              {
+                "name": "job_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Data Jobs"
+        },
+        {
+          "info": {
+            "name": "Submit Data Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/data-jobs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Submit Data Job"
+        },
+        {
+          "info": {
+            "name": "Get Data Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/data-jobs/:data_job_id",
+            "params": [
+              {
+                "name": "data_job_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Data Job"
+        },
+        {
+          "info": {
+            "name": "Patch Data Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://flow.seekr.com/v1/flow/data-jobs/:data_job_id",
+            "params": [
+              {
+                "name": "data_job_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Patch Data Job"
+        },
+        {
+          "info": {
+            "name": "Delete Data Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://flow.seekr.com/v1/flow/data-jobs/:data_job_id",
+            "params": [
+              {
+                "name": "data_job_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete Data Job"
+        },
+        {
+          "info": {
+            "name": "Add Files To Data Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/data-jobs/:data_job_id/add-files",
+            "params": [
+              {
+                "name": "data_job_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add Files To Data Job"
+        },
+        {
+          "info": {
+            "name": "Remove Files From Data Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/data-jobs/:data_job_id/remove-files",
+            "params": [
+              {
+                "name": "data_job_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Remove Files From Data Job"
+        },
+        {
+          "info": {
+            "name": "Start Data Job Alignment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/data-jobs/:data_job_id/start",
+            "params": [
+              {
+                "name": "data_job_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Start Data Job Alignment"
+        },
+        {
+          "info": {
+            "name": "Cancel Data Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/data-jobs/:data_job_id/cancel",
+            "params": [
+              {
+                "name": "data_job_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Cancel the alignment job associated with a data job."
+        },
+        {
+          "info": {
+            "name": "Clone Data Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/data-jobs/:data_job_id/clone",
+            "params": [
+              {
+                "name": "data_job_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new, editable data job pre-populated from an existing one."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

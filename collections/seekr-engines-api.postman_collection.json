@@ -1,0 +1,102 @@
+{
+  "item": [
+    {
+      "id": "fc40dd9c-1b99-41a6-8dcb-7f9cdc057a74",
+      "name": "Engines",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5bb3bcc9-63a4-4d14-9c33-e6e6247c75dd",
+          "name": "Get Engine Instances",
+          "request": {
+            "name": "Get Engine Instances",
+            "description": {
+              "content": "Returns a list of all models available in the stack.\n\nArgs:\n    None\n\nReturns:\n    JSONResponse: A JSON response containing the list of models and their relationships.\n\nRaises:\n    Exception: If there is an error in retrieving the endpoint information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "engines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dbbdec2e-51b8-47a6-9917-00e97559962d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "engines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "926a9461-c76f-487f-9d7d-10a9fdfa65f9",
+    "name": "SeekrFlow Engines API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "SeekrFlow API Documentation\n\nContact Support:\n Name: Seekr API Support\n Email: contact@seekr.com",
+      "type": "text/plain"
+    }
+  }
+}

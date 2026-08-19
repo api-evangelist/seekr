@@ -1,0 +1,445 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SeekrFlow Fine Tuning API",
+    "version": "5.108.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Fine-tuning",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fine Tune",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/fine-tune",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fine Tune"
+        },
+        {
+          "info": {
+            "name": "Get Fine Tune",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/fine-tunes/:fine_tune_id",
+            "params": [
+              {
+                "name": "fine_tune_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include_deleted",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Fine Tune"
+        },
+        {
+          "info": {
+            "name": "Patch Fine Tune",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://flow.seekr.com/v1/flow/fine-tunes/:fine_tune_id",
+            "params": [
+              {
+                "name": "fine_tune_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Patch Fine Tune"
+        },
+        {
+          "info": {
+            "name": "Delete Fine Tune",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://flow.seekr.com/v1/flow/fine-tunes/:fine_tune_id",
+            "params": [
+              {
+                "name": "fine_tune_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete Fine Tune"
+        },
+        {
+          "info": {
+            "name": "Download Fine Tune",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/fine-tunes/:fine_tune_id/download",
+            "params": [
+              {
+                "name": "fine_tune_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Download Fine Tune"
+        },
+        {
+          "info": {
+            "name": "Cancel Fine Tune",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://flow.seekr.com/v1/flow/fine-tunes/:fine_tune_id/cancel",
+            "params": [
+              {
+                "name": "fine_tune_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Cancel Fine Tune"
+        },
+        {
+          "info": {
+            "name": "Fine Tune Workflow Phase",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/fine-tunes/:fine_tune_id/workflow-phase",
+            "params": [
+              {
+                "name": "fine_tune_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Internal: the live Argo workflow phase for a fine-tune job.\n\nNot part of the public SDK. Lets the integration suite confirm a cancelled\njob's workflow actually terminated (the DB `cancelled` write alone doesn't\nprove the Argo stop landed). ``phase`` is None when the workflow was never\nstarted or no longer exists in Argo."
+        },
+        {
+          "info": {
+            "name": "Demote Model",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/fine-tunes/:fine_tune_id/demote-model",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "fine_tune_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Demote Model"
+        },
+        {
+          "info": {
+            "name": "Promote Model",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/fine-tunes/:fine_tune_id/promote-model",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "fine_tune_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Promote Model"
+        },
+        {
+          "info": {
+            "name": "List Fine Tune",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/fine-tunes",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_deleted",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List Fine Tune"
+        },
+        {
+          "info": {
+            "name": "Get Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/projects",
+            "params": [
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_deleted",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Projects"
+        },
+        {
+          "info": {
+            "name": "Upsert Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/projects",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upsert Project"
+        },
+        {
+          "info": {
+            "name": "Get Project By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include_deleted",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Project By Id"
+        },
+        {
+          "info": {
+            "name": "Delete Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://flow.seekr.com/v1/flow/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete Project"
+        },
+        {
+          "info": {
+            "name": "Get Finetune Events By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/events/finetunes/:finetune_id",
+            "params": [
+              {
+                "name": "finetune_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "type_filter",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Finetune Events By Id"
+        },
+        {
+          "info": {
+            "name": "Get Influential Training Data Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/explain/models/:model_id/influential-finetuning-data",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "question",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "system_prompt",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "answer",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve influential QA pair training data for a specific model.\nThis is a pass-through endpoint that calls the explainability service."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

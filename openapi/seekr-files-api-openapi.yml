@@ -1,0 +1,840 @@
+openapi: 3.2.0
+info:
+  title: Seekr Files API
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  termsOfService: http://www.seekr.com/support
+  version: '1.0'
+  description: 'Operations tagged Files across 2 of this provider''s published API definitions: seekr-llm-training-openapi.json, seekr-serving-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Files
+paths:
+  /v1/flow/files:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Files
+      summary: List Files
+      operationId: list_files_v1_flow_files_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 1000
+          minimum: 1
+          default: 250
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: sort_by
+        in: query
+        required: false
+        schema:
+          type: string
+          pattern: ^(created_at|filename|type|bytes)$
+          default: created_at
+          title: Sort By
+      - name: sort_order
+        in: query
+        required: false
+        schema:
+          type: string
+          pattern: ^(asc|desc)$
+          default: desc
+          title: Sort Order
+      - name: purpose
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            pattern: ^(ingestion|vector-ingestion|alignment|reinforcement-fine-tune|fine-tune|pre-train|preference-fine-tune)?$
+          - type: 'null'
+          title: Purpose
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileList'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - Files
+      summary: File Upload
+      description: Handle single file upload endpoint.
+      operationId: file_upload_v1_flow_files_put
+      security:
+      - APIKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_file_upload_v1_flow_files_put'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/files/token-counts:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Files
+      summary: File Token Counts
+      operationId: file_token_counts_v1_flow_files_token_counts_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: file_ids
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+          title: File Ids
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/files/{file_id}:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    delete:
+      tags:
+      - Files
+      summary: Delete File
+      operationId: delete_file_v1_flow_files__file_id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: file_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: File Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileDeleteResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Files
+      summary: File Download
+      operationId: file_download_v1_flow_files__file_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: file_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: File Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/bulk_files:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    put:
+      tags:
+      - Files
+      summary: Bulk File Upload
+      description: Handle bulk file upload with validation per file.
+      operationId: bulk_file_upload_v1_flow_bulk_files_put
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_bulk_file_upload_v1_flow_bulk_files_put'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FileResponse'
+                type: array
+                title: Response Bulk File Upload V1 Flow Bulk Files Put
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /v1/flow/files/{file_id}/content:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Files
+      summary: File Download Content
+      operationId: file_download_content_v1_flow_files__file_id__content_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: file_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: File Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/files/validate_metadata:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    post:
+      tags:
+      - Files
+      summary: File Validate Metadata
+      operationId: file_validate_metadata_v1_flow_files_validate_metadata_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlignFileMetadataValidationReq'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /v1/flow/files/{file_id}/vector-dbs:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Files
+      summary: Get File Vector Dbs
+      operationId: get_file_vector_dbs_v1_flow_files__file_id__vector_dbs_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: file_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: File Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdList'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/files/{file_id}/data-jobs:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Files
+      summary: Get File Data Jobs
+      operationId: get_file_data_jobs_v1_flow_files__file_id__data_jobs_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: file_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: File Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdList'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/files/{file_id}/derived-files:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Files
+      summary: Get File Derived Files
+      operationId: get_file_derived_files_v1_flow_files__file_id__derived_files_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: file_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: File Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdList'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/files/{file_id}/rename:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    put:
+      tags:
+      - Files
+      summary: Rename File
+      operationId: rename_file_v1_flow_files__file_id__rename_put
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: file_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: File Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FileRenameRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/events/files/{file_id}:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      tags:
+      - Files
+      summary: Get File Events By Id
+      operationId: get_file_events_by_id_v1_flow_events_files__file_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: file_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: File Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetEventsResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/files:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    post:
+      summary: Route Files
+      description: "Handle file upload requests and save the files to the configured storage.\n\nArgs:\n    request (Request): The incoming HTTP request.\n\nReturns:\n    JSONResponse: A JSON response containing the file metadata.\n\nRaises:\n    JSONResponse: A JSON response with a 400 status code if the request is invalid,\n        or a 500 status code if an error occurs during file saving."
+      operationId: route_files_v1_files_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      x-excluded: true
+      tags:
+      - Files
+  /v1/files/{file_id}:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      summary: Route Get File
+      operationId: route_get_file_v1_files__file_id__get
+      parameters:
+      - name: file_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: File Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+      tags:
+      - Files
+  /v1/files/{file_id}/content:
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
+    get:
+      summary: Route Get File Content
+      operationId: route_get_file_content_v1_files__file_id__content_get
+      parameters:
+      - name: file_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: File Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+      tags:
+      - Files
+components:
+  schemas:
+    Body_bulk_file_upload_v1_flow_bulk_files_put:
+      properties:
+        purpose:
+          $ref: '#/components/schemas/FilePurpose'
+        files:
+          items:
+            type: string
+            contentMediaType: application/octet-stream
+          type: array
+          title: Files
+      type: object
+      required:
+      - purpose
+      - files
+      title: Body_bulk_file_upload_v1_flow_bulk_files_put
+    AlignmentFileType:
+      type: string
+      enum:
+      - html
+      - md
+      - rst
+      - rtf
+      - txt
+      - xml
+      - json
+      - jsonl
+      - csv
+      - doc
+      - docx
+      - pdf
+      - ppt
+      - pptx
+      title: AlignmentFileType
+    FileResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        object:
+          type: string
+          const: file
+          title: Object
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        type:
+          anyOf:
+          - $ref: '#/components/schemas/TrainingFileType'
+          - $ref: '#/components/schemas/AlignmentFileType'
+          - type: 'null'
+          title: Type
+        purpose:
+          anyOf:
+          - $ref: '#/components/schemas/FilePurpose'
+          - type: 'null'
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        bytes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Bytes
+        created_by:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created By
+        original_file_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Original File Id
+        deleted:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Deleted
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - object
+      title: FileResponse
+      description: Files API response type
+    AlignFileMetadataValidationReq:
+      properties:
+        purpose:
+          type: string
+          title: Purpose
+        suffix:
+          type: string
+          title: Suffix
+        size:
+          type: integer
+          title: Size
+      additionalProperties: true
+      type: object
+      required:
+      - purpose
+      - suffix
+      - size
+      title: AlignFileMetadataValidationReq
+    Body_file_upload_v1_flow_files_put:
+      properties:
+        purpose:
+          $ref: '#/components/schemas/FilePurpose'
+        files:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Files
+        vector_database_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Vector Database Id
+      type: object
+      required:
+      - purpose
+      - files
+      title: Body_file_upload_v1_flow_files_put
+    Event:
+      properties:
+        id:
+          type: integer
+          title: Id
+        type:
+          $ref: '#/components/schemas/EventType'
+        type_id:
+          type: string
+          title: Type Id
+        status:
+          $ref: '#/components/schemas/EventStatus'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - id
+      - type
+      - type_id
+      - status
+      - created_at
+      title: Event
+    FileDeleteResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        object:
+          type: string
+          const: file
+          title: Object
+        deleted:
+          type: boolean
+          title: Deleted
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - object
+      - deleted
+      title: FileDeleteResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    TrainingFileType:
+      type: string
+      enum:
+      - jsonl
+      - parquet
+      - pt
+      title: TrainingFileType
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    FileList:
+      properties:
+        object:
+          anyOf:
+          - type: string
+            const: list
+          - type: 'null'
+          title: Object
+        data:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/FileResponse'
+            type: array
+          - type: 'null'
+          title: Data
+      additionalProperties: true
+      type: object
+      title: FileList
+    IdList:
+      properties:
+        object:
+          type: string
+          const: list
+          title: Object
+          default: list
+        data:
+          items:
+            type: string
+          type: array
+          title: Data
+      additionalProperties: true
+      type: object
+      required:
+      - data
+      title: IdList
+      description: Generic response model for a list of resource IDs.
+    EventStatus:
+      type: string
+      enum:
+      - Inactive
+      - Pending
+      - Active
+      - Failed
+      - Started
+      - Success
+      - Uploading
+      - Completed
+      - Deleted
+      - Cancelled
+      - Queued
+      - Running
+      title: EventStatus
+    FileRenameRequest:
+      properties:
+        new_filename:
+          type: string
+          title: New Filename
+      type: object
+      required:
+      - new_filename
+      title: FileRenameRequest
+    EventType:
+      type: string
+      enum:
+      - Files
+      - Finetune
+      - Deployments
+      - Alignment
+      title: EventType
+    FilePurpose:
+      type: string
+      enum:
+      - reinforcement-fine-tune
+      - fine-tune
+      - preference-fine-tune
+      - pre-train
+      - alignment
+      title: FilePurpose
+    GetEventsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Event'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: GetEventsResponse
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization
+x-refined-from:
+- seekr-llm-training-openapi.json
+- seekr-serving-openapi.json

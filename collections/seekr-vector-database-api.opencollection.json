@@ -1,0 +1,454 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SeekrFlow Vector database API",
+    "version": "5.108.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vector database",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Vector Databases",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/vectordb",
+            "params": [
+              {
+                "name": "types",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all vector databases for the user"
+        },
+        {
+          "info": {
+            "name": "Create Vector Database Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/vectordb",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new vector database"
+        },
+        {
+          "info": {
+            "name": "Get Vector Database Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/vectordb/:database_id",
+            "params": [
+              {
+                "name": "database_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a specific vector database"
+        },
+        {
+          "info": {
+            "name": "Update Vector Database Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://flow.seekr.com/v1/flow/vectordb/:database_id",
+            "params": [
+              {
+                "name": "database_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a vector database name and/or description"
+        },
+        {
+          "info": {
+            "name": "Delete Vector Database Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://flow.seekr.com/v1/flow/vectordb/:database_id",
+            "params": [
+              {
+                "name": "database_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a vector database"
+        },
+        {
+          "info": {
+            "name": "Get Tools For Vector Database",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/vectordb/:database_id/tools",
+            "params": [
+              {
+                "name": "database_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List IDs of FILE_SEARCH tools that reference this vector database."
+        },
+        {
+          "info": {
+            "name": "Get Data Jobs For Vector Database",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/vectordb/:database_id/data-jobs",
+            "params": [
+              {
+                "name": "database_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List IDs of data jobs that reference this vector database."
+        },
+        {
+          "info": {
+            "name": "List Vector Database Ingestion Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/vectordb/:database_id/ingestion",
+            "params": [
+              {
+                "name": "database_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all vector database ingestion jobs"
+        },
+        {
+          "info": {
+            "name": "Create Vector Database Ingestion Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/vectordb/:database_id/ingestion",
+            "params": [
+              {
+                "name": "database_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new vector database ingestion job.\n\n**`method` — document extraction strategy:**\n- `accuracy-optimized` *(default)* — runs the full Seekr pipeline (up to 12 methods: bookmark-aware hybrid extraction, Seekr-SaaS OCR, LLM post-processing, PyMuPDF, and more) with no restrictions, always selecting the highest-quality result\n- `speed-optimized` — same pipeline, but skips methods that exceed per-method word-count thresholds; significantly faster on large documents\n\n**`chunking_method` — text "
+        },
+        {
+          "info": {
+            "name": "Get Vector Database Ingestion Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/vectordb/:database_id/ingestion/:job_id",
+            "params": [
+              {
+                "name": "database_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get status of a vector database ingestion job"
+        },
+        {
+          "info": {
+            "name": "List Vector Database Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/vectordb/:database_id/files",
+            "params": [
+              {
+                "name": "database_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List files in vector database with queue positions"
+        },
+        {
+          "info": {
+            "name": "Get Vector Database Chunk",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/vectordb/:database_id/chunk/:chunk_id",
+            "params": [
+              {
+                "name": "database_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "chunk_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve provenance details for a chunk in a vector database."
+        },
+        {
+          "info": {
+            "name": "List Vector Database Chunks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/vectordb/:database_id/chunks",
+            "params": [
+              {
+                "name": "database_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Search/list chunks in a vector database with optional filtering.\n\nSupports filtering by `file_id`, `chunk_ids`, and `metadata` fields.\nMetadata filters support operator syntax: `$gt`, `$gte`, `$lt`, `$lte`, `$in`.\nUnknown operators return 400.\n\nRequest body example:\n```json\n{\n  \"file_id\": \"file-abc123\",\n  \"metadata\": {\"year\": {\"$gte\": 2023}, \"doc_type\": \"SOP\"},\n  \"limit\": 20,\n  \"offset\": 0\n}\n```"
+        },
+        {
+          "info": {
+            "name": "Delete Vector Database File",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://flow.seekr.com/v1/flow/vectordb/:database_id/files/:file_id",
+            "params": [
+              {
+                "name": "database_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a file from a vector database"
+        },
+        {
+          "info": {
+            "name": "Get Vector Database Metadata Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/vectordb/:database_id/metadata",
+            "params": [
+              {
+                "name": "database_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Return the current metadata snapshot for a vector database.\n\nThe snapshot is automatically refreshed whenever an ingestion job completes or a\nfile is deleted from the database (both are best-effort and asynchronous, so the\nrefresh may briefly lag the change), and can be regenerated on demand via POST on\nthis path. A snapshot with no metadata returns 200 with `keys: []`. Returns 404 if\na snapshot has never been generated for this database."
+        },
+        {
+          "info": {
+            "name": "Generate Vector Database Metadata Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/vectordb/:database_id/metadata",
+            "params": [
+              {
+                "name": "database_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Generate (or refresh) the metadata snapshot for a vector database.\n\nSamples up to 10,000 random chunks from the index, ranks the top 100 metadata keys\nby frequency, and for each key records the top 10 most common values along with an\ninferred type. The snapshot is stored in Postgres and returned by GET on this path.\n\nRetrying is safe — each call replaces the prior snapshot.\n\nErrors:\n- 422 if the vector database is not found.\n- 502 with `SnapshotGenerationFailed` if the ingestion service cannot p"
+        },
+        {
+          "info": {
+            "name": "Update Vector Database Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://flow.seekr.com/v1/flow/vectordb/:database_id/metadata",
+            "params": [
+              {
+                "name": "database_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Overwrite metadata on chunks within a vector database, targeted by file_ids or chunk_ids.\n\nThis operation is **destructive**: the provided `metadata` object **replaces** all existing\nmetadata on every targeted chunk. Previous metadata fields that are not included in the\nnew object are permanently removed.\n\nTo preserve existing fields, include them explicitly in the new `metadata` object.\n\n**Metadata constraints:**\n- Must be a flat object (no nested objects or arrays).\n- Values must be `string`, "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

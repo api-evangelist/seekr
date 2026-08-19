@@ -1,0 +1,172 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SeekrFlow Evals API",
+    "version": "5.108.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Evals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Cases Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/evals/cases",
+            "params": [
+              {
+                "name": "min_datetime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "max_datetime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tag_strategy",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List cases with optional filtering."
+        },
+        {
+          "info": {
+            "name": "Create Case Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/evals/cases",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Case Route"
+        },
+        {
+          "info": {
+            "name": "Get Case Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/evals/cases/:case_id",
+            "params": [
+              {
+                "name": "case_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the case to retrieve"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a specific case by ID."
+        },
+        {
+          "info": {
+            "name": "Update Case Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://flow.seekr.com/v1/flow/evals/cases/:case_id",
+            "params": [
+              {
+                "name": "case_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the case to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a case by ID."
+        },
+        {
+          "info": {
+            "name": "Delete Case Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://flow.seekr.com/v1/flow/evals/cases/:case_id",
+            "params": [
+              {
+                "name": "case_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the case to delete"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a case by ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

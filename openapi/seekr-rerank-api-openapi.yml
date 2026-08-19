@@ -1,0 +1,38 @@
+openapi: 3.2.0
+info:
+  title: SeekrFlow Rerank API
+  description: SeekrFlow API Documentation
+  termsOfService: http://www.seekr.com/support
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  version: 0.1.0
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Rerank
+paths:
+  /rerank:
+    post:
+      summary: Route Rerank
+      operationId: route_rerank_rerank_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - APIKeyHeader: []
+      x-excluded: true
+      tags:
+      - Rerank
+components:
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization

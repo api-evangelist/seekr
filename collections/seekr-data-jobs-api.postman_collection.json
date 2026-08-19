@@ -1,0 +1,2021 @@
+{
+  "item": [
+    {
+      "id": "476e9626-e9ee-425c-92d8-85389cc50186",
+      "name": "Data jobs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "07068dd7-0af9-4a81-9a78-2c3a8e67e56b",
+          "name": "Generate System Prompt",
+          "request": {
+            "name": "Generate System Prompt",
+            "description": {
+              "content": "Generate a system prompt based on user instructions and optional document summary.\nThis endpoint is independent of a specific data job ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "data-jobs",
+                "gen_system_prompt"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"instructions\": \"<string>\",\n  \"document_summary\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e79686c0-1b12-41e6-a2a1-e09cef1c98ac",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs",
+                    "gen_system_prompt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instructions\": \"<string>\",\n  \"document_summary\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 9497.684157447431\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd98354a-0c51-422f-95c5-47322cad225f",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs",
+                    "gen_system_prompt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instructions\": \"<string>\",\n  \"document_summary\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6ab53343-11e1-489b-b31e-0d2c64c5be25",
+          "name": "Submit Data Job",
+          "request": {
+            "name": "Submit Data Job",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "data-jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"job_type\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"vector_database_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d90472d6-569b-45c4-8d68-926d06036546",
+              "name": "Resource created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"job_type\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"vector_database_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"user_id\": \"string\",\n  \"name\": \"string\",\n  \"job_type\": \"string\",\n  \"alignment_job_id\": \"string\",\n  \"created_at\": \"2008-11-23T01:13:56.245Z\",\n  \"updated_at\": \"2001-05-02T14:41:40.966Z\",\n  \"status\": \"needs_review\",\n  \"origin_data_job_id\": \"string\",\n  \"deleted\": false,\n  \"status_message\": \"string\",\n  \"system_prompt\": \"string\",\n  \"system_prompt_updated_at\": \"1985-06-09T07:48:14.761Z\",\n  \"instructions\": \"string\",\n  \"instructions_updated_at\": \"1999-10-14T22:04:13.132Z\",\n  \"resolved_instructions\": \"string\",\n  \"vector_database_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2815502c-369d-4772-a008-b0aca167addd",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"job_type\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"vector_database_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5bc218d3-dbdc-40c1-a058-417a84d6e8c3",
+          "name": "Get Data Jobs",
+          "request": {
+            "name": "Get Data Jobs",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "data-jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "job_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_order",
+                  "value": "desc"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9fbb5982-f064-4543-b490-e73ae21f5e20",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "job_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"user_id\": \"string\",\n      \"name\": \"string\",\n      \"job_type\": \"string\",\n      \"alignment_job_id\": \"string\",\n      \"created_at\": \"1983-03-31T22:31:36.863Z\",\n      \"updated_at\": \"1957-04-13T13:11:53.065Z\",\n      \"status\": \"needs_review\",\n      \"origin_data_job_id\": \"string\",\n      \"deleted\": false,\n      \"status_message\": \"string\",\n      \"system_prompt\": \"string\",\n      \"system_prompt_updated_at\": \"2002-05-16T16:21:01.020Z\",\n      \"instructions\": \"string\",\n      \"instructions_updated_at\": \"1968-03-05T12:34:10.211Z\",\n      \"resolved_instructions\": \"string\",\n      \"vector_database_id\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"user_id\": \"string\",\n      \"name\": \"string\",\n      \"job_type\": \"string\",\n      \"alignment_job_id\": \"string\",\n      \"created_at\": \"1981-07-16T09:49:57.330Z\",\n      \"updated_at\": \"1971-09-06T15:55:36.667Z\",\n      \"status\": \"needs_review\",\n      \"origin_data_job_id\": \"string\",\n      \"deleted\": false,\n      \"status_message\": \"string\",\n      \"system_prompt\": \"string\",\n      \"system_prompt_updated_at\": \"1989-10-16T07:15:48.893Z\",\n      \"instructions\": \"string\",\n      \"instructions_updated_at\": \"1952-03-15T23:08:28.815Z\",\n      \"resolved_instructions\": \"string\",\n      \"vector_database_id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f459af3-b36b-49fb-b240-610e9e703ee4",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "job_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4e6df3f0-d039-4f6b-9c42-b73a32956217",
+          "name": "Get Data Job",
+          "request": {
+            "name": "Get Data Job",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "data-jobs",
+                ":data_job_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "data_job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "77ef9db5-eb90-4e62-aea8-023f0ee9b7ab",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs",
+                    ":data_job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "data_job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"user_id\": \"string\",\n  \"name\": \"string\",\n  \"job_type\": \"string\",\n  \"alignment_job_id\": \"string\",\n  \"created_at\": \"2025-06-03T05:02:49.293Z\",\n  \"updated_at\": \"2006-12-14T07:44:51.576Z\",\n  \"status\": \"file_processing\",\n  \"origin_data_job_id\": \"string\",\n  \"deleted\": false,\n  \"status_message\": \"string\",\n  \"system_prompt\": \"string\",\n  \"system_prompt_updated_at\": \"2007-07-05T09:25:02.749Z\",\n  \"instructions\": \"string\",\n  \"instructions_updated_at\": \"2001-10-23T12:19:16.296Z\",\n  \"resolved_instructions\": \"string\",\n  \"vector_database_id\": \"string\",\n  \"additional_alignment_file_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"ingestion_jobs\": [\n    {\n      \"id\": \"string\",\n      \"status\": \"running\",\n      \"created_at\": \"1972-05-23T20:10:29.534Z\",\n      \"updated_at\": \"2025-12-07T21:15:03.793Z\",\n      \"file_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"records\": [\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1961-08-22T15:00:36.264Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 3923,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1989-05-16T18:31:00.117Z\",\n          \"completed_at\": \"1965-01-20T10:05:51.084Z\",\n          \"failed_at\": \"1956-01-05T04:41:27.068Z\"\n        },\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1961-11-27T11:46:24.444Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 9488,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1969-08-29T00:37:29.249Z\",\n          \"completed_at\": \"1963-08-28T05:20:39.642Z\",\n          \"failed_at\": \"1977-10-27T02:18:56.520Z\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"status\": \"completed\",\n      \"created_at\": \"2023-02-24T04:22:51.694Z\",\n      \"updated_at\": \"1991-01-25T19:12:45.032Z\",\n      \"file_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"records\": [\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"2019-12-08T23:22:22.012Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 6192,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"2025-12-07T01:44:35.709Z\",\n          \"completed_at\": \"1984-11-01T11:57:25.603Z\",\n          \"failed_at\": \"1971-03-17T23:21:01.248Z\"\n        },\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"2013-09-12T04:44:58.992Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 2628,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1960-05-16T00:14:10.452Z\",\n          \"completed_at\": \"2016-08-06T03:57:30.698Z\",\n          \"failed_at\": \"1979-05-31T01:07:11.762Z\"\n        }\n      ]\n    }\n  ],\n  \"alignment_job\": {\n    \"id\": \"string\",\n    \"created_at\": \"1990-05-07T07:42:54.697Z\",\n    \"status\": \"completed\",\n    \"updated_at\": \"1970-01-03T05:44:15.783Z\",\n    \"completed_at\": \"1946-09-23T22:23:58.917Z\",\n    \"stopped_at\": \"1952-05-19T17:55:01.549Z\",\n    \"current_step\": \"string\",\n    \"step_progress\": 7223.459232075034,\n    \"progress\": 2035.009149459024,\n    \"estimated_completion_at\": \"1980-03-30T21:17:25.356Z\",\n    \"eta_minutes\": 3951,\n    \"status_message\": \"string\",\n    \"output_files\": [\n      {\n        \"id\": \"string\",\n        \"filename\": \"string\",\n        \"bytes\": 7907,\n        \"created_at\": \"2022-05-10T21:44:41.372Z\",\n        \"file_type\": \"pt\",\n        \"purpose\": \"pre-train\"\n      },\n      {\n        \"id\": \"string\",\n        \"filename\": \"string\",\n        \"bytes\": 8340,\n        \"created_at\": \"2019-07-12T06:08:54.201Z\",\n        \"file_type\": \"parquet\",\n        \"purpose\": \"pre-train\"\n      }\n    ]\n  },\n  \"files\": [\n    {\n      \"file_id\": \"string\",\n      \"record_id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"created_at\": \"1989-09-19T03:32:03.507Z\",\n      \"status\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"bytes\": 4535\n    },\n    {\n      \"file_id\": \"string\",\n      \"record_id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"created_at\": \"2018-08-15T00:22:17.193Z\",\n      \"status\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"bytes\": 1765\n    }\n  ],\n  \"fine_tuning_job_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"timeline\": [\n    {\n      \"timestamp\": \"1959-06-29T18:29:08.574Z\",\n      \"event_type\": \"string\",\n      \"message\": \"string\",\n      \"metadata\": {\n        \"key_0\": 9366,\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"timestamp\": \"2022-12-26T19:45:17.556Z\",\n      \"event_type\": \"string\",\n      \"message\": \"string\",\n      \"metadata\": {\n        \"key_0\": 8201,\n        \"key_1\": 7419.138911291608\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53137424-b27e-4547-970e-a36dd8a91b93",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs",
+                    ":data_job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "data_job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "50f15a4e-c0f4-4399-a16c-12c88c3ee19f",
+          "name": "Patch Data Job",
+          "request": {
+            "name": "Patch Data Job",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "data-jobs",
+                ":data_job_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "data_job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"vector_database_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1793dc8c-25ca-4788-a98a-ae5f974bc9c3",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs",
+                    ":data_job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "data_job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"vector_database_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"user_id\": \"string\",\n  \"name\": \"string\",\n  \"job_type\": \"string\",\n  \"alignment_job_id\": \"string\",\n  \"created_at\": \"1948-12-10T05:05:44.352Z\",\n  \"updated_at\": \"1983-10-06T08:49:35.074Z\",\n  \"status\": \"ready_to_start\",\n  \"origin_data_job_id\": \"string\",\n  \"deleted\": false,\n  \"status_message\": \"string\",\n  \"system_prompt\": \"string\",\n  \"system_prompt_updated_at\": \"1947-06-28T20:52:06.071Z\",\n  \"instructions\": \"string\",\n  \"instructions_updated_at\": \"2007-05-10T03:23:54.358Z\",\n  \"resolved_instructions\": \"string\",\n  \"vector_database_id\": \"string\",\n  \"additional_alignment_file_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"ingestion_jobs\": [\n    {\n      \"id\": \"string\",\n      \"status\": \"failed\",\n      \"created_at\": \"2006-10-31T05:05:26.932Z\",\n      \"updated_at\": \"1962-11-15T20:08:02.215Z\",\n      \"file_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"records\": [\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1990-05-17T07:56:52.988Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 2210,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1989-08-31T05:07:12.328Z\",\n          \"completed_at\": \"1952-08-07T09:38:40.861Z\",\n          \"failed_at\": \"1960-02-22T10:37:46.120Z\"\n        },\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1982-08-27T14:20:14.358Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 3274,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"2026-07-16T21:03:53.330Z\",\n          \"completed_at\": \"2005-04-06T10:11:02.506Z\",\n          \"failed_at\": \"1999-08-06T20:24:29.468Z\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"status\": \"running\",\n      \"created_at\": \"2020-11-15T03:26:42.763Z\",\n      \"updated_at\": \"1990-11-08T19:02:36.496Z\",\n      \"file_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"records\": [\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"2003-02-03T01:52:26.408Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 3415,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1978-01-12T08:24:02.952Z\",\n          \"completed_at\": \"1980-02-26T07:58:42.303Z\",\n          \"failed_at\": \"2015-11-04T22:32:19.201Z\"\n        },\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1962-04-29T23:03:42.681Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 2023,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1981-08-29T17:29:25.680Z\",\n          \"completed_at\": \"2006-09-09T20:59:32.707Z\",\n          \"failed_at\": \"1978-06-16T20:41:20.313Z\"\n        }\n      ]\n    }\n  ],\n  \"alignment_job\": {\n    \"id\": \"string\",\n    \"created_at\": \"1985-03-08T23:01:48.271Z\",\n    \"status\": \"pending\",\n    \"updated_at\": \"1991-07-20T23:22:36.557Z\",\n    \"completed_at\": \"1974-02-22T14:18:51.665Z\",\n    \"stopped_at\": \"2009-06-13T17:29:19.537Z\",\n    \"current_step\": \"string\",\n    \"step_progress\": 2311.491348302913,\n    \"progress\": 7988.713364212562,\n    \"estimated_completion_at\": \"1989-04-24T11:30:43.838Z\",\n    \"eta_minutes\": 1251,\n    \"status_message\": \"string\",\n    \"output_files\": [\n      {\n        \"id\": \"string\",\n        \"filename\": \"string\",\n        \"bytes\": 8152,\n        \"created_at\": \"1967-09-22T04:02:30.735Z\",\n        \"file_type\": \"jsonl\",\n        \"purpose\": \"fine-tune\"\n      },\n      {\n        \"id\": \"string\",\n        \"filename\": \"string\",\n        \"bytes\": 3684,\n        \"created_at\": \"2015-09-09T07:01:58.595Z\",\n        \"file_type\": \"parquet\",\n        \"purpose\": \"alignment\"\n      }\n    ]\n  },\n  \"files\": [\n    {\n      \"file_id\": \"string\",\n      \"record_id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"created_at\": \"1985-12-13T16:39:57.992Z\",\n      \"status\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"bytes\": 5683\n    },\n    {\n      \"file_id\": \"string\",\n      \"record_id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"created_at\": \"1972-01-10T23:27:21.352Z\",\n      \"status\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"bytes\": 7684\n    }\n  ],\n  \"fine_tuning_job_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"timeline\": [\n    {\n      \"timestamp\": \"2004-11-09T10:50:26.730Z\",\n      \"event_type\": \"string\",\n      \"message\": \"string\",\n      \"metadata\": {\n        \"key_0\": false\n      }\n    },\n    {\n      \"timestamp\": \"1969-08-29T20:51:05.510Z\",\n      \"event_type\": \"string\",\n      \"message\": \"string\",\n      \"metadata\": {\n        \"key_0\": 610\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df107111-bf17-4410-a6fc-70f775d11e6e",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs",
+                    ":data_job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "data_job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"vector_database_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d465fb6-9d2d-4e01-88be-e88f5376e968",
+          "name": "Delete Data Job",
+          "request": {
+            "name": "Delete Data Job",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "data-jobs",
+                ":data_job_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "data_job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8e90ff05-ea51-47da-947d-38871ac9db58",
+              "name": "Success, no content returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs",
+                    ":data_job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "data_job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "91f36c3c-02ec-4671-9785-84da7a3b75cc",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs",
+                    ":data_job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "data_job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "810e0e46-1f18-492b-bba1-8333fa9efc85",
+          "name": "Add Files To Data Job",
+          "request": {
+            "name": "Add Files To Data Job",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "data-jobs",
+                ":data_job_id",
+                "add-files"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "data_job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"file_ids\": [\n    \"<string>\"\n  ],\n  \"method\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "deea2789-8ae1-4878-8457-4466d1090231",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs",
+                    ":data_job_id",
+                    "add-files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "data_job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"file_ids\": [\n    \"<string>\"\n  ],\n  \"method\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"user_id\": \"string\",\n  \"name\": \"string\",\n  \"job_type\": \"string\",\n  \"alignment_job_id\": \"string\",\n  \"created_at\": \"1948-12-10T05:05:44.352Z\",\n  \"updated_at\": \"1983-10-06T08:49:35.074Z\",\n  \"status\": \"ready_to_start\",\n  \"origin_data_job_id\": \"string\",\n  \"deleted\": false,\n  \"status_message\": \"string\",\n  \"system_prompt\": \"string\",\n  \"system_prompt_updated_at\": \"1947-06-28T20:52:06.071Z\",\n  \"instructions\": \"string\",\n  \"instructions_updated_at\": \"2007-05-10T03:23:54.358Z\",\n  \"resolved_instructions\": \"string\",\n  \"vector_database_id\": \"string\",\n  \"additional_alignment_file_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"ingestion_jobs\": [\n    {\n      \"id\": \"string\",\n      \"status\": \"failed\",\n      \"created_at\": \"2006-10-31T05:05:26.932Z\",\n      \"updated_at\": \"1962-11-15T20:08:02.215Z\",\n      \"file_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"records\": [\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1990-05-17T07:56:52.988Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 2210,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1989-08-31T05:07:12.328Z\",\n          \"completed_at\": \"1952-08-07T09:38:40.861Z\",\n          \"failed_at\": \"1960-02-22T10:37:46.120Z\"\n        },\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1982-08-27T14:20:14.358Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 3274,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"2026-07-16T21:03:53.330Z\",\n          \"completed_at\": \"2005-04-06T10:11:02.506Z\",\n          \"failed_at\": \"1999-08-06T20:24:29.468Z\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"status\": \"running\",\n      \"created_at\": \"2020-11-15T03:26:42.763Z\",\n      \"updated_at\": \"1990-11-08T19:02:36.496Z\",\n      \"file_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"records\": [\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"2003-02-03T01:52:26.408Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 3415,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1978-01-12T08:24:02.952Z\",\n          \"completed_at\": \"1980-02-26T07:58:42.303Z\",\n          \"failed_at\": \"2015-11-04T22:32:19.201Z\"\n        },\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1962-04-29T23:03:42.681Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 2023,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1981-08-29T17:29:25.680Z\",\n          \"completed_at\": \"2006-09-09T20:59:32.707Z\",\n          \"failed_at\": \"1978-06-16T20:41:20.313Z\"\n        }\n      ]\n    }\n  ],\n  \"alignment_job\": {\n    \"id\": \"string\",\n    \"created_at\": \"1985-03-08T23:01:48.271Z\",\n    \"status\": \"pending\",\n    \"updated_at\": \"1991-07-20T23:22:36.557Z\",\n    \"completed_at\": \"1974-02-22T14:18:51.665Z\",\n    \"stopped_at\": \"2009-06-13T17:29:19.537Z\",\n    \"current_step\": \"string\",\n    \"step_progress\": 2311.491348302913,\n    \"progress\": 7988.713364212562,\n    \"estimated_completion_at\": \"1989-04-24T11:30:43.838Z\",\n    \"eta_minutes\": 1251,\n    \"status_message\": \"string\",\n    \"output_files\": [\n      {\n        \"id\": \"string\",\n        \"filename\": \"string\",\n        \"bytes\": 8152,\n        \"created_at\": \"1967-09-22T04:02:30.735Z\",\n        \"file_type\": \"jsonl\",\n        \"purpose\": \"fine-tune\"\n      },\n      {\n        \"id\": \"string\",\n        \"filename\": \"string\",\n        \"bytes\": 3684,\n        \"created_at\": \"2015-09-09T07:01:58.595Z\",\n        \"file_type\": \"parquet\",\n        \"purpose\": \"alignment\"\n      }\n    ]\n  },\n  \"files\": [\n    {\n      \"file_id\": \"string\",\n      \"record_id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"created_at\": \"1985-12-13T16:39:57.992Z\",\n      \"status\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"bytes\": 5683\n    },\n    {\n      \"file_id\": \"string\",\n      \"record_id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"created_at\": \"1972-01-10T23:27:21.352Z\",\n      \"status\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"bytes\": 7684\n    }\n  ],\n  \"fine_tuning_job_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"timeline\": [\n    {\n      \"timestamp\": \"2004-11-09T10:50:26.730Z\",\n      \"event_type\": \"string\",\n      \"message\": \"string\",\n      \"metadata\": {\n        \"key_0\": false\n      }\n    },\n    {\n      \"timestamp\": \"1969-08-29T20:51:05.510Z\",\n      \"event_type\": \"string\",\n      \"message\": \"string\",\n      \"metadata\": {\n        \"key_0\": 610\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e9c588f-46ab-429b-a833-4b53268376a5",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs",
+                    ":data_job_id",
+                    "add-files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "data_job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"file_ids\": [\n    \"<string>\"\n  ],\n  \"method\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2f8cc8ec-6333-4ae8-901f-364180ef1b0d",
+          "name": "Remove Files From Data Job",
+          "request": {
+            "name": "Remove Files From Data Job",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "data-jobs",
+                ":data_job_id",
+                "remove-files"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "data_job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"file_ids\": [\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ed06d1a1-0f3b-4929-9255-4efe2b1cc764",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs",
+                    ":data_job_id",
+                    "remove-files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "data_job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"file_ids\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"user_id\": \"string\",\n  \"name\": \"string\",\n  \"job_type\": \"string\",\n  \"alignment_job_id\": \"string\",\n  \"created_at\": \"1948-12-10T05:05:44.352Z\",\n  \"updated_at\": \"1983-10-06T08:49:35.074Z\",\n  \"status\": \"ready_to_start\",\n  \"origin_data_job_id\": \"string\",\n  \"deleted\": false,\n  \"status_message\": \"string\",\n  \"system_prompt\": \"string\",\n  \"system_prompt_updated_at\": \"1947-06-28T20:52:06.071Z\",\n  \"instructions\": \"string\",\n  \"instructions_updated_at\": \"2007-05-10T03:23:54.358Z\",\n  \"resolved_instructions\": \"string\",\n  \"vector_database_id\": \"string\",\n  \"additional_alignment_file_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"ingestion_jobs\": [\n    {\n      \"id\": \"string\",\n      \"status\": \"failed\",\n      \"created_at\": \"2006-10-31T05:05:26.932Z\",\n      \"updated_at\": \"1962-11-15T20:08:02.215Z\",\n      \"file_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"records\": [\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1990-05-17T07:56:52.988Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 2210,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1989-08-31T05:07:12.328Z\",\n          \"completed_at\": \"1952-08-07T09:38:40.861Z\",\n          \"failed_at\": \"1960-02-22T10:37:46.120Z\"\n        },\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1982-08-27T14:20:14.358Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 3274,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"2026-07-16T21:03:53.330Z\",\n          \"completed_at\": \"2005-04-06T10:11:02.506Z\",\n          \"failed_at\": \"1999-08-06T20:24:29.468Z\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"status\": \"running\",\n      \"created_at\": \"2020-11-15T03:26:42.763Z\",\n      \"updated_at\": \"1990-11-08T19:02:36.496Z\",\n      \"file_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"records\": [\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"2003-02-03T01:52:26.408Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 3415,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1978-01-12T08:24:02.952Z\",\n          \"completed_at\": \"1980-02-26T07:58:42.303Z\",\n          \"failed_at\": \"2015-11-04T22:32:19.201Z\"\n        },\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1962-04-29T23:03:42.681Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 2023,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1981-08-29T17:29:25.680Z\",\n          \"completed_at\": \"2006-09-09T20:59:32.707Z\",\n          \"failed_at\": \"1978-06-16T20:41:20.313Z\"\n        }\n      ]\n    }\n  ],\n  \"alignment_job\": {\n    \"id\": \"string\",\n    \"created_at\": \"1985-03-08T23:01:48.271Z\",\n    \"status\": \"pending\",\n    \"updated_at\": \"1991-07-20T23:22:36.557Z\",\n    \"completed_at\": \"1974-02-22T14:18:51.665Z\",\n    \"stopped_at\": \"2009-06-13T17:29:19.537Z\",\n    \"current_step\": \"string\",\n    \"step_progress\": 2311.491348302913,\n    \"progress\": 7988.713364212562,\n    \"estimated_completion_at\": \"1989-04-24T11:30:43.838Z\",\n    \"eta_minutes\": 1251,\n    \"status_message\": \"string\",\n    \"output_files\": [\n      {\n        \"id\": \"string\",\n        \"filename\": \"string\",\n        \"bytes\": 8152,\n        \"created_at\": \"1967-09-22T04:02:30.735Z\",\n        \"file_type\": \"jsonl\",\n        \"purpose\": \"fine-tune\"\n      },\n      {\n        \"id\": \"string\",\n        \"filename\": \"string\",\n        \"bytes\": 3684,\n        \"created_at\": \"2015-09-09T07:01:58.595Z\",\n        \"file_type\": \"parquet\",\n        \"purpose\": \"alignment\"\n      }\n    ]\n  },\n  \"files\": [\n    {\n      \"file_id\": \"string\",\n      \"record_id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"created_at\": \"1985-12-13T16:39:57.992Z\",\n      \"status\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"bytes\": 5683\n    },\n    {\n      \"file_id\": \"string\",\n      \"record_id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"created_at\": \"1972-01-10T23:27:21.352Z\",\n      \"status\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"bytes\": 7684\n    }\n  ],\n  \"fine_tuning_job_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"timeline\": [\n    {\n      \"timestamp\": \"2004-11-09T10:50:26.730Z\",\n      \"event_type\": \"string\",\n      \"message\": \"string\",\n      \"metadata\": {\n        \"key_0\": false\n      }\n    },\n    {\n      \"timestamp\": \"1969-08-29T20:51:05.510Z\",\n      \"event_type\": \"string\",\n      \"message\": \"string\",\n      \"metadata\": {\n        \"key_0\": 610\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25a109e9-991f-468d-a125-23de90274d58",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs",
+                    ":data_job_id",
+                    "remove-files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "data_job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"file_ids\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c4bc307-546a-4b73-9cfd-3f76cb4482cb",
+          "name": "Start Data Job Alignment",
+          "request": {
+            "name": "Start Data Job Alignment",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "data-jobs",
+                ":data_job_id",
+                "start"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "data_job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "088a813a-c473-49fb-98b0-98521239be6b",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs",
+                    ":data_job_id",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "data_job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"user_id\": \"string\",\n  \"name\": \"string\",\n  \"job_type\": \"string\",\n  \"alignment_job_id\": \"string\",\n  \"created_at\": \"1948-12-10T05:05:44.352Z\",\n  \"updated_at\": \"1983-10-06T08:49:35.074Z\",\n  \"status\": \"ready_to_start\",\n  \"origin_data_job_id\": \"string\",\n  \"deleted\": false,\n  \"status_message\": \"string\",\n  \"system_prompt\": \"string\",\n  \"system_prompt_updated_at\": \"1947-06-28T20:52:06.071Z\",\n  \"instructions\": \"string\",\n  \"instructions_updated_at\": \"2007-05-10T03:23:54.358Z\",\n  \"resolved_instructions\": \"string\",\n  \"vector_database_id\": \"string\",\n  \"additional_alignment_file_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"ingestion_jobs\": [\n    {\n      \"id\": \"string\",\n      \"status\": \"failed\",\n      \"created_at\": \"2006-10-31T05:05:26.932Z\",\n      \"updated_at\": \"1962-11-15T20:08:02.215Z\",\n      \"file_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"records\": [\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1990-05-17T07:56:52.988Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 2210,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1989-08-31T05:07:12.328Z\",\n          \"completed_at\": \"1952-08-07T09:38:40.861Z\",\n          \"failed_at\": \"1960-02-22T10:37:46.120Z\"\n        },\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1982-08-27T14:20:14.358Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 3274,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"2026-07-16T21:03:53.330Z\",\n          \"completed_at\": \"2005-04-06T10:11:02.506Z\",\n          \"failed_at\": \"1999-08-06T20:24:29.468Z\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"status\": \"running\",\n      \"created_at\": \"2020-11-15T03:26:42.763Z\",\n      \"updated_at\": \"1990-11-08T19:02:36.496Z\",\n      \"file_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"records\": [\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"2003-02-03T01:52:26.408Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 3415,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1978-01-12T08:24:02.952Z\",\n          \"completed_at\": \"1980-02-26T07:58:42.303Z\",\n          \"failed_at\": \"2015-11-04T22:32:19.201Z\"\n        },\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1962-04-29T23:03:42.681Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 2023,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1981-08-29T17:29:25.680Z\",\n          \"completed_at\": \"2006-09-09T20:59:32.707Z\",\n          \"failed_at\": \"1978-06-16T20:41:20.313Z\"\n        }\n      ]\n    }\n  ],\n  \"alignment_job\": {\n    \"id\": \"string\",\n    \"created_at\": \"1985-03-08T23:01:48.271Z\",\n    \"status\": \"pending\",\n    \"updated_at\": \"1991-07-20T23:22:36.557Z\",\n    \"completed_at\": \"1974-02-22T14:18:51.665Z\",\n    \"stopped_at\": \"2009-06-13T17:29:19.537Z\",\n    \"current_step\": \"string\",\n    \"step_progress\": 2311.491348302913,\n    \"progress\": 7988.713364212562,\n    \"estimated_completion_at\": \"1989-04-24T11:30:43.838Z\",\n    \"eta_minutes\": 1251,\n    \"status_message\": \"string\",\n    \"output_files\": [\n      {\n        \"id\": \"string\",\n        \"filename\": \"string\",\n        \"bytes\": 8152,\n        \"created_at\": \"1967-09-22T04:02:30.735Z\",\n        \"file_type\": \"jsonl\",\n        \"purpose\": \"fine-tune\"\n      },\n      {\n        \"id\": \"string\",\n        \"filename\": \"string\",\n        \"bytes\": 3684,\n        \"created_at\": \"2015-09-09T07:01:58.595Z\",\n        \"file_type\": \"parquet\",\n        \"purpose\": \"alignment\"\n      }\n    ]\n  },\n  \"files\": [\n    {\n      \"file_id\": \"string\",\n      \"record_id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"created_at\": \"1985-12-13T16:39:57.992Z\",\n      \"status\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"bytes\": 5683\n    },\n    {\n      \"file_id\": \"string\",\n      \"record_id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"created_at\": \"1972-01-10T23:27:21.352Z\",\n      \"status\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"bytes\": 7684\n    }\n  ],\n  \"fine_tuning_job_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"timeline\": [\n    {\n      \"timestamp\": \"2004-11-09T10:50:26.730Z\",\n      \"event_type\": \"string\",\n      \"message\": \"string\",\n      \"metadata\": {\n        \"key_0\": false\n      }\n    },\n    {\n      \"timestamp\": \"1969-08-29T20:51:05.510Z\",\n      \"event_type\": \"string\",\n      \"message\": \"string\",\n      \"metadata\": {\n        \"key_0\": 610\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c39c637-0b58-4351-9140-aa36b94e72dc",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs",
+                    ":data_job_id",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "data_job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f8340e50-5887-4626-88f6-217ab39f1b52",
+          "name": "Cancel Data Job",
+          "request": {
+            "name": "Cancel Data Job",
+            "description": {
+              "content": "Cancel the alignment job associated with a data job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "data-jobs",
+                ":data_job_id",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "data_job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8ec6e510-7214-42ab-ac26-ced02e1f509e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs",
+                    ":data_job_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "data_job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"user_id\": \"string\",\n  \"name\": \"string\",\n  \"job_type\": \"string\",\n  \"alignment_job_id\": \"string\",\n  \"created_at\": \"1948-12-10T05:05:44.352Z\",\n  \"updated_at\": \"1983-10-06T08:49:35.074Z\",\n  \"status\": \"ready_to_start\",\n  \"origin_data_job_id\": \"string\",\n  \"deleted\": false,\n  \"status_message\": \"string\",\n  \"system_prompt\": \"string\",\n  \"system_prompt_updated_at\": \"1947-06-28T20:52:06.071Z\",\n  \"instructions\": \"string\",\n  \"instructions_updated_at\": \"2007-05-10T03:23:54.358Z\",\n  \"resolved_instructions\": \"string\",\n  \"vector_database_id\": \"string\",\n  \"additional_alignment_file_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"ingestion_jobs\": [\n    {\n      \"id\": \"string\",\n      \"status\": \"failed\",\n      \"created_at\": \"2006-10-31T05:05:26.932Z\",\n      \"updated_at\": \"1962-11-15T20:08:02.215Z\",\n      \"file_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"records\": [\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1990-05-17T07:56:52.988Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 2210,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1989-08-31T05:07:12.328Z\",\n          \"completed_at\": \"1952-08-07T09:38:40.861Z\",\n          \"failed_at\": \"1960-02-22T10:37:46.120Z\"\n        },\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1982-08-27T14:20:14.358Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 3274,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"2026-07-16T21:03:53.330Z\",\n          \"completed_at\": \"2005-04-06T10:11:02.506Z\",\n          \"failed_at\": \"1999-08-06T20:24:29.468Z\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"status\": \"running\",\n      \"created_at\": \"2020-11-15T03:26:42.763Z\",\n      \"updated_at\": \"1990-11-08T19:02:36.496Z\",\n      \"file_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"records\": [\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"2003-02-03T01:52:26.408Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 3415,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1978-01-12T08:24:02.952Z\",\n          \"completed_at\": \"1980-02-26T07:58:42.303Z\",\n          \"failed_at\": \"2015-11-04T22:32:19.201Z\"\n        },\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1962-04-29T23:03:42.681Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 2023,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1981-08-29T17:29:25.680Z\",\n          \"completed_at\": \"2006-09-09T20:59:32.707Z\",\n          \"failed_at\": \"1978-06-16T20:41:20.313Z\"\n        }\n      ]\n    }\n  ],\n  \"alignment_job\": {\n    \"id\": \"string\",\n    \"created_at\": \"1985-03-08T23:01:48.271Z\",\n    \"status\": \"pending\",\n    \"updated_at\": \"1991-07-20T23:22:36.557Z\",\n    \"completed_at\": \"1974-02-22T14:18:51.665Z\",\n    \"stopped_at\": \"2009-06-13T17:29:19.537Z\",\n    \"current_step\": \"string\",\n    \"step_progress\": 2311.491348302913,\n    \"progress\": 7988.713364212562,\n    \"estimated_completion_at\": \"1989-04-24T11:30:43.838Z\",\n    \"eta_minutes\": 1251,\n    \"status_message\": \"string\",\n    \"output_files\": [\n      {\n        \"id\": \"string\",\n        \"filename\": \"string\",\n        \"bytes\": 8152,\n        \"created_at\": \"1967-09-22T04:02:30.735Z\",\n        \"file_type\": \"jsonl\",\n        \"purpose\": \"fine-tune\"\n      },\n      {\n        \"id\": \"string\",\n        \"filename\": \"string\",\n        \"bytes\": 3684,\n        \"created_at\": \"2015-09-09T07:01:58.595Z\",\n        \"file_type\": \"parquet\",\n        \"purpose\": \"alignment\"\n      }\n    ]\n  },\n  \"files\": [\n    {\n      \"file_id\": \"string\",\n      \"record_id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"created_at\": \"1985-12-13T16:39:57.992Z\",\n      \"status\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"bytes\": 5683\n    },\n    {\n      \"file_id\": \"string\",\n      \"record_id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"created_at\": \"1972-01-10T23:27:21.352Z\",\n      \"status\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"bytes\": 7684\n    }\n  ],\n  \"fine_tuning_job_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"timeline\": [\n    {\n      \"timestamp\": \"2004-11-09T10:50:26.730Z\",\n      \"event_type\": \"string\",\n      \"message\": \"string\",\n      \"metadata\": {\n        \"key_0\": false\n      }\n    },\n    {\n      \"timestamp\": \"1969-08-29T20:51:05.510Z\",\n      \"event_type\": \"string\",\n      \"message\": \"string\",\n      \"metadata\": {\n        \"key_0\": 610\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72c9e9ea-66e7-46fc-800e-e5be82f65f73",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs",
+                    ":data_job_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "data_job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc072a4b-7060-4d61-a2f5-5eac589b67ae",
+          "name": "Clone Data Job",
+          "request": {
+            "name": "Clone Data Job",
+            "description": {
+              "content": "Create a new, editable data job pre-populated from an existing one.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flow",
+                "data-jobs",
+                ":data_job_id",
+                "clone"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "data_job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "caae5afc-474f-48dd-94dd-25b2222f7b68",
+              "name": "Resource created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs",
+                    ":data_job_id",
+                    "clone"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "data_job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"user_id\": \"string\",\n  \"name\": \"string\",\n  \"job_type\": \"string\",\n  \"alignment_job_id\": \"string\",\n  \"created_at\": \"1948-12-10T05:05:44.352Z\",\n  \"updated_at\": \"1983-10-06T08:49:35.074Z\",\n  \"status\": \"ready_to_start\",\n  \"origin_data_job_id\": \"string\",\n  \"deleted\": false,\n  \"status_message\": \"string\",\n  \"system_prompt\": \"string\",\n  \"system_prompt_updated_at\": \"1947-06-28T20:52:06.071Z\",\n  \"instructions\": \"string\",\n  \"instructions_updated_at\": \"2007-05-10T03:23:54.358Z\",\n  \"resolved_instructions\": \"string\",\n  \"vector_database_id\": \"string\",\n  \"additional_alignment_file_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"ingestion_jobs\": [\n    {\n      \"id\": \"string\",\n      \"status\": \"failed\",\n      \"created_at\": \"2006-10-31T05:05:26.932Z\",\n      \"updated_at\": \"1962-11-15T20:08:02.215Z\",\n      \"file_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"records\": [\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1990-05-17T07:56:52.988Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 2210,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1989-08-31T05:07:12.328Z\",\n          \"completed_at\": \"1952-08-07T09:38:40.861Z\",\n          \"failed_at\": \"1960-02-22T10:37:46.120Z\"\n        },\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1982-08-27T14:20:14.358Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 3274,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"2026-07-16T21:03:53.330Z\",\n          \"completed_at\": \"2005-04-06T10:11:02.506Z\",\n          \"failed_at\": \"1999-08-06T20:24:29.468Z\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"status\": \"running\",\n      \"created_at\": \"2020-11-15T03:26:42.763Z\",\n      \"updated_at\": \"1990-11-08T19:02:36.496Z\",\n      \"file_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"records\": [\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"2003-02-03T01:52:26.408Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 3415,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1978-01-12T08:24:02.952Z\",\n          \"completed_at\": \"1980-02-26T07:58:42.303Z\",\n          \"failed_at\": \"2015-11-04T22:32:19.201Z\"\n        },\n        {\n          \"record_id\": \"string\",\n          \"ingestion_job_id\": \"string\",\n          \"alignment_file_id\": \"string\",\n          \"user_id\": \"string\",\n          \"filename\": \"string\",\n          \"status\": \"string\",\n          \"created_at\": \"1962-04-29T23:03:42.681Z\",\n          \"metaflow_job_id\": \"string\",\n          \"method\": \"string\",\n          \"queue_position\": 2023,\n          \"error_message\": \"string\",\n          \"suggested_fix\": \"string\",\n          \"worker_id\": \"string\",\n          \"deleted\": false,\n          \"processing_at\": \"1981-08-29T17:29:25.680Z\",\n          \"completed_at\": \"2006-09-09T20:59:32.707Z\",\n          \"failed_at\": \"1978-06-16T20:41:20.313Z\"\n        }\n      ]\n    }\n  ],\n  \"alignment_job\": {\n    \"id\": \"string\",\n    \"created_at\": \"1985-03-08T23:01:48.271Z\",\n    \"status\": \"pending\",\n    \"updated_at\": \"1991-07-20T23:22:36.557Z\",\n    \"completed_at\": \"1974-02-22T14:18:51.665Z\",\n    \"stopped_at\": \"2009-06-13T17:29:19.537Z\",\n    \"current_step\": \"string\",\n    \"step_progress\": 2311.491348302913,\n    \"progress\": 7988.713364212562,\n    \"estimated_completion_at\": \"1989-04-24T11:30:43.838Z\",\n    \"eta_minutes\": 1251,\n    \"status_message\": \"string\",\n    \"output_files\": [\n      {\n        \"id\": \"string\",\n        \"filename\": \"string\",\n        \"bytes\": 8152,\n        \"created_at\": \"1967-09-22T04:02:30.735Z\",\n        \"file_type\": \"jsonl\",\n        \"purpose\": \"fine-tune\"\n      },\n      {\n        \"id\": \"string\",\n        \"filename\": \"string\",\n        \"bytes\": 3684,\n        \"created_at\": \"2015-09-09T07:01:58.595Z\",\n        \"file_type\": \"parquet\",\n        \"purpose\": \"alignment\"\n      }\n    ]\n  },\n  \"files\": [\n    {\n      \"file_id\": \"string\",\n      \"record_id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"created_at\": \"1985-12-13T16:39:57.992Z\",\n      \"status\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"bytes\": 5683\n    },\n    {\n      \"file_id\": \"string\",\n      \"record_id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"created_at\": \"1972-01-10T23:27:21.352Z\",\n      \"status\": \"string\",\n      \"suggested_fix\": \"string\",\n      \"bytes\": 7684\n    }\n  ],\n  \"fine_tuning_job_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"timeline\": [\n    {\n      \"timestamp\": \"2004-11-09T10:50:26.730Z\",\n      \"event_type\": \"string\",\n      \"message\": \"string\",\n      \"metadata\": {\n        \"key_0\": false\n      }\n    },\n    {\n      \"timestamp\": \"1969-08-29T20:51:05.510Z\",\n      \"event_type\": \"string\",\n      \"message\": \"string\",\n      \"metadata\": {\n        \"key_0\": 610\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2337a91e-b046-4a8e-962e-dc5872ac9674",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flow",
+                    "data-jobs",
+                    ":data_job_id",
+                    "clone"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "data_job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://flow.seekr.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "84a6bb09-8bff-4608-a577-2ed091f4c364",
+    "name": "SeekrFlow Data jobs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "SeekrFlow API Documentation\n\nContact Support:\n Name: Seekr API Support\n Email: contact@seekr.com",
+      "type": "text/plain"
+    }
+  }
+}

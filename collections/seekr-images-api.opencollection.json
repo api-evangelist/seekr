@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SeekrFlow Images API",
+    "version": "5.108.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Image Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/internal/images/:image_id",
+            "params": [
+              {
+                "name": "image_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the ImageResponse metadata for a given image_id."
+        },
+        {
+          "info": {
+            "name": "Delete Image Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://flow.seekr.com/v1/flow/internal/images/:image_id",
+            "params": [
+              {
+                "name": "image_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Image Route"
+        },
+        {
+          "info": {
+            "name": "Get Image Content Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/internal/images/:image_id/content",
+            "params": [
+              {
+                "name": "image_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Internal route without auth for proxying image from object storage."
+        },
+        {
+          "info": {
+            "name": "Create Images Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/internal/images",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Create Images Route"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

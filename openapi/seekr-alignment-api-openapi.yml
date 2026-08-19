@@ -1,0 +1,796 @@
+openapi: 3.2.0
+info:
+  title: SeekrFlow Alignment API
+  description: SeekrFlow API Documentation
+  termsOfService: http://www.seekr.com/support
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  version: 5.108.1
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Alignment
+paths:
+  /v1/flow/alignment:
+    get:
+      tags:
+      - Alignment
+      summary: Alignment List
+      description: 'Deprecated. List all alignment jobs for the user.
+
+
+        Use ``GET /v1/flow/data-jobs`` instead.'
+      operationId: alignment_list_v1_flow_alignment_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlignmentList'
+      deprecated: true
+      security:
+      - APIKeyHeader: []
+  /v1/flow/alignment/ingestion:
+    get:
+      tags:
+      - Alignment
+      summary: Ingestion List
+      description: 'Deprecated. List all ingestion jobs for the user.
+
+
+        Use ``GET /v1/flow/ingestion`` (standalone) or
+
+        ``GET /v1/flow/data-jobs`` (data-job context).'
+      operationId: ingestion_list_v1_flow_alignment_ingestion_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngestionList'
+      deprecated: true
+      security:
+      - APIKeyHeader: []
+    post:
+      tags:
+      - Alignment
+      summary: Ingest Files
+      description: 'Deprecated. Convert PDF files to Markdown using the ingestion service.
+
+
+        Use ``POST /v1/flow/ingestion`` (standalone) or
+
+        ``POST /v1/flow/data-jobs/{data_job_id}/add-files`` (data-job context).'
+      operationId: ingest_files_v1_flow_alignment_ingestion_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IngestionRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngestionResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      deprecated: true
+      security:
+      - APIKeyHeader: []
+  /v1/flow/alignment/ingestion/{ingestion_job_id}:
+    get:
+      tags:
+      - Alignment
+      summary: Ingestion Get
+      description: 'Deprecated. Get ingestion job with file records and queue positions.
+
+
+        Use ``GET /v1/flow/ingestion/{ingestion_job_id}`` (standalone) or
+
+        ``GET /v1/flow/data-jobs/{data_job_id}`` (embeds ingestion records).'
+      operationId: ingestion_get_v1_flow_alignment_ingestion__ingestion_job_id__get
+      deprecated: true
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: ingestion_job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Ingestion Job Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngestionResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/alignment/{alignment_job_id}:
+    get:
+      tags:
+      - Alignment
+      summary: Alignment Get
+      description: 'Deprecated. Get alignment job status.
+
+
+        Use ``GET /v1/flow/data-jobs/{data_job_id}`` (embeds the alignment job).'
+      operationId: alignment_get_v1_flow_alignment__alignment_job_id__get
+      deprecated: true
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: alignment_job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Alignment Job Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlignmentResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Alignment
+      summary: Alignment Delete
+      description: 'Deprecated. Delete an alignment job.
+
+
+        Use ``DELETE /v1/flow/data-jobs/{data_job_id}``.'
+      operationId: alignment_delete_v1_flow_alignment__alignment_job_id__delete
+      deprecated: true
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: alignment_job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Alignment Job Id
+      responses:
+        '204':
+          description: Success, no content returned
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/alignment/generate:
+    post:
+      tags:
+      - Alignment
+      summary: Alignment Generate
+      description: 'Deprecated. Generate IFT pairs for alignment.
+
+
+        Thin wrapper that attaches deprecation headers and delegates to the
+
+        route-independent service function. Callers should migrate to the
+
+        data-jobs router. The headers are attached to both the success response
+
+        and any raised HTTPException so the signal survives 4xx responses (FastAPI
+
+        discards a mutated Response when the handler raises).'
+      operationId: alignment_generate_v1_flow_alignment_generate_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlignmentRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlignmentResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      deprecated: true
+      security:
+      - APIKeyHeader: []
+  /v1/flow/alignment/{alignment_job_id}/cancel:
+    post:
+      tags:
+      - Alignment
+      summary: Cancel Alignment Job
+      description: 'Deprecated. Cancel an alignment job.
+
+
+        Use ``POST /v1/flow/data-jobs/{data_job_id}/cancel``.'
+      operationId: cancel_alignment_job_v1_flow_alignment__alignment_job_id__cancel_post
+      deprecated: true
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: alignment_job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Alignment Job Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlignmentResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/alignment/{alignment_job_id}/workflow-phase:
+    get:
+      tags:
+      - Alignment
+      summary: Alignment Workflow Phase
+      description: 'Internal: the live Argo workflow phase for an alignment job.
+
+
+        Not part of the public SDK. Lets the integration suite confirm a cancelled
+
+        job''s workflow actually terminated (the DB `cancelled` write alone doesn''t
+
+        prove the Argo stop landed). ``phase`` is None when the workflow was never
+
+        started or no longer exists in Argo.'
+      operationId: alignment_workflow_phase_v1_flow_alignment__alignment_job_id__workflow_phase_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: alignment_job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Alignment Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowPhaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/alignment/{alignment_job_id}/outputs:
+    get:
+      tags:
+      - Alignment
+      summary: Alignment Outputs
+      description: 'Deprecated. Get output files for an alignment job.
+
+
+        Use ``GET /v1/flow/data-jobs/{data_job_id}/outputs``.'
+      operationId: alignment_outputs_v1_flow_alignment__alignment_job_id__outputs_get
+      deprecated: true
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: alignment_job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Alignment Job Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+                title: Response Alignment Outputs V1 Flow Alignment  Alignment Job Id  Outputs Get
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    AlignmentList:
+      properties:
+        object:
+          anyOf:
+          - type: string
+            const: list
+          - type: 'null'
+          title: Object
+        data:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/AlignmentResponse'
+            type: array
+          - type: 'null'
+          title: Data
+      additionalProperties: true
+      type: object
+      title: AlignmentList
+    AlignmentFileType:
+      type: string
+      enum:
+      - html
+      - md
+      - rst
+      - rtf
+      - txt
+      - xml
+      - json
+      - jsonl
+      - csv
+      - doc
+      - docx
+      - pdf
+      - ppt
+      - pptx
+      title: AlignmentFileType
+    IngestionList:
+      properties:
+        object:
+          anyOf:
+          - type: string
+            const: list
+          - type: 'null'
+          title: Object
+        data:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/IngestionResponse'
+            type: array
+          - type: 'null'
+          title: Data
+      additionalProperties: true
+      type: object
+      title: IngestionList
+    AlignmentResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+        stopped_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Stopped At
+        status:
+          $ref: '#/components/schemas/AlignmentJobStatus'
+        current_step:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Current Step
+          description: The processing step the job is currently working on. `null` until the job starts running.
+        step_progress:
+          anyOf:
+          - type: number
+          - type: string
+          - type: 'null'
+          title: Step Progress
+          description: Progress through the current step. `null` when no step is in progress.
+        progress:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Progress
+          description: Overall completion of the job across all steps. `null` until progress can be calculated.
+        estimated_completion_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Estimated Completion At
+          description: Projected completion timestamp (UTC). `null` until enough progress data is available to produce an estimate.
+        eta_minutes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Eta Minutes
+          description: Estimated number of minutes remaining until the job completes. `null` until an estimate is available.
+        status_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status Message
+          description: Human-readable description of the job's current state, suitable for display to end users.
+        output_files:
+          items:
+            $ref: '#/components/schemas/AlignmentOutput'
+          type: array
+          title: Output Files
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - created_at
+      - status
+      title: AlignmentResponse
+    IngestionRequest:
+      properties:
+        files:
+          items:
+            type: string
+          type: array
+          title: Files
+          description: List of file ids to use for alignment
+        method:
+          type: string
+          title: Method
+          description: Method to use for ingestion
+          default: best
+      additionalProperties: true
+      type: object
+      required:
+      - files
+      title: IngestionRequest
+    IngestionResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Ingestion job ID
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        status:
+          $ref: '#/components/schemas/IngestionJobStatus'
+        output_files:
+          items:
+            type: string
+          type: array
+          title: Output Files
+        file_records:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/IngestionFileRecord'
+            type: array
+          - type: 'null'
+          title: File Records
+          description: Detailed file records with queue positions
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - created_at
+      - status
+      - output_files
+      title: IngestionResponse
+    AlignmentType:
+      type: string
+      enum:
+      - principle
+      - context_data
+      title: AlignmentType
+    AlignmentRequest:
+      properties:
+        instructions:
+          type: string
+          title: Instructions
+          description: Task description/instructions for the alignment task
+        system_prompt:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: System Prompt
+          description: Optional system prompt baked into the generated dataset's `system` role on every conversation. If omitted, one is generated from `instructions` and the recursive document summary.
+        files:
+          items:
+            type: string
+          type: array
+          title: Files
+          description: List of file ids to use for alignment
+        type:
+          $ref: '#/components/schemas/AlignmentType'
+          description: Type of alignment task (principle or context_data)
+          default: principle
+        vector_database_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Vector Database Id
+          description: Optional vector database id to use for context retrieval during context_data alignment
+      additionalProperties: true
+      type: object
+      required:
+      - instructions
+      - files
+      title: AlignmentRequest
+    AlignmentJobStatus:
+      type: string
+      enum:
+      - pending
+      - queued
+      - running
+      - cancelled
+      - failed
+      - completed
+      - stopped
+      title: AlignmentJobStatus
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    IngestionJobStatus:
+      type: string
+      enum:
+      - queued
+      - running
+      - completed
+      - failed
+      title: IngestionJobStatus
+    WorkflowPhaseResponse:
+      properties:
+        phase:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phase
+      additionalProperties: true
+      type: object
+      title: WorkflowPhaseResponse
+      description: 'Internal: the Argo workflow phase backing a job.
+
+
+        ``phase`` is the raw Argo phase (e.g. Running, Succeeded, Failed, Error) or
+
+        ``None`` when the workflow no longer exists / was never started. Not part of
+
+        the public SDK — used to verify a cancelled job''s workflow actually
+
+        terminated.'
+    TrainingFileType:
+      type: string
+      enum:
+      - jsonl
+      - parquet
+      - pt
+      title: TrainingFileType
+    IngestionFileRecord:
+      properties:
+        record_id:
+          type: string
+          title: Record Id
+          description: File record ID
+        ingestion_job_id:
+          type: string
+          title: Ingestion Job Id
+          description: Parent ingestion job ID
+        alignment_file_id:
+          type: string
+          title: Alignment File Id
+          description: Alignment file ID
+        user_id:
+          type: string
+          title: User Id
+          description: Owner of the ingestion job
+        filename:
+          type: string
+          title: Filename
+          description: Filename
+        metaflow_job_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Metaflow Job Id
+          description: Metaflow job handling this file
+        method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Method
+          description: Ingestion method used for processing
+        status:
+          type: string
+          title: Status
+          description: File processing status
+        queue_position:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Queue Position
+          description: Position in queue if status is queued
+        error_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error Message
+          description: Error message if failed
+        suggested_fix:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Suggested Fix
+          description: Suggested fix when processing fails
+        worker_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Worker Id
+          description: Worker currently handling the file
+        deleted:
+          type: boolean
+          title: Deleted
+          description: Whether this record has been soft-deleted
+          default: false
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        processing_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Processing At
+          description: Timestamp when processing started
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+          description: Timestamp when processing completed
+        failed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Failed At
+          description: Timestamp when processing failed
+      additionalProperties: true
+      type: object
+      required:
+      - record_id
+      - ingestion_job_id
+      - alignment_file_id
+      - user_id
+      - filename
+      - status
+      - created_at
+      title: IngestionFileRecord
+    AlignmentOutput:
+      properties:
+        id:
+          type: string
+          title: Id
+        filename:
+          type: string
+          title: Filename
+        bytes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Bytes
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        file_type:
+          anyOf:
+          - $ref: '#/components/schemas/TrainingFileType'
+          - $ref: '#/components/schemas/AlignmentFileType'
+          - type: 'null'
+          title: File Type
+        purpose:
+          anyOf:
+          - $ref: '#/components/schemas/FilePurpose'
+          - type: 'null'
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - filename
+      title: AlignmentOutput
+    FilePurpose:
+      type: string
+      enum:
+      - reinforcement-fine-tune
+      - fine-tune
+      - preference-fine-tune
+      - pre-train
+      - alignment
+      title: FilePurpose
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization

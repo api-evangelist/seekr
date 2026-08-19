@@ -1,0 +1,1190 @@
+openapi: 3.2.0
+info:
+  title: SeekrFlow Agents v1 - legacy API
+  description: SeekrFlow API Documentation
+  termsOfService: http://www.seekr.com/support
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  version: 5.108.1
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Agents v1 - legacy
+paths:
+  /v1/flow/agents/:
+    get:
+      tags:
+      - Agents v1 - legacy
+      summary: List Agents
+      description: List all agents for the user
+      operationId: list_agents_v1_flow_agents__get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAgentsResponse'
+      deprecated: true
+      security:
+      - APIKeyHeader: []
+  /v1/flow/agents/{agent_id}:
+    get:
+      tags:
+      - Agents v1 - legacy
+      summary: Get Agent By Id
+      operationId: get_agent_by_id_v1_flow_agents__agent_id__get
+      deprecated: true
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Agent Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentSchema'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Agents v1 - legacy
+      summary: Update agent
+      description: Partially update an agent's configuration. Omitted fields remain unchanged.
+      operationId: patch_v1_flow_agents__agent_id__patch
+      deprecated: true
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Agent Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchAgentRequest'
+            examples:
+              preferred_tool_ids:
+                summary: Preferred usage using tool_ids
+                value:
+                  name: My Agent
+                  instructions: You are a helpful assistant that can search files, browse the web, and run Python code.
+                  model_id: deployment-123
+                  temperature: 0.4
+                  reasoning_effort: medium
+                  tool_ids:
+                  - tool-123
+                  - tool-456
+              legacy_tools_deprecated:
+                summary: Legacy usage using tools (deprecated)
+                description: 'DEPRECATED: Use tool_ids instead.'
+                value:
+                  name: My Agent
+                  instructions: You are a helpful assistant that can search files, browse the web, and run Python code.
+                  model_id: deployment-123
+                  temperature: 0.4
+                  reasoning_effort: medium
+                  tools:
+                  - name: file_search
+                    tool_env:
+                      file_search_index: my-index
+                      document_tool_desc: Search through documents
+                      top_k: 10
+                      score_threshold: 0.7
+                  - name: web_search
+                    tool_env:
+                      web_search_tool_description: Search the web for current information
+                  - name: run_python
+                    tool_env:
+                      run_python_tool_desc: Execute Python code
+                      function_ids:
+                      - func-123
+                      - func-456
+                  - name: agent_as_tool
+                    agent_id: ag-123...
+                    description: Description of subagent tool.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentSchema'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Agents v1 - legacy
+      summary: Delete
+      description: Destructive endpoint that demotes an agent (if deployed) followed by a DELETE from the DB. For demote-only, use the demote endpoint.
+      operationId: delete_v1_flow_agents__agent_id__delete
+      deprecated: true
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Agent Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentDeleteResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/agents/create:
+    post:
+      tags:
+      - Agents v1 - legacy
+      summary: Create
+      operationId: create_v1_flow_agents_create_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAgentRequest'
+            examples:
+              preferred_tool_ids:
+                summary: Preferred usage using tool_ids
+                value:
+                  name: My Agent
+                  instructions: You are a helpful assistant that can search files, browse the web, and run Python code.
+                  model_id: deployment-123
+                  temperature: 0.4
+                  reasoning_effort: medium
+                  tool_ids:
+                  - tool-123
+                  - tool-456
+              legacy_tools_deprecated:
+                summary: Legacy usage using tools (deprecated)
+                description: 'DEPRECATED: Use tool_ids instead.'
+                value:
+                  name: My Agent
+                  instructions: You are a helpful assistant that can search files, browse the web, and run Python code.
+                  model_id: deployment-123
+                  temperature: 0.4
+                  reasoning_effort: medium
+                  tools:
+                  - name: file_search
+                    tool_env:
+                      file_search_index: my-index
+                      document_tool_desc: Search through documents
+                      top_k: 10
+                      score_threshold: 0.7
+                  - name: web_search
+                    tool_env:
+                      web_search_tool_description: Search the web for current information
+                  - name: run_python
+                    tool_env:
+                      run_python_tool_desc: Execute Python code
+                      function_ids:
+                      - func-123
+                      - func-456
+                  - name: agent_as_tool
+                    agent_id: ag-123...
+                    description: Description of subagent tool.
+        required: true
+      responses:
+        '201':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentSchema'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      deprecated: true
+      security:
+      - APIKeyHeader: []
+  /v1/flow/agents/{agent_id}/update:
+    put:
+      tags:
+      - Agents v1 - legacy
+      summary: Replace agent
+      description: 'Updates an agent''s details entirely. Requires all agent fields to be provided.
+
+        Promotes the updated agent and returns it.'
+      operationId: update_v1_flow_agents__agent_id__update_put
+      deprecated: true
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Agent Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAgentRequest'
+            examples:
+              preferred_tool_ids:
+                summary: Preferred usage using tool_ids
+                value:
+                  name: My Agent
+                  instructions: You are a helpful assistant that can search files, browse the web, and run Python code.
+                  model_id: deployment-123
+                  temperature: 0.4
+                  reasoning_effort: medium
+                  tool_ids:
+                  - tool-123
+                  - tool-456
+              legacy_tools_deprecated:
+                summary: Legacy usage using tools (deprecated)
+                description: 'DEPRECATED: Use tool_ids instead.'
+                value:
+                  name: My Agent
+                  instructions: You are a helpful assistant that can search files, browse the web, and run Python code.
+                  model_id: deployment-123
+                  temperature: 0.4
+                  reasoning_effort: medium
+                  tools:
+                  - name: file_search
+                    tool_env:
+                      file_search_index: my-index
+                      document_tool_desc: Search through documents
+                      top_k: 10
+                      score_threshold: 0.7
+                  - name: web_search
+                    tool_env:
+                      web_search_tool_description: Search the web for current information
+                  - name: run_python
+                    tool_env:
+                      run_python_tool_desc: Execute Python code
+                      function_ids:
+                      - func-123
+                      - func-456
+                  - name: agent_as_tool
+                    agent_id: ag-123...
+                    description: Description of subagent tool.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentSchema'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/agents/{agent_id}/promote:
+    put:
+      tags:
+      - Agents v1 - legacy
+      summary: Promote
+      operationId: promote_v1_flow_agents__agent_id__promote_put
+      deprecated: true
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Agent Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentSchema'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/agents/{agent_id}/demote:
+    put:
+      tags:
+      - Agents v1 - legacy
+      summary: Demote
+      operationId: demote_v1_flow_agents__agent_id__demote_put
+      deprecated: true
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Agent Id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentSchema'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/agents/{agent_id}/diff:
+    patch:
+      tags:
+      - Agents v1 - legacy
+      summary: Preview agent update
+      description: Preview the changes a patch request would make to an agent without applying them. Returns a before-and-after diff of the affected fields.
+      operationId: diff_v1_flow_agents__agent_id__diff_patch
+      deprecated: true
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Agent Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchAgentRequest'
+            examples:
+              preferred_tool_ids:
+                summary: Preferred usage using tool_ids
+                value:
+                  name: My Agent
+                  instructions: You are a helpful assistant that can search files, browse the web, and run Python code.
+                  model_id: deployment-123
+                  temperature: 0.4
+                  reasoning_effort: medium
+                  tool_ids:
+                  - tool-123
+                  - tool-456
+              legacy_tools_deprecated:
+                summary: Legacy usage using tools (deprecated)
+                description: 'DEPRECATED: Use tool_ids instead.'
+                value:
+                  name: My Agent
+                  instructions: You are a helpful assistant that can search files, browse the web, and run Python code.
+                  model_id: deployment-123
+                  temperature: 0.4
+                  reasoning_effort: medium
+                  tools:
+                  - name: file_search
+                    tool_env:
+                      file_search_index: my-index
+                      document_tool_desc: Search through documents
+                      top_k: 10
+                      score_threshold: 0.7
+                  - name: web_search
+                    tool_env:
+                      web_search_tool_description: Search the web for current information
+                  - name: run_python
+                    tool_env:
+                      run_python_tool_desc: Execute Python code
+                      function_ids:
+                      - func-123
+                      - func-456
+                  - name: agent_as_tool
+                    agent_id: ag-123...
+                    description: Description of subagent tool.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatchAgentResponse'
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/flow/internal/agents/{agent_id}/update-status:
+    patch:
+      tags:
+      - Agents v1 - legacy
+      summary: Update Status
+      description: "An internal-only endpoint (no built-in auth validation) to update the agent's status in the DB, if it exists.\n\nIf the provided status is 'Active', and the Agent's current status is NOT 'Active', the `last_deployed_at` field\nis also updated in the DB to reflect the current date/time.\n\nIf the provided status is changed to 'Failed' from any other status, the Agent yaml is deleted from the git repo,\nand the status is updated to 'Failed' in the DB.\n\nArguments:\n    agent_id: the ID of the agent to update\n    update_request: the AgentUpdateStatusRequest object from the body containing the new status\n\nReturns:\n    An AgentUpdateStatusResponse containing the Agent's ID, old and new status."
+      operationId: update_status_v1_flow_internal_agents__agent_id__update_status_patch
+      deprecated: true
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Agent Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentUpdateStatusRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentUpdateStatusResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+components:
+  schemas:
+    WebSearchEnv:
+      properties:
+        WEB_SEARCH_TOOL_DESCRIPTION:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Web Search Tool Description
+      type: object
+      title: WebSearchEnv
+    ReasoningEffort:
+      type: string
+      enum:
+      - low
+      - medium
+      - high
+      - speed_optimized
+      - performance_optimized
+      title: ReasoningEffort
+      description: Controls how much reasoning the agent uses when working through a request. Accepts `low`, `medium`, or `high`, where higher levels produce more thorough reasoning. The `speed_optimized` and `performance_optimized` values are only supported for backward compatibility. `speed_optimized` maps to `low`, and `performance_optimized` maps to `high`.
+    llm_training__agents__tools__schemas__run_python__CreateRunPython:
+      properties:
+        name:
+          type: string
+          const: run_python
+          title: Name
+        tool_env:
+          $ref: '#/components/schemas/RunPythonEnv'
+      type: object
+      required:
+      - name
+      - tool_env
+      title: CreateRunPython
+      examples:
+      - name: run_python
+        tool_env:
+          function_ids:
+          - func-123
+          - func-456
+          run_python_tool_desc: Execute Python code for data analysis and calculations
+    llm_training__agents__tools__schemas__file_search__CreateFileSearch:
+      properties:
+        name:
+          type: string
+          const: file_search
+          title: Name
+        tool_env:
+          $ref: '#/components/schemas/FileSearchEnv'
+      type: object
+      required:
+      - name
+      - tool_env
+      title: CreateFileSearch
+      examples:
+      - name: file_search
+        tool_env:
+          document_tool_desc: Search through uploaded documents
+          file_search_index: my-document-index
+          score_threshold: 0.7
+          top_k: 10
+    PatchAgentResponse:
+      properties:
+        before:
+          $ref: '#/components/schemas/AgentSchema'
+        after:
+          $ref: '#/components/schemas/AgentSchema'
+        diff:
+          additionalProperties:
+            additionalProperties: true
+            type: object
+          type: object
+          title: Diff
+          default: {}
+      type: object
+      required:
+      - before
+      - after
+      title: PatchAgentResponse
+    AgentOutputConfig:
+      properties:
+        frequency:
+          anyOf:
+          - $ref: '#/components/schemas/AgentOutputFrequency'
+          - type: 'null'
+          description: 'When the agent produces a written response: `always`, `automatic` (the agent decides), or `never`.'
+        instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instructions
+          description: Instructions for generating the agent's final response. When set, the top-level `instructions` guide only the agent's reasoning, and these guide the response.
+        model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model Id
+          description: The model used to generate the agent's final response, overriding the top-level `model_id`. Can be a base model or fine-tuned model.
+        temperature:
+          anyOf:
+          - type: number
+            maximum: 2
+            minimum: 0
+          - type: 'null'
+          title: Temperature
+          description: Controls the predictability of the agent's final response. Accepts a value from `0` to `2`. Defaults to `0.6`.
+      type: object
+      title: AgentOutputConfig
+    UpdateAgentRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+        instructions:
+          type: string
+          title: Instructions
+        tools:
+          anyOf:
+          - items:
+              oneOf:
+              - $ref: '#/components/schemas/llm_training__agents__tools__schemas__file_search__CreateFileSearch'
+              - $ref: '#/components/schemas/llm_training__agents__tools__schemas__web_search__CreateWebSearch'
+              - $ref: '#/components/schemas/llm_training__agents__tools__schemas__run_python__CreateRunPython'
+              discriminator:
+                propertyName: name
+                mapping:
+                  file_search: '#/components/schemas/llm_training__agents__tools__schemas__file_search__CreateFileSearch'
+                  run_python: '#/components/schemas/llm_training__agents__tools__schemas__run_python__CreateRunPython'
+                  web_search: '#/components/schemas/llm_training__agents__tools__schemas__web_search__CreateWebSearch'
+            type: array
+          - type: 'null'
+          title: Tools
+          description: 'DEPRECATED: Use `tool_ids` instead.'
+          deprecated: true
+        tool_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tool Ids
+          description: Preferred way to associate tools with an agent.
+        model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model Id
+        planner_model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Planner Model Id
+        tool_model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tool Model Id
+        output:
+          anyOf:
+          - $ref: '#/components/schemas/AgentOutputConfig'
+          - type: 'null'
+        temperature:
+          anyOf:
+          - type: number
+            maximum: 2
+            minimum: 0
+          - type: 'null'
+          title: Temperature
+        reasoning_effort:
+          anyOf:
+          - $ref: '#/components/schemas/ReasoningEffort'
+          - type: 'null'
+          default: medium
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - instructions
+      title: UpdateAgentRequest
+    llm_training__agents__tools__schemas__run_python__RunPython:
+      properties:
+        name:
+          type: string
+          const: run_python
+          title: Name
+          default: run_python
+        tool_env:
+          $ref: '#/components/schemas/RunPythonEnv'
+        id:
+          type: string
+          title: Id
+      type: object
+      required:
+      - tool_env
+      title: RunPython
+    AgentOutputFrequency:
+      type: string
+      enum:
+      - always
+      - never
+      - automatic
+      title: AgentOutputFrequency
+    GetAgentsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/AgentSchema'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: GetAgentsResponse
+      description: Agents API response type
+    MCPConnectorToolEnv:
+      properties:
+        URL:
+          type: string
+          minLength: 1
+          title: Url
+        TRANSPORT:
+          type: string
+          enum:
+          - sse
+          - streamable-http
+          title: Transport
+          default: streamable-http
+        AUTHORIZATION_URL:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Authorization Url
+      type: object
+      required:
+      - URL
+      title: MCPConnectorToolEnv
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CreateAgentRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+        instructions:
+          type: string
+          title: Instructions
+        tools:
+          anyOf:
+          - items:
+              oneOf:
+              - $ref: '#/components/schemas/llm_training__agents__tools__schemas__file_search__CreateFileSearch'
+              - $ref: '#/components/schemas/llm_training__agents__tools__schemas__web_search__CreateWebSearch'
+              - $ref: '#/components/schemas/llm_training__agents__tools__schemas__run_python__CreateRunPython'
+              discriminator:
+                propertyName: name
+                mapping:
+                  file_search: '#/components/schemas/llm_training__agents__tools__schemas__file_search__CreateFileSearch'
+                  run_python: '#/components/schemas/llm_training__agents__tools__schemas__run_python__CreateRunPython'
+                  web_search: '#/components/schemas/llm_training__agents__tools__schemas__web_search__CreateWebSearch'
+            type: array
+          - type: 'null'
+          title: Tools
+          description: 'DEPRECATED: Use `tool_ids` instead.'
+          deprecated: true
+        tool_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tool Ids
+          description: Preferred way to associate tools with an agent.
+        model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model Id
+        planner_model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Planner Model Id
+        tool_model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tool Model Id
+        output:
+          anyOf:
+          - $ref: '#/components/schemas/AgentOutputConfig'
+          - type: 'null'
+          description: Optional configuration for the agent's final response. Overrides the top-level settings for response generation.
+        temperature:
+          anyOf:
+          - type: number
+            maximum: 2
+            minimum: 0
+          - type: 'null'
+          title: Temperature
+          description: Controls the predictability of the agent's reasoning. Accepts a value from `0` to `2`. Defaults to `0.6`. Lower values produce more consistent results, and higher values introduce more variation.
+        reasoning_effort:
+          anyOf:
+          - $ref: '#/components/schemas/ReasoningEffort'
+          - type: 'null'
+          default: medium
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - instructions
+      title: CreateAgentRequest
+    AgentDeleteResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        deleted:
+          type: boolean
+          title: Deleted
+      type: object
+      required:
+      - id
+      - deleted
+      title: AgentDeleteResponse
+    llm_training__agents__tools__schemas__mcp_connector__MCPConnectorTool:
+      properties:
+        name:
+          type: string
+          const: mcp_connector
+          title: Name
+        tool_env:
+          $ref: '#/components/schemas/MCPConnectorToolEnv'
+        id:
+          type: string
+          title: Id
+      type: object
+      required:
+      - name
+      - tool_env
+      title: MCPConnectorTool
+    PatchAgentRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instructions
+        model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model Id
+        planner_model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Planner Model Id
+        tool_model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tool Model Id
+        output:
+          anyOf:
+          - $ref: '#/components/schemas/AgentOutputConfig'
+          - type: 'null'
+          description: Optional configuration for the agent's final response. Overrides the top-level settings for response generation.
+        temperature:
+          anyOf:
+          - type: number
+            maximum: 2
+            minimum: 0
+          - type: 'null'
+          title: Temperature
+          description: Controls the predictability of the agent's reasoning. Accepts a value from `0` to `2`. Defaults to `0.6`. Lower values produce more consistent results, and higher values introduce more variation.
+        tool_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tool Ids
+        reasoning_effort:
+          anyOf:
+          - $ref: '#/components/schemas/ReasoningEffort'
+          - type: 'null'
+      additionalProperties: false
+      type: object
+      title: PatchAgentRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AgentStatus:
+      type: string
+      enum:
+      - Inactive
+      - Pending
+      - Active
+      - Updating
+      - Failed
+      title: AgentStatus
+    llm_training__agents__tools__schemas__web_search__CreateWebSearch:
+      properties:
+        name:
+          type: string
+          const: web_search
+          title: Name
+        tool_env:
+          $ref: '#/components/schemas/WebSearchEnv'
+      type: object
+      required:
+      - name
+      - tool_env
+      title: CreateWebSearch
+      examples:
+      - name: web_search
+        tool_env:
+          web_search_tool_description: Search the web for current information and news
+    AgentUpdateStatusRequest:
+      properties:
+        new_status:
+          $ref: '#/components/schemas/AgentStatus'
+      additionalProperties: false
+      type: object
+      required:
+      - new_status
+      title: AgentUpdateStatusRequest
+    RunPythonEnv:
+      properties:
+        RUN_PYTHON_TOOL_DESC:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Python Tool Desc
+        FUNCTION_IDS:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Function Ids
+      type: object
+      title: RunPythonEnv
+    FileSearchEnv:
+      properties:
+        FILE_SEARCH_INDEX:
+          type: string
+          minLength: 1
+          title: File Search Index
+        EMBEDDING_MODEL:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Embedding Model
+        DOCUMENT_TOOL_DESC:
+          type: string
+          minLength: 1
+          title: Document Tool Desc
+        TOP_K:
+          type: integer
+          maximum: 100
+          minimum: 1
+          title: Top K
+          description: Top K must be >= 1 and <= 100
+          default: 10
+        SCORE_THRESHOLD:
+          type: number
+          exclusiveMaximum: 1
+          minimum: 0
+          title: Score Threshold
+          description: Score must be ≥ 0.0 and < 1.0
+          default: 0
+      type: object
+      required:
+      - FILE_SEARCH_INDEX
+      - DOCUMENT_TOOL_DESC
+      title: FileSearchEnv
+    AgentUpdateStatusResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        old_status:
+          $ref: '#/components/schemas/AgentStatus'
+        new_status:
+          $ref: '#/components/schemas/AgentStatus'
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+      type: object
+      required:
+      - id
+      - old_status
+      - new_status
+      - user_id
+      - team_id
+      title: AgentUpdateStatusResponse
+    AgentSchema:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        instructions:
+          type: string
+          title: Instructions
+        status:
+          $ref: '#/components/schemas/AgentStatus'
+        model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model Id
+        planner_model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Planner Model Id
+        tool_model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tool Model Id
+        output:
+          anyOf:
+          - $ref: '#/components/schemas/AgentOutputConfig'
+          - type: 'null'
+        temperature:
+          anyOf:
+          - type: number
+            maximum: 2
+            minimum: 0
+          - type: 'null'
+          title: Temperature
+        reasoning_effort:
+          $ref: '#/components/schemas/ReasoningEffort'
+        planner_temperature:
+          anyOf:
+          - type: number
+            maximum: 2
+            minimum: 0
+          - type: 'null'
+          title: Planner Temperature
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        tools:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/llm_training__agents__tools__schemas__file_search__FileSearch'
+            - $ref: '#/components/schemas/llm_training__agents__tools__schemas__web_search__WebSearch'
+            - $ref: '#/components/schemas/llm_training__agents__tools__schemas__run_python__RunPython'
+            - $ref: '#/components/schemas/llm_training__agents__tools__schemas__agent_as_tool__AgentAsTool'
+            - $ref: '#/components/schemas/llm_training__agents__tools__schemas__mcp_connector__MCPConnectorTool'
+            discriminator:
+              propertyName: name
+              mapping:
+                agent_as_tool: '#/components/schemas/llm_training__agents__tools__schemas__agent_as_tool__AgentAsTool'
+                file_search: '#/components/schemas/llm_training__agents__tools__schemas__file_search__FileSearch'
+                mcp_connector: '#/components/schemas/llm_training__agents__tools__schemas__mcp_connector__MCPConnectorTool'
+                run_python: '#/components/schemas/llm_training__agents__tools__schemas__run_python__RunPython'
+                web_search: '#/components/schemas/llm_training__agents__tools__schemas__web_search__WebSearch'
+          type: array
+          title: Tools
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        last_deployed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Deployed At
+        active_duration:
+          type: integer
+          minimum: 0
+          title: Active Duration
+          default: 0
+      type: object
+      required:
+      - id
+      - name
+      - instructions
+      - status
+      - reasoning_effort
+      - user_id
+      - team_id
+      - created_at
+      - updated_at
+      title: AgentSchema
+    llm_training__agents__tools__schemas__web_search__WebSearch:
+      properties:
+        name:
+          type: string
+          const: web_search
+          title: Name
+        tool_env:
+          $ref: '#/components/schemas/WebSearchEnv'
+        id:
+          type: string
+          title: Id
+      type: object
+      required:
+      - name
+      - tool_env
+      title: WebSearch
+    llm_training__agents__tools__schemas__agent_as_tool__AgentAsTool:
+      properties:
+        name:
+          type: string
+          const: agent_as_tool
+          title: Name
+          default: agent_as_tool
+        tool_env:
+          $ref: '#/components/schemas/ToolEnv'
+          default: {}
+        id:
+          type: string
+          title: Id
+        agent_id:
+          type: string
+          title: Agent Id
+        description:
+          type: string
+          title: Description
+      type: object
+      required:
+      - agent_id
+      - description
+      title: AgentAsTool
+    ToolEnv:
+      properties: {}
+      type: object
+      title: ToolEnv
+      description: Base class for tool environments.
+    llm_training__agents__tools__schemas__file_search__FileSearch:
+      properties:
+        name:
+          type: string
+          const: file_search
+          title: Name
+        tool_env:
+          $ref: '#/components/schemas/FileSearchEnv'
+        id:
+          type: string
+          title: Id
+      type: object
+      required:
+      - name
+      - tool_env
+      title: FileSearch
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization

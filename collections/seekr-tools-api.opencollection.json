@@ -1,0 +1,297 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SeekrFlow Tools API",
+    "version": "5.108.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tools",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Tools",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/tools",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tool_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tool type"
+              },
+              {
+                "name": "tool_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tool status"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List tools with pagination and filtering.\n\nArgs:\n    user: Authenticated user\n    offset: Number of records to skip\n    limit: Maximum number of records to return\n    tool_type: Filter by tool type\n    tool_status: Filter by tool status\n\nReturns:\n    Paginated list of tools"
+        },
+        {
+          "info": {
+            "name": "Create Tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/tools",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new tool.\n\nArgs:\n    user: Authenticated user\n    request: Tool creation request\n\nReturns:\n    Created tool response"
+        },
+        {
+          "info": {
+            "name": "Get Tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/tools/:tool_id",
+            "params": [
+              {
+                "name": "tool_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a specific tool by ID.\n\nArgs:\n    user: Authenticated user\n    tool_id: Tool ID to retrieve\n\nReturns:\n    Tool response"
+        },
+        {
+          "info": {
+            "name": "Replace tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://flow.seekr.com/v1/flow/tools/:tool_id",
+            "params": [
+              {
+                "name": "tool_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update an existing tool. Full tool schema required.\n\nArgs:\n    user: Authenticated user\n    tool_id: Tool ID to update\n    request: Tool update request\n\nReturns:\n    Updated tool response"
+        },
+        {
+          "info": {
+            "name": "Update tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://flow.seekr.com/v1/flow/tools/:tool_id",
+            "params": [
+              {
+                "name": "tool_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Partially update an existing tool. Omitted fields remain unchanged."
+        },
+        {
+          "info": {
+            "name": "Delete Tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://flow.seekr.com/v1/flow/tools/:tool_id",
+            "params": [
+              {
+                "name": "tool_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a tool if it's not referenced by active agents.\n\nArgs:\n    user: Authenticated user\n    tool_id: Tool ID to delete\n\nReturns:\n    Deletion response"
+        },
+        {
+          "info": {
+            "name": "Get Agents For Tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/tools/:tool_id/agents",
+            "params": [
+              {
+                "name": "tool_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a list of agents linked to a specific tool by ID.\n\nArgs:\n    user: Authenticated user\n    tool_id: Tool ID linked to agents\n\nReturns:\n    ToolAgentSummarySchema response"
+        },
+        {
+          "info": {
+            "name": "Preview tool update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://flow.seekr.com/v1/flow/tools/:tool_id/diff",
+            "params": [
+              {
+                "name": "tool_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Preview the changes a patch request would make to a tool without applying them. Returns a before-and-after diff of the affected fields."
+        },
+        {
+          "info": {
+            "name": "Duplicate Tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/tools/:tool_id/duplicate",
+            "params": [
+              {
+                "name": "tool_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Duplicate an existing tool with a new name.\n\nArgs:\n    user: Authenticated user\n    tool_id: Tool ID to duplicate\n    request: Duplication request with optional new name\n\nReturns:\n    New tool response"
+        },
+        {
+          "info": {
+            "name": "Sync MCP connector tool lifecycle state",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://flow.seekr.com/v1/flow/internal/tools/mcp-connector/sync",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sync MCP connector lifecycle state from mcp-vault."
+        },
+        {
+          "info": {
+            "name": "Resolve tool metadata by tool ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://flow.seekr.com/v1/flow/internal/tools/tool-metadata/:tool_id",
+            "params": [
+              {
+                "name": "tool_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Resolve tool metadata by tool ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,132 @@
+openapi: 3.2.0
+info:
+  title: SeekrFlow Insights API
+  description: SeekrFlow API Documentation
+  termsOfService: http://www.seekr.com/support
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  version: 5.108.1
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Insights
+paths:
+  /v1/flow/internal/explain/populate-index:
+    post:
+      tags:
+      - Insights
+      summary: Populate Explainability Index Route
+      description: 'Populate the explainability index with data from a vector database.
+
+        This is an internal endpoint that calls the explainability service.'
+      operationId: populate_explainability_index_route_v1_flow_internal_explain_populate_index_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PopulateIndexRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PopulateIndexResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+components:
+  schemas:
+    PopulateIndexRequest:
+      properties:
+        index_name:
+          type: string
+          title: Index Name
+          description: Name of the vector database to use for population
+        user_id:
+          type: string
+          title: User Id
+          description: User ID
+        team_id:
+          type: string
+          title: Team Id
+          description: Team ID
+        file_ids:
+          items:
+            type: string
+          type: array
+          title: File Ids
+          description: List of training file IDs to create the index with
+      type: object
+      required:
+      - index_name
+      - user_id
+      - team_id
+      - file_ids
+      title: PopulateIndexRequest
+      description: Request model for populating explainability index
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PopulateIndexResponse:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+          description: Job ID for the index population task
+        status:
+          type: string
+          title: Status
+          description: Status of the index population task
+      type: object
+      required:
+      - job_id
+      - status
+      title: PopulateIndexResponse
+      description: Response model for populate index operation
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization

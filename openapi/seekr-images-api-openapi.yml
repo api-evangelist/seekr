@@ -1,0 +1,228 @@
+openapi: 3.2.0
+info:
+  title: SeekrFlow Images API
+  description: SeekrFlow API Documentation
+  termsOfService: http://www.seekr.com/support
+  contact:
+    name: Seekr API Support
+    url: http://www.seekr.com/contact
+    email: contact@seekr.com
+  version: 5.108.1
+servers:
+- url: https://flow.seekr.com
+  description: SeekrBuild server base URL
+tags:
+- name: Images
+paths:
+  /v1/flow/internal/images/{image_id}:
+    get:
+      tags:
+      - Images
+      summary: Get Image Route
+      description: Returns the ImageResponse metadata for a given image_id.
+      operationId: get_image_route_v1_flow_internal_images__image_id__get
+      parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Image Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+    delete:
+      tags:
+      - Images
+      summary: Delete Image Route
+      operationId: delete_image_route_v1_flow_internal_images__image_id__delete
+      parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Image Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/internal/images/{image_id}/content:
+    get:
+      tags:
+      - Images
+      summary: Get Image Content Route
+      description: Internal route without auth for proxying image from object storage.
+      operationId: get_image_content_route_v1_flow_internal_images__image_id__content_get
+      parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Image Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+  /v1/flow/internal/images:
+    post:
+      tags:
+      - Images
+      summary: Create Images Route
+      operationId: create_images_route_v1_flow_internal_images_post
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateImageForm'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ImageResponse'
+                type: array
+                title: Response Create Images Route V1 Flow Internal Images Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-excluded: true
+components:
+  schemas:
+    CreateImageForm:
+      properties:
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        files:
+          anyOf:
+          - items:
+              type: string
+              contentMediaType: application/octet-stream
+            type: array
+          - type: 'null'
+          title: Files
+      additionalProperties: true
+      type: object
+      required:
+      - user_id
+      title: CreateImageForm
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ImageResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        filename:
+          type: string
+          title: Filename
+        uploaded_at:
+          type: string
+          format: date-time
+          title: Uploaded At
+        bytes:
+          type: integer
+          title: Bytes
+        file_hash:
+          type: string
+          title: File Hash
+        algorithm:
+          type: string
+          title: Algorithm
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - filename
+      - uploaded_at
+      - bytes
+      - file_hash
+      - algorithm
+      title: ImageResponse
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Seekr API key, sent in the Authorization header with no 'Bearer' prefix.
+      in: header
+      name: Authorization
