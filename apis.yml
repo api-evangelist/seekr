@@ -22,6 +22,25 @@ specificationVersion: '0.23'
 created: '2026-08-05'
 modified: '2026-08-05'
 tags:
+- Artificial Intelligence
+- Generative AI
+- Agents
+- LLM
+- Fine-Tuning
+- Inference
+- RAG
+- Vector Database
+- Explainability
+- AI Governance
+- Model Evaluation
+- Observability
+- Geospatial Intelligence
+- Defense
+- Government
+- Regulated Industries
+- MCP
+- agent-native
+tags_raw:
 - artificial-intelligence
 - generative-ai
 - agents
@@ -51,6 +70,10 @@ apis:
   humanURL: https://docs.seekr.com/flow/mcp
   baseURL: https://docs.seekr.com/mcp
   tags:
+  - MCP
+  - agent-native
+  - Documentation
+  tags_raw:
   - mcp
   - agent-native
   - documentation
@@ -211,6 +234,8 @@ apis:
   humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
   baseURL: https://flow.seekr.com/v1
   tags:
+  - Deployment
+  tags_raw:
   - Deployments
   properties:
   - type: OpenAPI
@@ -351,6 +376,8 @@ apis:
   humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
   baseURL: https://flow.seekr.com/v1
   tags:
+  - File
+  tags_raw:
   - Files
   properties:
   - type: OpenAPI
@@ -379,6 +406,8 @@ apis:
   humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
   baseURL: https://flow.seekr.com/v1
   tags:
+  - Fine-Tuning
+  tags_raw:
   - Fine-tuning
   properties:
   - type: OpenAPI
@@ -463,6 +492,8 @@ apis:
   humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
   baseURL: https://flow.seekr.com/v1
   tags:
+  - Image
+  tags_raw:
   - Images
   properties:
   - type: OpenAPI
@@ -911,6 +942,8 @@ apis:
   humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
   baseURL: https://flow.seekr.com/v1
   tags:
+  - Vector Database
+  tags_raw:
   - Vector database
   properties:
   - type: OpenAPI
