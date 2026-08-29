@@ -12,6 +12,18 @@ description: >-
   and SeekrIntel (investigative entity mapping). SeekrFlow is reachable through a no-code web app,
   the seekrai Python SDK, and a REST API at flow.seekr.com, and deploys to Seekr's cloud, a
   customer cloud, on-premises, the edge or fully air-gapped environments.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://s48368.pcdn.co/wp-content/uploads/2025/10/Seekr-Thumbnail-OG-Image-1.png
 url: https://raw.githubusercontent.com/api-evangelist/seekr/refs/heads/main/apis.yml
 x-type: company
@@ -1056,6 +1068,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/seekr-capability-edges.yml
+  name: Seekr Business Capability Map
 - type: AgenticAccess
   url: agentic-access/seekr-agentic-access.yml
 - type: TrustCenter
