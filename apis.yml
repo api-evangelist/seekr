@@ -34,22 +34,22 @@ specificationVersion: '0.23'
 created: '2026-08-05'
 modified: '2026-08-05'
 tags:
-- Artificial Intelligence
-- Generative AI
+- artificial-intelligence
+- generative-ai
 - Agents
-- LLM
+- llm
 - Fine-Tuning
 - Inference
 - RAG
-- Vector Database
-- Explainability
-- AI Governance
-- Model Evaluation
-- Observability
-- Geospatial Intelligence
-- Defense
-- Government
-- Regulated Industries
+- vector-database
+- explainability
+- ai-governance
+- model-evaluation
+- observability
+- geospatial-intelligence
+- defense
+- government
+- regulated-industries
 - MCP
 - agent-native
 tags_raw:
@@ -418,7 +418,7 @@ apis:
   humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
   baseURL: https://flow.seekr.com/v1
   tags:
-  - Fine-Tuning
+  - Fine-tuning
   tags_raw:
   - Fine-tuning
   properties:
@@ -954,7 +954,7 @@ apis:
   humanURL: https://docs.seekr.com/flow/reference/getting-started-with-your-api
   baseURL: https://flow.seekr.com/v1
   tags:
-  - Vector Database
+  - Vector database
   tags_raw:
   - Vector database
   properties:
