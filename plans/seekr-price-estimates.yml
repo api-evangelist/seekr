@@ -8,6 +8,9 @@ note: ESTIMATES, not quotes. Computed by API Evangelist from the prices this pro
   replace it — publish that and the estimate is retired.
 audience_of_source_pricing: developer-api
 pricing_basis: per-call
+delivery: managed+licensed
+delivery_method: page
+delivery_evidence: Term Licenses – Customer Hosting Annual License per GPU $7,000
 estimate_count: 2
 estimates:
 - kind: entry_cost
