@@ -1,0 +1,105 @@
+slug: seekr
+provider: Seekr
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Public Sector & Government
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 9
+edges:
+- tag: Fine-tuning
+  spec_file: seekr-fine-tuning-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.9
+  evidence: POST /v1/flow/fine-tune  Fine Tune; GET /v1/flow/fine-tunes/{fine_tune_id}/promote-model  Promote
+    Model; schemas TrainingConfig, FinetuneResponse
+  reason: Training, evaluating, promoting and cancelling ML models is squarely AI/ML model lifecycle (MLOps)
+    management.
+- tag: Agents
+  spec_file: seekr-agents-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.8
+  evidence: POST /v2/flow/agents/create; PUT /v2/flow/agents/{agent_id}/promote; schemas AgentSchemaV2,
+    AgentStatus, ReasoningEffort
+  reason: Lifecycle management (create, update, promote/demote, status) of LLM-based agents on an AI platform
+    — AI/ML asset lifecycle, i.e. Artificial Intelligence Management.
+- tag: Agents v1 - legacy
+  spec_file: seekr-agents-v1-legacy-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.8
+  evidence: POST /v1/flow/agents/create  Create; PUT /v1/flow/agents/{agent_id}/promote  Promote; schema
+    AgentSchema
+  reason: Legacy version of the same AI agent lifecycle surface (create/update/promote/status) on the
+    SeekrFlow AI platform, mapping to AI model/agent lifecycle management.
+- tag: Inference
+  spec_file: seekr-inference-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.8
+  evidence: POST /v1/inference/chat/completions  Route Chat Completion; POST /v1/inference/embeddings
+  reason: Serving of deployed models (completions, embeddings, rerank, transcription) is the operational
+    runtime side of the AI/ML model lifecycle.
+- tag: Alignment
+  spec_file: seekr-alignment-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.75
+  evidence: POST /v1/flow/alignment/generate  Alignment Generate; schemas AlignmentJobStatus, TrainingFileType,
+    IngestionRequest
+  reason: Jobs that ingest files and generate alignment/training data for model tuning — part of the AI/ML
+    model lifecycle (MLOps) on this platform.
+- tag: Deployments
+  spec_file: seekr-deployments-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.75
+  evidence: POST /v1/flow/deployments  deploy_v1_flow_deployments_post  Deploy; schemas DeploymentStatus,
+    AcceleratorType, DeploymentMetrics
+  reason: Deployment and promotion of trained models onto accelerator hardware with metrics and events
+    — model serving/MLOps, i.e. AI lifecycle management, rather than general IT deployment.
+- tag: Explainability
+  spec_file: seekr-explainability-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.75
+  evidence: GET /v1/explainability/influential-finetuning-data ... POST /v1/explainability/context-attributor  Get
+    Context Attribution
+  reason: Operations attribute model outputs to training data and context — model explainability tooling
+    within the AI/ML model lifecycle (responsible AI), an Information & Data Management capability rather
+    than any public-sector business capability.
+- tag: Models
+  spec_file: seekr-models-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.75
+  evidence: GET /v1/flow/models 'Ml Models'; schemas MLModel, MLModelType, Deployment, DeploymentStatus,
+    HardwareType
+  reason: Operations list and describe ML models and their deployments (model registry / serving inventory),
+    which is ML model lifecycle and MLOps management rather than any industry-specific capability.
+- tag: Data jobs
+  spec_file: seekr-data-jobs-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /v1/flow/data-jobs/{data_job_id}/start  Start Data Job Alignment; schemas DataJobType,
+    AlignmentOutput, GenerateSystemPromptRequest
+  reason: Jobs that assemble and prepare AI-ready training data and kick off alignment — AI/ML data preparation
+    within the model lifecycle. Could arguably be generic data management, hence 0.7.
