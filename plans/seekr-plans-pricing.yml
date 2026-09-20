@@ -1,0 +1,130 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://www.seekr.com/pricing/
+sources:
+- https://www.seekr.com/pricing/
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T120546
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: per-call
+published: true
+note: SeekrFlow pricing page listing license, endpoint, token, ingestion, storage and agent prices; large-scale
+  distributed training is 'Contact us'.
+plan_count: 19
+currency: USD
+plans:
+- name: Term Licenses – Customer Hosting (Annual License per GPU)
+  price_text: $7,000
+  price: 7000
+  currency: USD
+  period: year
+  unit: per GPU
+- name: Dedicated Endpoints
+  price_text: $4.50
+  price: 4.5
+  currency: USD
+  period: per-use
+  unit: hour (per GPU/AI Accelerator)
+- name: Base model inference – Dense 0 – 4B params
+  price_text: $0.10
+  price: 0.1
+  currency: USD
+  period: per-use
+  unit: per 1M tokens
+- name: Base model inference – Dense 4.1 – 8B params
+  price_text: $0.18
+  price: 0.18
+  currency: USD
+  period: per-use
+  unit: per 1M tokens
+- name: Base model inference – Dense 8.1 – 20B params
+  price_text: $0.28
+  price: 0.28
+  currency: USD
+  period: per-use
+  unit: per 1M tokens
+- name: Base model inference – Dense 20.1 – 40B params
+  price_text: $0.75
+  price: 0.75
+  currency: USD
+  period: per-use
+  unit: per 1M tokens
+- name: Base model inference – Dense 40.1 – 80B params
+  price_text: $0.85
+  price: 0.85
+  currency: USD
+  period: per-use
+  unit: per 1M tokens
+- name: Base model inference – Dense 80.1 – 110B params
+  price_text: $1.50
+  price: 1.5
+  currency: USD
+  period: per-use
+  unit: per 1M tokens
+- name: Mixture of Experts 0-56
+  price_text: $1.80
+  price: 1.8
+  currency: USD
+  period: per-use
+  unit: per 1M tokens
+- name: Data ingestion Text/PDF/PPT
+  price_text: $0.005 per page
+  price: 0.005
+  currency: USD
+  period: per-use
+  unit: per page
+- name: Embedding models 0 – 1
+  price_text: $0.01
+  price: 0.01
+  currency: USD
+  period: per-use
+  unit: per 1M tokens
+- name: Embedding models 1 – Inf.
+  price_text: $0.02
+  price: 0.02
+  currency: USD
+  period: per-use
+  unit: per 1M tokens
+- name: Supervised full fine-tuning 0 – 16
+  price_text: $0.45
+  price: 0.45
+  currency: USD
+  period: per-use
+  unit: per 1M tokens
+- name: Supervised full fine-tuning 17 – 69
+  price_text: $1.52
+  price: 1.52
+  currency: USD
+  period: per-use
+  unit: per 1M tokens
+- name: Supervised full fine-tuning 70 – 110
+  price_text: $3.00
+  price: 3
+  currency: USD
+  period: per-use
+  unit: per 1M tokens
+- name: Vector Storage >1GB
+  price_text: $0.10
+  price: 0.1
+  currency: USD
+  period: per-use
+  unit: per GB/day
+- name: Vector Storage <1GB
+  price_text: Free
+  period: per-use
+  unit: per GB/day
+- name: AI agents Hosting
+  price_text: $1 per agent per month
+  price: 1
+  currency: USD
+  period: month
+  unit: per agent
+- name: AI agents Web Search
+  price_text: $0.0135 per tool call
+  price: 0.0135
+  currency: USD
+  period: per-use
+  unit: per tool call
