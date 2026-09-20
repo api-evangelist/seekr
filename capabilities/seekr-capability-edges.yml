@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 9
+edge_count: 10
 edges:
 - tag: Fine-tuning
   spec_file: seekr-fine-tuning-api-openapi.yml
@@ -103,3 +103,14 @@ edges:
     AlignmentOutput, GenerateSystemPromptRequest
   reason: Jobs that assemble and prepare AI-ready training data and kick off alignment — AI/ML data preparation
     within the model lifecycle. Could arguably be generic data management, hence 0.7.
+- tag: Ingestion
+  spec_file: seekr-ingestion-api-openapi.yml
+  capability_id: BC-610
+  capability_id_l1: BC-610
+  capability_name: Information & Data Management
+  confidence: 0.7
+  evidence: POST /v1/flow/ingestion 'Ingest Files', schemas IngestionJobStatus, IngestionFileRecord; vendor
+    covers 'document ingestion and AI-ready data preparation'
+  reason: Document ingestion jobs that prepare AI-ready data are information/data management work; evidence
+    does not pin a specific L2 (neither quality, governance nor architecture explicitly), so L1 only.
+  recovered_from: sweep-20260829T005356Z-edges.json
