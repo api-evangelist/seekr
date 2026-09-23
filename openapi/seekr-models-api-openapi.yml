@@ -7,7 +7,7 @@ info:
     email: contact@seekr.com
   termsOfService: http://www.seekr.com/support
   version: '1.0'
-  description: 'Operations tagged Models across 2 of this provider''s published API definitions: seekr-llm-training-openapi.json, seekr-serving-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Models across 2 of this provider''s published API definitions: seekr-llm-training-openapi-original.json, seekr-serving-openapi-original.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://flow.seekr.com
   description: SeekrBuild server base URL
@@ -15,9 +15,6 @@ tags:
 - name: Models
 paths:
   /v1/flow/models:
-    servers:
-    - url: https://flow.seekr.com
-      description: SeekrBuild server base URL
     get:
       tags:
       - Models
@@ -47,10 +44,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  /v1/flow/models/info:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/flow/models/info:
     get:
       tags:
       - Models
@@ -78,10 +75,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  /v1/flow/models/hf_revision:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/flow/models/hf_revision:
     get:
       tags:
       - Models
@@ -109,10 +106,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  /v1/flow/internal/models:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/flow/internal/models:
     get:
       tags:
       - Models
@@ -141,10 +138,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
       x-excluded: true
-  /v1/flow/internal/deployments:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/flow/internal/deployments:
     get:
       tags:
       - Models
@@ -173,10 +170,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
       x-excluded: true
-  /v1/flow/internal/models/info:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/flow/internal/models/info:
     get:
       tags:
       - Models
@@ -203,10 +200,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
       x-excluded: true
-  /v1/flow/internal/models/hf_revision:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/flow/internal/models/hf_revision:
     get:
       tags:
       - Models
@@ -233,13 +230,28 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
       x-excluded: true
-  /v1/models:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/models:
     get:
       summary: Show Models
-      description: "Returns a list of all models available in the stack.\n\nArgs:\n    token_data: User data specified by api-key\n\nReturns:\n    JSONResponse: A JSON response containing the list of models.\n\nRaises:\n    Exception: If there is an error in retrieving the endpoint information."
+      description: 'Returns a list of all models available in the stack.
+
+
+        Args:
+
+        token_data: User data specified by api-key
+
+
+        Returns:
+
+        JSONResponse: A JSON response containing the list of models.
+
+
+        Raises:
+
+        Exception: If there is an error in retrieving the endpoint information.'
       operationId: show_models_v1_models_get
       responses:
         '200':
@@ -252,8 +264,37 @@ paths:
       x-excluded: true
       tags:
       - Models
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
 components:
   schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     MLModelType:
       type: string
       enum:
@@ -261,84 +302,6 @@ components:
       - Instruct
       - Embedding
       title: MLModelType
-    GetMLModelInfoResponse:
-      properties:
-        name:
-          type: string
-          title: Name
-        size:
-          type: integer
-          title: Size
-        model_type:
-          anyOf:
-          - $ref: '#/components/schemas/MLModelType'
-          - type: 'null'
-      type: object
-      required:
-      - name
-      - size
-      - model_type
-      title: GetMLModelInfoResponse
-    GetMLModelHfRevision:
-      properties:
-        name:
-          type: string
-          title: Name
-        hf_revision:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Hf Revision
-      type: object
-      required:
-      - name
-      - hf_revision
-      title: GetMLModelHfRevision
-    GetMLModelsResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/MLModel'
-          type: array
-          title: Data
-      type: object
-      required:
-      - data
-      title: GetMLModelsResponse
-    DeploymentProcessor:
-      type: string
-      enum:
-      - GAUDI2
-      - GAUDI3
-      - A100
-      - A10
-      - AMD
-      - H100
-      - MI300X
-      title: DeploymentProcessor
-    GetDeploymentsResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Deployment'
-          type: array
-          title: Data
-      type: object
-      required:
-      - data
-      title: GetDeploymentsResponse
-    HardwareType:
-      type: string
-      enum:
-      - Serverless
-      - Dedicated
-      title: HardwareType
-    DeploymentType:
-      type: string
-      enum:
-      - Fine-tuned Run
-      - Base Model
-      title: DeploymentType
     MLModel:
       properties:
         id:
@@ -420,41 +383,34 @@ components:
       - vision_model
       - internal_only
       title: MLModel
-    ValidationError:
+    DeploymentProcessor:
+      type: string
+      enum:
+      - GAUDI2
+      - GAUDI3
+      - A100
+      - A10
+      - AMD
+      - H100
+      - MI300X
+      title: DeploymentProcessor
+    GetDeploymentsResponse:
       properties:
-        loc:
+        data:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/Deployment'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+          title: Data
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      - data
+      title: GetDeploymentsResponse
+    HardwareType:
+      type: string
+      enum:
+      - Serverless
+      - Dedicated
+      title: HardwareType
     DeploymentStatus:
       type: string
       enum:
@@ -465,6 +421,24 @@ components:
       - Started
       - Success
       title: DeploymentStatus
+    GetMLModelInfoResponse:
+      properties:
+        name:
+          type: string
+          title: Name
+        size:
+          type: integer
+          title: Size
+        model_type:
+          anyOf:
+          - $ref: '#/components/schemas/MLModelType'
+          - type: 'null'
+      type: object
+      required:
+      - name
+      - size
+      - model_type
+      title: GetMLModelInfoResponse
     Deployment:
       properties:
         id:
@@ -603,6 +577,47 @@ components:
       - team_id
       - model_name
       title: Deployment
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    DeploymentType:
+      type: string
+      enum:
+      - Fine-tuned Run
+      - Base Model
+      title: DeploymentType
+    GetMLModelsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/MLModel'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: GetMLModelsResponse
+    GetMLModelHfRevision:
+      properties:
+        name:
+          type: string
+          title: Name
+        hf_revision:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hf Revision
+      type: object
+      required:
+      - name
+      - hf_revision
+      title: GetMLModelHfRevision
   securitySchemes:
     APIKeyHeader:
       type: apiKey
@@ -610,5 +625,5 @@ components:
       in: header
       name: Authorization
 x-refined-from:
-- seekr-llm-training-openapi.json
-- seekr-serving-openapi.json
+- seekr-llm-training-openapi-original.json
+- seekr-serving-openapi-original.json

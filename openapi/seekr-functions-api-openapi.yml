@@ -288,23 +288,32 @@ paths:
       x-excluded: true
 components:
   schemas:
-    ValidateFunctionIdsResponse:
+    ValidationError:
       properties:
-        valid:
-          type: boolean
-          title: Valid
-        missing:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Missing
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - valid
-      title: ValidateFunctionIdsResponse
-      description: Response model for function ID validation results.
+      - loc
+      - msg
+      - type
+      title: ValidationError
     PythonFunctionIdsRequest:
       properties:
         function_ids:
@@ -317,23 +326,6 @@ components:
       - function_ids
       title: PythonFunctionIdsRequest
       description: Request model for retrieving Python functions by a list of IDs.
-    OrderEnum:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: OrderEnum
-      description: Options for order query param in list endpoints.
-    DeletePythonFunctionResponse:
-      properties:
-        deleted:
-          type: boolean
-          title: Deleted
-      type: object
-      required:
-      - deleted
-      title: DeletePythonFunctionResponse
-      description: Response model for deleting a Python function.
     PythonFunctionResponse:
       properties:
         id:
@@ -388,32 +380,40 @@ components:
       required:
       - file
       title: Body_upload_python_function_v1_functions_post
-    ValidationError:
+    ValidateFunctionIdsResponse:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+        valid:
+          type: boolean
+          title: Valid
+        missing:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Missing
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - valid
+      title: ValidateFunctionIdsResponse
+      description: Response model for function ID validation results.
+    Body_update_python_function_endpoint_v1_functions__function_id__patch:
+      properties:
+        file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: File
+      type: object
+      required:
+      - file
+      title: Body_update_python_function_endpoint_v1_functions__function_id__patch
+    OrderEnum:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: OrderEnum
+      description: Options for order query param in list endpoints.
     HTTPValidationError:
       properties:
         detail:
@@ -423,6 +423,16 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    DeletePythonFunctionResponse:
+      properties:
+        deleted:
+          type: boolean
+          title: Deleted
+      type: object
+      required:
+      - deleted
+      title: DeletePythonFunctionResponse
+      description: Response model for deleting a Python function.
     ValidatePythonFunctionIdsRequest:
       properties:
         function_ids:
@@ -439,16 +449,6 @@ components:
       - team_id
       title: ValidatePythonFunctionIdsRequest
       description: Request model for validating a list of Python function IDs for a team.
-    Body_update_python_function_endpoint_v1_functions__function_id__patch:
-      properties:
-        file:
-          type: string
-          contentMediaType: application/octet-stream
-          title: File
-      type: object
-      required:
-      - file
-      title: Body_update_python_function_endpoint_v1_functions__function_id__patch
   securitySchemes:
     APIKeyHeader:
       type: apiKey

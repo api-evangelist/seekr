@@ -7,7 +7,7 @@ info:
     email: contact@seekr.com
   termsOfService: http://www.seekr.com/support
   version: '1.0'
-  description: 'Operations tagged Health across 3 of this provider''s published API definitions: seekr-agents-openapi.json, seekr-llm-training-openapi.json, seekr-serving-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Health across 3 of this provider''s published API definitions: seekr-agents-openapi-original.json, seekr-llm-training-openapi-original.json, seekr-serving-openapi-original.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://flow.seekr.com
   description: SeekrBuild server base URL
@@ -15,9 +15,6 @@ tags:
 - name: Health
 paths:
   /version:
-    servers:
-    - url: https://flow.seekr.com
-      description: SeekrBuild server base URL
     get:
       tags:
       - Health
@@ -35,10 +32,10 @@ paths:
                 type: object
                 title: Response Version Version Get
       x-excluded: true
-  /v1/health:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/health:
     get:
       tags:
       - Health
@@ -56,10 +53,10 @@ paths:
                 type: object
                 title: Response Health Check V1 Health Get
       x-excluded: true
-  /v1/health/{agent_id}:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/health/{agent_id}:
     get:
       tags:
       - Health
@@ -90,10 +87,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
       x-excluded: true
-  /v1/flow/health:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/flow/health:
     get:
       tags:
       - Health
@@ -106,10 +103,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetHealthResponse'
-  /v1/flow/internal/health:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/flow/internal/health:
     get:
       tags:
       - Health
@@ -124,13 +121,31 @@ paths:
               schema:
                 $ref: '#/components/schemas/GetHealthResponse'
       x-excluded: true
-  /health:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /health:
     get:
       summary: Health
-      description: "Endpoint to check the health status of various components.\n\nThis function verifies the health of the service discovery module and\nthe engine stats scraper. If either component is down, it returns a\n503 response with the appropriate status message. If both components\nare healthy, it returns a 200 OK response.\n\nReturns:\n    Response: A JSONResponse with status code 503 if a component is\n    down, or a plain Response with status code 200 if all components\n    are healthy."
+      description: 'Endpoint to check the health status of various components.
+
+
+        This function verifies the health of the service discovery module and
+
+        the engine stats scraper. If either component is down, it returns a
+
+        503 response with the appropriate status message. If both components
+
+        are healthy, it returns a 200 OK response.
+
+
+        Returns:
+
+        Response: A JSONResponse with status code 503 if a component is
+
+        down, or a plain Response with status code 200 if all components
+
+        are healthy.'
       operationId: health_health_get
       responses:
         '200':
@@ -141,25 +156,11 @@ paths:
       x-excluded: true
       tags:
       - Health
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
 components:
   schemas:
-    SinceUpdateMetrics:
-      properties:
-        average:
-          type: integer
-          title: Average
-        maximum:
-          type: integer
-          title: Maximum
-        count:
-          type: integer
-          title: Count
-      type: object
-      required:
-      - average
-      - maximum
-      - count
-      title: SinceUpdateMetrics
     ValidationError:
       properties:
         loc:
@@ -195,6 +196,23 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    SinceUpdateMetrics:
+      properties:
+        average:
+          type: integer
+          title: Average
+        maximum:
+          type: integer
+          title: Maximum
+        count:
+          type: integer
+          title: Count
+      type: object
+      required:
+      - average
+      - maximum
+      - count
+      title: SinceUpdateMetrics
     GetHealthResponse:
       properties:
         deployment_pending_average:
@@ -279,6 +297,6 @@ components:
       in: header
       name: Authorization
 x-refined-from:
-- seekr-agents-openapi.json
-- seekr-llm-training-openapi.json
-- seekr-serving-openapi.json
+- seekr-agents-openapi-original.json
+- seekr-llm-training-openapi-original.json
+- seekr-serving-openapi-original.json

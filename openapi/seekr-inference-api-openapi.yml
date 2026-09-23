@@ -143,7 +143,22 @@ paths:
   /v1/inference/internal/models:
     get:
       summary: Show Models
-      description: "Returns a list of all models available in the stack.\n\nArgs:\n    token_data: User data specified by api-key\n\nReturns:\n    JSONResponse: A JSON response containing the list of models.\n\nRaises:\n    Exception: If there is an error in retrieving the endpoint information."
+      description: 'Returns a list of all models available in the stack.
+
+
+        Args:
+
+        token_data: User data specified by api-key
+
+
+        Returns:
+
+        JSONResponse: A JSON response containing the list of models.
+
+
+        Raises:
+
+        Exception: If there is an error in retrieving the endpoint information.'
       operationId: show_models_v1_inference_internal_models_get
       responses:
         '200':
@@ -159,7 +174,25 @@ paths:
   /v1/inference/health:
     get:
       summary: Health
-      description: "Endpoint to check the health status of various components.\n\nThis function verifies the health of the service discovery module and\nthe engine stats scraper. If either component is down, it returns a\n503 response with the appropriate status message. If both components\nare healthy, it returns a 200 OK response.\n\nReturns:\n    Response: A JSONResponse with status code 503 if a component is\n    down, or a plain Response with status code 200 if all components\n    are healthy."
+      description: 'Endpoint to check the health status of various components.
+
+
+        This function verifies the health of the service discovery module and
+
+        the engine stats scraper. If either component is down, it returns a
+
+        503 response with the appropriate status message. If both components
+
+        are healthy, it returns a 200 OK response.
+
+
+        Returns:
+
+        Response: A JSONResponse with status code 503 if a component is
+
+        down, or a plain Response with status code 200 if all components
+
+        are healthy.'
       operationId: health_v1_inference_health_get
       responses:
         '200':

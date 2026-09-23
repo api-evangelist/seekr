@@ -17,7 +17,22 @@ paths:
   /engines:
     get:
       summary: Get Engine Instances
-      description: "Returns a list of all models available in the stack.\n\nArgs:\n    None\n\nReturns:\n    JSONResponse: A JSON response containing the list of models and their relationships.\n\nRaises:\n    Exception: If there is an error in retrieving the endpoint information."
+      description: 'Returns a list of all models available in the stack.
+
+
+        Args:
+
+        None
+
+
+        Returns:
+
+        JSONResponse: A JSON response containing the list of models and their relationships.
+
+
+        Raises:
+
+        Exception: If there is an error in retrieving the endpoint information.'
       operationId: get_engine_instances_engines_get
       responses:
         '200':

@@ -12,12 +12,12 @@ servers:
 - url: https://flow.seekr.com
   description: SeekrBuild server base URL
 tags:
-- name: Fine-tuning
+- name: Fine Tuning
 paths:
   /v1/flow/fine-tune:
     post:
       tags:
-      - Fine-tuning
+      - Fine Tuning
       summary: Fine Tune
       operationId: fine_tune_v1_flow_fine_tune_post
       requestBody:
@@ -44,7 +44,7 @@ paths:
   /v1/flow/fine-tunes/{fine_tune_id}:
     get:
       tags:
-      - Fine-tuning
+      - Fine Tuning
       summary: Get Fine Tune
       operationId: get_fine_tune_v1_flow_fine_tunes__fine_tune_id__get
       security:
@@ -78,7 +78,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     patch:
       tags:
-      - Fine-tuning
+      - Fine Tuning
       summary: Patch Fine Tune
       operationId: patch_fine_tune_v1_flow_fine_tunes__fine_tune_id__patch
       security:
@@ -111,7 +111,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     delete:
       tags:
-      - Fine-tuning
+      - Fine Tuning
       summary: Delete Fine Tune
       operationId: delete_fine_tune_v1_flow_fine_tunes__fine_tune_id__delete
       security:
@@ -135,7 +135,7 @@ paths:
   /v1/flow/fine-tunes/{fine_tune_id}/download:
     get:
       tags:
-      - Fine-tuning
+      - Fine Tuning
       summary: Download Fine Tune
       operationId: download_fine_tune_v1_flow_fine_tunes__fine_tune_id__download_get
       security:
@@ -162,7 +162,7 @@ paths:
   /v1/flow/fine-tunes/{fine_tune_id}/cancel:
     put:
       tags:
-      - Fine-tuning
+      - Fine Tuning
       summary: Cancel Fine Tune
       operationId: cancel_fine_tune_v1_flow_fine_tunes__fine_tune_id__cancel_put
       security:
@@ -190,7 +190,7 @@ paths:
   /v1/flow/fine-tunes/{fine_tune_id}/workflow-phase:
     get:
       tags:
-      - Fine-tuning
+      - Fine Tuning
       summary: Fine Tune Workflow Phase
       description: 'Internal: the live Argo workflow phase for a fine-tune job.
 
@@ -229,7 +229,7 @@ paths:
   /v1/flow/fine-tunes/{fine_tune_id}/demote-model:
     get:
       tags:
-      - Fine-tuning
+      - Fine Tuning
       summary: Demote Model
       operationId: demote_model_v1_flow_fine_tunes__fine_tune_id__demote_model_get
       deprecated: true
@@ -262,7 +262,7 @@ paths:
   /v1/flow/fine-tunes/{fine_tune_id}/promote-model:
     get:
       tags:
-      - Fine-tuning
+      - Fine Tuning
       summary: Promote Model
       operationId: promote_model_v1_flow_fine_tunes__fine_tune_id__promote_model_get
       deprecated: true
@@ -295,7 +295,7 @@ paths:
   /v1/flow/fine-tunes:
     get:
       tags:
-      - Fine-tuning
+      - Fine Tuning
       summary: List Fine Tune
       operationId: list_fine_tune_v1_flow_fine_tunes_get
       security:
@@ -332,7 +332,7 @@ paths:
   /v1/flow/projects:
     get:
       tags:
-      - Fine-tuning
+      - Fine Tuning
       summary: Get Projects
       operationId: get_projects_v1_flow_projects_get
       security:
@@ -378,7 +378,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     post:
       tags:
-      - Fine-tuning
+      - Fine Tuning
       summary: Upsert Project
       operationId: upsert_project_v1_flow_projects_post
       security:
@@ -405,7 +405,7 @@ paths:
   /v1/flow/projects/{project_id}:
     get:
       tags:
-      - Fine-tuning
+      - Fine Tuning
       summary: Get Project By Id
       operationId: get_project_by_id_v1_flow_projects__project_id__get
       security:
@@ -439,7 +439,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     delete:
       tags:
-      - Fine-tuning
+      - Fine Tuning
       summary: Delete Project
       operationId: delete_project_v1_flow_projects__project_id__delete
       security:
@@ -463,7 +463,7 @@ paths:
   /v1/flow/events/finetunes/{finetune_id}:
     get:
       tags:
-      - Fine-tuning
+      - Fine Tuning
       summary: Get Finetune Events By Id
       operationId: get_finetune_events_by_id_v1_flow_events_finetunes__finetune_id__get
       security:
@@ -497,7 +497,7 @@ paths:
   /v1/flow/explain/models/{model_id}/influential-finetuning-data:
     get:
       tags:
-      - Fine-tuning
+      - Fine Tuning
       summary: Get Influential Training Data Route
       description: 'Retrieve influential QA pair training data for a specific model.
 
@@ -549,6 +549,14 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    FineTuneType:
+      type: string
+      enum:
+      - STANDARD
+      - PREFERENCE
+      - GRPO
+      - REINFORCEMENT
+      title: FineTuneType
     GetProjectsResponse:
       properties:
         data:
@@ -560,6 +568,37 @@ components:
       required:
       - data
       title: GetProjectsResponse
+    InfluentialFinetuningDataResponse:
+      properties:
+        answer:
+          type: string
+          title: Answer
+          description: The answer from the model or provided by the user
+        results:
+          items:
+            $ref: '#/components/schemas/QuestionAnswerPair'
+          type: array
+          title: Results
+          description: List of influential training data results
+        version:
+          type: string
+          title: Version
+          description: Version of the explainability service
+      type: object
+      required:
+      - answer
+      - results
+      - version
+      title: InfluentialFinetuningDataResponse
+      description: Response model for influential training data
+    EventType:
+      type: string
+      enum:
+      - Files
+      - Finetune
+      - Deployments
+      - Alignment
+      title: EventType
     StringCheckGrader:
       properties:
         type:
@@ -581,95 +620,66 @@ components:
       - operation
       title: StringCheckGrader
       description: String-comparison grader. Requires a StringOperation.
-    RequestConfig:
+    AcceleratorType:
+      type: string
+      enum:
+      - GAUDI2
+      - GAUDI3
+      - A100
+      - A10
+      - H100
+      - MI300X
+      title: AcceleratorType
+    QuestionAnswerPair:
       properties:
-        project_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Project Id
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        training_config:
-          $ref: '#/components/schemas/TrainingConfig'
-        infrastructure_config:
-          $ref: '#/components/schemas/InfrastructureConfig'
-      type: object
-      required:
-      - training_config
-      - infrastructure_config
-      title: RequestConfig
-    FinetuneResponse:
-      additionalProperties: true
-      type: object
-    RewardComponents:
-      properties:
-        format_reward_weight:
-          type: number
-          maximum: 1
-          exclusiveMinimum: 0
-          title: Format Reward Weight
-          default: 0.1
-        graders:
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/FormatCheckGrader'
-            - $ref: '#/components/schemas/MathAccuracyGrader'
-            - $ref: '#/components/schemas/StringCheckGrader'
-            - $ref: '#/components/schemas/TextSimilarityGrader'
-            - $ref: '#/components/schemas/LLMGrader'
-            discriminator:
-              propertyName: type
-              mapping:
-                format_check: '#/components/schemas/FormatCheckGrader'
-                llm: '#/components/schemas/LLMGrader'
-                math_accuracy: '#/components/schemas/MathAccuracyGrader'
-                string_check: '#/components/schemas/StringCheckGrader'
-                text_similarity: '#/components/schemas/TextSimilarityGrader'
-          type: array
-          minItems: 1
-          title: Graders
-      additionalProperties: true
-      type: object
-      required:
-      - graders
-      title: RewardComponents
-    FormatCheckGrader:
-      properties:
-        type:
+        id:
           type: string
-          const: format_check
-          title: Type
-          default: format_check
-        weight:
-          anyOf:
-          - type: number
-            maximum: 1
-            exclusiveMinimum: 0
-          - type: 'null'
-          title: Weight
+          title: Id
+          description: Unique identifier for the QA pair
+        file_id:
+          type: string
+          title: File Id
+          description: ID of the source file
+        influence_level:
+          $ref: '#/components/schemas/InfluenceLevel'
+          description: Level of influence this QA pair has (high, medium, low, irrelevant)
+        messages:
+          type: string
+          title: Messages
+          description: The question-answer content
       type: object
-      title: FormatCheckGrader
-      description: Format-compliance grader. Carries no operation or config.
-    EventType:
-      type: string
-      enum:
-      - Files
-      - Finetune
-      - Deployments
-      - Alignment
-      title: EventType
-    InfluenceLevel:
-      type: string
-      enum:
-      - high
-      - medium
-      - low
-      - irrelevant
-      title: InfluenceLevel
+      required:
+      - id
+      - file_id
+      - influence_level
+      - messages
+      title: QuestionAnswerPair
+    InfrastructureConfig:
+      properties:
+        accel_type:
+          $ref: '#/components/schemas/AcceleratorType'
+        n_accel:
+          type: integer
+          title: N Accel
+        n_node:
+          type: integer
+          title: N Node
+          default: 1
+      additionalProperties: true
+      type: object
+      required:
+      - accel_type
+      - n_accel
+      title: InfrastructureConfig
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ProjectWithRuns:
       properties:
         id:
@@ -720,52 +730,222 @@ components:
       - runs_deployed
       - last_modified
       title: ProjectWithRuns
-    FineTuneType:
+    EventStatus:
       type: string
       enum:
-      - STANDARD
-      - PREFERENCE
-      - GRPO
-      - REINFORCEMENT
-      title: FineTuneType
-    QuestionAnswerPair:
+      - Inactive
+      - Pending
+      - Active
+      - Failed
+      - Started
+      - Success
+      - Uploading
+      - Completed
+      - Deleted
+      - Cancelled
+      - Queued
+      - Running
+      title: EventStatus
+    ValidationError:
       properties:
-        id:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Id
-          description: Unique identifier for the QA pair
-        file_id:
+          title: Message
+        type:
           type: string
-          title: File Id
-          description: ID of the source file
-        influence_level:
-          $ref: '#/components/schemas/InfluenceLevel'
-          description: Level of influence this QA pair has (high, medium, low, irrelevant)
-        messages:
-          type: string
-          title: Messages
-          description: The question-answer content
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - id
-      - file_id
-      - influence_level
-      - messages
-      title: QuestionAnswerPair
-    FinetuneFilter:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    LoRAConfig:
+      properties:
+        r:
+          type: integer
+          exclusiveMinimum: 0
+          title: R
+          description: Rank of the update matrices.
+          default: 8
+        alpha:
+          type: integer
+          exclusiveMinimum: 0
+          title: Alpha
+          description: Scaling factor applied to LoRA updates.
+          default: 32
+        dropout:
+          type: number
+          maximum: 1
+          minimum: 0
+          title: Dropout
+          description: Fraction of LoRA neurons dropped during training.
+          default: 0.1
+        bias:
+          type: string
+          enum:
+          - none
+          - all
+          - lora_only
+          title: Bias
+          description: Bias terms to train; choose from 'none', 'all', or 'lora_only'.
+          default: none
+        extras:
+          additionalProperties: true
+          type: object
+          title: Extras
+      additionalProperties: true
+      type: object
+      title: LoRAConfig
+    RequestConfig:
+      properties:
+        project_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Project Id
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        training_config:
+          $ref: '#/components/schemas/TrainingConfig'
+        infrastructure_config:
+          $ref: '#/components/schemas/InfrastructureConfig'
+      type: object
+      required:
+      - training_config
+      - infrastructure_config
+      title: RequestConfig
+    GetEventsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Event'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: GetEventsResponse
+    MathAccuracyGrader:
+      properties:
+        type:
+          type: string
+          const: math_accuracy
+          title: Type
+          default: math_accuracy
+        weight:
+          anyOf:
+          - type: number
+            maximum: 1
+            exclusiveMinimum: 0
+          - type: 'null'
+          title: Weight
+      type: object
+      title: MathAccuracyGrader
+      description: Math-correctness grader. Carries no operation or config.
+    InfluenceLevel:
       type: string
       enum:
-      - FINETUNE_ONLY
-      - ALL
-      - FINETUNE_DEPLOYMENT
-      - FINETUNE_FILES
-      title: FinetuneFilter
-    TextSimilarityOperation:
-      type: string
-      enum:
-      - bleu
-      - rouge
-      title: TextSimilarityOperation
+      - high
+      - medium
+      - low
+      - irrelevant
+      title: InfluenceLevel
+    LLMGrader:
+      properties:
+        type:
+          type: string
+          const: llm
+          title: Type
+          default: llm
+        weight:
+          anyOf:
+          - type: number
+            maximum: 1
+            exclusiveMinimum: 0
+          - type: 'null'
+          title: Weight
+        seed:
+          anyOf:
+          - type: integer
+            minimum: 0
+          - type: 'null'
+          title: Seed
+        top_p:
+          anyOf:
+          - type: number
+            maximum: 1
+            minimum: 0
+          - type: 'null'
+          title: Top P
+        temperature:
+          type: number
+          maximum: 1.5
+          minimum: 0
+          title: Temperature
+          default: 0
+        max_completion_tokens:
+          type: integer
+          minimum: 1
+          title: Max Completion Tokens
+          default: 512
+      type: object
+      title: LLMGrader
+      description: 'LLM-as-a-judge grader.
+
+
+        The user-facing generation parameters live directly on the grader (no nested
+
+        config). The training service injects operational settings (inference endpoint,
+
+        concurrency, timeouts) at runtime; those are not exposed to API users here.'
+    RewardComponents:
+      properties:
+        format_reward_weight:
+          type: number
+          maximum: 1
+          exclusiveMinimum: 0
+          title: Format Reward Weight
+          default: 0.1
+        graders:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/FormatCheckGrader'
+            - $ref: '#/components/schemas/MathAccuracyGrader'
+            - $ref: '#/components/schemas/StringCheckGrader'
+            - $ref: '#/components/schemas/TextSimilarityGrader'
+            - $ref: '#/components/schemas/LLMGrader'
+            discriminator:
+              propertyName: type
+              mapping:
+                format_check: '#/components/schemas/FormatCheckGrader'
+                llm: '#/components/schemas/LLMGrader'
+                math_accuracy: '#/components/schemas/MathAccuracyGrader'
+                string_check: '#/components/schemas/StringCheckGrader'
+                text_similarity: '#/components/schemas/TextSimilarityGrader'
+          type: array
+          minItems: 1
+          title: Graders
+      additionalProperties: true
+      type: object
+      required:
+      - graders
+      title: RewardComponents
     PostProjectRequest:
       properties:
         id:
@@ -788,62 +968,6 @@ components:
       - name
       - description
       title: PostProjectRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    WorkflowPhaseResponse:
-      properties:
-        phase:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Phase
-      additionalProperties: true
-      type: object
-      title: WorkflowPhaseResponse
-      description: 'Internal: the Argo workflow phase backing a job.
-
-
-        ``phase`` is the raw Argo phase (e.g. Running, Succeeded, Failed, Error) or
-
-        ``None`` when the workflow no longer exists / was never started. Not part of
-
-        the public SDK — used to verify a cancelled job''s workflow actually
-
-        terminated.'
-    EventStatus:
-      type: string
-      enum:
-      - Inactive
-      - Pending
-      - Active
-      - Failed
-      - Started
-      - Success
-      - Uploading
-      - Completed
-      - Deleted
-      - Cancelled
-      - Queued
-      - Running
-      title: EventStatus
-    GetEventsResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Event'
-          type: array
-          title: Data
-      type: object
-      required:
-      - data
-      title: GetEventsResponse
     StringOperation:
       type: string
       enum:
@@ -852,61 +976,6 @@ components:
       - contains
       - case_insensitive_contains
       title: StringOperation
-    Project:
-      properties:
-        id:
-          type: integer
-          title: Id
-        name:
-          type: string
-          title: Name
-        description:
-          type: string
-          title: Description
-        user_id:
-          type: string
-          title: User Id
-        team_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Team Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-      type: object
-      required:
-      - id
-      - name
-      - description
-      - user_id
-      - team_id
-      - created_at
-      - updated_at
-      title: Project
-    FinetuneList:
-      properties:
-        object:
-          anyOf:
-          - type: string
-            const: list
-          - type: 'null'
-          title: Object
-        data:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/FinetuneResponse'
-            type: array
-          - type: 'null'
-          title: Data
-      additionalProperties: true
-      type: object
-      title: FinetuneList
     TrainingConfig:
       properties:
         training_files:
@@ -989,69 +1058,6 @@ components:
       - model
       - n_epochs
       title: TrainingConfig
-    LoRAConfig:
-      properties:
-        r:
-          type: integer
-          exclusiveMinimum: 0
-          title: R
-          description: Rank of the update matrices.
-          default: 8
-        alpha:
-          type: integer
-          exclusiveMinimum: 0
-          title: Alpha
-          description: Scaling factor applied to LoRA updates.
-          default: 32
-        dropout:
-          type: number
-          maximum: 1
-          minimum: 0
-          title: Dropout
-          description: Fraction of LoRA neurons dropped during training.
-          default: 0.1
-        bias:
-          type: string
-          enum:
-          - none
-          - all
-          - lora_only
-          title: Bias
-          description: Bias terms to train; choose from 'none', 'all', or 'lora_only'.
-          default: none
-        extras:
-          additionalProperties: true
-          type: object
-          title: Extras
-      additionalProperties: true
-      type: object
-      title: LoRAConfig
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     TextSimilarityGrader:
       properties:
         type:
@@ -1073,88 +1079,9 @@ components:
       - operation
       title: TextSimilarityGrader
       description: Text-similarity grader. Requires a TextSimilarityOperation.
-    InfrastructureConfig:
-      properties:
-        accel_type:
-          $ref: '#/components/schemas/AcceleratorType'
-        n_accel:
-          type: integer
-          title: N Accel
-        n_node:
-          type: integer
-          title: N Node
-          default: 1
+    FinetuneResponse:
       additionalProperties: true
       type: object
-      required:
-      - accel_type
-      - n_accel
-      title: InfrastructureConfig
-    MathAccuracyGrader:
-      properties:
-        type:
-          type: string
-          const: math_accuracy
-          title: Type
-          default: math_accuracy
-        weight:
-          anyOf:
-          - type: number
-            maximum: 1
-            exclusiveMinimum: 0
-          - type: 'null'
-          title: Weight
-      type: object
-      title: MathAccuracyGrader
-      description: Math-correctness grader. Carries no operation or config.
-    LLMGrader:
-      properties:
-        type:
-          type: string
-          const: llm
-          title: Type
-          default: llm
-        weight:
-          anyOf:
-          - type: number
-            maximum: 1
-            exclusiveMinimum: 0
-          - type: 'null'
-          title: Weight
-        seed:
-          anyOf:
-          - type: integer
-            minimum: 0
-          - type: 'null'
-          title: Seed
-        top_p:
-          anyOf:
-          - type: number
-            maximum: 1
-            minimum: 0
-          - type: 'null'
-          title: Top P
-        temperature:
-          type: number
-          maximum: 1.5
-          minimum: 0
-          title: Temperature
-          default: 0
-        max_completion_tokens:
-          type: integer
-          minimum: 1
-          title: Max Completion Tokens
-          default: 512
-      type: object
-      title: LLMGrader
-      description: 'LLM-as-a-judge grader.
-
-
-        The user-facing generation parameters live directly on the grader (no nested
-
-        config). The training service injects operational settings (inference endpoint,
-
-        concurrency, timeouts) at runtime; those are not exposed to API users here.'
     Event:
       properties:
         id:
@@ -1179,16 +1106,6 @@ components:
       - status
       - created_at
       title: Event
-    AcceleratorType:
-      type: string
-      enum:
-      - GAUDI2
-      - GAUDI3
-      - A100
-      - A10
-      - H100
-      - MI300X
-      title: AcceleratorType
     UpdateFineTuneRequest:
       properties:
         name:
@@ -1203,29 +1120,112 @@ components:
           title: Description
       type: object
       title: UpdateFineTuneRequest
-    InfluentialFinetuningDataResponse:
+    FinetuneFilter:
+      type: string
+      enum:
+      - FINETUNE_ONLY
+      - ALL
+      - FINETUNE_DEPLOYMENT
+      - FINETUNE_FILES
+      title: FinetuneFilter
+    WorkflowPhaseResponse:
       properties:
-        answer:
+        phase:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phase
+      additionalProperties: true
+      type: object
+      title: WorkflowPhaseResponse
+      description: 'Internal: the Argo workflow phase backing a job.
+
+
+        ``phase`` is the raw Argo phase (e.g. Running, Succeeded, Failed, Error) or
+
+        ``None`` when the workflow no longer exists / was never started. Not part of
+
+        the public SDK — used to verify a cancelled job''s workflow actually
+
+        terminated.'
+    Project:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
           type: string
-          title: Answer
-          description: The answer from the model or provided by the user
-        results:
-          items:
-            $ref: '#/components/schemas/QuestionAnswerPair'
-          type: array
-          title: Results
-          description: List of influential training data results
-        version:
+          title: Name
+        description:
           type: string
-          title: Version
-          description: Version of the explainability service
+          title: Description
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
       type: object
       required:
-      - answer
-      - results
-      - version
-      title: InfluentialFinetuningDataResponse
-      description: Response model for influential training data
+      - id
+      - name
+      - description
+      - user_id
+      - team_id
+      - created_at
+      - updated_at
+      title: Project
+    FinetuneList:
+      properties:
+        object:
+          anyOf:
+          - type: string
+            const: list
+          - type: 'null'
+          title: Object
+        data:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/FinetuneResponse'
+            type: array
+          - type: 'null'
+          title: Data
+      additionalProperties: true
+      type: object
+      title: FinetuneList
+    TextSimilarityOperation:
+      type: string
+      enum:
+      - bleu
+      - rouge
+      title: TextSimilarityOperation
+    FormatCheckGrader:
+      properties:
+        type:
+          type: string
+          const: format_check
+          title: Type
+          default: format_check
+        weight:
+          anyOf:
+          - type: number
+            maximum: 1
+            exclusiveMinimum: 0
+          - type: 'null'
+          title: Weight
+      type: object
+      title: FormatCheckGrader
+      description: Format-compliance grader. Carries no operation or config.
   securitySchemes:
     APIKeyHeader:
       type: apiKey

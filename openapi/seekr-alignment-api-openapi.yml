@@ -336,60 +336,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AlignmentList:
-      properties:
-        object:
-          anyOf:
-          - type: string
-            const: list
-          - type: 'null'
-          title: Object
-        data:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/AlignmentResponse'
-            type: array
-          - type: 'null'
-          title: Data
-      additionalProperties: true
-      type: object
-      title: AlignmentList
-    AlignmentFileType:
-      type: string
-      enum:
-      - html
-      - md
-      - rst
-      - rtf
-      - txt
-      - xml
-      - json
-      - jsonl
-      - csv
-      - doc
-      - docx
-      - pdf
-      - ppt
-      - pptx
-      title: AlignmentFileType
-    IngestionList:
-      properties:
-        object:
-          anyOf:
-          - type: string
-            const: list
-          - type: 'null'
-          title: Object
-        data:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/IngestionResponse'
-            type: array
-          - type: 'null'
-          title: Data
-      additionalProperties: true
-      type: object
-      title: IngestionList
     AlignmentResponse:
       properties:
         id:
@@ -469,63 +415,50 @@ components:
       - created_at
       - status
       title: AlignmentResponse
-    IngestionRequest:
-      properties:
-        files:
-          items:
-            type: string
-          type: array
-          title: Files
-          description: List of file ids to use for alignment
-        method:
-          type: string
-          title: Method
-          description: Method to use for ingestion
-          default: best
-      additionalProperties: true
-      type: object
-      required:
-      - files
-      title: IngestionRequest
-    IngestionResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: Ingestion job ID
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        status:
-          $ref: '#/components/schemas/IngestionJobStatus'
-        output_files:
-          items:
-            type: string
-          type: array
-          title: Output Files
-        file_records:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/IngestionFileRecord'
-            type: array
-          - type: 'null'
-          title: File Records
-          description: Detailed file records with queue positions
-      additionalProperties: true
-      type: object
-      required:
-      - id
-      - created_at
-      - status
-      - output_files
-      title: IngestionResponse
-    AlignmentType:
+    AlignmentFileType:
       type: string
       enum:
-      - principle
-      - context_data
-      title: AlignmentType
+      - html
+      - md
+      - rst
+      - rtf
+      - txt
+      - xml
+      - json
+      - jsonl
+      - csv
+      - doc
+      - docx
+      - pdf
+      - ppt
+      - pptx
+      title: AlignmentFileType
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     AlignmentRequest:
       properties:
         instructions:
@@ -560,60 +493,80 @@ components:
       - instructions
       - files
       title: AlignmentRequest
-    AlignmentJobStatus:
-      type: string
-      enum:
-      - pending
-      - queued
-      - running
-      - cancelled
-      - failed
-      - completed
-      - stopped
-      title: AlignmentJobStatus
-    ValidationError:
+    IngestionResponse:
       properties:
-        loc:
+        id:
+          type: string
+          title: Id
+          description: Ingestion job ID
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        status:
+          $ref: '#/components/schemas/IngestionJobStatus'
+        output_files:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            type: string
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+          title: Output Files
+        file_records:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/IngestionFileRecord'
+            type: array
+          - type: 'null'
+          title: File Records
+          description: Detailed file records with queue positions
+      additionalProperties: true
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
+      - id
+      - created_at
+      - status
+      - output_files
+      title: IngestionResponse
+    AlignmentOutput:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        id:
+          type: string
+          title: Id
+        filename:
+          type: string
+          title: Filename
+        bytes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Bytes
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        file_type:
+          anyOf:
+          - $ref: '#/components/schemas/TrainingFileType'
+          - $ref: '#/components/schemas/AlignmentFileType'
+          - type: 'null'
+          title: File Type
+        purpose:
+          anyOf:
+          - $ref: '#/components/schemas/FilePurpose'
+          - type: 'null'
+      additionalProperties: true
       type: object
-      title: HTTPValidationError
-    IngestionJobStatus:
+      required:
+      - id
+      - filename
+      title: AlignmentOutput
+    AlignmentType:
       type: string
       enum:
-      - queued
-      - running
-      - completed
-      - failed
-      title: IngestionJobStatus
+      - principle
+      - context_data
+      title: AlignmentType
     WorkflowPhaseResponse:
       properties:
         phase:
@@ -634,6 +587,26 @@ components:
         the public SDK — used to verify a cancelled job''s workflow actually
 
         terminated.'
+    AlignmentJobStatus:
+      type: string
+      enum:
+      - pending
+      - queued
+      - running
+      - cancelled
+      - failed
+      - completed
+      - stopped
+      title: AlignmentJobStatus
+    FilePurpose:
+      type: string
+      enum:
+      - reinforcement-fine-tune
+      - fine-tune
+      - preference-fine-tune
+      - pre-train
+      - alignment
+      title: FilePurpose
     TrainingFileType:
       type: string
       enum:
@@ -641,6 +614,14 @@ components:
       - parquet
       - pt
       title: TrainingFileType
+    IngestionJobStatus:
+      type: string
+      enum:
+      - queued
+      - running
+      - completed
+      - failed
+      title: IngestionJobStatus
     IngestionFileRecord:
       properties:
         record_id:
@@ -744,50 +725,69 @@ components:
       - status
       - created_at
       title: IngestionFileRecord
-    AlignmentOutput:
+    HTTPValidationError:
       properties:
-        id:
-          type: string
-          title: Id
-        filename:
-          type: string
-          title: Filename
-        bytes:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Bytes
-        created_at:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AlignmentList:
+      properties:
+        object:
           anyOf:
           - type: string
-            format: date-time
+            const: list
           - type: 'null'
-          title: Created At
-        file_type:
+          title: Object
+        data:
           anyOf:
-          - $ref: '#/components/schemas/TrainingFileType'
-          - $ref: '#/components/schemas/AlignmentFileType'
+          - items:
+              $ref: '#/components/schemas/AlignmentResponse'
+            type: array
           - type: 'null'
-          title: File Type
-        purpose:
-          anyOf:
-          - $ref: '#/components/schemas/FilePurpose'
-          - type: 'null'
+          title: Data
+      additionalProperties: true
+      type: object
+      title: AlignmentList
+    IngestionRequest:
+      properties:
+        files:
+          items:
+            type: string
+          type: array
+          title: Files
+          description: List of file ids to use for alignment
+        method:
+          type: string
+          title: Method
+          description: Method to use for ingestion
+          default: best
       additionalProperties: true
       type: object
       required:
-      - id
-      - filename
-      title: AlignmentOutput
-    FilePurpose:
-      type: string
-      enum:
-      - reinforcement-fine-tune
-      - fine-tune
-      - preference-fine-tune
-      - pre-train
-      - alignment
-      title: FilePurpose
+      - files
+      title: IngestionRequest
+    IngestionList:
+      properties:
+        object:
+          anyOf:
+          - type: string
+            const: list
+          - type: 'null'
+          title: Object
+        data:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/IngestionResponse'
+            type: array
+          - type: 'null'
+          title: Data
+      additionalProperties: true
+      type: object
+      title: IngestionList
   securitySchemes:
     APIKeyHeader:
       type: apiKey

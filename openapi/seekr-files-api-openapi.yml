@@ -7,7 +7,7 @@ info:
     email: contact@seekr.com
   termsOfService: http://www.seekr.com/support
   version: '1.0'
-  description: 'Operations tagged Files across 2 of this provider''s published API definitions: seekr-llm-training-openapi.json, seekr-serving-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Files across 2 of this provider''s published API definitions: seekr-llm-training-openapi-original.json, seekr-serving-openapi-original.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://flow.seekr.com
   description: SeekrBuild server base URL
@@ -15,9 +15,6 @@ tags:
 - name: Files
 paths:
   /v1/flow/files:
-    servers:
-    - url: https://flow.seekr.com
-      description: SeekrBuild server base URL
     get:
       tags:
       - Files
@@ -108,10 +105,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  /v1/flow/files/token-counts:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/flow/files/token-counts:
     get:
       tags:
       - Files
@@ -140,10 +137,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  /v1/flow/files/{file_id}:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/flow/files/{file_id}:
     delete:
       tags:
       - Files
@@ -198,10 +195,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  /v1/flow/bulk_files:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/flow/bulk_files:
     put:
       tags:
       - Files
@@ -232,10 +229,10 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - APIKeyHeader: []
-  /v1/flow/files/{file_id}/content:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/flow/files/{file_id}/content:
     get:
       tags:
       - Files
@@ -262,10 +259,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  /v1/flow/files/validate_metadata:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/flow/files/validate_metadata:
     post:
       tags:
       - Files
@@ -291,10 +288,10 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - APIKeyHeader: []
-  /v1/flow/files/{file_id}/vector-dbs:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/flow/files/{file_id}/vector-dbs:
     get:
       tags:
       - Files
@@ -322,10 +319,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  /v1/flow/files/{file_id}/data-jobs:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/flow/files/{file_id}/data-jobs:
     get:
       tags:
       - Files
@@ -353,10 +350,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  /v1/flow/files/{file_id}/derived-files:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/flow/files/{file_id}/derived-files:
     get:
       tags:
       - Files
@@ -384,10 +381,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  /v1/flow/files/{file_id}/rename:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/flow/files/{file_id}/rename:
     put:
       tags:
       - Files
@@ -421,10 +418,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  /v1/flow/events/files/{file_id}:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/flow/events/files/{file_id}:
     get:
       tags:
       - Files
@@ -452,13 +449,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  /v1/files:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/files:
     post:
       summary: Route Files
-      description: "Handle file upload requests and save the files to the configured storage.\n\nArgs:\n    request (Request): The incoming HTTP request.\n\nReturns:\n    JSONResponse: A JSON response containing the file metadata.\n\nRaises:\n    JSONResponse: A JSON response with a 400 status code if the request is invalid,\n        or a 500 status code if an error occurs during file saving."
+      description: 'Handle file upload requests and save the files to the configured storage.
+
+
+        Args:
+
+        request (Request): The incoming HTTP request.
+
+
+        Returns:
+
+        JSONResponse: A JSON response containing the file metadata.
+
+
+        Raises:
+
+        JSONResponse: A JSON response with a 400 status code if the request is invalid,
+
+        or a 500 status code if an error occurs during file saving.'
       operationId: route_files_v1_files_post
       responses:
         '200':
@@ -469,10 +483,10 @@ paths:
       x-excluded: true
       tags:
       - Files
-  /v1/files/{file_id}:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/files/{file_id}:
     get:
       summary: Route Get File
       operationId: route_get_file_v1_files__file_id__get
@@ -498,10 +512,10 @@ paths:
       x-excluded: true
       tags:
       - Files
-  /v1/files/{file_id}/content:
     servers:
     - url: https://flow.seekr.com
       description: SeekrBuild server base URL
+  /v1/files/{file_id}/content:
     get:
       summary: Route Get File Content
       operationId: route_get_file_content_v1_files__file_id__content_get
@@ -527,23 +541,11 @@ paths:
       x-excluded: true
       tags:
       - Files
+    servers:
+    - url: https://flow.seekr.com
+      description: SeekrBuild server base URL
 components:
   schemas:
-    Body_bulk_file_upload_v1_flow_bulk_files_put:
-      properties:
-        purpose:
-          $ref: '#/components/schemas/FilePurpose'
-        files:
-          items:
-            type: string
-            contentMediaType: application/octet-stream
-          type: array
-          title: Files
-      type: object
-      required:
-      - purpose
-      - files
-      title: Body_bulk_file_upload_v1_flow_bulk_files_put
     AlignmentFileType:
       type: string
       enum:
@@ -562,6 +564,155 @@ components:
       - ppt
       - pptx
       title: AlignmentFileType
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_file_upload_v1_flow_files_put:
+      properties:
+        purpose:
+          $ref: '#/components/schemas/FilePurpose'
+        files:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Files
+        vector_database_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Vector Database Id
+      type: object
+      required:
+      - purpose
+      - files
+      title: Body_file_upload_v1_flow_files_put
+    Event:
+      properties:
+        id:
+          type: integer
+          title: Id
+        type:
+          $ref: '#/components/schemas/EventType'
+        type_id:
+          type: string
+          title: Type Id
+        status:
+          $ref: '#/components/schemas/EventStatus'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - id
+      - type
+      - type_id
+      - status
+      - created_at
+      title: Event
+    FileRenameRequest:
+      properties:
+        new_filename:
+          type: string
+          title: New Filename
+      type: object
+      required:
+      - new_filename
+      title: FileRenameRequest
+    IdList:
+      properties:
+        object:
+          type: string
+          const: list
+          title: Object
+          default: list
+        data:
+          items:
+            type: string
+          type: array
+          title: Data
+      additionalProperties: true
+      type: object
+      required:
+      - data
+      title: IdList
+      description: Generic response model for a list of resource IDs.
+    GetEventsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Event'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: GetEventsResponse
+    FileDeleteResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        object:
+          type: string
+          const: file
+          title: Object
+        deleted:
+          type: boolean
+          title: Deleted
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - object
+      - deleted
+      title: FileDeleteResponse
+    FilePurpose:
+      type: string
+      enum:
+      - reinforcement-fine-tune
+      - fine-tune
+      - preference-fine-tune
+      - pre-train
+      - alignment
+      title: FilePurpose
+    TrainingFileType:
+      type: string
+      enum:
+      - jsonl
+      - parquet
+      - pt
+      title: TrainingFileType
+    EventType:
+      type: string
+      enum:
+      - Files
+      - Finetune
+      - Deployments
+      - Alignment
+      title: EventType
     FileResponse:
       properties:
         id:
@@ -619,6 +770,21 @@ components:
       - object
       title: FileResponse
       description: Files API response type
+    Body_bulk_file_upload_v1_flow_bulk_files_put:
+      properties:
+        purpose:
+          $ref: '#/components/schemas/FilePurpose'
+        files:
+          items:
+            type: string
+            contentMediaType: application/octet-stream
+          type: array
+          title: Files
+      type: object
+      required:
+      - purpose
+      - files
+      title: Body_bulk_file_upload_v1_flow_bulk_files_put
     AlignFileMetadataValidationReq:
       properties:
         purpose:
@@ -637,100 +803,6 @@ components:
       - suffix
       - size
       title: AlignFileMetadataValidationReq
-    Body_file_upload_v1_flow_files_put:
-      properties:
-        purpose:
-          $ref: '#/components/schemas/FilePurpose'
-        files:
-          type: string
-          contentMediaType: application/octet-stream
-          title: Files
-        vector_database_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Vector Database Id
-      type: object
-      required:
-      - purpose
-      - files
-      title: Body_file_upload_v1_flow_files_put
-    Event:
-      properties:
-        id:
-          type: integer
-          title: Id
-        type:
-          $ref: '#/components/schemas/EventType'
-        type_id:
-          type: string
-          title: Type Id
-        status:
-          $ref: '#/components/schemas/EventStatus'
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-      type: object
-      required:
-      - id
-      - type
-      - type_id
-      - status
-      - created_at
-      title: Event
-    FileDeleteResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        object:
-          type: string
-          const: file
-          title: Object
-        deleted:
-          type: boolean
-          title: Deleted
-      additionalProperties: true
-      type: object
-      required:
-      - id
-      - object
-      - deleted
-      title: FileDeleteResponse
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    TrainingFileType:
-      type: string
-      enum:
-      - jsonl
-      - parquet
-      - pt
-      title: TrainingFileType
     HTTPValidationError:
       properties:
         detail:
@@ -758,24 +830,6 @@ components:
       additionalProperties: true
       type: object
       title: FileList
-    IdList:
-      properties:
-        object:
-          type: string
-          const: list
-          title: Object
-          default: list
-        data:
-          items:
-            type: string
-          type: array
-          title: Data
-      additionalProperties: true
-      type: object
-      required:
-      - data
-      title: IdList
-      description: Generic response model for a list of resource IDs.
     EventStatus:
       type: string
       enum:
@@ -792,43 +846,27 @@ components:
       - Queued
       - Running
       title: EventStatus
-    FileRenameRequest:
+    ValidationError_2:
       properties:
-        new_filename:
-          type: string
-          title: New Filename
-      type: object
-      required:
-      - new_filename
-      title: FileRenameRequest
-    EventType:
-      type: string
-      enum:
-      - Files
-      - Finetune
-      - Deployments
-      - Alignment
-      title: EventType
-    FilePurpose:
-      type: string
-      enum:
-      - reinforcement-fine-tune
-      - fine-tune
-      - preference-fine-tune
-      - pre-train
-      - alignment
-      title: FilePurpose
-    GetEventsResponse:
-      properties:
-        data:
+        loc:
           items:
-            $ref: '#/components/schemas/Event'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Data
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - data
-      title: GetEventsResponse
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     APIKeyHeader:
       type: apiKey
@@ -836,5 +874,5 @@ components:
       in: header
       name: Authorization
 x-refined-from:
-- seekr-llm-training-openapi.json
-- seekr-serving-openapi.json
+- seekr-llm-training-openapi-original.json
+- seekr-serving-openapi-original.json

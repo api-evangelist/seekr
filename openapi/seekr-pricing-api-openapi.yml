@@ -62,7 +62,19 @@ paths:
       tags:
       - Pricing
       summary: Generate Price Estimate For Finetuning
-      description: "Generates a price estimate for applying a fine-tuning job for a given model.\n\n### Key input fields:\n- **pricing_estimate_request.deployment.model_id**: - used to fetch the model, and determine the model_size which in turn is used for calculating multipliers used in equations\n- **pricing_estimate_request.num_of_epochs**: - number of times training set is passed through model during training.\n    A direct input into the equation calculations\n\n**Returns:** A JSON object with the price estimate."
+      description: 'Generates a price estimate for applying a fine-tuning job for a given model.
+
+
+        ### Key input fields:
+
+        - **pricing_estimate_request.deployment.model_id**: - used to fetch the model, and determine the model_size which in turn is used for calculating multipliers used in equations
+
+        - **pricing_estimate_request.num_of_epochs**: - number of times training set is passed through model during training.
+
+        A direct input into the equation calculations
+
+
+        **Returns:** A JSON object with the price estimate.'
       operationId: generate_price_estimate_for_finetuning_v1_flow_pricing_fine_tuning_post
       requestBody:
         content:
@@ -91,7 +103,21 @@ paths:
       tags:
       - Pricing
       summary: Generate Price Estimate For Dedicated Inference
-      description: "Generates a price estimate for running inference using a base or fine-tuned model in a dedicated deployment environment.\nNote: We currently only support GAUDI2 for our hardware but recognize future use of A100, H100, GAUDI3 accelerator types.\nKey input fields:\n- **pricing_estimate_request.estimated_compute_hours**: - hours of total usage of the model. A direct input used in calculation\n    Also has a default if nothing is entered\n- **pricing_estimate_request.deployment.n_instances**: - instances of the hardware resource used. A direct input used in calculations\n- **pricing_estimate_request.deployment.hardware**: - used to calculate pricing multiplier based on the mapping (CPU, GPU, HPU) listed.\n    For the input value `GAUDI2` we actually bypass the mapping and set the multiplier by 1, because it is our default offering."
+      description: 'Generates a price estimate for running inference using a base or fine-tuned model in a dedicated deployment environment.
+
+        Note: We currently only support GAUDI2 for our hardware but recognize future use of A100, H100, GAUDI3 accelerator types.
+
+        Key input fields:
+
+        - **pricing_estimate_request.estimated_compute_hours**: - hours of total usage of the model. A direct input used in calculation
+
+        Also has a default if nothing is entered
+
+        - **pricing_estimate_request.deployment.n_instances**: - instances of the hardware resource used. A direct input used in calculations
+
+        - **pricing_estimate_request.deployment.hardware**: - used to calculate pricing multiplier based on the mapping (CPU, GPU, HPU) listed.
+
+        For the input value `GAUDI2` we actually bypass the mapping and set the multiplier by 1, because it is our default offering.'
       operationId: generate_price_estimate_for_dedicated_inference_v1_flow_pricing_inference_dedicated_post
       requestBody:
         content:
@@ -117,121 +143,6 @@ paths:
       x-excluded: true
 components:
   schemas:
-    PricingEstimateFineTuningRequestModel:
-      properties:
-        deployment:
-          $ref: '#/components/schemas/NewDeploymentRequest'
-        num_of_epochs:
-          type: integer
-          maximum: 2000
-          minimum: 1
-          title: Num Of Epochs
-        file_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: File Ids
-      type: object
-      required:
-      - deployment
-      - num_of_epochs
-      title: PricingEstimateFineTuningRequestModel
-    BillingType:
-      type: string
-      enum:
-      - Fine-Tuning
-      - Training
-      - Inference
-      title: BillingType
-    PricingEstimateServerlessInferenceRequestModel:
-      properties:
-        deployment:
-          $ref: '#/components/schemas/NewDeploymentRequest'
-        file_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: File Ids
-      type: object
-      required:
-      - deployment
-      title: PricingEstimateServerlessInferenceRequestModel
-    NewDeploymentRequest:
-      properties:
-        model_type:
-          $ref: '#/components/schemas/DeploymentType'
-        model_id:
-          type: string
-          title: Model Id
-        name:
-          type: string
-          maxLength: 100
-          minLength: 5
-          title: Name
-        description:
-          type: string
-          maxLength: 1000
-          minLength: 5
-          title: Description
-        n_instances:
-          type: integer
-          maximum: 50
-          minimum: 1
-          title: N Instances
-        hardware:
-          anyOf:
-          - $ref: '#/components/schemas/AcceleratorType'
-          - type: 'null'
-      type: object
-      required:
-      - model_type
-      - model_id
-      - name
-      - description
-      - n_instances
-      title: NewDeploymentRequest
-    PricingEstimateDedicatedInferenceRequestModel:
-      properties:
-        deployment:
-          $ref: '#/components/schemas/NewDeploymentRequest'
-        estimated_compute_hours:
-          anyOf:
-          - type: integer
-            maximum: 8760
-            minimum: 1
-          - type: 'null'
-          title: Estimated Compute Hours
-      type: object
-      required:
-      - deployment
-      - estimated_compute_hours
-      title: PricingEstimateDedicatedInferenceRequestModel
-    AcceleratorType:
-      type: string
-      enum:
-      - GAUDI2
-      - GAUDI3
-      - A100
-      - A10
-      - H100
-      - MI300X
-      title: AcceleratorType
-    DeploymentType:
-      type: string
-      enum:
-      - Fine-tuned Run
-      - Base Model
-      title: DeploymentType
-    HardwareType:
-      type: string
-      enum:
-      - Serverless
-      - Dedicated
-      title: HardwareType
     ValidationError:
       properties:
         loc:
@@ -258,33 +169,13 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CalculationParameter:
-      properties:
-        name:
-          type: string
-          title: Name
-        description:
-          type: string
-          title: Description
-        value:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Value
-      type: object
-      required:
-      - name
-      - description
-      title: CalculationParameter
+    BillingType:
+      type: string
+      enum:
+      - Fine-Tuning
+      - Training
+      - Inference
+      title: BillingType
     PricingEstimateResponseModel:
       properties:
         status:
@@ -328,6 +219,141 @@ components:
       - deployment
       - description
       title: PricingEstimateResponseModel
+    NewDeploymentRequest:
+      properties:
+        model_type:
+          $ref: '#/components/schemas/DeploymentType'
+        model_id:
+          type: string
+          title: Model Id
+        name:
+          type: string
+          maxLength: 100
+          minLength: 5
+          title: Name
+        description:
+          type: string
+          maxLength: 1000
+          minLength: 5
+          title: Description
+        n_instances:
+          type: integer
+          maximum: 50
+          minimum: 1
+          title: N Instances
+        hardware:
+          anyOf:
+          - $ref: '#/components/schemas/AcceleratorType'
+          - type: 'null'
+      type: object
+      required:
+      - model_type
+      - model_id
+      - name
+      - description
+      - n_instances
+      title: NewDeploymentRequest
+    PricingEstimateServerlessInferenceRequestModel:
+      properties:
+        deployment:
+          $ref: '#/components/schemas/NewDeploymentRequest'
+        file_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: File Ids
+      type: object
+      required:
+      - deployment
+      title: PricingEstimateServerlessInferenceRequestModel
+    AcceleratorType:
+      type: string
+      enum:
+      - GAUDI2
+      - GAUDI3
+      - A100
+      - A10
+      - H100
+      - MI300X
+      title: AcceleratorType
+    PricingEstimateFineTuningRequestModel:
+      properties:
+        deployment:
+          $ref: '#/components/schemas/NewDeploymentRequest'
+        num_of_epochs:
+          type: integer
+          maximum: 2000
+          minimum: 1
+          title: Num Of Epochs
+        file_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: File Ids
+      type: object
+      required:
+      - deployment
+      - num_of_epochs
+      title: PricingEstimateFineTuningRequestModel
+    HardwareType:
+      type: string
+      enum:
+      - Serverless
+      - Dedicated
+      title: HardwareType
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    DeploymentType:
+      type: string
+      enum:
+      - Fine-tuned Run
+      - Base Model
+      title: DeploymentType
+    CalculationParameter:
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        value:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Value
+      type: object
+      required:
+      - name
+      - description
+      title: CalculationParameter
+    PricingEstimateDedicatedInferenceRequestModel:
+      properties:
+        deployment:
+          $ref: '#/components/schemas/NewDeploymentRequest'
+        estimated_compute_hours:
+          anyOf:
+          - type: integer
+            maximum: 8760
+            minimum: 1
+          - type: 'null'
+          title: Estimated Compute Hours
+      type: object
+      required:
+      - deployment
+      - estimated_compute_hours
+      title: PricingEstimateDedicatedInferenceRequestModel
   securitySchemes:
     APIKeyHeader:
       type: apiKey

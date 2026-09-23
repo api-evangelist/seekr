@@ -125,29 +125,6 @@ paths:
       x-excluded: true
 components:
   schemas:
-    CreateImageForm:
-      properties:
-        user_id:
-          type: string
-          title: User Id
-        team_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Team Id
-        files:
-          anyOf:
-          - items:
-              type: string
-              contentMediaType: application/octet-stream
-            type: array
-          - type: 'null'
-          title: Files
-      additionalProperties: true
-      type: object
-      required:
-      - user_id
-      title: CreateImageForm
     ValidationError:
       properties:
         loc:
@@ -174,15 +151,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ImageResponse:
       properties:
         id:
@@ -220,6 +188,38 @@ components:
       - file_hash
       - algorithm
       title: ImageResponse
+    CreateImageForm:
+      properties:
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        files:
+          anyOf:
+          - items:
+              type: string
+              contentMediaType: application/octet-stream
+            type: array
+          - type: 'null'
+          title: Files
+      additionalProperties: true
+      type: object
+      required:
+      - user_id
+      title: CreateImageForm
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     APIKeyHeader:
       type: apiKey

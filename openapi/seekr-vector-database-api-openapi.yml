@@ -426,7 +426,33 @@ paths:
       tags:
       - Vector database
       summary: List Vector Database Chunks
-      description: "Search/list chunks in a vector database with optional filtering.\n\nSupports filtering by `file_id`, `chunk_ids`, and `metadata` fields.\nMetadata filters support operator syntax: `$gt`, `$gte`, `$lt`, `$lte`, `$in`.\nUnknown operators return 400.\n\nRequest body example:\n```json\n{\n  \"file_id\": \"file-abc123\",\n  \"metadata\": {\"year\": {\"$gte\": 2023}, \"doc_type\": \"SOP\"},\n  \"limit\": 20,\n  \"offset\": 0\n}\n```"
+      description: 'Search/list chunks in a vector database with optional filtering.
+
+
+        Supports filtering by `file_id`, `chunk_ids`, and `metadata` fields.
+
+        Metadata filters support operator syntax: `$gt`, `$gte`, `$lt`, `$lte`, `$in`.
+
+        Unknown operators return 400.
+
+
+        Request body example:
+
+        ```json
+
+        {
+
+        "file_id": "file-abc123",
+
+        "metadata": {"year": {"$gte": 2023}, "doc_type": "SOP"},
+
+        "limit": 20,
+
+        "offset": 0
+
+        }
+
+        ```'
       operationId: list_vector_database_chunks_v1_flow_vectordb__database_id__chunks_post
       security:
       - APIKeyHeader: []
@@ -638,63 +664,128 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    UpdateVectorDbRequest:
+    VectorDatabaseMetadataSnapshotGenerateResponse:
       properties:
-        name:
-          anyOf:
-          - type: string
-            maxLength: 100
-            minLength: 1
-          - type: 'null'
-          title: Name
-          description: New name of the vector database
-        description:
-          anyOf:
-          - type: string
-            maxLength: 500
-          - type: 'null'
-          title: Description
-          description: New description of the vector database
-        db_type:
-          anyOf:
-          - $ref: '#/components/schemas/DBType'
-          - type: 'null'
-          description: Type of vector database to create
-          examples:
-          - RAG
-          - explainability
+        vector_database_id:
+          type: string
+          title: Vector Database Id
+          description: ID of the vector database the snapshot describes.
+        keys_captured:
+          type: integer
+          title: Keys Captured
+          description: Number of metadata keys captured in the snapshot.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: Time the snapshot was generated.
       type: object
-      title: UpdateVectorDbRequest
-    MetadataSnapshotKey:
+      required:
+      - vector_database_id
+      - keys_captured
+      - created_at
+      title: VectorDatabaseMetadataSnapshotGenerateResponse
+    HTTPValidationError:
       properties:
-        key_name:
-          type: string
-          title: Key Name
-          description: Name of the metadata key.
-        value_type:
-          type: string
-          enum:
-          - string
-          - number
-          - boolean
-          title: Value Type
-          description: 'Inferred type of the key''s values: `string`, `number`, or `boolean`.'
-        top_values:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    VectorDatabaseChunkSearchRequest:
+      properties:
+        file_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: File Id
+          description: Filter to chunks from a specific file
+        chunk_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Chunk Ids
+          description: Chunk IDs to retrieve
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: 'Metadata key-value filters with optional operators ($gt, $gte, $lt, $lte, $in). Example: {"year": {"$gte": 2023}, "doc_type": "SOP"}'
+        limit:
+          type: integer
+          maximum: 100
+          minimum: 1
+          title: Limit
+          description: Max results to return
+          default: 20
+        offset:
+          type: integer
+          minimum: 0
+          title: Offset
+          description: Pagination offset
+          default: 0
+      type: object
+      title: VectorDatabaseChunkSearchRequest
+      description: Request body for searching/listing chunks in a vector database.
+    ValidationError:
+      properties:
+        loc:
           items:
             anyOf:
             - type: string
             - type: integer
-            - type: number
-            - type: boolean
           type: array
-          title: Top Values
-          description: Most common values for this key, ranked by how often they occur in the sample.
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - key_name
-      - value_type
-      - top_values
-      title: MetadataSnapshotKey
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    VectorDatabaseMetadataUpdateResponse:
+      properties:
+        metadata:
+          additionalProperties: true
+          type: object
+          title: Metadata
+          description: The metadata object that was written to all matching chunks.
+      type: object
+      required:
+      - metadata
+      title: VectorDatabaseMetadataUpdateResponse
+    VectorDatabaseList:
+      properties:
+        object:
+          type: string
+          const: list
+          title: Object
+        data:
+          items:
+            $ref: '#/components/schemas/VectorDatabaseResponse'
+          type: array
+          title: Data
+      type: object
+      required:
+      - object
+      - data
+      title: VectorDatabaseList
     VectorDatabaseFileResponse:
       properties:
         id:
@@ -797,196 +888,33 @@ components:
       - status
       title: VectorDatabaseFileResponse
       description: Response model for a vector database file
-    VectorDatabaseChunkListResponse:
-      properties:
-        object:
-          type: string
-          const: list
-          title: Object
-          default: list
-        data:
-          items:
-            $ref: '#/components/schemas/VectorDatabaseChunkListItem'
-          type: array
-          title: Data
-        total:
-          type: integer
-          title: Total
-        limit:
-          type: integer
-          title: Limit
-        offset:
-          type: integer
-          title: Offset
-      type: object
-      required:
-      - data
-      - total
-      - limit
-      - offset
-      title: VectorDatabaseChunkListResponse
-    VectorDatabaseCreate:
+    UpdateVectorDbRequest:
       properties:
         name:
-          type: string
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 1
+          - type: 'null'
           title: Name
-          description: Name of the vector database
-        model:
-          type: string
-          title: Model
-          description: Model used to generate the vectors
+          description: New name of the vector database
         description:
           anyOf:
           - type: string
+            maxLength: 500
           - type: 'null'
           title: Description
-          description: Optional description
+          description: New description of the vector database
         db_type:
           anyOf:
           - $ref: '#/components/schemas/DBType'
           - type: 'null'
           description: Type of vector database to create
-          default: RAG
+          examples:
+          - RAG
+          - explainability
       type: object
-      required:
-      - name
-      - model
-      title: VectorDatabaseCreate
-    VectorDatabaseResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        name:
-          type: string
-          title: Name
-        model:
-          type: string
-          title: Model
-        dimension:
-          type: integer
-          title: Dimension
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        file_count:
-          type: integer
-          title: File Count
-        size_in_bytes:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Size In Bytes
-        db_type:
-          anyOf:
-          - $ref: '#/components/schemas/DBType'
-          - type: 'null'
-      type: object
-      required:
-      - id
-      - name
-      - model
-      - dimension
-      - description
-      - created_at
-      - updated_at
-      - file_count
-      - db_type
-      title: VectorDatabaseResponse
-    VectorDatabaseFileDeleteResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        object:
-          type: string
-          const: vector_database.file
-          title: Object
-        deleted:
-          type: boolean
-          title: Deleted
-      type: object
-      required:
-      - id
-      - object
-      - deleted
-      title: VectorDatabaseFileDeleteResponse
-    VectorDatabaseMetadataSnapshotGenerateResponse:
-      properties:
-        vector_database_id:
-          type: string
-          title: Vector Database Id
-          description: ID of the vector database the snapshot describes.
-        keys_captured:
-          type: integer
-          title: Keys Captured
-          description: Number of metadata keys captured in the snapshot.
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-          description: Time the snapshot was generated.
-      type: object
-      required:
-      - vector_database_id
-      - keys_captured
-      - created_at
-      title: VectorDatabaseMetadataSnapshotGenerateResponse
-    VectorDatabaseMarkdownLocation:
-      properties:
-        line_number_start:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Line Number Start
-        line_number_end:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Line Number End
-        char_start:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Char Start
-        char_end:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Char End
-        hierarchy:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Hierarchy
-        page_number:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Page Number
-      type: object
-      title: VectorDatabaseMarkdownLocation
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      title: UpdateVectorDbRequest
     VectorDatabaseIngestionResponse:
       properties:
         id:
@@ -1039,63 +967,86 @@ components:
       - file_ids
       - metaflow_run_id
       title: VectorDatabaseIngestionResponse
-    VectorDatabaseChunkSearchRequest:
+    VectorDatabaseIngestionList:
       properties:
-        file_id:
+        object:
+          type: string
+          const: list
+          title: Object
+        data:
+          items:
+            $ref: '#/components/schemas/VectorDatabaseIngestionResponse'
+          type: array
+          title: Data
+      type: object
+      required:
+      - object
+      - data
+      title: VectorDatabaseIngestionList
+    VectorDatabaseCreate:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: Name of the vector database
+        model:
+          type: string
+          title: Model
+          description: Model used to generate the vectors
+        description:
           anyOf:
           - type: string
           - type: 'null'
+          title: Description
+          description: Optional description
+        db_type:
+          anyOf:
+          - $ref: '#/components/schemas/DBType'
+          - type: 'null'
+          description: Type of vector database to create
+          default: RAG
+      type: object
+      required:
+      - name
+      - model
+      title: VectorDatabaseCreate
+    VectorDatabaseChunkResponse:
+      properties:
+        chunk_id:
+          type: string
+          title: Chunk Id
+        file_id:
+          type: string
           title: File Id
-          description: Filter to chunks from a specific file
-        chunk_ids:
+        text:
+          type: string
+          title: Text
+        locations:
           anyOf:
           - items:
-              type: string
+              $ref: '#/components/schemas/VectorDatabaseMarkdownLocation'
             type: array
           - type: 'null'
-          title: Chunk Ids
-          description: Chunk IDs to retrieve
+          title: Locations
         metadata:
           anyOf:
           - additionalProperties: true
             type: object
           - type: 'null'
           title: Metadata
-          description: 'Metadata key-value filters with optional operators ($gt, $gte, $lt, $lte, $in). Example: {"year": {"$gte": 2023}, "doc_type": "SOP"}'
-        limit:
-          type: integer
-          maximum: 100
-          minimum: 1
-          title: Limit
-          description: Max results to return
-          default: 20
-        offset:
-          type: integer
-          minimum: 0
-          title: Offset
-          description: Pagination offset
-          default: 0
-      type: object
-      title: VectorDatabaseChunkSearchRequest
-      description: Request body for searching/listing chunks in a vector database.
-    IdList:
-      properties:
-        object:
-          type: string
-          const: list
-          title: Object
-          default: list
-        data:
-          items:
-            type: string
-          type: array
-          title: Data
-      additionalProperties: true
+          description: User-defined metadata attached to this chunk at ingestion time, or updated via PATCH /vectordb/{database_id}/metadata. Null if no metadata was provided.
       type: object
       required:
-      - data
-      title: IdList
-      description: Generic response model for a list of resource IDs.
+      - chunk_id
+      - file_id
+      - text
+      title: VectorDatabaseChunkResponse
+    DBType:
+      type: string
+      enum:
+      - RAG
+      - explainability
+      title: DBType
     VectorDatabaseIngestionRequest:
       properties:
         file_ids:
@@ -1150,95 +1101,54 @@ components:
       required:
       - file_ids
       title: VectorDatabaseIngestionRequest
-    VectorDatabaseIngestionList:
+    VectorDatabaseDeleteResponse:
       properties:
+        id:
+          type: string
+          title: Id
         object:
           type: string
-          const: list
+          const: vector_database
           title: Object
-        data:
-          items:
-            $ref: '#/components/schemas/VectorDatabaseIngestionResponse'
-          type: array
-          title: Data
+        deleted:
+          type: boolean
+          title: Deleted
       type: object
       required:
+      - id
       - object
-      - data
-      title: VectorDatabaseIngestionList
-    VectorDatabaseList:
+      - deleted
+      title: VectorDatabaseDeleteResponse
+    MetadataSnapshotKey:
       properties:
-        object:
+        key_name:
           type: string
-          const: list
-          title: Object
-        data:
-          items:
-            $ref: '#/components/schemas/VectorDatabaseResponse'
-          type: array
-          title: Data
-      type: object
-      required:
-      - object
-      - data
-      title: VectorDatabaseList
-    VectorDatabaseChunkResponse:
-      properties:
-        chunk_id:
+          title: Key Name
+          description: Name of the metadata key.
+        value_type:
           type: string
-          title: Chunk Id
-        file_id:
-          type: string
-          title: File Id
-        text:
-          type: string
-          title: Text
-        locations:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/VectorDatabaseMarkdownLocation'
-            type: array
-          - type: 'null'
-          title: Locations
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-          description: User-defined metadata attached to this chunk at ingestion time, or updated via PATCH /vectordb/{database_id}/metadata. Null if no metadata was provided.
-      type: object
-      required:
-      - chunk_id
-      - file_id
-      - text
-      title: VectorDatabaseChunkResponse
-    ValidationError:
-      properties:
-        loc:
+          enum:
+          - string
+          - number
+          - boolean
+          title: Value Type
+          description: 'Inferred type of the key''s values: `string`, `number`, or `boolean`.'
+        top_values:
           items:
             anyOf:
             - type: string
             - type: integer
+            - type: number
+            - type: boolean
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+          title: Top Values
+          description: Most common values for this key, ranked by how often they occur in the sample.
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - key_name
+      - value_type
+      - top_values
+      title: MetadataSnapshotKey
     VectorDatabaseMetadataSnapshotResponse:
       properties:
         vector_database_id:
@@ -1262,39 +1172,24 @@ components:
       - created_at
       - keys
       title: VectorDatabaseMetadataSnapshotResponse
-    DBType:
-      type: string
-      enum:
-      - RAG
-      - explainability
-      title: DBType
-    VectorDatabaseMetadataUpdateResponse:
-      properties:
-        metadata:
-          additionalProperties: true
-          type: object
-          title: Metadata
-          description: The metadata object that was written to all matching chunks.
-      type: object
-      required:
-      - metadata
-      title: VectorDatabaseMetadataUpdateResponse
-    VectorDatabaseFileList:
+    IdList:
       properties:
         object:
           type: string
+          const: list
           title: Object
           default: list
         data:
           items:
-            $ref: '#/components/schemas/VectorDatabaseFileResponse'
+            type: string
           type: array
           title: Data
+      additionalProperties: true
       type: object
       required:
       - data
-      title: VectorDatabaseFileList
-      description: Response model for a list of vector database files
+      title: IdList
+      description: Generic response model for a list of resource IDs.
     VectorDatabaseChunkListItem:
       properties:
         chunk_id:
@@ -1332,6 +1227,155 @@ components:
       - file_id
       - text
       title: VectorDatabaseChunkListItem
+    VectorDatabaseResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        model:
+          type: string
+          title: Model
+        dimension:
+          type: integer
+          title: Dimension
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        file_count:
+          type: integer
+          title: File Count
+        size_in_bytes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Size In Bytes
+        db_type:
+          anyOf:
+          - $ref: '#/components/schemas/DBType'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - name
+      - model
+      - dimension
+      - description
+      - created_at
+      - updated_at
+      - file_count
+      - db_type
+      title: VectorDatabaseResponse
+    VectorDatabaseMarkdownLocation:
+      properties:
+        line_number_start:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Line Number Start
+        line_number_end:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Line Number End
+        char_start:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Char Start
+        char_end:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Char End
+        hierarchy:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Hierarchy
+        page_number:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Page Number
+      type: object
+      title: VectorDatabaseMarkdownLocation
+    VectorDatabaseChunkListResponse:
+      properties:
+        object:
+          type: string
+          const: list
+          title: Object
+          default: list
+        data:
+          items:
+            $ref: '#/components/schemas/VectorDatabaseChunkListItem'
+          type: array
+          title: Data
+        total:
+          type: integer
+          title: Total
+        limit:
+          type: integer
+          title: Limit
+        offset:
+          type: integer
+          title: Offset
+      type: object
+      required:
+      - data
+      - total
+      - limit
+      - offset
+      title: VectorDatabaseChunkListResponse
+    VectorDatabaseFileDeleteResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        object:
+          type: string
+          const: vector_database.file
+          title: Object
+        deleted:
+          type: boolean
+          title: Deleted
+      type: object
+      required:
+      - id
+      - object
+      - deleted
+      title: VectorDatabaseFileDeleteResponse
+    VectorDatabaseFileList:
+      properties:
+        object:
+          type: string
+          title: Object
+          default: list
+        data:
+          items:
+            $ref: '#/components/schemas/VectorDatabaseFileResponse'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: VectorDatabaseFileList
+      description: Response model for a list of vector database files
     VectorDatabaseMetadataUpdateRequest:
       properties:
         file_ids:
@@ -1382,24 +1426,6 @@ components:
 
 
         Provide exactly one of `file_ids` or `chunk_ids` to target chunks.'
-    VectorDatabaseDeleteResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        object:
-          type: string
-          const: vector_database
-          title: Object
-        deleted:
-          type: boolean
-          title: Deleted
-      type: object
-      required:
-      - id
-      - object
-      - deleted
-      title: VectorDatabaseDeleteResponse
   securitySchemes:
     APIKeyHeader:
       type: apiKey
