@@ -377,60 +377,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AlignmentFileType:
-      type: string
-      enum:
-      - html
-      - md
-      - rst
-      - rtf
-      - txt
-      - xml
-      - json
-      - jsonl
-      - csv
-      - doc
-      - docx
-      - pdf
-      - ppt
-      - pptx
-      title: AlignmentFileType
-    DataJobListResponse:
-      properties:
-        object:
-          type: string
-          const: list
-          title: Object
-          default: list
-        data:
-          items:
-            $ref: '#/components/schemas/DataJobResponse'
-          type: array
-          title: Data
-      type: object
-      title: DataJobListResponse
-    TimelineEvent:
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-          title: Timestamp
-        event_type:
-          type: string
-          title: Event Type
-        message:
-          type: string
-          title: Message
-        metadata:
-          additionalProperties: true
-          type: object
-          title: Metadata
-      type: object
-      required:
-      - timestamp
-      - event_type
-      - message
-      title: TimelineEvent
     IngestionJobStatus:
       type: string
       enum:
@@ -439,14 +385,36 @@ components:
       - completed
       - failed
       title: IngestionJobStatus
-    SortableField:
-      type: string
-      enum:
-      - name
-      - created_at
-      - job_type
-      title: SortableField
-      description: Valid fields for sorting data jobs.
+    DataJobUpdateRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+            maxLength: 255
+            minLength: 1
+          - type: 'null'
+          title: Name
+        system_prompt:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          title: System Prompt
+          description: System prompt included with every conversation in the generated dataset. It becomes part of the training data the fine-tuned model learns from, unlike `instructions`, which only shapes how the dataset is generated. If omitted, one is generated for you from `instructions` and the source documents.
+        instructions:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          title: Instructions
+          description: Natural-language description of the task the generated dataset should support. Alignment uses it to shape the examples it produces, such as the topics and the kinds of questions a fine-tuned model should be able to handle.
+        vector_database_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Vector Database Id
+      type: object
+      title: DataJobUpdateRequest
     DataJobDetailResponse:
       properties:
         id:
@@ -566,15 +534,74 @@ components:
       - status
       title: DataJobDetailResponse
       description: Extends DataJobResponse Full detail payload for the per-job view.
-    HTTPValidationError:
+    GenerateSystemPromptRequest:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        instructions:
+          type: string
+          title: Instructions
+          description: Natural-language description of the task the generated dataset should support. Used to generate a system prompt for that dataset.
+        document_summary:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Document Summary
+          description: Summary of the source documents, incorporated into the generated system prompt so it reflects their content. If omitted, the system prompt is generated from `instructions` alone.
       type: object
-      title: HTTPValidationError
+      required:
+      - instructions
+      title: GenerateSystemPromptRequest
+    IngestionJobDetail:
+      properties:
+        id:
+          type: string
+          title: Id
+        status:
+          $ref: '#/components/schemas/IngestionJobStatus'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        file_ids:
+          items:
+            type: string
+          type: array
+          title: File Ids
+        records:
+          items:
+            $ref: '#/components/schemas/IngestionFileRecord'
+          type: array
+          title: Records
+      type: object
+      required:
+      - id
+      - status
+      - created_at
+      - updated_at
+      title: IngestionJobDetail
+    DataJobAddFileRequest:
+      properties:
+        file_ids:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          title: File Ids
+          description: Files to associate with the data job
+        method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Method
+          description: Ingestion method used for non-alignment-ready files
+          default: best
+      type: object
+      required:
+      - file_ids
+      title: DataJobAddFileRequest
     ValidationError:
       properties:
         loc:
@@ -601,117 +628,33 @@ components:
       - msg
       - type
       title: ValidationError
-    DataJobRemoveFilesRequest:
-      properties:
-        file_ids:
-          items:
-            type: string
-          type: array
-          minItems: 1
-          title: File Ids
-          description: File IDs to remove
-      type: object
-      required:
-      - file_ids
-      title: DataJobRemoveFilesRequest
-    AlignmentOutput:
-      properties:
-        id:
-          type: string
-          title: Id
-        filename:
-          type: string
-          title: Filename
-        bytes:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Bytes
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-        file_type:
-          anyOf:
-          - $ref: '#/components/schemas/TrainingFileType'
-          - $ref: '#/components/schemas/AlignmentFileType'
-          - type: 'null'
-          title: File Type
-        purpose:
-          anyOf:
-          - $ref: '#/components/schemas/FilePurpose'
-          - type: 'null'
-      additionalProperties: true
-      type: object
-      required:
-      - id
-      - filename
-      title: AlignmentOutput
-    AlignmentJobStatus:
+    AlignmentFileType:
       type: string
       enum:
-      - pending
-      - queued
-      - running
-      - cancelled
-      - failed
-      - completed
-      - stopped
-      title: AlignmentJobStatus
-    FilePurpose:
-      type: string
-      enum:
-      - reinforcement-fine-tune
-      - fine-tune
-      - preference-fine-tune
-      - pre-train
-      - alignment
-      title: FilePurpose
-    TrainingFileType:
-      type: string
-      enum:
+      - html
+      - md
+      - rst
+      - rtf
+      - txt
+      - xml
+      - json
       - jsonl
-      - parquet
-      - pt
-      title: TrainingFileType
-    GenerateSystemPromptRequest:
+      - csv
+      - doc
+      - docx
+      - pdf
+      - ppt
+      - pptx
+      title: AlignmentFileType
+    HTTPValidationError:
       properties:
-        instructions:
-          type: string
-          title: Instructions
-          description: Natural-language description of the task the generated dataset should support. Used to generate a system prompt for that dataset.
-        document_summary:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Document Summary
-          description: Summary of the source documents, incorporated into the generated system prompt so it reflects their content. If omitted, the system prompt is generated from `instructions` alone.
-      type: object
-      required:
-      - instructions
-      title: GenerateSystemPromptRequest
-    DataJobAddFileRequest:
-      properties:
-        file_ids:
+        detail:
           items:
-            type: string
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          minItems: 1
-          title: File Ids
-          description: Files to associate with the data job
-        method:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Method
-          description: Ingestion method used for non-alignment-ready files
-          default: best
+          title: Detail
       type: object
-      required:
-      - file_ids
-      title: DataJobAddFileRequest
+      title: HTTPValidationError
     DataJobResponse:
       properties:
         id:
@@ -802,71 +745,112 @@ components:
       - status
       title: DataJobResponse
       description: Lightweight response for list view performance.
-    IngestionJobDetail:
+    DataJobRemoveFilesRequest:
+      properties:
+        file_ids:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          title: File Ids
+          description: File IDs to remove
+      type: object
+      required:
+      - file_ids
+      title: DataJobRemoveFilesRequest
+    AlignmentResponse:
       properties:
         id:
           type: string
           title: Id
-        status:
-          $ref: '#/components/schemas/IngestionJobStatus'
         created_at:
           type: string
           format: date-time
           title: Created At
         updated_at:
-          type: string
-          format: date-time
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
           title: Updated At
-        file_ids:
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+        stopped_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Stopped At
+        status:
+          $ref: '#/components/schemas/AlignmentJobStatus'
+        current_step:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Current Step
+          description: The processing step the job is currently working on. `null` until the job starts running.
+        step_progress:
+          anyOf:
+          - type: number
+          - type: string
+          - type: 'null'
+          title: Step Progress
+          description: Progress through the current step. `null` when no step is in progress.
+        progress:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Progress
+          description: Overall completion of the job across all steps. `null` until progress can be calculated.
+        estimated_completion_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Estimated Completion At
+          description: Projected completion timestamp (UTC). `null` until enough progress data is available to produce an estimate.
+        eta_minutes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Eta Minutes
+          description: Estimated number of minutes remaining until the job completes. `null` until an estimate is available.
+        status_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status Message
+          description: Human-readable description of the job's current state, suitable for display to end users.
+        output_files:
           items:
-            type: string
+            $ref: '#/components/schemas/AlignmentOutput'
           type: array
-          title: File Ids
-        records:
-          items:
-            $ref: '#/components/schemas/IngestionFileRecord'
-          type: array
-          title: Records
+          title: Output Files
+      additionalProperties: true
       type: object
       required:
       - id
-      - status
       - created_at
-      - updated_at
-      title: IngestionJobDetail
-    DataJobCreateRequest:
+      - status
+      title: AlignmentResponse
+    DataJobListResponse:
       properties:
-        name:
+        object:
           type: string
-          maxLength: 255
-          minLength: 1
-          title: Name
-        job_type:
-          $ref: '#/components/schemas/DataJobType'
-        system_prompt:
-          anyOf:
-          - type: string
-            minLength: 1
-          - type: 'null'
-          title: System Prompt
-          description: System prompt included with every conversation in the generated dataset. It becomes part of the training data the fine-tuned model learns from, unlike `instructions`, which only shapes how the dataset is generated. If omitted, one is generated for you from `instructions` and the source documents.
-        instructions:
-          anyOf:
-          - type: string
-            minLength: 1
-          - type: 'null'
-          title: Instructions
-          description: Natural-language description of the task the generated dataset should support. Alignment uses it to shape the examples it produces, such as the topics and the kinds of questions a fine-tuned model should be able to handle.
-        vector_database_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Vector Database Id
+          const: list
+          title: Object
+          default: list
+        data:
+          items:
+            $ref: '#/components/schemas/DataJobResponse'
+          type: array
+          title: Data
       type: object
-      required:
-      - name
-      - job_type
-      title: DataJobCreateRequest
+      title: DataJobListResponse
     IngestionFileRecord:
       properties:
         record_id:
@@ -970,7 +954,29 @@ components:
       - status
       - created_at
       title: IngestionFileRecord
-    DataJobUpdateRequest:
+    TimelineEvent:
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        event_type:
+          type: string
+          title: Event Type
+        message:
+          type: string
+          title: Message
+        metadata:
+          additionalProperties: true
+          type: object
+          title: Metadata
+      type: object
+      required:
+      - timestamp
+      - event_type
+      - message
+      title: TimelineEvent
+    DataJobCloneRequest:
       properties:
         name:
           anyOf:
@@ -979,6 +985,25 @@ components:
             minLength: 1
           - type: 'null'
           title: Name
+      type: object
+      title: DataJobCloneRequest
+    SortableField:
+      type: string
+      enum:
+      - name
+      - created_at
+      - job_type
+      title: SortableField
+      description: Valid fields for sorting data jobs.
+    DataJobCreateRequest:
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Name
+        job_type:
+          $ref: '#/components/schemas/DataJobType'
         system_prompt:
           anyOf:
           - type: string
@@ -999,86 +1024,19 @@ components:
           - type: 'null'
           title: Vector Database Id
       type: object
-      title: DataJobUpdateRequest
-    AlignmentResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-        completed_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Completed At
-        stopped_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Stopped At
-        status:
-          $ref: '#/components/schemas/AlignmentJobStatus'
-        current_step:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Current Step
-          description: The processing step the job is currently working on. `null` until the job starts running.
-        step_progress:
-          anyOf:
-          - type: number
-          - type: string
-          - type: 'null'
-          title: Step Progress
-          description: Progress through the current step. `null` when no step is in progress.
-        progress:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Progress
-          description: Overall completion of the job across all steps. `null` until progress can be calculated.
-        estimated_completion_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Estimated Completion At
-          description: Projected completion timestamp (UTC). `null` until enough progress data is available to produce an estimate.
-        eta_minutes:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Eta Minutes
-          description: Estimated number of minutes remaining until the job completes. `null` until an estimate is available.
-        status_message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status Message
-          description: Human-readable description of the job's current state, suitable for display to end users.
-        output_files:
-          items:
-            $ref: '#/components/schemas/AlignmentOutput'
-          type: array
-          title: Output Files
-      additionalProperties: true
-      type: object
       required:
-      - id
-      - created_at
-      - status
-      title: AlignmentResponse
+      - name
+      - job_type
+      title: DataJobCreateRequest
+    FilePurpose:
+      type: string
+      enum:
+      - reinforcement-fine-tune
+      - fine-tune
+      - preference-fine-tune
+      - pre-train
+      - alignment
+      title: FilePurpose
     DataJobStatus:
       type: string
       enum:
@@ -1091,17 +1049,67 @@ components:
         linked, the real status comes from AlignmentJobStatus directly — see
 
         DataJobResponse.status''s union type and derive_data_job_status.'
-    DataJobCloneRequest:
+    AlignmentOutput:
       properties:
-        name:
+        id:
+          type: string
+          title: Id
+        filename:
+          type: string
+          title: Filename
+        bytes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Bytes
+        created_at:
           anyOf:
           - type: string
-            maxLength: 255
-            minLength: 1
+            format: date-time
           - type: 'null'
-          title: Name
+          title: Created At
+        file_type:
+          anyOf:
+          - $ref: '#/components/schemas/TrainingFileType'
+          - $ref: '#/components/schemas/AlignmentFileType'
+          - type: 'null'
+          title: File Type
+        purpose:
+          anyOf:
+          - $ref: '#/components/schemas/FilePurpose'
+          - type: 'null'
+      additionalProperties: true
       type: object
-      title: DataJobCloneRequest
+      required:
+      - id
+      - filename
+      title: AlignmentOutput
+    DataJobType:
+      type: string
+      enum:
+      - principle_files
+      - context_grounded_files
+      - context_grounded_vector_db
+      title: DataJobType
+      description: Valid job types for data jobs.
+    TrainingFileType:
+      type: string
+      enum:
+      - jsonl
+      - parquet
+      - pt
+      title: TrainingFileType
+    AlignmentJobStatus:
+      type: string
+      enum:
+      - pending
+      - queued
+      - running
+      - cancelled
+      - failed
+      - completed
+      - stopped
+      title: AlignmentJobStatus
     DataJobFile:
       properties:
         file_id:
@@ -1155,14 +1163,6 @@ components:
       required:
       - file_id
       title: DataJobFile
-    DataJobType:
-      type: string
-      enum:
-      - principle_files
-      - context_grounded_files
-      - context_grounded_vector_db
-      title: DataJobType
-      description: Valid job types for data jobs.
   securitySchemes:
     APIKeyHeader:
       type: apiKey

@@ -269,32 +269,6 @@ paths:
       description: SeekrBuild server base URL
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     MLModelType:
       type: string
       enum:
@@ -302,6 +276,56 @@ components:
       - Instruct
       - Embedding
       title: MLModelType
+    GetMLModelHfRevision:
+      properties:
+        name:
+          type: string
+          title: Name
+        hf_revision:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hf Revision
+      type: object
+      required:
+      - name
+      - hf_revision
+      title: GetMLModelHfRevision
+    HardwareType:
+      type: string
+      enum:
+      - Serverless
+      - Dedicated
+      title: HardwareType
+    GetMLModelsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/MLModel'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: GetMLModelsResponse
+    GetMLModelInfoResponse:
+      properties:
+        name:
+          type: string
+          title: Name
+        size:
+          type: integer
+          title: Size
+        model_type:
+          anyOf:
+          - $ref: '#/components/schemas/MLModelType'
+          - type: 'null'
+      type: object
+      required:
+      - name
+      - size
+      - model_type
+      title: GetMLModelInfoResponse
     MLModel:
       properties:
         id:
@@ -383,6 +407,15 @@ components:
       - vision_model
       - internal_only
       title: MLModel
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     DeploymentProcessor:
       type: string
       enum:
@@ -394,23 +427,38 @@ components:
       - H100
       - MI300X
       title: DeploymentProcessor
-    GetDeploymentsResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Deployment'
-          type: array
-          title: Data
-      type: object
-      required:
-      - data
-      title: GetDeploymentsResponse
-    HardwareType:
+    DeploymentType:
       type: string
       enum:
-      - Serverless
-      - Dedicated
-      title: HardwareType
+      - Fine-tuned Run
+      - Base Model
+      title: DeploymentType
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     DeploymentStatus:
       type: string
       enum:
@@ -421,24 +469,6 @@ components:
       - Started
       - Success
       title: DeploymentStatus
-    GetMLModelInfoResponse:
-      properties:
-        name:
-          type: string
-          title: Name
-        size:
-          type: integer
-          title: Size
-        model_type:
-          anyOf:
-          - $ref: '#/components/schemas/MLModelType'
-          - type: 'null'
-      type: object
-      required:
-      - name
-      - size
-      - model_type
-      title: GetMLModelInfoResponse
     Deployment:
       properties:
         id:
@@ -577,47 +607,17 @@ components:
       - team_id
       - model_name
       title: Deployment
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    DeploymentType:
-      type: string
-      enum:
-      - Fine-tuned Run
-      - Base Model
-      title: DeploymentType
-    GetMLModelsResponse:
+    GetDeploymentsResponse:
       properties:
         data:
           items:
-            $ref: '#/components/schemas/MLModel'
+            $ref: '#/components/schemas/Deployment'
           type: array
           title: Data
       type: object
       required:
       - data
-      title: GetMLModelsResponse
-    GetMLModelHfRevision:
-      properties:
-        name:
-          type: string
-          title: Name
-        hf_revision:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Hf Revision
-      type: object
-      required:
-      - name
-      - hf_revision
-      title: GetMLModelHfRevision
+      title: GetDeploymentsResponse
   securitySchemes:
     APIKeyHeader:
       type: apiKey

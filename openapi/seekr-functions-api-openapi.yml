@@ -288,44 +288,6 @@ paths:
       x-excluded: true
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    PythonFunctionIdsRequest:
-      properties:
-        function_ids:
-          items:
-            type: string
-          type: array
-          title: Function Ids
-      type: object
-      required:
-      - function_ids
-      title: PythonFunctionIdsRequest
-      description: Request model for retrieving Python functions by a list of IDs.
     PythonFunctionResponse:
       properties:
         id:
@@ -370,16 +332,29 @@ components:
       - updated_at
       title: PythonFunctionResponse
       description: Response model for a Python function, including code and user info.
-    Body_upload_python_function_v1_functions_post:
+    OrderEnum:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: OrderEnum
+      description: Options for order query param in list endpoints.
+    ValidatePythonFunctionIdsRequest:
       properties:
-        file:
+        function_ids:
+          items:
+            type: string
+          type: array
+          title: Function Ids
+        team_id:
           type: string
-          contentMediaType: application/octet-stream
-          title: File
+          title: Team Id
       type: object
       required:
-      - file
-      title: Body_upload_python_function_v1_functions_post
+      - function_ids
+      - team_id
+      title: ValidatePythonFunctionIdsRequest
+      description: Request model for validating a list of Python function IDs for a team.
     ValidateFunctionIdsResponse:
       properties:
         valid:
@@ -397,23 +372,6 @@ components:
       - valid
       title: ValidateFunctionIdsResponse
       description: Response model for function ID validation results.
-    Body_update_python_function_endpoint_v1_functions__function_id__patch:
-      properties:
-        file:
-          type: string
-          contentMediaType: application/octet-stream
-          title: File
-      type: object
-      required:
-      - file
-      title: Body_update_python_function_endpoint_v1_functions__function_id__patch
-    OrderEnum:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: OrderEnum
-      description: Options for order query param in list endpoints.
     HTTPValidationError:
       properties:
         detail:
@@ -423,6 +381,16 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    Body_upload_python_function_v1_functions_post:
+      properties:
+        file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: File
+      type: object
+      required:
+      - file
+      title: Body_upload_python_function_v1_functions_post
     DeletePythonFunctionResponse:
       properties:
         deleted:
@@ -433,22 +401,54 @@ components:
       - deleted
       title: DeletePythonFunctionResponse
       description: Response model for deleting a Python function.
-    ValidatePythonFunctionIdsRequest:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PythonFunctionIdsRequest:
       properties:
         function_ids:
           items:
             type: string
           type: array
           title: Function Ids
-        team_id:
-          type: string
-          title: Team Id
       type: object
       required:
       - function_ids
-      - team_id
-      title: ValidatePythonFunctionIdsRequest
-      description: Request model for validating a list of Python function IDs for a team.
+      title: PythonFunctionIdsRequest
+      description: Request model for retrieving Python functions by a list of IDs.
+    Body_update_python_function_endpoint_v1_functions__function_id__patch:
+      properties:
+        file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: File
+      type: object
+      required:
+      - file
+      title: Body_update_python_function_endpoint_v1_functions__function_id__patch
   securitySchemes:
     APIKeyHeader:
       type: apiKey

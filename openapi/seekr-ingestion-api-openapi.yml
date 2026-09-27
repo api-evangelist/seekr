@@ -88,73 +88,24 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
+    IngestionRequest:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    IngestionResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: Ingestion job ID
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        status:
-          $ref: '#/components/schemas/IngestionJobStatus'
-        output_files:
+        files:
           items:
             type: string
           type: array
-          title: Output Files
-        file_records:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/IngestionFileRecord'
-            type: array
-          - type: 'null'
-          title: File Records
-          description: Detailed file records with queue positions
+          title: Files
+          description: List of file ids to use for alignment
+        method:
+          type: string
+          title: Method
+          description: Method to use for ingestion
+          default: best
       additionalProperties: true
       type: object
       required:
-      - id
-      - created_at
-      - status
-      - output_files
-      title: IngestionResponse
-    IngestionJobStatus:
-      type: string
-      enum:
-      - queued
-      - running
-      - completed
-      - failed
-      title: IngestionJobStatus
+      - files
+      title: IngestionRequest
     IngestionFileRecord:
       properties:
         record_id:
@@ -258,33 +209,6 @@ components:
       - status
       - created_at
       title: IngestionFileRecord
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    IngestionRequest:
-      properties:
-        files:
-          items:
-            type: string
-          type: array
-          title: Files
-          description: List of file ids to use for alignment
-        method:
-          type: string
-          title: Method
-          description: Method to use for ingestion
-          default: best
-      additionalProperties: true
-      type: object
-      required:
-      - files
-      title: IngestionRequest
     IngestionList:
       properties:
         object:
@@ -303,6 +227,82 @@ components:
       additionalProperties: true
       type: object
       title: IngestionList
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    IngestionJobStatus:
+      type: string
+      enum:
+      - queued
+      - running
+      - completed
+      - failed
+      title: IngestionJobStatus
+    IngestionResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Ingestion job ID
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        status:
+          $ref: '#/components/schemas/IngestionJobStatus'
+        output_files:
+          items:
+            type: string
+          type: array
+          title: Output Files
+        file_records:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/IngestionFileRecord'
+            type: array
+          - type: 'null'
+          title: File Records
+          description: Detailed file records with queue positions
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - created_at
+      - status
+      - output_files
+      title: IngestionResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     APIKeyHeader:
       type: apiKey

@@ -336,129 +336,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AlignmentResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-        completed_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Completed At
-        stopped_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Stopped At
-        status:
-          $ref: '#/components/schemas/AlignmentJobStatus'
-        current_step:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Current Step
-          description: The processing step the job is currently working on. `null` until the job starts running.
-        step_progress:
-          anyOf:
-          - type: number
-          - type: string
-          - type: 'null'
-          title: Step Progress
-          description: Progress through the current step. `null` when no step is in progress.
-        progress:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Progress
-          description: Overall completion of the job across all steps. `null` until progress can be calculated.
-        estimated_completion_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Estimated Completion At
-          description: Projected completion timestamp (UTC). `null` until enough progress data is available to produce an estimate.
-        eta_minutes:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Eta Minutes
-          description: Estimated number of minutes remaining until the job completes. `null` until an estimate is available.
-        status_message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status Message
-          description: Human-readable description of the job's current state, suitable for display to end users.
-        output_files:
-          items:
-            $ref: '#/components/schemas/AlignmentOutput'
-          type: array
-          title: Output Files
-      additionalProperties: true
-      type: object
-      required:
-      - id
-      - created_at
-      - status
-      title: AlignmentResponse
-    AlignmentFileType:
-      type: string
-      enum:
-      - html
-      - md
-      - rst
-      - rtf
-      - txt
-      - xml
-      - json
-      - jsonl
-      - csv
-      - doc
-      - docx
-      - pdf
-      - ppt
-      - pptx
-      title: AlignmentFileType
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     AlignmentRequest:
       properties:
         instructions:
@@ -493,80 +370,31 @@ components:
       - instructions
       - files
       title: AlignmentRequest
-    IngestionResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: Ingestion job ID
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        status:
-          $ref: '#/components/schemas/IngestionJobStatus'
-        output_files:
-          items:
-            type: string
-          type: array
-          title: Output Files
-        file_records:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/IngestionFileRecord'
-            type: array
-          - type: 'null'
-          title: File Records
-          description: Detailed file records with queue positions
-      additionalProperties: true
-      type: object
-      required:
-      - id
-      - created_at
-      - status
-      - output_files
-      title: IngestionResponse
-    AlignmentOutput:
-      properties:
-        id:
-          type: string
-          title: Id
-        filename:
-          type: string
-          title: Filename
-        bytes:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Bytes
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-        file_type:
-          anyOf:
-          - $ref: '#/components/schemas/TrainingFileType'
-          - $ref: '#/components/schemas/AlignmentFileType'
-          - type: 'null'
-          title: File Type
-        purpose:
-          anyOf:
-          - $ref: '#/components/schemas/FilePurpose'
-          - type: 'null'
-      additionalProperties: true
-      type: object
-      required:
-      - id
-      - filename
-      title: AlignmentOutput
-    AlignmentType:
+    TrainingFileType:
       type: string
       enum:
-      - principle
-      - context_data
-      title: AlignmentType
+      - jsonl
+      - parquet
+      - pt
+      title: TrainingFileType
+    AlignmentFileType:
+      type: string
+      enum:
+      - html
+      - md
+      - rst
+      - rtf
+      - txt
+      - xml
+      - json
+      - jsonl
+      - csv
+      - doc
+      - docx
+      - pdf
+      - ppt
+      - pptx
+      title: AlignmentFileType
     WorkflowPhaseResponse:
       properties:
         phase:
@@ -598,30 +426,24 @@ components:
       - completed
       - stopped
       title: AlignmentJobStatus
-    FilePurpose:
-      type: string
-      enum:
-      - reinforcement-fine-tune
-      - fine-tune
-      - preference-fine-tune
-      - pre-train
-      - alignment
-      title: FilePurpose
-    TrainingFileType:
-      type: string
-      enum:
-      - jsonl
-      - parquet
-      - pt
-      title: TrainingFileType
-    IngestionJobStatus:
-      type: string
-      enum:
-      - queued
-      - running
-      - completed
-      - failed
-      title: IngestionJobStatus
+    IngestionRequest:
+      properties:
+        files:
+          items:
+            type: string
+          type: array
+          title: Files
+          description: List of file ids to use for alignment
+        method:
+          type: string
+          title: Method
+          description: Method to use for ingestion
+          default: best
+      additionalProperties: true
+      type: object
+      required:
+      - files
+      title: IngestionRequest
     IngestionFileRecord:
       properties:
         record_id:
@@ -725,51 +547,6 @@ components:
       - status
       - created_at
       title: IngestionFileRecord
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    AlignmentList:
-      properties:
-        object:
-          anyOf:
-          - type: string
-            const: list
-          - type: 'null'
-          title: Object
-        data:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/AlignmentResponse'
-            type: array
-          - type: 'null'
-          title: Data
-      additionalProperties: true
-      type: object
-      title: AlignmentList
-    IngestionRequest:
-      properties:
-        files:
-          items:
-            type: string
-          type: array
-          title: Files
-          description: List of file ids to use for alignment
-        method:
-          type: string
-          title: Method
-          description: Method to use for ingestion
-          default: best
-      additionalProperties: true
-      type: object
-      required:
-      - files
-      title: IngestionRequest
     IngestionList:
       properties:
         object:
@@ -788,6 +565,229 @@ components:
       additionalProperties: true
       type: object
       title: IngestionList
+    IngestionJobStatus:
+      type: string
+      enum:
+      - queued
+      - running
+      - completed
+      - failed
+      title: IngestionJobStatus
+    IngestionResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Ingestion job ID
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        status:
+          $ref: '#/components/schemas/IngestionJobStatus'
+        output_files:
+          items:
+            type: string
+          type: array
+          title: Output Files
+        file_records:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/IngestionFileRecord'
+            type: array
+          - type: 'null'
+          title: File Records
+          description: Detailed file records with queue positions
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - created_at
+      - status
+      - output_files
+      title: IngestionResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    FilePurpose:
+      type: string
+      enum:
+      - reinforcement-fine-tune
+      - fine-tune
+      - preference-fine-tune
+      - pre-train
+      - alignment
+      title: FilePurpose
+    AlignmentList:
+      properties:
+        object:
+          anyOf:
+          - type: string
+            const: list
+          - type: 'null'
+          title: Object
+        data:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/AlignmentResponse'
+            type: array
+          - type: 'null'
+          title: Data
+      additionalProperties: true
+      type: object
+      title: AlignmentList
+    AlignmentResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+        stopped_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Stopped At
+        status:
+          $ref: '#/components/schemas/AlignmentJobStatus'
+        current_step:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Current Step
+          description: The processing step the job is currently working on. `null` until the job starts running.
+        step_progress:
+          anyOf:
+          - type: number
+          - type: string
+          - type: 'null'
+          title: Step Progress
+          description: Progress through the current step. `null` when no step is in progress.
+        progress:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Progress
+          description: Overall completion of the job across all steps. `null` until progress can be calculated.
+        estimated_completion_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Estimated Completion At
+          description: Projected completion timestamp (UTC). `null` until enough progress data is available to produce an estimate.
+        eta_minutes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Eta Minutes
+          description: Estimated number of minutes remaining until the job completes. `null` until an estimate is available.
+        status_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status Message
+          description: Human-readable description of the job's current state, suitable for display to end users.
+        output_files:
+          items:
+            $ref: '#/components/schemas/AlignmentOutput'
+          type: array
+          title: Output Files
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - created_at
+      - status
+      title: AlignmentResponse
+    AlignmentOutput:
+      properties:
+        id:
+          type: string
+          title: Id
+        filename:
+          type: string
+          title: Filename
+        bytes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Bytes
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        file_type:
+          anyOf:
+          - $ref: '#/components/schemas/TrainingFileType'
+          - $ref: '#/components/schemas/AlignmentFileType'
+          - type: 'null'
+          title: File Type
+        purpose:
+          anyOf:
+          - $ref: '#/components/schemas/FilePurpose'
+          - type: 'null'
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - filename
+      title: AlignmentOutput
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AlignmentType:
+      type: string
+      enum:
+      - principle
+      - context_data
+      title: AlignmentType
   securitySchemes:
     APIKeyHeader:
       type: apiKey

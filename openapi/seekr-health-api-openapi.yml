@@ -196,23 +196,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    SinceUpdateMetrics:
-      properties:
-        average:
-          type: integer
-          title: Average
-        maximum:
-          type: integer
-          title: Maximum
-        count:
-          type: integer
-          title: Count
-      type: object
-      required:
-      - average
-      - maximum
-      - count
-      title: SinceUpdateMetrics
     GetHealthResponse:
       properties:
         deployment_pending_average:
@@ -290,6 +273,23 @@ components:
       - alignment_queued_count
       - environment_management_on
       title: GetHealthResponse
+    SinceUpdateMetrics:
+      properties:
+        average:
+          type: integer
+          title: Average
+        maximum:
+          type: integer
+          title: Maximum
+        count:
+          type: integer
+          title: Count
+      type: object
+      required:
+      - average
+      - maximum
+      - count
+      title: SinceUpdateMetrics
   securitySchemes:
     APIKeyHeader:
       type: apiKey

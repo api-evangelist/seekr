@@ -279,115 +279,6 @@ paths:
       x-excluded: true
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    TagStrategy:
-      type: string
-      enum:
-      - contains
-      - overlap
-      title: TagStrategy
-    UpdateFeedbackRequest:
-      properties:
-        model_id:
-          type: string
-          title: Model Id
-          description: The name of a model (TinyLlama/TinyLlama-1.1B-Chat-v1.0) deployment id
-        feedback:
-          additionalProperties: true
-          type: object
-          title: Feedback
-          description: Json object. If images are included, they must be base64 encoded.
-        version:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Version
-          description: The version of feedback data
-        tags:
-          items:
-            type: string
-          type: array
-          title: Tags
-          description: List of tags
-      type: object
-      required:
-      - model_id
-      - feedback
-      title: UpdateFeedbackRequest
-    FeedbackResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        user_id:
-          type: string
-          title: User Id
-        model_id:
-          type: string
-          title: Model Id
-        feedback:
-          additionalProperties: true
-          type: object
-          title: Feedback
-        timestamp:
-          type: string
-          format: date-time
-          title: Timestamp
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        version:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Version
-        tags:
-          items:
-            type: string
-          type: array
-          title: Tags
-        file_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: File Ids
-      type: object
-      required:
-      - id
-      - user_id
-      - model_id
-      - feedback
-      - timestamp
-      - updated_at
-      title: FeedbackResponse
     Body_upload_feedback_route_v1_flow_feedback_upload_post:
       properties:
         files:
@@ -447,6 +338,12 @@ components:
       - model_id
       - feedback
       title: CreateFeedbackRequest
+    TagStrategy:
+      type: string
+      enum:
+      - contains
+      - overlap
+      title: TagStrategy
     HTTPValidationError:
       properties:
         detail:
@@ -456,6 +353,109 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    FeedbackResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        user_id:
+          type: string
+          title: User Id
+        model_id:
+          type: string
+          title: Model Id
+        feedback:
+          additionalProperties: true
+          type: object
+          title: Feedback
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+        file_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: File Ids
+      type: object
+      required:
+      - id
+      - user_id
+      - model_id
+      - feedback
+      - timestamp
+      - updated_at
+      title: FeedbackResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    UpdateFeedbackRequest:
+      properties:
+        model_id:
+          type: string
+          title: Model Id
+          description: The name of a model (TinyLlama/TinyLlama-1.1B-Chat-v1.0) deployment id
+        feedback:
+          additionalProperties: true
+          type: object
+          title: Feedback
+          description: Json object. If images are included, they must be base64 encoded.
+        version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+          description: The version of feedback data
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+          description: List of tags
+      type: object
+      required:
+      - model_id
+      - feedback
+      title: UpdateFeedbackRequest
   securitySchemes:
     APIKeyHeader:
       type: apiKey

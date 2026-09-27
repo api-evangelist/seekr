@@ -188,6 +188,15 @@ components:
       - file_hash
       - algorithm
       title: ImageResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     CreateImageForm:
       properties:
         user_id:
@@ -211,15 +220,6 @@ components:
       required:
       - user_id
       title: CreateImageForm
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     APIKeyHeader:
       type: apiKey

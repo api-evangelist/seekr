@@ -64,7 +64,8 @@ tags:
 - Government
 - Regulated Industries
 - MCP
-- agent-native
+- Agent-Native
+- A2A
 tags_raw:
 - artificial-intelligence
 - generative-ai
@@ -84,6 +85,7 @@ tags_raw:
 - regulated-industries
 - mcp
 - agent-native
+- A2A
 apis:
 - name: Seekr Documentation MCP Server
   description: >-
@@ -96,7 +98,7 @@ apis:
   baseURL: https://docs.seekr.com/mcp
   tags:
   - MCP
-  - agent-native
+  - Agent-Native
   - Documentation
   tags_raw:
   - mcp
@@ -1175,3 +1177,10 @@ x-enrichment:
   status: enriched
   artifacts_added: 38
   pass: local-v1
+x-a2a:
+  verified: true
+  probed: '2026-09-26'
+  url: "https://docs.seekr.com/.well-known/agent-card.json"
+  grade: "conformant"
+  protocol_version: "0.3"
+  control: 404

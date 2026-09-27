@@ -71,22 +71,6 @@ components:
       - msg
       - type
       title: ValidationError
-    PopulateIndexResponse:
-      properties:
-        job_id:
-          type: string
-          title: Job Id
-          description: Job ID for the index population task
-        status:
-          type: string
-          title: Status
-          description: Status of the index population task
-      type: object
-      required:
-      - job_id
-      - status
-      title: PopulateIndexResponse
-      description: Response model for populate index operation
     HTTPValidationError:
       properties:
         detail:
@@ -124,6 +108,22 @@ components:
       - file_ids
       title: PopulateIndexRequest
       description: Request model for populating explainability index
+    PopulateIndexResponse:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+          description: Job ID for the index population task
+        status:
+          type: string
+          title: Status
+          description: Status of the index population task
+      type: object
+      required:
+      - job_id
+      - status
+      title: PopulateIndexResponse
+      description: Response model for populate index operation
   securitySchemes:
     APIKeyHeader:
       type: apiKey
