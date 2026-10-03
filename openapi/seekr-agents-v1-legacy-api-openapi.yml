@@ -503,6 +503,153 @@ paths:
       x-excluded: true
 components:
   schemas:
+    AgentUpdateStatusResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        old_status:
+          $ref: '#/components/schemas/AgentStatus'
+        new_status:
+          $ref: '#/components/schemas/AgentStatus'
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+      type: object
+      required:
+      - id
+      - old_status
+      - new_status
+      - user_id
+      - team_id
+      title: AgentUpdateStatusResponse
+    llm_training__agents__tools__schemas__run_python__CreateRunPython:
+      properties:
+        name:
+          type: string
+          const: run_python
+          title: Name
+        tool_env:
+          $ref: '#/components/schemas/RunPythonEnv'
+      type: object
+      required:
+      - name
+      - tool_env
+      title: CreateRunPython
+      examples:
+      - name: run_python
+        tool_env:
+          function_ids:
+          - func-123
+          - func-456
+          run_python_tool_desc: Execute Python code for data analysis and calculations
+    AgentDeleteResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        deleted:
+          type: boolean
+          title: Deleted
+      type: object
+      required:
+      - id
+      - deleted
+      title: AgentDeleteResponse
+    CreateAgentRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+        instructions:
+          type: string
+          title: Instructions
+        tools:
+          anyOf:
+          - items:
+              oneOf:
+              - $ref: '#/components/schemas/llm_training__agents__tools__schemas__file_search__CreateFileSearch'
+              - $ref: '#/components/schemas/llm_training__agents__tools__schemas__web_search__CreateWebSearch'
+              - $ref: '#/components/schemas/llm_training__agents__tools__schemas__run_python__CreateRunPython'
+              discriminator:
+                propertyName: name
+                mapping:
+                  file_search: '#/components/schemas/llm_training__agents__tools__schemas__file_search__CreateFileSearch'
+                  run_python: '#/components/schemas/llm_training__agents__tools__schemas__run_python__CreateRunPython'
+                  web_search: '#/components/schemas/llm_training__agents__tools__schemas__web_search__CreateWebSearch'
+            type: array
+          - type: 'null'
+          title: Tools
+          description: 'DEPRECATED: Use `tool_ids` instead.'
+          deprecated: true
+        tool_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tool Ids
+          description: Preferred way to associate tools with an agent.
+        model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model Id
+        planner_model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Planner Model Id
+        tool_model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tool Model Id
+        output:
+          anyOf:
+          - $ref: '#/components/schemas/AgentOutputConfig'
+          - type: 'null'
+          description: Optional configuration for the agent's final response. Overrides the top-level settings for response generation.
+        temperature:
+          anyOf:
+          - type: number
+            maximum: 2
+            minimum: 0
+          - type: 'null'
+          title: Temperature
+          description: Controls the predictability of the agent's reasoning. Accepts a value from `0` to `2`. Defaults to `0.6`. Lower values produce more consistent results, and higher values introduce more variation.
+        reasoning_effort:
+          anyOf:
+          - $ref: '#/components/schemas/ReasoningEffort'
+          - type: 'null'
+          default: medium
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - instructions
+      title: CreateAgentRequest
+    llm_training__agents__tools__schemas__file_search__FileSearch:
+      properties:
+        name:
+          type: string
+          const: file_search
+          title: Name
+        tool_env:
+          $ref: '#/components/schemas/FileSearchEnv'
+        id:
+          type: string
+          title: Id
+      type: object
+      required:
+      - name
+      - tool_env
+      title: FileSearch
     PatchAgentRequest:
       properties:
         name:
@@ -557,204 +704,30 @@ components:
       additionalProperties: false
       type: object
       title: PatchAgentRequest
-    UpdateAgentRequest:
+    llm_training__agents__tools__schemas__agent_as_tool__AgentAsTool:
       properties:
         name:
           type: string
+          const: agent_as_tool
           title: Name
-        instructions:
-          type: string
-          title: Instructions
-        tools:
-          anyOf:
-          - items:
-              oneOf:
-              - $ref: '#/components/schemas/llm_training__agents__tools__schemas__file_search__CreateFileSearch'
-              - $ref: '#/components/schemas/llm_training__agents__tools__schemas__web_search__CreateWebSearch'
-              - $ref: '#/components/schemas/llm_training__agents__tools__schemas__run_python__CreateRunPython'
-              discriminator:
-                propertyName: name
-                mapping:
-                  file_search: '#/components/schemas/llm_training__agents__tools__schemas__file_search__CreateFileSearch'
-                  run_python: '#/components/schemas/llm_training__agents__tools__schemas__run_python__CreateRunPython'
-                  web_search: '#/components/schemas/llm_training__agents__tools__schemas__web_search__CreateWebSearch'
-            type: array
-          - type: 'null'
-          title: Tools
-          description: 'DEPRECATED: Use `tool_ids` instead.'
-          deprecated: true
-        tool_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Tool Ids
-          description: Preferred way to associate tools with an agent.
-        model_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model Id
-        planner_model_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Planner Model Id
-        tool_model_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tool Model Id
-        output:
-          anyOf:
-          - $ref: '#/components/schemas/AgentOutputConfig'
-          - type: 'null'
-        temperature:
-          anyOf:
-          - type: number
-            maximum: 2
-            minimum: 0
-          - type: 'null'
-          title: Temperature
-        reasoning_effort:
-          anyOf:
-          - $ref: '#/components/schemas/ReasoningEffort'
-          - type: 'null'
-          default: medium
-      additionalProperties: false
-      type: object
-      required:
-      - name
-      - instructions
-      title: UpdateAgentRequest
-    AgentStatus:
-      type: string
-      enum:
-      - Inactive
-      - Pending
-      - Active
-      - Updating
-      - Failed
-      title: AgentStatus
-    ToolEnv:
-      properties: {}
-      type: object
-      title: ToolEnv
-      description: Base class for tool environments.
-    llm_training__agents__tools__schemas__run_python__RunPython:
-      properties:
-        name:
-          type: string
-          const: run_python
-          title: Name
-          default: run_python
+          default: agent_as_tool
         tool_env:
-          $ref: '#/components/schemas/RunPythonEnv'
-        id:
-          type: string
-          title: Id
-      type: object
-      required:
-      - tool_env
-      title: RunPython
-    GetAgentsResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/AgentSchema'
-          type: array
-          title: Data
-      type: object
-      required:
-      - data
-      title: GetAgentsResponse
-      description: Agents API response type
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    PatchAgentResponse:
-      properties:
-        before:
-          $ref: '#/components/schemas/AgentSchema'
-        after:
-          $ref: '#/components/schemas/AgentSchema'
-        diff:
-          additionalProperties:
-            additionalProperties: true
-            type: object
-          type: object
-          title: Diff
+          $ref: '#/components/schemas/ToolEnv'
           default: {}
-      type: object
-      required:
-      - before
-      - after
-      title: PatchAgentResponse
-    llm_training__agents__tools__schemas__file_search__FileSearch:
-      properties:
-        name:
-          type: string
-          const: file_search
-          title: Name
-        tool_env:
-          $ref: '#/components/schemas/FileSearchEnv'
         id:
           type: string
           title: Id
+        agent_id:
+          type: string
+          title: Agent Id
+        description:
+          type: string
+          title: Description
       type: object
       required:
-      - name
-      - tool_env
-      title: FileSearch
-    AgentUpdateStatusResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        old_status:
-          $ref: '#/components/schemas/AgentStatus'
-        new_status:
-          $ref: '#/components/schemas/AgentStatus'
-        user_id:
-          type: string
-          title: User Id
-        team_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Team Id
-      type: object
-      required:
-      - id
-      - old_status
-      - new_status
-      - user_id
-      - team_id
-      title: AgentUpdateStatusResponse
+      - agent_id
+      - description
+      title: AgentAsTool
     AgentSchema:
       properties:
         id:
@@ -860,15 +833,154 @@ components:
       - created_at
       - updated_at
       title: AgentSchema
-    HTTPValidationError:
+    GetAgentsResponse:
       properties:
-        detail:
+        data:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            $ref: '#/components/schemas/AgentSchema'
           type: array
-          title: Detail
+          title: Data
       type: object
-      title: HTTPValidationError
+      required:
+      - data
+      title: GetAgentsResponse
+      description: Agents API response type
+    llm_training__agents__tools__schemas__file_search__CreateFileSearch:
+      properties:
+        name:
+          type: string
+          const: file_search
+          title: Name
+        tool_env:
+          $ref: '#/components/schemas/FileSearchEnv'
+      type: object
+      required:
+      - name
+      - tool_env
+      title: CreateFileSearch
+      examples:
+      - name: file_search
+        tool_env:
+          document_tool_desc: Search through uploaded documents
+          file_search_index: my-document-index
+          score_threshold: 0.7
+          top_k: 10
+    AgentUpdateStatusRequest:
+      properties:
+        new_status:
+          $ref: '#/components/schemas/AgentStatus'
+      additionalProperties: false
+      type: object
+      required:
+      - new_status
+      title: AgentUpdateStatusRequest
+    llm_training__agents__tools__schemas__run_python__RunPython:
+      properties:
+        name:
+          type: string
+          const: run_python
+          title: Name
+          default: run_python
+        tool_env:
+          $ref: '#/components/schemas/RunPythonEnv'
+        id:
+          type: string
+          title: Id
+      type: object
+      required:
+      - tool_env
+      title: RunPython
+    RunPythonEnv:
+      properties:
+        RUN_PYTHON_TOOL_DESC:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Python Tool Desc
+        FUNCTION_IDS:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Function Ids
+      type: object
+      title: RunPythonEnv
+    llm_training__agents__tools__schemas__mcp_connector__MCPConnectorTool:
+      properties:
+        name:
+          type: string
+          const: mcp_connector
+          title: Name
+        tool_env:
+          $ref: '#/components/schemas/MCPConnectorToolEnv'
+        id:
+          type: string
+          title: Id
+      type: object
+      required:
+      - name
+      - tool_env
+      title: MCPConnectorTool
+    llm_training__agents__tools__schemas__web_search__WebSearch:
+      properties:
+        name:
+          type: string
+          const: web_search
+          title: Name
+        tool_env:
+          $ref: '#/components/schemas/WebSearchEnv'
+        id:
+          type: string
+          title: Id
+      type: object
+      required:
+      - name
+      - tool_env
+      title: WebSearch
+    FileSearchEnv:
+      properties:
+        FILE_SEARCH_INDEX:
+          type: string
+          minLength: 1
+          title: File Search Index
+        EMBEDDING_MODEL:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Embedding Model
+        DOCUMENT_TOOL_DESC:
+          type: string
+          minLength: 1
+          title: Document Tool Desc
+        TOP_K:
+          type: integer
+          maximum: 100
+          minimum: 1
+          title: Top K
+          description: Top K must be >= 1 and <= 100
+          default: 10
+        SCORE_THRESHOLD:
+          type: number
+          exclusiveMaximum: 1
+          minimum: 0
+          title: Score Threshold
+          description: Score must be ≥ 0.0 and < 1.0
+          default: 0
+      type: object
+      required:
+      - FILE_SEARCH_INDEX
+      - DOCUMENT_TOOL_DESC
+      title: FileSearchEnv
+    WebSearchEnv:
+      properties:
+        WEB_SEARCH_TOOL_DESCRIPTION:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Web Search Tool Description
+      type: object
+      title: WebSearchEnv
     llm_training__agents__tools__schemas__web_search__CreateWebSearch:
       properties:
         name:
@@ -886,36 +998,25 @@ components:
       - name: web_search
         tool_env:
           web_search_tool_description: Search the web for current information and news
-    AgentDeleteResponse:
+    PatchAgentResponse:
       properties:
-        id:
-          type: string
-          title: Id
-        deleted:
-          type: boolean
-          title: Deleted
+        before:
+          $ref: '#/components/schemas/AgentSchema'
+        after:
+          $ref: '#/components/schemas/AgentSchema'
+        diff:
+          additionalProperties:
+            additionalProperties: true
+            type: object
+          type: object
+          title: Diff
+          default: {}
       type: object
       required:
-      - id
-      - deleted
-      title: AgentDeleteResponse
-    RunPythonEnv:
-      properties:
-        RUN_PYTHON_TOOL_DESC:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Python Tool Desc
-        FUNCTION_IDS:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Function Ids
-      type: object
-      title: RunPythonEnv
-    CreateAgentRequest:
+      - before
+      - after
+      title: PatchAgentResponse
+    UpdateAgentRequest:
       properties:
         name:
           type: string
@@ -968,7 +1069,6 @@ components:
           anyOf:
           - $ref: '#/components/schemas/AgentOutputConfig'
           - type: 'null'
-          description: Optional configuration for the agent's final response. Overrides the top-level settings for response generation.
         temperature:
           anyOf:
           - type: number
@@ -976,7 +1076,6 @@ components:
             minimum: 0
           - type: 'null'
           title: Temperature
-          description: Controls the predictability of the agent's reasoning. Accepts a value from `0` to `2`. Defaults to `0.6`. Lower values produce more consistent results, and higher values introduce more variation.
         reasoning_effort:
           anyOf:
           - $ref: '#/components/schemas/ReasoningEffort'
@@ -987,7 +1086,63 @@ components:
       required:
       - name
       - instructions
-      title: CreateAgentRequest
+      title: UpdateAgentRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AgentOutputFrequency:
+      type: string
+      enum:
+      - always
+      - never
+      - automatic
+      title: AgentOutputFrequency
+    ToolEnv:
+      properties: {}
+      type: object
+      title: ToolEnv
+      description: Base class for tool environments.
+    AgentStatus:
+      type: string
+      enum:
+      - Inactive
+      - Pending
+      - Active
+      - Updating
+      - Failed
+      title: AgentStatus
     AgentOutputConfig:
       properties:
         frequency:
@@ -1017,32 +1172,6 @@ components:
           description: Controls the predictability of the agent's final response. Accepts a value from `0` to `2`. Defaults to `0.6`.
       type: object
       title: AgentOutputConfig
-    llm_training__agents__tools__schemas__mcp_connector__MCPConnectorTool:
-      properties:
-        name:
-          type: string
-          const: mcp_connector
-          title: Name
-        tool_env:
-          $ref: '#/components/schemas/MCPConnectorToolEnv'
-        id:
-          type: string
-          title: Id
-      type: object
-      required:
-      - name
-      - tool_env
-      title: MCPConnectorTool
-    ReasoningEffort:
-      type: string
-      enum:
-      - low
-      - medium
-      - high
-      - speed_optimized
-      - performance_optimized
-      title: ReasoningEffort
-      description: Controls how much reasoning the agent uses when working through a request. Accepts `low`, `medium`, or `high`, where higher levels produce more thorough reasoning. The `speed_optimized` and `performance_optimized` values are only supported for backward compatibility. `speed_optimized` maps to `low`, and `performance_optimized` maps to `high`.
     MCPConnectorToolEnv:
       properties:
         URL:
@@ -1065,145 +1194,16 @@ components:
       required:
       - URL
       title: MCPConnectorToolEnv
-    FileSearchEnv:
-      properties:
-        FILE_SEARCH_INDEX:
-          type: string
-          minLength: 1
-          title: File Search Index
-        EMBEDDING_MODEL:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Embedding Model
-        DOCUMENT_TOOL_DESC:
-          type: string
-          minLength: 1
-          title: Document Tool Desc
-        TOP_K:
-          type: integer
-          maximum: 100
-          minimum: 1
-          title: Top K
-          description: Top K must be >= 1 and <= 100
-          default: 10
-        SCORE_THRESHOLD:
-          type: number
-          exclusiveMaximum: 1
-          minimum: 0
-          title: Score Threshold
-          description: Score must be ≥ 0.0 and < 1.0
-          default: 0
-      type: object
-      required:
-      - FILE_SEARCH_INDEX
-      - DOCUMENT_TOOL_DESC
-      title: FileSearchEnv
-    AgentOutputFrequency:
+    ReasoningEffort:
       type: string
       enum:
-      - always
-      - never
-      - automatic
-      title: AgentOutputFrequency
-    llm_training__agents__tools__schemas__agent_as_tool__AgentAsTool:
-      properties:
-        name:
-          type: string
-          const: agent_as_tool
-          title: Name
-          default: agent_as_tool
-        tool_env:
-          $ref: '#/components/schemas/ToolEnv'
-          default: {}
-        id:
-          type: string
-          title: Id
-        agent_id:
-          type: string
-          title: Agent Id
-        description:
-          type: string
-          title: Description
-      type: object
-      required:
-      - agent_id
-      - description
-      title: AgentAsTool
-    llm_training__agents__tools__schemas__run_python__CreateRunPython:
-      properties:
-        name:
-          type: string
-          const: run_python
-          title: Name
-        tool_env:
-          $ref: '#/components/schemas/RunPythonEnv'
-      type: object
-      required:
-      - name
-      - tool_env
-      title: CreateRunPython
-      examples:
-      - name: run_python
-        tool_env:
-          function_ids:
-          - func-123
-          - func-456
-          run_python_tool_desc: Execute Python code for data analysis and calculations
-    AgentUpdateStatusRequest:
-      properties:
-        new_status:
-          $ref: '#/components/schemas/AgentStatus'
-      additionalProperties: false
-      type: object
-      required:
-      - new_status
-      title: AgentUpdateStatusRequest
-    WebSearchEnv:
-      properties:
-        WEB_SEARCH_TOOL_DESCRIPTION:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Web Search Tool Description
-      type: object
-      title: WebSearchEnv
-    llm_training__agents__tools__schemas__file_search__CreateFileSearch:
-      properties:
-        name:
-          type: string
-          const: file_search
-          title: Name
-        tool_env:
-          $ref: '#/components/schemas/FileSearchEnv'
-      type: object
-      required:
-      - name
-      - tool_env
-      title: CreateFileSearch
-      examples:
-      - name: file_search
-        tool_env:
-          document_tool_desc: Search through uploaded documents
-          file_search_index: my-document-index
-          score_threshold: 0.7
-          top_k: 10
-    llm_training__agents__tools__schemas__web_search__WebSearch:
-      properties:
-        name:
-          type: string
-          const: web_search
-          title: Name
-        tool_env:
-          $ref: '#/components/schemas/WebSearchEnv'
-        id:
-          type: string
-          title: Id
-      type: object
-      required:
-      - name
-      - tool_env
-      title: WebSearch
+      - low
+      - medium
+      - high
+      - speed_optimized
+      - performance_optimized
+      title: ReasoningEffort
+      description: Controls how much reasoning the agent uses when working through a request. Accepts `low`, `medium`, or `high`, where higher levels produce more thorough reasoning. The `speed_optimized` and `performance_optimized` values are only supported for backward compatibility. `speed_optimized` maps to `low`, and `performance_optimized` maps to `high`.
   securitySchemes:
     APIKeyHeader:
       type: apiKey

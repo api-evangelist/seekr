@@ -279,35 +279,6 @@ paths:
       x-excluded: true
 components:
   schemas:
-    Body_upload_feedback_route_v1_flow_feedback_upload_post:
-      properties:
-        files:
-          items:
-            type: string
-            contentMediaType: application/octet-stream
-          type: array
-          title: Files
-        model_id:
-          type: string
-          title: Model Id
-        version:
-          type: string
-          title: Version
-        feedback:
-          type: string
-          title: Feedback
-          description: Stringified json object for feedback data
-        tags:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tags
-      type: object
-      required:
-      - model_id
-      - version
-      - feedback
-      title: Body_upload_feedback_route_v1_flow_feedback_upload_post
     CreateFeedbackRequest:
       properties:
         model_id:
@@ -338,12 +309,6 @@ components:
       - model_id
       - feedback
       title: CreateFeedbackRequest
-    TagStrategy:
-      type: string
-      enum:
-      - contains
-      - overlap
-      title: TagStrategy
     HTTPValidationError:
       properties:
         detail:
@@ -353,6 +318,38 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    TagStrategy:
+      type: string
+      enum:
+      - contains
+      - overlap
+      title: TagStrategy
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     FeedbackResponse:
       properties:
         id:
@@ -402,32 +399,6 @@ components:
       - timestamp
       - updated_at
       title: FeedbackResponse
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     UpdateFeedbackRequest:
       properties:
         model_id:
@@ -456,6 +427,35 @@ components:
       - model_id
       - feedback
       title: UpdateFeedbackRequest
+    Body_upload_feedback_route_v1_flow_feedback_upload_post:
+      properties:
+        files:
+          items:
+            type: string
+            contentMediaType: application/octet-stream
+          type: array
+          title: Files
+        model_id:
+          type: string
+          title: Model Id
+        version:
+          type: string
+          title: Version
+        feedback:
+          type: string
+          title: Feedback
+          description: Stringified json object for feedback data
+        tags:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tags
+      type: object
+      required:
+      - model_id
+      - version
+      - feedback
+      title: Body_upload_feedback_route_v1_flow_feedback_upload_post
   securitySchemes:
     APIKeyHeader:
       type: apiKey

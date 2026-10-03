@@ -113,6 +113,92 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SpanSummaryRequest:
+      properties:
+        min_start_datetime:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Min Start Datetime
+        max_start_datetime:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Max Start Datetime
+        agent_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agent Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        trace_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trace Id
+        thread_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Thread Id
+        group:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Group
+        metadata:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Metadata
+        limit:
+          type: integer
+          title: Limit
+          default: 100
+        order:
+          $ref: '#/components/schemas/OrderEnum'
+          default: desc
+        offset:
+          type: integer
+          title: Offset
+          default: 0
+      type: object
+      title: SpanSummaryRequest
+      description: Object to contain request data for retrieving spans in bulk.
     Kind:
       type: string
       enum:
@@ -239,92 +325,6 @@ components:
       - message
       title: SpanSummaryResult
       description: Summary object of a span, meant to be retrieved in bulk and used to provide data on spans to be able to fetch more data.
-    SpanSummaryRequest:
-      properties:
-        min_start_datetime:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Min Start Datetime
-        max_start_datetime:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Max Start Datetime
-        agent_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Agent Id
-        run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Id
-        trace_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Trace Id
-        thread_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Thread Id
-        group:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Group
-        metadata:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Metadata
-        limit:
-          type: integer
-          title: Limit
-          default: 100
-        order:
-          $ref: '#/components/schemas/OrderEnum'
-          default: desc
-        offset:
-          type: integer
-          title: Offset
-          default: 0
-      type: object
-      title: SpanSummaryRequest
-      description: Object to contain request data for retrieving spans in bulk.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
   securitySchemes:
     APIKeyHeader:
       type: apiKey

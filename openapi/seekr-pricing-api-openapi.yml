@@ -143,37 +143,6 @@ paths:
       x-excluded: true
 components:
   schemas:
-    BillingType:
-      type: string
-      enum:
-      - Fine-Tuning
-      - Training
-      - Inference
-      title: BillingType
-    CalculationParameter:
-      properties:
-        name:
-          type: string
-          title: Name
-        description:
-          type: string
-          title: Description
-        value:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Value
-      type: object
-      required:
-      - name
-      - description
-      title: CalculationParameter
-    HardwareType:
-      type: string
-      enum:
-      - Serverless
-      - Dedicated
-      title: HardwareType
     PricingEstimateDedicatedInferenceRequestModel:
       properties:
         deployment:
@@ -190,15 +159,6 @@ components:
       - deployment
       - estimated_compute_hours
       title: PricingEstimateDedicatedInferenceRequestModel
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     PricingEstimateFineTuningRequestModel:
       properties:
         deployment:
@@ -220,16 +180,6 @@ components:
       - deployment
       - num_of_epochs
       title: PricingEstimateFineTuningRequestModel
-    AcceleratorType:
-      type: string
-      enum:
-      - GAUDI2
-      - GAUDI3
-      - A100
-      - A10
-      - H100
-      - MI300X
-      title: AcceleratorType
     PricingEstimateServerlessInferenceRequestModel:
       properties:
         deployment:
@@ -245,12 +195,6 @@ components:
       required:
       - deployment
       title: PricingEstimateServerlessInferenceRequestModel
-    DeploymentType:
-      type: string
-      enum:
-      - Fine-tuned Run
-      - Base Model
-      title: DeploymentType
     PricingEstimateResponseModel:
       properties:
         status:
@@ -294,6 +238,32 @@ components:
       - deployment
       - description
       title: PricingEstimateResponseModel
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AcceleratorType:
+      type: string
+      enum:
+      - GAUDI2
+      - GAUDI3
+      - A100
+      - A10
+      - H100
+      - MI300X
+      title: AcceleratorType
+    BillingType:
+      type: string
+      enum:
+      - Fine-Tuning
+      - Training
+      - Inference
+      title: BillingType
     ValidationError:
       properties:
         loc:
@@ -320,6 +290,36 @@ components:
       - msg
       - type
       title: ValidationError
+    DeploymentType:
+      type: string
+      enum:
+      - Fine-tuned Run
+      - Base Model
+      title: DeploymentType
+    CalculationParameter:
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        value:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Value
+      type: object
+      required:
+      - name
+      - description
+      title: CalculationParameter
+    HardwareType:
+      type: string
+      enum:
+      - Serverless
+      - Dedicated
+      title: HardwareType
     NewDeploymentRequest:
       properties:
         model_type:

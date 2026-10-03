@@ -224,39 +224,6 @@ paths:
       x-excluded: true
 components:
   schemas:
-    TagStrategy:
-      type: string
-      enum:
-      - contains
-      - overlap
-      title: TagStrategy
-    UpdateCaseRequest:
-      properties:
-        question:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Question
-        ground_truth:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Ground Truth
-        case_metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Case Metadata
-        tags:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Tags
-      type: object
-      title: UpdateCaseRequest
     HTTPValidationError:
       properties:
         detail:
@@ -266,6 +233,38 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    TagStrategy:
+      type: string
+      enum:
+      - contains
+      - overlap
+      title: TagStrategy
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     CreateCaseForm:
       properties:
         question:
@@ -300,32 +299,6 @@ components:
       required:
       - question
       title: CreateCaseForm
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     Case:
       properties:
         id:
@@ -372,6 +345,33 @@ components:
       - created_at
       - updated_at
       title: Case
+    UpdateCaseRequest:
+      properties:
+        question:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Question
+        ground_truth:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ground Truth
+        case_metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Case Metadata
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+      type: object
+      title: UpdateCaseRequest
   securitySchemes:
     APIKeyHeader:
       type: apiKey

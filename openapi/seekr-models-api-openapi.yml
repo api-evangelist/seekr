@@ -269,45 +269,6 @@ paths:
       description: SeekrBuild server base URL
 components:
   schemas:
-    MLModelType:
-      type: string
-      enum:
-      - Base
-      - Instruct
-      - Embedding
-      title: MLModelType
-    GetMLModelHfRevision:
-      properties:
-        name:
-          type: string
-          title: Name
-        hf_revision:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Hf Revision
-      type: object
-      required:
-      - name
-      - hf_revision
-      title: GetMLModelHfRevision
-    HardwareType:
-      type: string
-      enum:
-      - Serverless
-      - Dedicated
-      title: HardwareType
-    GetMLModelsResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/MLModel'
-          type: array
-          title: Data
-      type: object
-      required:
-      - data
-      title: GetMLModelsResponse
     GetMLModelInfoResponse:
       properties:
         name:
@@ -326,6 +287,16 @@ components:
       - size
       - model_type
       title: GetMLModelInfoResponse
+    DeploymentStatus:
+      type: string
+      enum:
+      - Inactive
+      - Pending
+      - Active
+      - Failed
+      - Started
+      - Success
+      title: DeploymentStatus
     MLModel:
       properties:
         id:
@@ -416,23 +387,19 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    DeploymentProcessor:
+    HardwareType:
       type: string
       enum:
-      - GAUDI2
-      - GAUDI3
-      - A100
-      - A10
-      - AMD
-      - H100
-      - MI300X
-      title: DeploymentProcessor
-    DeploymentType:
+      - Serverless
+      - Dedicated
+      title: HardwareType
+    MLModelType:
       type: string
       enum:
-      - Fine-tuned Run
-      - Base Model
-      title: DeploymentType
+      - Base
+      - Instruct
+      - Embedding
+      title: MLModelType
     ValidationError:
       properties:
         loc:
@@ -459,16 +426,60 @@ components:
       - msg
       - type
       title: ValidationError
-    DeploymentStatus:
+    DeploymentProcessor:
       type: string
       enum:
-      - Inactive
-      - Pending
-      - Active
-      - Failed
-      - Started
-      - Success
-      title: DeploymentStatus
+      - GAUDI2
+      - GAUDI3
+      - A100
+      - A10
+      - AMD
+      - H100
+      - MI300X
+      title: DeploymentProcessor
+    DeploymentType:
+      type: string
+      enum:
+      - Fine-tuned Run
+      - Base Model
+      title: DeploymentType
+    GetMLModelHfRevision:
+      properties:
+        name:
+          type: string
+          title: Name
+        hf_revision:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hf Revision
+      type: object
+      required:
+      - name
+      - hf_revision
+      title: GetMLModelHfRevision
+    GetMLModelsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/MLModel'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: GetMLModelsResponse
+    GetDeploymentsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Deployment'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: GetDeploymentsResponse
     Deployment:
       properties:
         id:
@@ -607,17 +618,6 @@ components:
       - team_id
       - model_name
       title: Deployment
-    GetDeploymentsResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Deployment'
-          type: array
-          title: Data
-      type: object
-      required:
-      - data
-      title: GetDeploymentsResponse
   securitySchemes:
     APIKeyHeader:
       type: apiKey

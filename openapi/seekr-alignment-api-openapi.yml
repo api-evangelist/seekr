@@ -336,40 +336,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AlignmentRequest:
-      properties:
-        instructions:
-          type: string
-          title: Instructions
-          description: Task description/instructions for the alignment task
-        system_prompt:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: System Prompt
-          description: Optional system prompt baked into the generated dataset's `system` role on every conversation. If omitted, one is generated from `instructions` and the recursive document summary.
-        files:
-          items:
-            type: string
-          type: array
-          title: Files
-          description: List of file ids to use for alignment
-        type:
-          $ref: '#/components/schemas/AlignmentType'
-          description: Type of alignment task (principle or context_data)
-          default: principle
-        vector_database_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Vector Database Id
-          description: Optional vector database id to use for context retrieval during context_data alignment
-      additionalProperties: true
-      type: object
-      required:
-      - instructions
-      - files
-      title: AlignmentRequest
     TrainingFileType:
       type: string
       enum:
@@ -395,26 +361,21 @@ components:
       - ppt
       - pptx
       title: AlignmentFileType
-    WorkflowPhaseResponse:
+    HTTPValidationError:
       properties:
-        phase:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Phase
-      additionalProperties: true
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      title: WorkflowPhaseResponse
-      description: 'Internal: the Argo workflow phase backing a job.
-
-
-        ``phase`` is the raw Argo phase (e.g. Running, Succeeded, Failed, Error) or
-
-        ``None`` when the workflow no longer exists / was never started. Not part of
-
-        the public SDK — used to verify a cancelled job''s workflow actually
-
-        terminated.'
+      title: HTTPValidationError
+    AlignmentType:
+      type: string
+      enum:
+      - principle
+      - context_data
+      title: AlignmentType
     AlignmentJobStatus:
       type: string
       enum:
@@ -426,24 +387,6 @@ components:
       - completed
       - stopped
       title: AlignmentJobStatus
-    IngestionRequest:
-      properties:
-        files:
-          items:
-            type: string
-          type: array
-          title: Files
-          description: List of file ids to use for alignment
-        method:
-          type: string
-          title: Method
-          description: Method to use for ingestion
-          default: best
-      additionalProperties: true
-      type: object
-      required:
-      - files
-      title: IngestionRequest
     IngestionFileRecord:
       properties:
         record_id:
@@ -547,32 +490,32 @@ components:
       - status
       - created_at
       title: IngestionFileRecord
-    IngestionList:
+    ValidationError:
       properties:
-        object:
-          anyOf:
-          - type: string
-            const: list
-          - type: 'null'
-          title: Object
-        data:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/IngestionResponse'
-            type: array
-          - type: 'null'
-          title: Data
-      additionalProperties: true
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
-      title: IngestionList
-    IngestionJobStatus:
-      type: string
-      enum:
-      - queued
-      - running
-      - completed
-      - failed
-      title: IngestionJobStatus
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     IngestionResponse:
       properties:
         id:
@@ -606,25 +549,94 @@ components:
       - status
       - output_files
       title: IngestionResponse
-    HTTPValidationError:
+    IngestionRequest:
       properties:
-        detail:
+        files:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            type: string
           type: array
-          title: Detail
+          title: Files
+          description: List of file ids to use for alignment
+        method:
+          type: string
+          title: Method
+          description: Method to use for ingestion
+          default: best
+      additionalProperties: true
       type: object
-      title: HTTPValidationError
-    FilePurpose:
-      type: string
-      enum:
-      - reinforcement-fine-tune
-      - fine-tune
-      - preference-fine-tune
-      - pre-train
-      - alignment
-      title: FilePurpose
-    AlignmentList:
+      required:
+      - files
+      title: IngestionRequest
+    AlignmentOutput:
+      properties:
+        id:
+          type: string
+          title: Id
+        filename:
+          type: string
+          title: Filename
+        bytes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Bytes
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        file_type:
+          anyOf:
+          - $ref: '#/components/schemas/TrainingFileType'
+          - $ref: '#/components/schemas/AlignmentFileType'
+          - type: 'null'
+          title: File Type
+        purpose:
+          anyOf:
+          - $ref: '#/components/schemas/FilePurpose'
+          - type: 'null'
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - filename
+      title: AlignmentOutput
+    AlignmentRequest:
+      properties:
+        instructions:
+          type: string
+          title: Instructions
+          description: Task description/instructions for the alignment task
+        system_prompt:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: System Prompt
+          description: Optional system prompt baked into the generated dataset's `system` role on every conversation. If omitted, one is generated from `instructions` and the recursive document summary.
+        files:
+          items:
+            type: string
+          type: array
+          title: Files
+          description: List of file ids to use for alignment
+        type:
+          $ref: '#/components/schemas/AlignmentType'
+          description: Type of alignment task (principle or context_data)
+          default: principle
+        vector_database_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Vector Database Id
+          description: Optional vector database id to use for context retrieval during context_data alignment
+      additionalProperties: true
+      type: object
+      required:
+      - instructions
+      - files
+      title: AlignmentRequest
+    IngestionList:
       properties:
         object:
           anyOf:
@@ -635,13 +647,30 @@ components:
         data:
           anyOf:
           - items:
-              $ref: '#/components/schemas/AlignmentResponse'
+              $ref: '#/components/schemas/IngestionResponse'
             type: array
           - type: 'null'
           title: Data
       additionalProperties: true
       type: object
-      title: AlignmentList
+      title: IngestionList
+    IngestionJobStatus:
+      type: string
+      enum:
+      - queued
+      - running
+      - completed
+      - failed
+      title: IngestionJobStatus
+    FilePurpose:
+      type: string
+      enum:
+      - reinforcement-fine-tune
+      - fine-tune
+      - preference-fine-tune
+      - pre-train
+      - alignment
+      title: FilePurpose
     AlignmentResponse:
       properties:
         id:
@@ -721,73 +750,44 @@ components:
       - created_at
       - status
       title: AlignmentResponse
-    AlignmentOutput:
+    AlignmentList:
       properties:
-        id:
-          type: string
-          title: Id
-        filename:
-          type: string
-          title: Filename
-        bytes:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Bytes
-        created_at:
+        object:
           anyOf:
           - type: string
-            format: date-time
+            const: list
           - type: 'null'
-          title: Created At
-        file_type:
+          title: Object
+        data:
           anyOf:
-          - $ref: '#/components/schemas/TrainingFileType'
-          - $ref: '#/components/schemas/AlignmentFileType'
+          - items:
+              $ref: '#/components/schemas/AlignmentResponse'
+            type: array
           - type: 'null'
-          title: File Type
-        purpose:
-          anyOf:
-          - $ref: '#/components/schemas/FilePurpose'
-          - type: 'null'
+          title: Data
       additionalProperties: true
       type: object
-      required:
-      - id
-      - filename
-      title: AlignmentOutput
-    ValidationError:
+      title: AlignmentList
+    WorkflowPhaseResponse:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+        phase:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phase
+      additionalProperties: true
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    AlignmentType:
-      type: string
-      enum:
-      - principle
-      - context_data
-      title: AlignmentType
+      title: WorkflowPhaseResponse
+      description: 'Internal: the Argo workflow phase backing a job.
+
+
+        ``phase`` is the raw Argo phase (e.g. Running, Succeeded, Failed, Error) or
+
+        ``None`` when the workflow no longer exists / was never started. Not part of
+
+        the public SDK — used to verify a cancelled job''s workflow actually
+
+        terminated.'
   securitySchemes:
     APIKeyHeader:
       type: apiKey
