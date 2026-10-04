@@ -479,13 +479,38 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    OrderEnum:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: OrderEnum
-      description: Options for order query param in list endpoints.
+    PublicStoredObjectRef:
+      properties:
+        object_id:
+          type: string
+          title: Object Id
+        size_bytes:
+          type: integer
+          title: Size Bytes
+        mime_type:
+          type: string
+          title: Mime Type
+        sha256:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sha256
+        preview_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Preview Text
+        truncated:
+          type: boolean
+          title: Truncated
+          default: false
+      type: object
+      required:
+      - object_id
+      - size_bytes
+      - mime_type
+      title: PublicStoredObjectRef
+      description: Client-safe reference to an object stored outside the message row.
     OutputGuardrail:
       properties:
         type:
@@ -508,6 +533,511 @@ components:
       - guardrail
       title: OutputGuardrail
       description: A guardrail output from the model.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    MessageToolCallPart:
+      properties:
+        id:
+          type: string
+          title: Id
+        type:
+          type: string
+          const: tool-call
+          title: Type
+        tool_name:
+          type: string
+          title: Tool Name
+        tool_call_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tool Call Id
+        args:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Args
+        args_ref:
+          anyOf:
+          - $ref: '#/components/schemas/PublicStoredObjectRef'
+          - $ref: '#/components/schemas/StoredObjectRef'
+          - type: 'null'
+          title: Args Ref
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      required:
+      - type
+      - tool_name
+      title: MessageToolCallPart
+      description: A tool-call part persisted alongside a thread message.
+    MessageToolErrorPart:
+      properties:
+        id:
+          type: string
+          title: Id
+        type:
+          type: string
+          const: tool-error
+          title: Type
+        tool_name:
+          type: string
+          title: Tool Name
+        tool_call_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tool Call Id
+        input:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Input
+        input_ref:
+          anyOf:
+          - $ref: '#/components/schemas/PublicStoredObjectRef'
+          - $ref: '#/components/schemas/StoredObjectRef'
+          - type: 'null'
+          title: Input Ref
+        mime_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mime Type
+        error_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error Text
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      required:
+      - type
+      - tool_name
+      title: MessageToolErrorPart
+      description: A tool-input-error part persisted alongside a thread message.
+    MessageDataPart:
+      properties:
+        id:
+          type: string
+          title: Id
+        type:
+          type: string
+          const: data
+          title: Type
+        data:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Data
+        data_ref:
+          anyOf:
+          - $ref: '#/components/schemas/PublicStoredObjectRef'
+          - $ref: '#/components/schemas/StoredObjectRef'
+          - type: 'null'
+          title: Data Ref
+        data_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data Type
+        mime_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mime Type
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      required:
+      - type
+      title: MessageDataPart
+      description: A structured data part persisted alongside a thread message.
+    MessageUpdateRequest:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - items:
+              oneOf:
+              - $ref: '#/components/schemas/InputText'
+              - $ref: '#/components/schemas/InputImage'
+              - $ref: '#/components/schemas/InputFile'
+              discriminator:
+                propertyName: type
+                mapping:
+                  input_file: '#/components/schemas/InputFile'
+                  input_image: '#/components/schemas/InputImage'
+                  input_text: '#/components/schemas/InputText'
+            type: array
+          - items:
+              oneOf:
+              - $ref: '#/components/schemas/OutputText'
+              - $ref: '#/components/schemas/OutputGuardrail'
+              discriminator:
+                propertyName: type
+                mapping:
+                  output_guardrail: '#/components/schemas/OutputGuardrail'
+                  output_text: '#/components/schemas/OutputText'
+            type: array
+          - type: 'null'
+          title: Content
+        meta_data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Meta Data
+      additionalProperties: false
+      type: object
+      title: MessageUpdateRequest
+      description: "Pydantic model for updating a message request.\n\nAttributes:\n    content (Optional[str]): Optional content of the message.\n    meta_data (Optional[dict[str, Any]]): Optional metadata dictionary."
+    OutputText:
+      properties:
+        text:
+          type: string
+          title: Text
+        type:
+          type: string
+          const: output_text
+          title: Type
+        annotations:
+          items:
+            type: string
+          type: array
+          title: Annotations
+      type: object
+      required:
+      - text
+      - type
+      - annotations
+      title: OutputText
+      description: A text output from the model.
+    Thread:
+      properties:
+        id:
+          type: string
+          title: Id
+        object:
+          type: string
+          title: Object
+          default: thread
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        status:
+          $ref: '#/components/schemas/ThreadStatus'
+          default: available
+        active_run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Active Run Id
+        meta_data:
+          additionalProperties: true
+          type: object
+          title: Meta Data
+      type: object
+      required:
+      - id
+      - created_at
+      title: Thread
+      description: 'A thread is a top-level conversation container.
+
+
+        Threads can contain multiple messages from various assistants and users,
+
+        providing a complete history of an interaction sequence.'
+    ThreadCreateRequest:
+      properties:
+        meta_data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Meta Data
+      type: object
+      title: ThreadCreateRequest
+      description: "Pydantic model for creating a thread request.\n\nAttributes:\n    meta_data (Optional[dict[str, Any]]): Optional metadata dictionary."
+    MessageTextPart:
+      properties:
+        id:
+          type: string
+          title: Id
+        type:
+          type: string
+          const: text
+          title: Type
+        text:
+          type: string
+          title: Text
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      required:
+      - type
+      - text
+      title: MessageTextPart
+      description: A text part persisted alongside a thread message.
+    MessageFilePart:
+      properties:
+        id:
+          type: string
+          title: Id
+        type:
+          type: string
+          const: file
+          title: Type
+        file_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: File Id
+        url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Url
+        mime_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mime Type
+        detail:
+          anyOf:
+          - type: string
+            enum:
+            - high
+            - low
+            - auto
+          - type: 'null'
+          title: Detail
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      required:
+      - type
+      title: MessageFilePart
+      description: A file or image part persisted alongside a thread message.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ThreadStatus:
+      type: string
+      enum:
+      - available
+      - locked
+      title: ThreadStatus
+      description: Available status for a thread.
+    OrderEnum:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: OrderEnum
+      description: Options for order query param in list endpoints.
+    InputFile:
+      properties:
+        type:
+          type: string
+          const: input_file
+          title: Type
+        file_id:
+          type: string
+          title: File Id
+      type: object
+      required:
+      - type
+      - file_id
+      title: InputFile
+      description: A file input to be sent to the model.
+    InputImage:
+      properties:
+        detail:
+          type: string
+          enum:
+          - high
+          - low
+          - auto
+          title: Detail
+        type:
+          type: string
+          const: input_image
+          title: Type
+        file_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: File Id
+        image_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Image Url
+      type: object
+      required:
+      - detail
+      - type
+      title: InputImage
+      description: An image input to be sent to the model.
+    InputText:
+      properties:
+        text:
+          type: string
+          title: Text
+        type:
+          type: string
+          const: input_text
+          title: Type
+      type: object
+      required:
+      - text
+      - type
+      title: InputText
+      description: A text input to be sent to the model.
+    StoredObjectRef:
+      properties:
+        object_id:
+          type: string
+          title: Object Id
+        path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Path
+        size_bytes:
+          type: integer
+          title: Size Bytes
+        mime_type:
+          type: string
+          title: Mime Type
+        sha256:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sha256
+        preview_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Preview Text
+        truncated:
+          type: boolean
+          title: Truncated
+          default: false
+      type: object
+      required:
+      - object_id
+      - size_bytes
+      - mime_type
+      title: StoredObjectRef
+      description: Reference to an object stored outside the message row.
+    MessageToolResultPart:
+      properties:
+        id:
+          type: string
+          title: Id
+        type:
+          type: string
+          const: tool-result
+          title: Type
+        tool_name:
+          type: string
+          title: Tool Name
+        tool_call_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tool Call Id
+        output:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Output
+        output_ref:
+          anyOf:
+          - $ref: '#/components/schemas/PublicStoredObjectRef'
+          - $ref: '#/components/schemas/StoredObjectRef'
+          - type: 'null'
+          title: Output Ref
+        mime_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mime Type
+        is_error:
+          type: boolean
+          title: Is Error
+          default: false
+        error_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error Text
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      required:
+      - type
+      - tool_name
+      title: MessageToolResultPart
+      description: A tool-result part persisted alongside a thread message.
     ThreadMessageRequest:
       properties:
         role:
@@ -545,48 +1075,6 @@ components:
       - content
       title: ThreadMessageRequest
       description: "Pydantic model for creating a thread message request.\n\nAttributes:\n    role (str): The role of the message sender.\n    content (Union[str, list[InputMessage], list[OutputMessage]]): The content of the message.\n    meta_data (Optional[dict[str, Any]]): Optional metadata dictionary."
-    MessageTextPart:
-      properties:
-        id:
-          type: string
-          title: Id
-        type:
-          type: string
-          const: text
-          title: Type
-        text:
-          type: string
-          title: Text
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-      type: object
-      required:
-      - type
-      - text
-      title: MessageTextPart
-      description: A text part persisted alongside a thread message.
-    ThreadCreateRequest:
-      properties:
-        meta_data:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Meta Data
-      type: object
-      title: ThreadCreateRequest
-      description: "Pydantic model for creating a thread request.\n\nAttributes:\n    meta_data (Optional[dict[str, Any]]): Optional metadata dictionary."
-    ThreadStatus:
-      type: string
-      enum:
-      - available
-      - locked
-      title: ThreadStatus
-      description: Available status for a thread.
     ThreadMessageResponse:
       properties:
         id:
@@ -680,235 +1168,6 @@ components:
 
 
         `parts` are opt-in so existing clients keep the previous response shape by default.'
-    InputImage:
-      properties:
-        detail:
-          type: string
-          enum:
-          - high
-          - low
-          - auto
-          title: Detail
-        type:
-          type: string
-          const: input_image
-          title: Type
-        file_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: File Id
-        image_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Image Url
-      type: object
-      required:
-      - detail
-      - type
-      title: InputImage
-      description: An image input to be sent to the model.
-    MessageUpdateRequest:
-      properties:
-        content:
-          anyOf:
-          - type: string
-          - items:
-              oneOf:
-              - $ref: '#/components/schemas/InputText'
-              - $ref: '#/components/schemas/InputImage'
-              - $ref: '#/components/schemas/InputFile'
-              discriminator:
-                propertyName: type
-                mapping:
-                  input_file: '#/components/schemas/InputFile'
-                  input_image: '#/components/schemas/InputImage'
-                  input_text: '#/components/schemas/InputText'
-            type: array
-          - items:
-              oneOf:
-              - $ref: '#/components/schemas/OutputText'
-              - $ref: '#/components/schemas/OutputGuardrail'
-              discriminator:
-                propertyName: type
-                mapping:
-                  output_guardrail: '#/components/schemas/OutputGuardrail'
-                  output_text: '#/components/schemas/OutputText'
-            type: array
-          - type: 'null'
-          title: Content
-        meta_data:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Meta Data
-      additionalProperties: false
-      type: object
-      title: MessageUpdateRequest
-      description: "Pydantic model for updating a message request.\n\nAttributes:\n    content (Optional[str]): Optional content of the message.\n    meta_data (Optional[dict[str, Any]]): Optional metadata dictionary."
-    Thread:
-      properties:
-        id:
-          type: string
-          title: Id
-        object:
-          type: string
-          title: Object
-          default: thread
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        status:
-          $ref: '#/components/schemas/ThreadStatus'
-          default: available
-        active_run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Active Run Id
-        meta_data:
-          additionalProperties: true
-          type: object
-          title: Meta Data
-      type: object
-      required:
-      - id
-      - created_at
-      title: Thread
-      description: 'A thread is a top-level conversation container.
-
-
-        Threads can contain multiple messages from various assistants and users,
-
-        providing a complete history of an interaction sequence.'
-    InputText:
-      properties:
-        text:
-          type: string
-          title: Text
-        type:
-          type: string
-          const: input_text
-          title: Type
-      type: object
-      required:
-      - text
-      - type
-      title: InputText
-      description: A text input to be sent to the model.
-    StoredObjectRef:
-      properties:
-        object_id:
-          type: string
-          title: Object Id
-        path:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Path
-        size_bytes:
-          type: integer
-          title: Size Bytes
-        mime_type:
-          type: string
-          title: Mime Type
-        sha256:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sha256
-        preview_text:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Preview Text
-        truncated:
-          type: boolean
-          title: Truncated
-          default: false
-      type: object
-      required:
-      - object_id
-      - size_bytes
-      - mime_type
-      title: StoredObjectRef
-      description: Reference to an object stored outside the message row.
-    PublicStoredObjectRef:
-      properties:
-        object_id:
-          type: string
-          title: Object Id
-        size_bytes:
-          type: integer
-          title: Size Bytes
-        mime_type:
-          type: string
-          title: Mime Type
-        sha256:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sha256
-        preview_text:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Preview Text
-        truncated:
-          type: boolean
-          title: Truncated
-          default: false
-      type: object
-      required:
-      - object_id
-      - size_bytes
-      - mime_type
-      title: PublicStoredObjectRef
-      description: Client-safe reference to an object stored outside the message row.
-    MessageDataPart:
-      properties:
-        id:
-          type: string
-          title: Id
-        type:
-          type: string
-          const: data
-          title: Type
-        data:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Data
-        data_ref:
-          anyOf:
-          - $ref: '#/components/schemas/PublicStoredObjectRef'
-          - $ref: '#/components/schemas/StoredObjectRef'
-          - type: 'null'
-          title: Data Ref
-        data_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Data Type
-        mime_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Mime Type
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-      type: object
-      required:
-      - type
-      title: MessageDataPart
-      description: A structured data part persisted alongside a thread message.
     MessageReasoningPart:
       properties:
         id:
@@ -933,265 +1192,6 @@ components:
       - text
       title: MessageReasoningPart
       description: A reasoning part persisted alongside a thread message.
-    InputFile:
-      properties:
-        type:
-          type: string
-          const: input_file
-          title: Type
-        file_id:
-          type: string
-          title: File Id
-      type: object
-      required:
-      - type
-      - file_id
-      title: InputFile
-      description: A file input to be sent to the model.
-    MessageToolCallPart:
-      properties:
-        id:
-          type: string
-          title: Id
-        type:
-          type: string
-          const: tool-call
-          title: Type
-        tool_name:
-          type: string
-          title: Tool Name
-        tool_call_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tool Call Id
-        args:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Args
-        args_ref:
-          anyOf:
-          - $ref: '#/components/schemas/PublicStoredObjectRef'
-          - $ref: '#/components/schemas/StoredObjectRef'
-          - type: 'null'
-          title: Args Ref
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-      type: object
-      required:
-      - type
-      - tool_name
-      title: MessageToolCallPart
-      description: A tool-call part persisted alongside a thread message.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    OutputText:
-      properties:
-        text:
-          type: string
-          title: Text
-        type:
-          type: string
-          const: output_text
-          title: Type
-        annotations:
-          items:
-            type: string
-          type: array
-          title: Annotations
-      type: object
-      required:
-      - text
-      - type
-      - annotations
-      title: OutputText
-      description: A text output from the model.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    MessageToolResultPart:
-      properties:
-        id:
-          type: string
-          title: Id
-        type:
-          type: string
-          const: tool-result
-          title: Type
-        tool_name:
-          type: string
-          title: Tool Name
-        tool_call_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tool Call Id
-        output:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Output
-        output_ref:
-          anyOf:
-          - $ref: '#/components/schemas/PublicStoredObjectRef'
-          - $ref: '#/components/schemas/StoredObjectRef'
-          - type: 'null'
-          title: Output Ref
-        mime_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Mime Type
-        is_error:
-          type: boolean
-          title: Is Error
-          default: false
-        error_text:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error Text
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-      type: object
-      required:
-      - type
-      - tool_name
-      title: MessageToolResultPart
-      description: A tool-result part persisted alongside a thread message.
-    MessageFilePart:
-      properties:
-        id:
-          type: string
-          title: Id
-        type:
-          type: string
-          const: file
-          title: Type
-        file_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: File Id
-        url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Url
-        mime_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Mime Type
-        detail:
-          anyOf:
-          - type: string
-            enum:
-            - high
-            - low
-            - auto
-          - type: 'null'
-          title: Detail
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-      type: object
-      required:
-      - type
-      title: MessageFilePart
-      description: A file or image part persisted alongside a thread message.
-    MessageToolErrorPart:
-      properties:
-        id:
-          type: string
-          title: Id
-        type:
-          type: string
-          const: tool-error
-          title: Type
-        tool_name:
-          type: string
-          title: Tool Name
-        tool_call_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tool Call Id
-        input:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Input
-        input_ref:
-          anyOf:
-          - $ref: '#/components/schemas/PublicStoredObjectRef'
-          - $ref: '#/components/schemas/StoredObjectRef'
-          - type: 'null'
-          title: Input Ref
-        mime_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Mime Type
-        error_text:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error Text
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-      type: object
-      required:
-      - type
-      - tool_name
-      title: MessageToolErrorPart
-      description: A tool-input-error part persisted alongside a thread message.
   securitySchemes:
     APIKeyHeader:
       type: apiKey

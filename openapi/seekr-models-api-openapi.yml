@@ -269,115 +269,12 @@ paths:
       description: SeekrBuild server base URL
 components:
   schemas:
-    GetMLModelInfoResponse:
-      properties:
-        name:
-          type: string
-          title: Name
-        size:
-          type: integer
-          title: Size
-        model_type:
-          anyOf:
-          - $ref: '#/components/schemas/MLModelType'
-          - type: 'null'
-      type: object
-      required:
-      - name
-      - size
-      - model_type
-      title: GetMLModelInfoResponse
-    DeploymentStatus:
+    HardwareType:
       type: string
       enum:
-      - Inactive
-      - Pending
-      - Active
-      - Failed
-      - Started
-      - Success
-      title: DeploymentStatus
-    MLModel:
-      properties:
-        id:
-          type: integer
-          title: Id
-        name:
-          type: string
-          maxLength: 100
-          minLength: 5
-          title: Name
-        source:
-          type: string
-          maxLength: 100
-          minLength: 1
-          title: Source
-        description:
-          type: string
-          maxLength: 1000
-          minLength: 5
-          title: Description
-        size:
-          type: integer
-          title: Size
-        logo:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Logo
-        category:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Category
-        model_type:
-          $ref: '#/components/schemas/MLModelType'
-        inference_available:
-          type: boolean
-          title: Inference Available
-        training_available:
-          type: boolean
-          title: Training Available
-        deployment_available:
-          type: boolean
-          title: Deployment Available
-        supports_lora:
-          type: boolean
-          title: Supports Lora
-        max_lora_rank:
-          anyOf:
-          - type: integer
-            exclusiveMinimum: 0
-          - type: 'null'
-          title: Max Lora Rank
-        vision_model:
-          type: boolean
-          title: Vision Model
-        hf_revision:
-          anyOf:
-          - type: string
-            maxLength: 128
-            minLength: 1
-          - type: 'null'
-          title: Hf Revision
-        internal_only:
-          type: boolean
-          title: Internal Only
-      type: object
-      required:
-      - id
-      - name
-      - source
-      - description
-      - size
-      - model_type
-      - inference_available
-      - training_available
-      - deployment_available
-      - supports_lora
-      - vision_model
-      - internal_only
-      title: MLModel
+      - Serverless
+      - Dedicated
+      title: HardwareType
     HTTPValidationError:
       properties:
         detail:
@@ -387,12 +284,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    HardwareType:
-      type: string
-      enum:
-      - Serverless
-      - Dedicated
-      title: HardwareType
     MLModelType:
       type: string
       enum:
@@ -426,49 +317,6 @@ components:
       - msg
       - type
       title: ValidationError
-    DeploymentProcessor:
-      type: string
-      enum:
-      - GAUDI2
-      - GAUDI3
-      - A100
-      - A10
-      - AMD
-      - H100
-      - MI300X
-      title: DeploymentProcessor
-    DeploymentType:
-      type: string
-      enum:
-      - Fine-tuned Run
-      - Base Model
-      title: DeploymentType
-    GetMLModelHfRevision:
-      properties:
-        name:
-          type: string
-          title: Name
-        hf_revision:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Hf Revision
-      type: object
-      required:
-      - name
-      - hf_revision
-      title: GetMLModelHfRevision
-    GetMLModelsResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/MLModel'
-          type: array
-          title: Data
-      type: object
-      required:
-      - data
-      title: GetMLModelsResponse
     GetDeploymentsResponse:
       properties:
         data:
@@ -618,6 +466,158 @@ components:
       - team_id
       - model_name
       title: Deployment
+    DeploymentType:
+      type: string
+      enum:
+      - Fine-tuned Run
+      - Base Model
+      title: DeploymentType
+    GetMLModelHfRevision:
+      properties:
+        name:
+          type: string
+          title: Name
+        hf_revision:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hf Revision
+      type: object
+      required:
+      - name
+      - hf_revision
+      title: GetMLModelHfRevision
+    GetMLModelsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/MLModel'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: GetMLModelsResponse
+    MLModel:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          type: string
+          maxLength: 100
+          minLength: 5
+          title: Name
+        source:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Source
+        description:
+          type: string
+          maxLength: 1000
+          minLength: 5
+          title: Description
+        size:
+          type: integer
+          title: Size
+        logo:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Logo
+        category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Category
+        model_type:
+          $ref: '#/components/schemas/MLModelType'
+        inference_available:
+          type: boolean
+          title: Inference Available
+        training_available:
+          type: boolean
+          title: Training Available
+        deployment_available:
+          type: boolean
+          title: Deployment Available
+        supports_lora:
+          type: boolean
+          title: Supports Lora
+        max_lora_rank:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0
+          - type: 'null'
+          title: Max Lora Rank
+        vision_model:
+          type: boolean
+          title: Vision Model
+        hf_revision:
+          anyOf:
+          - type: string
+            maxLength: 128
+            minLength: 1
+          - type: 'null'
+          title: Hf Revision
+        internal_only:
+          type: boolean
+          title: Internal Only
+      type: object
+      required:
+      - id
+      - name
+      - source
+      - description
+      - size
+      - model_type
+      - inference_available
+      - training_available
+      - deployment_available
+      - supports_lora
+      - vision_model
+      - internal_only
+      title: MLModel
+    GetMLModelInfoResponse:
+      properties:
+        name:
+          type: string
+          title: Name
+        size:
+          type: integer
+          title: Size
+        model_type:
+          anyOf:
+          - $ref: '#/components/schemas/MLModelType'
+          - type: 'null'
+      type: object
+      required:
+      - name
+      - size
+      - model_type
+      title: GetMLModelInfoResponse
+    DeploymentProcessor:
+      type: string
+      enum:
+      - GAUDI2
+      - GAUDI3
+      - A100
+      - A10
+      - AMD
+      - H100
+      - MI300X
+      title: DeploymentProcessor
+    DeploymentStatus:
+      type: string
+      enum:
+      - Inactive
+      - Pending
+      - Active
+      - Failed
+      - Started
+      - Success
+      title: DeploymentStatus
   securitySchemes:
     APIKeyHeader:
       type: apiKey

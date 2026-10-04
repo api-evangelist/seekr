@@ -151,453 +151,6 @@ paths:
       - APIKeyHeader: []
 components:
   schemas:
-    SystemPromptSource:
-      properties:
-        source_type:
-          type: string
-          const: system_prompt
-          title: Source Type
-          default: system_prompt
-        id:
-          type: integer
-          title: Id
-          description: Index of this source in the system prompt partition.
-        text:
-          type: string
-          title: Text
-          description: The source text content (a sentence or chunk of the system prompt).
-        attribution:
-          type: number
-          title: Attribution
-          description: Attribution score in range (-1, 1). Positive values indicate support.
-        offset:
-          type: integer
-          title: Offset
-          description: Character offset of this source within the system prompt string.
-      type: object
-      required:
-      - id
-      - text
-      - attribution
-      - offset
-      title: SystemPromptSource
-      description: 'A context source that originated from the agent''s system prompt.
-
-
-        Indicates that the response segment was influenced by the agent''s
-
-        operator-defined instructions rather than retrieved documents or tool outputs.
-
-        Character offsets are relative to the system prompt string itself.'
-    ContextAttributionResult:
-      properties:
-        response_text:
-          type: string
-          title: Response Text
-          description: The full response text that was attributed.
-        segments:
-          items:
-            $ref: '#/components/schemas/SegmentAttribution'
-          type: array
-          title: Segments
-          description: Attribution results for each response segment. Populated when highlight is not provided.
-          default: []
-        highlight:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Highlight
-          description: The highlighted portion of the response (if provided in request).
-        sources:
-          anyOf:
-          - items:
-              oneOf:
-              - $ref: '#/components/schemas/ToolResponseSource'
-              - $ref: '#/components/schemas/RawContextSource'
-              - $ref: '#/components/schemas/SystemPromptSource'
-              discriminator:
-                propertyName: source_type
-                mapping:
-                  raw: '#/components/schemas/RawContextSource'
-                  system_prompt: '#/components/schemas/SystemPromptSource'
-                  tool_response: '#/components/schemas/ToolResponseSource'
-            type: array
-          - type: 'null'
-          title: Sources
-          description: Context sources for the highlight. Only populated when highlight is provided.
-        diagnostics:
-          anyOf:
-          - $ref: '#/components/schemas/ContextAttributionDiagnostics'
-          - type: 'null'
-          description: Diagnostic information. Only populated when return_diagnostics=True.
-      type: object
-      required:
-      - response_text
-      title: ContextAttributionResult
-      description: Response model for context attribution.
-    MCPToolContent:
-      properties:
-        type:
-          type: string
-          const: mcp_tool
-          title: Type
-          default: mcp_tool
-        tool_name:
-          type: string
-          title: Tool Name
-        tool_input:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Tool Input
-          description: The args sent to the tool (e.g. the prompt passed to a subagent). Truncated to ~2k chars when serialized; mirrors the sensitivity classification of the underlying run.
-      type: object
-      required:
-      - tool_name
-      title: MCPToolContent
-      description: 'Content for generic MCP tool calls.
-
-
-        This is the canonical type for any tool call that does not have a
-
-        dedicated first-class handler (web_search, file_search,
-
-        code_interpreter). In practice this covers all MCP tools, including
-
-        "agents as tools" (subagents) — at the persistence layer those are
-
-        indistinguishable from any other MCP tool call.'
-    FileSearchToolContent:
-      properties:
-        type:
-          type: string
-          const: file_search
-          title: Type
-          default: file_search
-        file_path:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: File Path
-        file_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: File Id
-        query:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Query
-      type: object
-      title: FileSearchToolContent
-      description: Content specific to file search sources.
-    ContextAttributionDiagnostics:
-      properties:
-        num_sources:
-          type: integer
-          title: Num Sources
-          description: Number of context sources after partitioning.
-        num_ablations:
-          type: integer
-          title: Num Ablations
-          description: Number of ablation experiments performed.
-        lasso_alpha:
-          type: number
-          title: Lasso Alpha
-          description: LASSO regularization strength used.
-        mask_probability:
-          type: number
-          title: Mask Probability
-          description: Probability of including each source in ablations.
-        y_vector_stats:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Y Vector Stats
-          description: Statistics of the aggregated Y vector (mean, std, min, max, range).
-        raw_coef_stats:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Raw Coef Stats
-          description: Statistics of raw LASSO coefficients before tanh (min, max, absmax, nonzero, sparsity).
-        scaler_stats:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Scaler Stats
-          description: StandardScaler statistics (mean, scale arrays).
-      type: object
-      required:
-      - num_sources
-      - num_ablations
-      - lasso_alpha
-      - mask_probability
-      title: ContextAttributionDiagnostics
-      description: Diagnostic information for context attribution debugging.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    FromRunGranularityType:
-      type: string
-      enum:
-      - sentence
-      - chunk
-      title: FromRunGranularityType
-      description: Granularity for /context-attributor-from-run endpoint.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    CodeInterpreterToolContent:
-      properties:
-        type:
-          type: string
-          const: code_interpreter
-          title: Type
-          default: code_interpreter
-        code:
-          type: string
-          title: Code
-      type: object
-      required:
-      - code
-      title: CodeInterpreterToolContent
-      description: Content specific to code interpreter sources.
-    ContextAttributionRequest:
-      properties:
-        context:
-          type: string
-          title: Context
-          description: The context text provided to the model.
-        query:
-          type: string
-          title: Query
-          description: The user's question/query.
-        response:
-          type: string
-          title: Response
-          description: The model's response to attribute.
-        highlight:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Highlight
-          description: Specific portion of response to attribute. If None, attributes all segments.
-        granularity:
-          $ref: '#/components/schemas/BaseGranularityType'
-          description: 'Granularity for partitioning context: sentence or paragraph.'
-          default: sentence
-        top_k:
-          type: integer
-          minimum: 1
-          title: Top K
-          description: Number of top attributed sources to return per segment.
-          default: 5
-        num_ablations:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Num Ablations
-          description: Number of ablation experiments to run. If None, computed dynamically using O(k log d) formula. Must be between 32 and 256 (inclusive) if specified.
-        return_diagnostics:
-          type: boolean
-          title: Return Diagnostics
-          description: If True, include diagnostic information in the response.
-          default: false
-      type: object
-      required:
-      - context
-      - query
-      - response
-      title: ContextAttributionRequest
-      description: 'Request model for context attribution.
-
-
-        Computes which parts of the context contributed to the model''s response
-
-        using the ContextCite algorithm.'
-    WebSearchToolContent:
-      properties:
-        type:
-          type: string
-          const: web_search
-          title: Type
-          default: web_search
-        url:
-          type: string
-          title: Url
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        search_query:
-          type: string
-          title: Search Query
-      type: object
-      required:
-      - url
-      - search_query
-      title: WebSearchToolContent
-      description: Content specific to web search sources.
-    SegmentAttribution:
-      properties:
-        segment_index:
-          type: integer
-          title: Segment Index
-          description: Index of this segment in the response (0-based).
-        segment_text:
-          type: string
-          title: Segment Text
-          description: The text content of this segment.
-        char_offset:
-          type: integer
-          title: Char Offset
-          description: Character offset of this segment in the response.
-        sources:
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/ToolResponseSource'
-            - $ref: '#/components/schemas/RawContextSource'
-            - $ref: '#/components/schemas/SystemPromptSource'
-            discriminator:
-              propertyName: source_type
-              mapping:
-                raw: '#/components/schemas/RawContextSource'
-                system_prompt: '#/components/schemas/SystemPromptSource'
-                tool_response: '#/components/schemas/ToolResponseSource'
-          type: array
-          title: Sources
-          description: Context sources attributed to this segment.
-      type: object
-      required:
-      - segment_index
-      - segment_text
-      - char_offset
-      - sources
-      title: SegmentAttribution
-      description: Attribution results for a single response segment (e.g., a sentence).
-    BaseGranularityType:
-      type: string
-      enum:
-      - sentence
-      - paragraph
-      title: BaseGranularityType
-      description: Granularity for /context-attributor endpoint.
-    RawContextSource:
-      properties:
-        source_type:
-          type: string
-          const: raw
-          title: Source Type
-          default: raw
-        id:
-          type: integer
-          title: Id
-          description: Index of this source in the original context partition.
-        text:
-          type: string
-          title: Text
-          description: The source text content.
-        attribution:
-          type: number
-          title: Attribution
-          description: Attribution score in range (-1, 1). Positive values indicate support.
-        offset:
-          type: integer
-          title: Offset
-          description: Character offset of this source in the original context.
-      type: object
-      required:
-      - id
-      - text
-      - attribution
-      - offset
-      title: RawContextSource
-      description: 'A context source from raw context (not from a tool).
-
-
-        This model is used for context that was provided directly, not retrieved
-
-        by a tool call.'
-    ContextAttributionFromRunRequest:
-      properties:
-        thread_id:
-          type: string
-          title: Thread Id
-          description: ID of the thread to analyze.
-        run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Id
-          description: Optional run ID. If not provided, uses the latest completed run.
-        highlight:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Highlight
-          description: Specific portion of response to attribute. If None, attributes all segments.
-        granularity:
-          $ref: '#/components/schemas/FromRunGranularityType'
-          description: 'Granularity for partitioning context: sentence or chunk.'
-          default: sentence
-        top_k:
-          type: integer
-          minimum: 1
-          title: Top K
-          description: Number of top attributed sources to return per segment.
-          default: 5
-        num_ablations:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Num Ablations
-          description: Number of ablation experiments to run. If None, computed dynamically using O(k log d) formula. Must be between 32 and 256 (inclusive) if specified.
-        return_diagnostics:
-          type: boolean
-          title: Return Diagnostics
-          description: If True, include diagnostic information in the response.
-          default: false
-      type: object
-      required:
-      - thread_id
-      title: ContextAttributionFromRunRequest
-      description: Request model for context attribution from an agent run. Extracts the context, query, and response from the run, then computes attribution scores across the retrieved sources.
     ToolResponseSource:
       properties:
         source_type:
@@ -660,6 +213,453 @@ components:
         This model contains the core attribution fields plus tool-specific metadata
 
         nested in the `tool` field.'
+    ContextAttributionFromRunRequest:
+      properties:
+        thread_id:
+          type: string
+          title: Thread Id
+          description: ID of the thread to analyze.
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+          description: Optional run ID. If not provided, uses the latest completed run.
+        highlight:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Highlight
+          description: Specific portion of response to attribute. If None, attributes all segments.
+        granularity:
+          $ref: '#/components/schemas/FromRunGranularityType'
+          description: 'Granularity for partitioning context: sentence or chunk.'
+          default: sentence
+        top_k:
+          type: integer
+          minimum: 1
+          title: Top K
+          description: Number of top attributed sources to return per segment.
+          default: 5
+        num_ablations:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Num Ablations
+          description: Number of ablation experiments to run. If None, computed dynamically using O(k log d) formula. Must be between 32 and 256 (inclusive) if specified.
+        return_diagnostics:
+          type: boolean
+          title: Return Diagnostics
+          description: If True, include diagnostic information in the response.
+          default: false
+      type: object
+      required:
+      - thread_id
+      title: ContextAttributionFromRunRequest
+      description: Request model for context attribution from an agent run. Extracts the context, query, and response from the run, then computes attribution scores across the retrieved sources.
+    ContextAttributionResult:
+      properties:
+        response_text:
+          type: string
+          title: Response Text
+          description: The full response text that was attributed.
+        segments:
+          items:
+            $ref: '#/components/schemas/SegmentAttribution'
+          type: array
+          title: Segments
+          description: Attribution results for each response segment. Populated when highlight is not provided.
+          default: []
+        highlight:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Highlight
+          description: The highlighted portion of the response (if provided in request).
+        sources:
+          anyOf:
+          - items:
+              oneOf:
+              - $ref: '#/components/schemas/ToolResponseSource'
+              - $ref: '#/components/schemas/RawContextSource'
+              - $ref: '#/components/schemas/SystemPromptSource'
+              discriminator:
+                propertyName: source_type
+                mapping:
+                  raw: '#/components/schemas/RawContextSource'
+                  system_prompt: '#/components/schemas/SystemPromptSource'
+                  tool_response: '#/components/schemas/ToolResponseSource'
+            type: array
+          - type: 'null'
+          title: Sources
+          description: Context sources for the highlight. Only populated when highlight is provided.
+        diagnostics:
+          anyOf:
+          - $ref: '#/components/schemas/ContextAttributionDiagnostics'
+          - type: 'null'
+          description: Diagnostic information. Only populated when return_diagnostics=True.
+      type: object
+      required:
+      - response_text
+      title: ContextAttributionResult
+      description: Response model for context attribution.
+    ContextAttributionRequest:
+      properties:
+        context:
+          type: string
+          title: Context
+          description: The context text provided to the model.
+        query:
+          type: string
+          title: Query
+          description: The user's question/query.
+        response:
+          type: string
+          title: Response
+          description: The model's response to attribute.
+        highlight:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Highlight
+          description: Specific portion of response to attribute. If None, attributes all segments.
+        granularity:
+          $ref: '#/components/schemas/BaseGranularityType'
+          description: 'Granularity for partitioning context: sentence or paragraph.'
+          default: sentence
+        top_k:
+          type: integer
+          minimum: 1
+          title: Top K
+          description: Number of top attributed sources to return per segment.
+          default: 5
+        num_ablations:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Num Ablations
+          description: Number of ablation experiments to run. If None, computed dynamically using O(k log d) formula. Must be between 32 and 256 (inclusive) if specified.
+        return_diagnostics:
+          type: boolean
+          title: Return Diagnostics
+          description: If True, include diagnostic information in the response.
+          default: false
+      type: object
+      required:
+      - context
+      - query
+      - response
+      title: ContextAttributionRequest
+      description: 'Request model for context attribution.
+
+
+        Computes which parts of the context contributed to the model''s response
+
+        using the ContextCite algorithm.'
+    SystemPromptSource:
+      properties:
+        source_type:
+          type: string
+          const: system_prompt
+          title: Source Type
+          default: system_prompt
+        id:
+          type: integer
+          title: Id
+          description: Index of this source in the system prompt partition.
+        text:
+          type: string
+          title: Text
+          description: The source text content (a sentence or chunk of the system prompt).
+        attribution:
+          type: number
+          title: Attribution
+          description: Attribution score in range (-1, 1). Positive values indicate support.
+        offset:
+          type: integer
+          title: Offset
+          description: Character offset of this source within the system prompt string.
+      type: object
+      required:
+      - id
+      - text
+      - attribution
+      - offset
+      title: SystemPromptSource
+      description: 'A context source that originated from the agent''s system prompt.
+
+
+        Indicates that the response segment was influenced by the agent''s
+
+        operator-defined instructions rather than retrieved documents or tool outputs.
+
+        Character offsets are relative to the system prompt string itself.'
+    ContextAttributionDiagnostics:
+      properties:
+        num_sources:
+          type: integer
+          title: Num Sources
+          description: Number of context sources after partitioning.
+        num_ablations:
+          type: integer
+          title: Num Ablations
+          description: Number of ablation experiments performed.
+        lasso_alpha:
+          type: number
+          title: Lasso Alpha
+          description: LASSO regularization strength used.
+        mask_probability:
+          type: number
+          title: Mask Probability
+          description: Probability of including each source in ablations.
+        y_vector_stats:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Y Vector Stats
+          description: Statistics of the aggregated Y vector (mean, std, min, max, range).
+        raw_coef_stats:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Raw Coef Stats
+          description: Statistics of raw LASSO coefficients before tanh (min, max, absmax, nonzero, sparsity).
+        scaler_stats:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Scaler Stats
+          description: StandardScaler statistics (mean, scale arrays).
+      type: object
+      required:
+      - num_sources
+      - num_ablations
+      - lasso_alpha
+      - mask_probability
+      title: ContextAttributionDiagnostics
+      description: Diagnostic information for context attribution debugging.
+    SegmentAttribution:
+      properties:
+        segment_index:
+          type: integer
+          title: Segment Index
+          description: Index of this segment in the response (0-based).
+        segment_text:
+          type: string
+          title: Segment Text
+          description: The text content of this segment.
+        char_offset:
+          type: integer
+          title: Char Offset
+          description: Character offset of this segment in the response.
+        sources:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/ToolResponseSource'
+            - $ref: '#/components/schemas/RawContextSource'
+            - $ref: '#/components/schemas/SystemPromptSource'
+            discriminator:
+              propertyName: source_type
+              mapping:
+                raw: '#/components/schemas/RawContextSource'
+                system_prompt: '#/components/schemas/SystemPromptSource'
+                tool_response: '#/components/schemas/ToolResponseSource'
+          type: array
+          title: Sources
+          description: Context sources attributed to this segment.
+      type: object
+      required:
+      - segment_index
+      - segment_text
+      - char_offset
+      - sources
+      title: SegmentAttribution
+      description: Attribution results for a single response segment (e.g., a sentence).
+    CodeInterpreterToolContent:
+      properties:
+        type:
+          type: string
+          const: code_interpreter
+          title: Type
+          default: code_interpreter
+        code:
+          type: string
+          title: Code
+      type: object
+      required:
+      - code
+      title: CodeInterpreterToolContent
+      description: Content specific to code interpreter sources.
+    WebSearchToolContent:
+      properties:
+        type:
+          type: string
+          const: web_search
+          title: Type
+          default: web_search
+        url:
+          type: string
+          title: Url
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        search_query:
+          type: string
+          title: Search Query
+      type: object
+      required:
+      - url
+      - search_query
+      title: WebSearchToolContent
+      description: Content specific to web search sources.
+    MCPToolContent:
+      properties:
+        type:
+          type: string
+          const: mcp_tool
+          title: Type
+          default: mcp_tool
+        tool_name:
+          type: string
+          title: Tool Name
+        tool_input:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Tool Input
+          description: The args sent to the tool (e.g. the prompt passed to a subagent). Truncated to ~2k chars when serialized; mirrors the sensitivity classification of the underlying run.
+      type: object
+      required:
+      - tool_name
+      title: MCPToolContent
+      description: 'Content for generic MCP tool calls.
+
+
+        This is the canonical type for any tool call that does not have a
+
+        dedicated first-class handler (web_search, file_search,
+
+        code_interpreter). In practice this covers all MCP tools, including
+
+        "agents as tools" (subagents) — at the persistence layer those are
+
+        indistinguishable from any other MCP tool call.'
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    FileSearchToolContent:
+      properties:
+        type:
+          type: string
+          const: file_search
+          title: Type
+          default: file_search
+        file_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: File Path
+        file_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: File Id
+        query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Query
+      type: object
+      title: FileSearchToolContent
+      description: Content specific to file search sources.
+    RawContextSource:
+      properties:
+        source_type:
+          type: string
+          const: raw
+          title: Source Type
+          default: raw
+        id:
+          type: integer
+          title: Id
+          description: Index of this source in the original context partition.
+        text:
+          type: string
+          title: Text
+          description: The source text content.
+        attribution:
+          type: number
+          title: Attribution
+          description: Attribution score in range (-1, 1). Positive values indicate support.
+        offset:
+          type: integer
+          title: Offset
+          description: Character offset of this source in the original context.
+      type: object
+      required:
+      - id
+      - text
+      - attribution
+      - offset
+      title: RawContextSource
+      description: 'A context source from raw context (not from a tool).
+
+
+        This model is used for context that was provided directly, not retrieved
+
+        by a tool call.'
+    BaseGranularityType:
+      type: string
+      enum:
+      - sentence
+      - paragraph
+      title: BaseGranularityType
+      description: Granularity for /context-attributor endpoint.
+    FromRunGranularityType:
+      type: string
+      enum:
+      - sentence
+      - chunk
+      title: FromRunGranularityType
+      description: Granularity for /context-attributor-from-run endpoint.
   securitySchemes:
     HTTPBearer:
       type: http

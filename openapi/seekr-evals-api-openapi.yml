@@ -233,12 +233,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    TagStrategy:
-      type: string
-      enum:
-      - contains
-      - overlap
-      title: TagStrategy
     ValidationError:
       properties:
         loc:
@@ -265,6 +259,12 @@ components:
       - msg
       - type
       title: ValidationError
+    TagStrategy:
+      type: string
+      enum:
+      - contains
+      - overlap
+      title: TagStrategy
     CreateCaseForm:
       properties:
         question:

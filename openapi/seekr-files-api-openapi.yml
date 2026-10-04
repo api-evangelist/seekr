@@ -546,60 +546,22 @@ paths:
       description: SeekrBuild server base URL
 components:
   schemas:
-    FileList:
-      properties:
-        object:
-          anyOf:
-          - type: string
-            const: list
-          - type: 'null'
-          title: Object
-        data:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/FileResponse'
-            type: array
-          - type: 'null'
-          title: Data
-      additionalProperties: true
-      type: object
-      title: FileList
-    TrainingFileType:
+    EventStatus:
       type: string
       enum:
-      - jsonl
-      - parquet
-      - pt
-      title: TrainingFileType
-    AlignmentFileType:
-      type: string
-      enum:
-      - html
-      - md
-      - rst
-      - rtf
-      - txt
-      - xml
-      - json
-      - jsonl
-      - csv
-      - doc
-      - docx
-      - pdf
-      - ppt
-      - pptx
-      title: AlignmentFileType
-    GetEventsResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Event'
-          type: array
-          title: Data
-      type: object
-      required:
-      - data
-      title: GetEventsResponse
+      - Inactive
+      - Pending
+      - Active
+      - Failed
+      - Started
+      - Success
+      - Uploading
+      - Completed
+      - Deleted
+      - Cancelled
+      - Queued
+      - Running
+      title: EventStatus
     EventType:
       type: string
       enum:
@@ -608,6 +570,15 @@ components:
       - Deployments
       - Alignment
       title: EventType
+    FileRenameRequest:
+      properties:
+        new_filename:
+          type: string
+          title: New Filename
+      type: object
+      required:
+      - new_filename
+      title: FileRenameRequest
     HTTPValidationError:
       properties:
         detail:
@@ -617,63 +588,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    Body_file_upload_v1_flow_files_put:
-      properties:
-        purpose:
-          $ref: '#/components/schemas/FilePurpose'
-        files:
-          type: string
-          contentMediaType: application/octet-stream
-          title: Files
-        vector_database_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Vector Database Id
-      type: object
-      required:
-      - purpose
-      - files
-      title: Body_file_upload_v1_flow_files_put
-    Body_bulk_file_upload_v1_flow_bulk_files_put:
-      properties:
-        purpose:
-          $ref: '#/components/schemas/FilePurpose'
-        files:
-          items:
-            type: string
-            contentMediaType: application/octet-stream
-          type: array
-          title: Files
-      type: object
-      required:
-      - purpose
-      - files
-      title: Body_bulk_file_upload_v1_flow_bulk_files_put
-    Event:
-      properties:
-        id:
-          type: integer
-          title: Id
-        type:
-          $ref: '#/components/schemas/EventType'
-        type_id:
-          type: string
-          title: Type Id
-        status:
-          $ref: '#/components/schemas/EventStatus'
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-      type: object
-      required:
-      - id
-      - type
-      - type_id
-      - status
-      - created_at
-      title: Event
     ValidationError:
       properties:
         loc:
@@ -700,58 +614,6 @@ components:
       - msg
       - type
       title: ValidationError
-    AlignFileMetadataValidationReq:
-      properties:
-        purpose:
-          type: string
-          title: Purpose
-        suffix:
-          type: string
-          title: Suffix
-        size:
-          type: integer
-          title: Size
-      additionalProperties: true
-      type: object
-      required:
-      - purpose
-      - suffix
-      - size
-      title: AlignFileMetadataValidationReq
-    EventStatus:
-      type: string
-      enum:
-      - Inactive
-      - Pending
-      - Active
-      - Failed
-      - Started
-      - Success
-      - Uploading
-      - Completed
-      - Deleted
-      - Cancelled
-      - Queued
-      - Running
-      title: EventStatus
-    IdList:
-      properties:
-        object:
-          type: string
-          const: list
-          title: Object
-          default: list
-        data:
-          items:
-            type: string
-          type: array
-          title: Data
-      additionalProperties: true
-      type: object
-      required:
-      - data
-      title: IdList
-      description: Generic response model for a list of resource IDs.
     FileResponse:
       properties:
         id:
@@ -809,6 +671,66 @@ components:
       - object
       title: FileResponse
       description: Files API response type
+    Event:
+      properties:
+        id:
+          type: integer
+          title: Id
+        type:
+          $ref: '#/components/schemas/EventType'
+        type_id:
+          type: string
+          title: Type Id
+        status:
+          $ref: '#/components/schemas/EventStatus'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - id
+      - type
+      - type_id
+      - status
+      - created_at
+      title: Event
+    IdList:
+      properties:
+        object:
+          type: string
+          const: list
+          title: Object
+          default: list
+        data:
+          items:
+            type: string
+          type: array
+          title: Data
+      additionalProperties: true
+      type: object
+      required:
+      - data
+      title: IdList
+      description: Generic response model for a list of resource IDs.
+    AlignFileMetadataValidationReq:
+      properties:
+        purpose:
+          type: string
+          title: Purpose
+        suffix:
+          type: string
+          title: Suffix
+        size:
+          type: integer
+          title: Size
+      additionalProperties: true
+      type: object
+      required:
+      - purpose
+      - suffix
+      - size
+      title: AlignFileMetadataValidationReq
     FilePurpose:
       type: string
       enum:
@@ -818,15 +740,35 @@ components:
       - pre-train
       - alignment
       title: FilePurpose
-    FileRenameRequest:
+    AlignmentFileType:
+      type: string
+      enum:
+      - html
+      - md
+      - rst
+      - rtf
+      - txt
+      - xml
+      - json
+      - jsonl
+      - csv
+      - doc
+      - docx
+      - pdf
+      - ppt
+      - pptx
+      title: AlignmentFileType
+    GetEventsResponse:
       properties:
-        new_filename:
-          type: string
-          title: New Filename
+        data:
+          items:
+            $ref: '#/components/schemas/Event'
+          type: array
+          title: Data
       type: object
       required:
-      - new_filename
-      title: FileRenameRequest
+      - data
+      title: GetEventsResponse
     FileDeleteResponse:
       properties:
         id:
@@ -846,6 +788,64 @@ components:
       - object
       - deleted
       title: FileDeleteResponse
+    Body_bulk_file_upload_v1_flow_bulk_files_put:
+      properties:
+        purpose:
+          $ref: '#/components/schemas/FilePurpose'
+        files:
+          items:
+            type: string
+            contentMediaType: application/octet-stream
+          type: array
+          title: Files
+      type: object
+      required:
+      - purpose
+      - files
+      title: Body_bulk_file_upload_v1_flow_bulk_files_put
+    TrainingFileType:
+      type: string
+      enum:
+      - jsonl
+      - parquet
+      - pt
+      title: TrainingFileType
+    FileList:
+      properties:
+        object:
+          anyOf:
+          - type: string
+            const: list
+          - type: 'null'
+          title: Object
+        data:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/FileResponse'
+            type: array
+          - type: 'null'
+          title: Data
+      additionalProperties: true
+      type: object
+      title: FileList
+    Body_file_upload_v1_flow_files_put:
+      properties:
+        purpose:
+          $ref: '#/components/schemas/FilePurpose'
+        files:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Files
+        vector_database_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Vector Database Id
+      type: object
+      required:
+      - purpose
+      - files
+      title: Body_file_upload_v1_flow_files_put
     ValidationError_2:
       properties:
         loc:

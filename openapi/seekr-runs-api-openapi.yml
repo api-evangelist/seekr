@@ -374,66 +374,6 @@ paths:
       x-excluded: true
 components:
   schemas:
-    RunResponse:
-      properties:
-        run_id:
-          type: string
-          title: Run Id
-        thread_id:
-          type: string
-          title: Thread Id
-        status:
-          type: string
-          title: Status
-        group:
-          type: string
-          title: Group
-          default: ''
-      type: object
-      required:
-      - run_id
-      - thread_id
-      - status
-      title: RunResponse
-      description: Response model for run creation.
-    RunRequest:
-      properties:
-        agent_id:
-          type: string
-          title: Agent Id
-          default: default_agent
-        model_settings:
-          $ref: '#/components/schemas/ModelSettings'
-          default:
-            temperature: 1
-            top_p: 1
-            frequency_penalty: 0
-            presence_penalty: 0
-        response_format:
-          anyOf:
-          - $ref: '#/components/schemas/ResponseFormat'
-          - type: 'null'
-        group:
-          type: string
-          title: Group
-          default: default_group
-        metadata:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Metadata
-      type: object
-      title: RunRequest
-      description: Request model for creating a run.
-    OrderEnum:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: OrderEnum
-      description: Options for order query param in list endpoints.
     HTTPValidationError:
       properties:
         detail:
@@ -469,6 +409,28 @@ components:
       - msg
       - type
       title: ValidationError
+    RunResponse:
+      properties:
+        run_id:
+          type: string
+          title: Run Id
+        thread_id:
+          type: string
+          title: Thread Id
+        status:
+          type: string
+          title: Status
+        group:
+          type: string
+          title: Group
+          default: ''
+      type: object
+      required:
+      - run_id
+      - thread_id
+      - status
+      title: RunResponse
+      description: Response model for run creation.
     Run:
       properties:
         id:
@@ -598,27 +560,44 @@ components:
         the initial prompt to delivering the final response. Runs track
 
         execution status, timing, model parameters, and resource usage.'
-    RunUsage:
+    RunRequest:
       properties:
-        prompt_tokens:
-          type: integer
-          title: Prompt Tokens
-        completion_tokens:
-          type: integer
-          title: Completion Tokens
-        total_tokens:
-          type: integer
-          title: Total Tokens
+        agent_id:
+          type: string
+          title: Agent Id
+          default: default_agent
+        model_settings:
+          $ref: '#/components/schemas/ModelSettings'
+          default:
+            temperature: 1
+            top_p: 1
+            frequency_penalty: 0
+            presence_penalty: 0
+        response_format:
+          anyOf:
+          - $ref: '#/components/schemas/ResponseFormat'
+          - type: 'null'
+        group:
+          type: string
+          title: Group
+          default: default_group
+        metadata:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Metadata
       type: object
-      required:
-      - prompt_tokens
-      - completion_tokens
-      - total_tokens
-      title: RunUsage
-      description: 'Aggregated usage metrics for a complete run execution.
-
-
-        Tracks token consumption for both prompts and completions.'
+      title: RunRequest
+      description: Request model for creating a run.
+    OrderEnum:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: OrderEnum
+      description: Options for order query param in list endpoints.
     RunStatus:
       type: string
       enum:
@@ -630,6 +609,22 @@ components:
       - cancelled
       title: RunStatus
       description: Available status for a run.
+    ResponseFormat:
+      properties:
+        json_schema:
+          additionalProperties: true
+          type: object
+          title: Json Schema
+      type: object
+      required:
+      - json_schema
+      title: ResponseFormat
+      description: 'Specifies a JSON schema for structured output.
+
+
+        When provided, the LLM will be constrained to return a JSON response
+
+        that matches the specified schema.'
     LatestRun:
       properties:
         run_id:
@@ -653,22 +648,6 @@ components:
       - last_run_created_at
       title: LatestRun
       description: A minimal Run model to be used for determining the latest run of an agent.
-    ResponseFormat:
-      properties:
-        json_schema:
-          additionalProperties: true
-          type: object
-          title: Json Schema
-      type: object
-      required:
-      - json_schema
-      title: ResponseFormat
-      description: 'Specifies a JSON schema for structured output.
-
-
-        When provided, the LLM will be constrained to return a JSON response
-
-        that matches the specified schema.'
     ModelSettings:
       properties:
         temperature:
@@ -713,6 +692,27 @@ components:
         Not all models/providers support all of these parameters, so please check the API documentation
 
         for the specific model and provider you are using.'
+    RunUsage:
+      properties:
+        prompt_tokens:
+          type: integer
+          title: Prompt Tokens
+        completion_tokens:
+          type: integer
+          title: Completion Tokens
+        total_tokens:
+          type: integer
+          title: Total Tokens
+      type: object
+      required:
+      - prompt_tokens
+      - completion_tokens
+      - total_tokens
+      title: RunUsage
+      description: 'Aggregated usage metrics for a complete run execution.
+
+
+        Tracks token consumption for both prompts and completions.'
   securitySchemes:
     APIKeyHeader:
       type: apiKey

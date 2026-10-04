@@ -325,32 +325,7 @@ paths:
       x-excluded: true
 components:
   schemas:
-    GetEventsResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Event'
-          type: array
-          title: Data
-      type: object
-      required:
-      - data
-      title: GetEventsResponse
-    UpdateDeploymentRequest:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      type: object
-      title: UpdateDeploymentRequest
-    DeploymentStatus:
+    EventStatus:
       type: string
       enum:
       - Inactive
@@ -359,7 +334,19 @@ components:
       - Failed
       - Started
       - Success
-      title: DeploymentStatus
+      - Uploading
+      - Completed
+      - Deleted
+      - Cancelled
+      - Queued
+      - Running
+      title: EventStatus
+    HardwareType:
+      type: string
+      enum:
+      - Serverless
+      - Dedicated
+      title: HardwareType
     EventType:
       type: string
       enum:
@@ -368,6 +355,54 @@ components:
       - Deployments
       - Alignment
       title: EventType
+    UpdateDeploymentStatusRequest:
+      properties:
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+        last_deployed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Deployed At
+      type: object
+      required:
+      - status
+      title: UpdateDeploymentStatusRequest
+    NewDeploymentRequest:
+      properties:
+        model_type:
+          $ref: '#/components/schemas/DeploymentType'
+        model_id:
+          type: string
+          title: Model Id
+        name:
+          type: string
+          maxLength: 100
+          minLength: 5
+          title: Name
+        description:
+          type: string
+          maxLength: 1000
+          minLength: 5
+          title: Description
+        n_instances:
+          type: integer
+          maximum: 50
+          minimum: 1
+          title: N Instances
+        hardware:
+          anyOf:
+          - $ref: '#/components/schemas/AcceleratorType'
+          - type: 'null'
+      type: object
+      required:
+      - model_type
+      - model_id
+      - name
+      - description
+      - n_instances
+      title: NewDeploymentRequest
     HTTPValidationError:
       properties:
         detail:
@@ -377,46 +412,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    HardwareType:
-      type: string
-      enum:
-      - Serverless
-      - Dedicated
-      title: HardwareType
-    AcceleratorType:
-      type: string
-      enum:
-      - GAUDI2
-      - GAUDI3
-      - A100
-      - A10
-      - H100
-      - MI300X
-      title: AcceleratorType
-    Event:
-      properties:
-        id:
-          type: integer
-          title: Id
-        type:
-          $ref: '#/components/schemas/EventType'
-        type_id:
-          type: string
-          title: Type Id
-        status:
-          $ref: '#/components/schemas/EventStatus'
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-      type: object
-      required:
-      - id
-      - type
-      - type_id
-      - status
-      - created_at
-      title: Event
     ValidationError:
       properties:
         loc:
@@ -443,39 +438,44 @@ components:
       - msg
       - type
       title: ValidationError
-    DeploymentProcessor:
-      type: string
-      enum:
-      - GAUDI2
-      - GAUDI3
-      - A100
-      - A10
-      - AMD
-      - H100
-      - MI300X
-      title: DeploymentProcessor
-    DeploymentType:
-      type: string
-      enum:
-      - Fine-tuned Run
-      - Base Model
-      title: DeploymentType
-    EventStatus:
-      type: string
-      enum:
-      - Inactive
-      - Pending
-      - Active
-      - Failed
-      - Started
-      - Success
-      - Uploading
-      - Completed
-      - Deleted
-      - Cancelled
-      - Queued
-      - Running
-      title: EventStatus
+    UpdateDeploymentRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      title: UpdateDeploymentRequest
+    Event:
+      properties:
+        id:
+          type: integer
+          title: Id
+        type:
+          $ref: '#/components/schemas/EventType'
+        type_id:
+          type: string
+          title: Type Id
+        status:
+          $ref: '#/components/schemas/EventStatus'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - id
+      - type
+      - type_id
+      - status
+      - created_at
+      title: Event
     DeploymentMetrics:
       properties:
         count_by_deployment_status:
@@ -492,52 +492,6 @@ components:
       - total_inbound_tokens
       - total_outbound_tokens
       title: DeploymentMetrics
-    UpdateDeploymentStatusRequest:
-      properties:
-        status:
-          $ref: '#/components/schemas/DeploymentStatus'
-        last_deployed_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Last Deployed At
-      type: object
-      required:
-      - status
-      title: UpdateDeploymentStatusRequest
-    DeploymentStatusCounts:
-      properties:
-        active:
-          type: integer
-          title: Active
-        inactive:
-          type: integer
-          title: Inactive
-        failed:
-          type: integer
-          title: Failed
-        pending:
-          type: integer
-          title: Pending
-      type: object
-      required:
-      - active
-      - inactive
-      - failed
-      - pending
-      title: DeploymentStatusCounts
-    GetDeploymentsResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Deployment'
-          type: array
-          title: Data
-      type: object
-      required:
-      - data
-      title: GetDeploymentsResponse
     Deployment:
       properties:
         id:
@@ -676,40 +630,86 @@ components:
       - team_id
       - model_name
       title: Deployment
-    NewDeploymentRequest:
+    DeploymentType:
+      type: string
+      enum:
+      - Fine-tuned Run
+      - Base Model
+      title: DeploymentType
+    GetEventsResponse:
       properties:
-        model_type:
-          $ref: '#/components/schemas/DeploymentType'
-        model_id:
-          type: string
-          title: Model Id
-        name:
-          type: string
-          maxLength: 100
-          minLength: 5
-          title: Name
-        description:
-          type: string
-          maxLength: 1000
-          minLength: 5
-          title: Description
-        n_instances:
-          type: integer
-          maximum: 50
-          minimum: 1
-          title: N Instances
-        hardware:
-          anyOf:
-          - $ref: '#/components/schemas/AcceleratorType'
-          - type: 'null'
+        data:
+          items:
+            $ref: '#/components/schemas/Event'
+          type: array
+          title: Data
       type: object
       required:
-      - model_type
-      - model_id
-      - name
-      - description
-      - n_instances
-      title: NewDeploymentRequest
+      - data
+      title: GetEventsResponse
+    GetDeploymentsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Deployment'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: GetDeploymentsResponse
+    DeploymentStatusCounts:
+      properties:
+        active:
+          type: integer
+          title: Active
+        inactive:
+          type: integer
+          title: Inactive
+        failed:
+          type: integer
+          title: Failed
+        pending:
+          type: integer
+          title: Pending
+      type: object
+      required:
+      - active
+      - inactive
+      - failed
+      - pending
+      title: DeploymentStatusCounts
+    DeploymentProcessor:
+      type: string
+      enum:
+      - GAUDI2
+      - GAUDI3
+      - A100
+      - A10
+      - AMD
+      - H100
+      - MI300X
+      title: DeploymentProcessor
+    AcceleratorType:
+      type: string
+      enum:
+      - GAUDI2
+      - GAUDI3
+      - A100
+      - A10
+      - H100
+      - MI300X
+      title: AcceleratorType
+    DeploymentStatus:
+      type: string
+      enum:
+      - Inactive
+      - Pending
+      - Active
+      - Failed
+      - Started
+      - Success
+      title: DeploymentStatus
   securitySchemes:
     APIKeyHeader:
       type: apiKey

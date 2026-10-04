@@ -1726,6 +1726,63 @@ paths:
       description: SeekrBuild server base URL
 components:
   schemas:
+    ValidatePythonFunctionIdsRequest:
+      properties:
+        function_ids:
+          items:
+            type: string
+          type: array
+          title: Function Ids
+        team_id:
+          type: string
+          title: Team Id
+      type: object
+      required:
+      - function_ids
+      - team_id
+      title: ValidatePythonFunctionIdsRequest
+      description: Request model for validating a list of Python function IDs for a team.
+    PythonFunctionIdsRequest:
+      properties:
+        function_ids:
+          items:
+            type: string
+          type: array
+          title: Function Ids
+      type: object
+      required:
+      - function_ids
+      title: PythonFunctionIdsRequest
+      description: Request model for retrieving Python functions by a list of IDs.
+    RegisteredAgent:
+      properties:
+        id:
+          type: string
+          title: Id
+        address:
+          type: string
+          title: Address
+        port:
+          type: integer
+          title: Port
+        status:
+          $ref: '#/components/schemas/AgentStatus'
+        deployment_generation:
+          type: integer
+          title: Deployment Generation
+        awaiting_initial_readiness:
+          type: boolean
+          title: Awaiting Initial Readiness
+      type: object
+      required:
+      - id
+      - address
+      - port
+      - status
+      - deployment_generation
+      - awaiting_initial_readiness
+      title: RegisteredAgent
+      description: A registered agent currently known by agents-router.
     HTTPValidationError:
       properties:
         detail:
@@ -1761,86 +1818,6 @@ components:
       - msg
       - type
       title: ValidationError
-    RegisteredAgent:
-      properties:
-        id:
-          type: string
-          title: Id
-        address:
-          type: string
-          title: Address
-        port:
-          type: integer
-          title: Port
-        status:
-          $ref: '#/components/schemas/AgentStatus'
-        deployment_generation:
-          type: integer
-          title: Deployment Generation
-        awaiting_initial_readiness:
-          type: boolean
-          title: Awaiting Initial Readiness
-      type: object
-      required:
-      - id
-      - address
-      - port
-      - status
-      - deployment_generation
-      - awaiting_initial_readiness
-      title: RegisteredAgent
-      description: A registered agent currently known by agents-router.
-    ValidatePythonFunctionIdsRequest:
-      properties:
-        function_ids:
-          items:
-            type: string
-          type: array
-          title: Function Ids
-        team_id:
-          type: string
-          title: Team Id
-      type: object
-      required:
-      - function_ids
-      - team_id
-      title: ValidatePythonFunctionIdsRequest
-      description: Request model for validating a list of Python function IDs for a team.
-    PythonFunctionIdsRequest:
-      properties:
-        function_ids:
-          items:
-            type: string
-          type: array
-          title: Function Ids
-      type: object
-      required:
-      - function_ids
-      title: PythonFunctionIdsRequest
-      description: Request model for retrieving Python functions by a list of IDs.
-    LatestRun:
-      properties:
-        run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Id
-        agent_id:
-          type: string
-          title: Agent Id
-        last_run_created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Last Run Created At
-      type: object
-      required:
-      - run_id
-      - agent_id
-      - last_run_created_at
-      title: LatestRun
-      description: A minimal Run model to be used for determining the latest run of an agent.
     AgentStatus:
       type: string
       enum:
@@ -1850,23 +1827,6 @@ components:
       - Failed
       title: AgentStatus
       description: Available statuses for an agent.
-    ValidateFunctionIdsResponse:
-      properties:
-        valid:
-          type: boolean
-          title: Valid
-        missing:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Missing
-      type: object
-      required:
-      - valid
-      title: ValidateFunctionIdsResponse
-      description: Response model for function ID validation results.
     PythonFunctionResponse:
       properties:
         id:
@@ -1911,70 +1871,61 @@ components:
       - updated_at
       title: PythonFunctionResponse
       description: Response model for a Python function, including code and user info.
-    QuestionAnswerPair:
+    LatestRun:
       properties:
-        id:
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        agent_id:
           type: string
-          title: Id
-          description: Unique identifier for the QA pair
-        file_id:
-          type: string
-          title: File Id
-          description: ID of the source file
-        influence_level:
-          $ref: '#/components/schemas/InfluenceLevel'
-          description: Level of influence this QA pair has (high, medium, low, irrelevant)
-        messages:
-          type: string
-          title: Messages
-          description: The question-answer content
+          title: Agent Id
+        last_run_created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Run Created At
       type: object
       required:
-      - id
-      - file_id
-      - influence_level
-      - messages
-      title: QuestionAnswerPair
-    PopulateIndexResponse:
+      - run_id
+      - agent_id
+      - last_run_created_at
+      title: LatestRun
+      description: A minimal Run model to be used for determining the latest run of an agent.
+    ValidateFunctionIdsResponse:
+      properties:
+        valid:
+          type: boolean
+          title: Valid
+        missing:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Missing
+      type: object
+      required:
+      - valid
+      title: ValidateFunctionIdsResponse
+      description: Response model for function ID validation results.
+    PopulateIndexJobStatusResponse:
       properties:
         job_id:
           type: string
           title: Job Id
-          description: 'metaflow job id for populate_index. '
+          description: populate index job id
         status:
           type: string
           title: Status
-          description: 'Status code after adding all the QA pairs. '
+          description: The status of the Populate Index Job.
       type: object
       required:
       - job_id
       - status
-      title: PopulateIndexResponse
-      description: "PopulateIndexResponse represents the response model for populating an index.\n\nThis model is used to specify the parquet file containing QA pairs used to fine-tune a model. The file is retrieved\nusing SeekrFlow.\n\nAttributes:\n    num_docs (int): the number of docs added to the index.\n     status (str): the fine-tuned model id in SeekrFlow."
-    InfluenceLevel:
-      type: string
-      enum:
-      - high
-      - medium
-      - low
-      - irrelevant
-      title: InfluenceLevel
-    CreateIndexRequest:
-      properties:
-        index_name:
-          type: string
-          title: Index Name
-          description: 'The name of the index to be used for a fine-tuned model in SeekrFlow. '
-        use_sparse_vector:
-          type: boolean
-          title: Use Sparse Vector
-          description: True if you want to use sparse_vector for keyword search.
-          default: false
-      type: object
-      required:
-      - index_name
-      title: CreateIndexRequest
-      description: "CreateIndexRequest represents the request model for creating an index.\n\nAttributes:\n     index_name (str): the index name for a fine-tuned model in SeekrFlow.\n     use_sparse_vector (bool): True if the index should have sparse_vector field (required when ns method is used for search)."
+      title: PopulateIndexJobStatusResponse
     CreateIndexResponse:
       properties:
         index_name:
@@ -1991,59 +1942,6 @@ components:
       - index_name
       title: CreateIndexResponse
       description: "CreateIndexResponse represents the response model for creating an index.\n\nAttributes:\n     index_name (str): the index name that has been created.\n     status (str): status_code from OpenSearch.indices.create()"
-    InfluentialFinetuningDataResponse:
-      properties:
-        answer:
-          type: string
-          title: Answer
-          description: The answer from the model or provided by the user
-        version:
-          type: string
-          title: Version
-          description: Version of the index used
-        results:
-          items:
-            $ref: '#/components/schemas/QuestionAnswerPair'
-          type: array
-          title: Results
-          description: List of influential QA pairs
-      type: object
-      required:
-      - answer
-      - version
-      - results
-      title: InfluentialFinetuningDataResponse
-    PopulateIndexJobStatusResponse:
-      properties:
-        job_id:
-          type: string
-          title: Job Id
-          description: populate index job id
-        status:
-          type: string
-          title: Status
-          description: The status of the Populate Index Job.
-      type: object
-      required:
-      - job_id
-      - status
-      title: PopulateIndexJobStatusResponse
-    DeleteIndexResponse:
-      properties:
-        index_name:
-          type: string
-          title: Index Name
-          description: 'The name of the index created. '
-        status:
-          type: string
-          title: Status
-          description: 'Final status. '
-          default: ''
-      type: object
-      required:
-      - index_name
-      title: DeleteIndexResponse
-      description: "DeleteIndexResponse represents the response model for deleting an index.\n\nAttributes:\n     index_name (str): the index name that has been deleted.\n     status (str): response from OpenSearch.indices.delete()"
     PopulateIndexRequest:
       properties:
         index_name:
@@ -2078,6 +1976,46 @@ components:
       - file_ids
       title: PopulateIndexRequest
       description: "PopulateIndexRequest represents the request model for populating an index with the data to the given index.\n\nThis model is used to specify the parquet file containing QA pairs used to fine-tune a model. The file is retrieved\nusing SeekrFlow.\n\nAttributes:\n    index_name (str): name of the index\n    user_id (str): user id\n    team_id (str): team id\n    file_ids (list[str]): The parquet file id in SeekrFlow.\n    use_sparse_vector (bool): True if you want to use sparse vector for keyword search."
+    PopulateIndexResponse:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+          description: 'metaflow job id for populate_index. '
+        status:
+          type: string
+          title: Status
+          description: 'Status code after adding all the QA pairs. '
+      type: object
+      required:
+      - job_id
+      - status
+      title: PopulateIndexResponse
+      description: "PopulateIndexResponse represents the response model for populating an index.\n\nThis model is used to specify the parquet file containing QA pairs used to fine-tune a model. The file is retrieved\nusing SeekrFlow.\n\nAttributes:\n    num_docs (int): the number of docs added to the index.\n     status (str): the fine-tuned model id in SeekrFlow."
+    QuestionAnswerPair:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier for the QA pair
+        file_id:
+          type: string
+          title: File Id
+          description: ID of the source file
+        influence_level:
+          $ref: '#/components/schemas/InfluenceLevel'
+          description: Level of influence this QA pair has (high, medium, low, irrelevant)
+        messages:
+          type: string
+          title: Messages
+          description: The question-answer content
+      type: object
+      required:
+      - id
+      - file_id
+      - influence_level
+      - messages
+      title: QuestionAnswerPair
     DeleteIndexRequest:
       properties:
         team_id:
@@ -2107,226 +2045,78 @@ components:
       - status
       - version
       title: StatusResponse
-    RunPythonConfig:
+    InfluentialFinetuningDataResponse:
       properties:
-        FUNCTION_IDS:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Function Ids
-      additionalProperties: false
-      type: object
-      title: RunPythonConfig
-    AgentAsToolConfig:
-      properties:
-        AGENT_ID:
+        answer:
           type: string
-          title: Agent Id
-      additionalProperties: false
+          title: Answer
+          description: The answer from the model or provided by the user
+        version:
+          type: string
+          title: Version
+          description: Version of the index used
+        results:
+          items:
+            $ref: '#/components/schemas/QuestionAnswerPair'
+          type: array
+          title: Results
+          description: List of influential QA pairs
       type: object
       required:
-      - AGENT_ID
-      title: AgentAsToolConfig
-    llm_training__agents__tools__standalone__schemas__MCPConnectorTool:
+      - answer
+      - version
+      - results
+      title: InfluentialFinetuningDataResponse
+    DeleteIndexResponse:
       properties:
-        id:
+        index_name:
           type: string
-          title: Id
-        name:
-          type: string
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        type:
-          type: string
-          const: mcp_connector
-          title: Type
-          default: mcp_connector
-        config:
-          $ref: '#/components/schemas/MCPConnectorToolResponseConfig'
-      type: object
-      required:
-      - id
-      - name
-      - config
-      title: MCPConnectorTool
-      description: Configuration for the MCP connector tool, which connects the agent to external MCP providers through a secure gateway with OAuth-based authentication.
-    MLModel:
-      properties:
-        id:
-          type: integer
-          title: Id
-        name:
-          type: string
-          maxLength: 100
-          minLength: 5
-          title: Name
-        source:
-          type: string
-          maxLength: 100
-          minLength: 1
-          title: Source
-        description:
-          type: string
-          maxLength: 1000
-          minLength: 5
-          title: Description
-        size:
-          type: integer
-          title: Size
-        logo:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Logo
-        category:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Category
-        model_type:
-          $ref: '#/components/schemas/MLModelType'
-        inference_available:
-          type: boolean
-          title: Inference Available
-        training_available:
-          type: boolean
-          title: Training Available
-        deployment_available:
-          type: boolean
-          title: Deployment Available
-        supports_lora:
-          type: boolean
-          title: Supports Lora
-        max_lora_rank:
-          anyOf:
-          - type: integer
-            exclusiveMinimum: 0
-          - type: 'null'
-          title: Max Lora Rank
-        vision_model:
-          type: boolean
-          title: Vision Model
-        hf_revision:
-          anyOf:
-          - type: string
-            maxLength: 128
-            minLength: 1
-          - type: 'null'
-          title: Hf Revision
-        internal_only:
-          type: boolean
-          title: Internal Only
-      type: object
-      required:
-      - id
-      - name
-      - source
-      - description
-      - size
-      - model_type
-      - inference_available
-      - training_available
-      - deployment_available
-      - supports_lora
-      - vision_model
-      - internal_only
-      title: MLModel
-    PricingEstimateServerlessInferenceRequestModel:
-      properties:
-        deployment:
-          $ref: '#/components/schemas/NewDeploymentRequest'
-        file_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: File Ids
-      type: object
-      required:
-      - deployment
-      title: PricingEstimateServerlessInferenceRequestModel
-    PricingEstimateResponseModel:
-      properties:
+          title: Index Name
+          description: 'The name of the index created. '
         status:
-          type: integer
+          type: string
           title: Status
-        pricing_estimate:
-          type: number
-          title: Pricing Estimate
-        billing_type:
-          $ref: '#/components/schemas/BillingType'
-        resource_type:
-          $ref: '#/components/schemas/HardwareType'
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        deployment:
-          $ref: '#/components/schemas/NewDeploymentRequest'
-        description:
-          type: string
-          title: Description
-        tokens_used:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Tokens Used
-        calculation_parameters:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/CalculationParameter'
-            type: array
-          - type: 'null'
-          title: Calculation Parameters
+          description: 'Final status. '
+          default: ''
       type: object
       required:
-      - status
-      - pricing_estimate
-      - billing_type
-      - resource_type
-      - created_at
-      - deployment
-      - description
-      title: PricingEstimateResponseModel
-    AcceleratorType:
+      - index_name
+      title: DeleteIndexResponse
+      description: "DeleteIndexResponse represents the response model for deleting an index.\n\nAttributes:\n     index_name (str): the index name that has been deleted.\n     status (str): response from OpenSearch.indices.delete()"
+    CreateIndexRequest:
+      properties:
+        index_name:
+          type: string
+          title: Index Name
+          description: 'The name of the index to be used for a fine-tuned model in SeekrFlow. '
+        use_sparse_vector:
+          type: boolean
+          title: Use Sparse Vector
+          description: True if you want to use sparse_vector for keyword search.
+          default: false
+      type: object
+      required:
+      - index_name
+      title: CreateIndexRequest
+      description: "CreateIndexRequest represents the request model for creating an index.\n\nAttributes:\n     index_name (str): the index name for a fine-tuned model in SeekrFlow.\n     use_sparse_vector (bool): True if the index should have sparse_vector field (required when ns method is used for search)."
+    InfluenceLevel:
       type: string
       enum:
-      - GAUDI2
-      - GAUDI3
-      - A100
-      - A10
-      - H100
-      - MI300X
-      title: AcceleratorType
-    CreateCaseForm:
+      - high
+      - medium
+      - low
+      - irrelevant
+      title: InfluenceLevel
+    CreateImageForm:
       properties:
-        question:
+        user_id:
           type: string
-          title: Question
-        ground_truth:
+          title: User Id
+        team_id:
           anyOf:
           - type: string
           - type: 'null'
-          title: Ground Truth
-        case_metadata:
-          additionalProperties: true
-          type: object
-          title: Case Metadata
-          default: {}
-        tags:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Tags
+          title: Team Id
         files:
           anyOf:
           - items:
@@ -2335,349 +2125,11 @@ components:
             type: array
           - type: 'null'
           title: Files
-      type: object
-      required:
-      - question
-      title: CreateCaseForm
-    AgentSchemaV2:
-      properties:
-        id:
-          type: string
-          title: Id
-        name:
-          type: string
-          title: Name
-        instructions:
-          type: string
-          title: Instructions
-        status:
-          $ref: '#/components/schemas/AgentStatus_2'
-        model_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model Id
-        planner_model_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Planner Model Id
-        tool_model_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tool Model Id
-        output:
-          anyOf:
-          - $ref: '#/components/schemas/AgentOutputConfig'
-          - type: 'null'
-        temperature:
-          anyOf:
-          - type: number
-            maximum: 2
-            minimum: 0
-          - type: 'null'
-          title: Temperature
-        reasoning_effort:
-          $ref: '#/components/schemas/ReasoningEffort'
-        planner_temperature:
-          anyOf:
-          - type: number
-            maximum: 2
-            minimum: 0
-          - type: 'null'
-          title: Planner Temperature
-        user_id:
-          type: string
-          title: User Id
-        team_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Team Id
-        tools:
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__FileSearch'
-            - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__RunPython'
-            - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__WebSearch'
-            - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__AgentAsTool'
-            - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__MCPConnectorTool'
-            discriminator:
-              propertyName: type
-              mapping:
-                agent_as_tool: '#/components/schemas/llm_training__agents__tools__standalone__schemas__AgentAsTool'
-                file_search: '#/components/schemas/llm_training__agents__tools__standalone__schemas__FileSearch'
-                mcp_connector: '#/components/schemas/llm_training__agents__tools__standalone__schemas__MCPConnectorTool'
-                run_python: '#/components/schemas/llm_training__agents__tools__standalone__schemas__RunPython'
-                web_search: '#/components/schemas/llm_training__agents__tools__standalone__schemas__WebSearch'
-          type: array
-          title: Tools
-          description: 'The tools available to the agent. Each item configures one tool and must match one of the supported tool types: file search, run Python, web search, agent-as-tool, or MCP connector.'
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        last_deployed_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Last Deployed At
-        active_duration:
-          type: integer
-          minimum: 0
-          title: Active Duration
-          default: 0
-      type: object
-      required:
-      - id
-      - name
-      - instructions
-      - status
-      - reasoning_effort
-      - user_id
-      - team_id
-      - created_at
-      - updated_at
-      title: AgentSchemaV2
-    llm_training__agents__tools__standalone__schemas__AgentAsTool:
-      properties:
-        id:
-          type: string
-          title: Id
-        name:
-          type: string
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        type:
-          type: string
-          const: agent_as_tool
-          title: Type
-          default: agent_as_tool
-        config:
-          $ref: '#/components/schemas/AgentAsToolConfig'
-      type: object
-      required:
-      - id
-      - name
-      - config
-      title: AgentAsTool
-      description: Configuration for an agent-as-tool, which delegates subtasks to another agent and returns the result to the supervisor.
-    AgentUpdateStatusResponseV2:
-      properties:
-        id:
-          type: string
-          title: Id
-        old_status:
-          $ref: '#/components/schemas/AgentStatus_2'
-        new_status:
-          $ref: '#/components/schemas/AgentStatus_2'
-        user_id:
-          type: string
-          title: User Id
-        team_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Team Id
-        agent:
-          $ref: '#/components/schemas/AgentSchemaV2'
-      type: object
-      required:
-      - id
-      - old_status
-      - new_status
-      - user_id
-      - team_id
-      - agent
-      title: AgentUpdateStatusResponseV2
-    GetDeploymentsResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Deployment'
-          type: array
-          title: Data
-      type: object
-      required:
-      - data
-      title: GetDeploymentsResponse
-    WorkflowPhaseResponse:
-      properties:
-        phase:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Phase
       additionalProperties: true
       type: object
-      title: WorkflowPhaseResponse
-      description: 'Internal: the Argo workflow phase backing a job.
-
-
-        ``phase`` is the raw Argo phase (e.g. Running, Succeeded, Failed, Error) or
-
-        ``None`` when the workflow no longer exists / was never started. Not part of
-
-        the public SDK — used to verify a cancelled job''s workflow actually
-
-        terminated.'
-    PricingEstimateDedicatedInferenceRequestModel:
-      properties:
-        deployment:
-          $ref: '#/components/schemas/NewDeploymentRequest'
-        estimated_compute_hours:
-          anyOf:
-          - type: integer
-            maximum: 8760
-            minimum: 1
-          - type: 'null'
-          title: Estimated Compute Hours
-      type: object
       required:
-      - deployment
-      - estimated_compute_hours
-      title: PricingEstimateDedicatedInferenceRequestModel
-    GetMLModelInfoResponse:
-      properties:
-        name:
-          type: string
-          title: Name
-        size:
-          type: integer
-          title: Size
-        model_type:
-          anyOf:
-          - $ref: '#/components/schemas/MLModelType'
-          - type: 'null'
-      type: object
-      required:
-      - name
-      - size
-      - model_type
-      title: GetMLModelInfoResponse
-    DeploymentStatus:
-      type: string
-      enum:
-      - Inactive
-      - Pending
-      - Active
-      - Failed
-      - Started
-      - Success
-      title: DeploymentStatus
-    GetHealthResponse:
-      properties:
-        deployment_pending_average:
-          type: integer
-          title: Deployment Pending Average
-        deployment_pending_maximum:
-          type: integer
-          title: Deployment Pending Maximum
-        deployment_pending_count:
-          type: integer
-          title: Deployment Pending Count
-        deployment_pending_by_model_name:
-          additionalProperties:
-            $ref: '#/components/schemas/SinceUpdateMetrics'
-          type: object
-          title: Deployment Pending By Model Name
-        version:
-          type: string
-          title: Version
-        agent_pending_average:
-          type: integer
-          title: Agent Pending Average
-        agent_pending_maximum:
-          type: integer
-          title: Agent Pending Maximum
-        agent_pending_count:
-          type: integer
-          title: Agent Pending Count
-        agent_failed_count:
-          type: integer
-          title: Agent Failed Count
-        finetune_queued_average:
-          type: integer
-          title: Finetune Queued Average
-        finetune_queued_maximum:
-          type: integer
-          title: Finetune Queued Maximum
-        finetune_queued_count:
-          type: integer
-          title: Finetune Queued Count
-        finetune_queued_by_model_name:
-          additionalProperties:
-            $ref: '#/components/schemas/SinceUpdateMetrics'
-          type: object
-          title: Finetune Queued By Model Name
-        alignment_queued_average:
-          type: integer
-          title: Alignment Queued Average
-        alignment_queued_maximum:
-          type: integer
-          title: Alignment Queued Maximum
-        alignment_queued_count:
-          type: integer
-          title: Alignment Queued Count
-        environment_management_on:
-          type: string
-          title: Environment Management On
-      type: object
-      required:
-      - deployment_pending_average
-      - deployment_pending_maximum
-      - deployment_pending_count
-      - deployment_pending_by_model_name
-      - version
-      - agent_pending_average
-      - agent_pending_maximum
-      - agent_pending_count
-      - agent_failed_count
-      - finetune_queued_average
-      - finetune_queued_maximum
-      - finetune_queued_count
-      - finetune_queued_by_model_name
-      - alignment_queued_average
-      - alignment_queued_maximum
-      - alignment_queued_count
-      - environment_management_on
-      title: GetHealthResponse
-    AgentUpdateStatusRequest:
-      properties:
-        new_status:
-          $ref: '#/components/schemas/AgentStatus_2'
-      additionalProperties: false
-      type: object
-      required:
-      - new_status
-      title: AgentUpdateStatusRequest
-    TagStrategy:
-      type: string
-      enum:
-      - contains
-      - overlap
-      title: TagStrategy
-    DeploymentProcessor:
-      type: string
-      enum:
-      - GAUDI2
-      - GAUDI3
-      - A100
-      - A10
-      - AMD
-      - H100
-      - MI300X
-      title: DeploymentProcessor
+      - user_id
+      title: CreateImageForm
     UpdateDeploymentStatusRequest:
       properties:
         status:
@@ -2692,17 +2144,96 @@ components:
       required:
       - status
       title: UpdateDeploymentStatusRequest
-    GetMLModelsResponse:
+    MLModelType:
+      type: string
+      enum:
+      - Base
+      - Instruct
+      - Embedding
+      title: MLModelType
+    AgentOutputConfig:
       properties:
-        data:
-          items:
-            $ref: '#/components/schemas/MLModel'
-          type: array
-          title: Data
+        frequency:
+          anyOf:
+          - $ref: '#/components/schemas/AgentOutputFrequency'
+          - type: 'null'
+          description: 'When the agent produces a written response: `always`, `automatic` (the agent decides), or `never`.'
+        instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instructions
+          description: Instructions for generating the agent's final response. When set, the top-level `instructions` guide only the agent's reasoning, and these guide the response.
+        model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model Id
+          description: The model used to generate the agent's final response, overriding the top-level `model_id`. Can be a base model or fine-tuned model.
+        temperature:
+          anyOf:
+          - type: number
+            maximum: 2
+            minimum: 0
+          - type: 'null'
+          title: Temperature
+          description: Controls the predictability of the agent's final response. Accepts a value from `0` to `2`. Defaults to `0.6`.
+      type: object
+      title: AgentOutputConfig
+    PopulateIndexResponse_2:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+          description: Job ID for the index population task
+        status:
+          type: string
+          title: Status
+          description: Status of the index population task
       type: object
       required:
-      - data
-      title: GetMLModelsResponse
+      - job_id
+      - status
+      title: PopulateIndexResponse
+      description: Response model for populate index operation
+    UpdateFeedbackRequest:
+      properties:
+        model_id:
+          type: string
+          title: Model Id
+          description: The name of a model (TinyLlama/TinyLlama-1.1B-Chat-v1.0) deployment id
+        feedback:
+          additionalProperties: true
+          type: object
+          title: Feedback
+          description: Json object. If images are included, they must be base64 encoded.
+        version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+          description: The version of feedback data
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+          description: List of tags
+      type: object
+      required:
+      - model_id
+      - feedback
+      title: UpdateFeedbackRequest
+    ReasoningEffort:
+      type: string
+      enum:
+      - low
+      - medium
+      - high
+      - speed_optimized
+      - performance_optimized
+      title: ReasoningEffort
+      description: Controls how much reasoning the agent uses when working through a request. Accepts `low`, `medium`, or `high`, where higher levels produce more thorough reasoning. The `speed_optimized` and `performance_optimized` values are only supported for backward compatibility. `speed_optimized` maps to `low`, and `performance_optimized` maps to `high`.
     Case:
       properties:
         id:
@@ -2749,114 +2280,6 @@ components:
       - created_at
       - updated_at
       title: Case
-    ReasoningEffort:
-      type: string
-      enum:
-      - low
-      - medium
-      - high
-      - speed_optimized
-      - performance_optimized
-      title: ReasoningEffort
-      description: Controls how much reasoning the agent uses when working through a request. Accepts `low`, `medium`, or `high`, where higher levels produce more thorough reasoning. The `speed_optimized` and `performance_optimized` values are only supported for backward compatibility. `speed_optimized` maps to `low`, and `performance_optimized` maps to `high`.
-    CalculationParameter:
-      properties:
-        name:
-          type: string
-          title: Name
-        description:
-          type: string
-          title: Description
-        value:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Value
-      type: object
-      required:
-      - name
-      - description
-      title: CalculationParameter
-    PopulateIndexRequest_2:
-      properties:
-        index_name:
-          type: string
-          title: Index Name
-          description: Name of the vector database to use for population
-        user_id:
-          type: string
-          title: User Id
-          description: User ID
-        team_id:
-          type: string
-          title: Team Id
-          description: Team ID
-        file_ids:
-          items:
-            type: string
-          type: array
-          title: File Ids
-          description: List of training file IDs to create the index with
-      type: object
-      required:
-      - index_name
-      - user_id
-      - team_id
-      - file_ids
-      title: PopulateIndexRequest
-      description: Request model for populating explainability index
-    UpdateFeedbackRequest:
-      properties:
-        model_id:
-          type: string
-          title: Model Id
-          description: The name of a model (TinyLlama/TinyLlama-1.1B-Chat-v1.0) deployment id
-        feedback:
-          additionalProperties: true
-          type: object
-          title: Feedback
-          description: Json object. If images are included, they must be base64 encoded.
-        version:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Version
-          description: The version of feedback data
-        tags:
-          items:
-            type: string
-          type: array
-          title: Tags
-          description: List of tags
-      type: object
-      required:
-      - model_id
-      - feedback
-      title: UpdateFeedbackRequest
-    llm_training__agents__tools__standalone__schemas__WebSearch:
-      properties:
-        id:
-          type: string
-          title: Id
-        name:
-          type: string
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        type:
-          type: string
-          const: web_search
-          title: Type
-          default: web_search
-      type: object
-      required:
-      - id
-      - name
-      title: WebSearch
-      description: 'Configuration for the web search tool: real-time information retrieval from web sources.'
     FileSearchConfig:
       properties:
         FILE_SEARCH_INDEX:
@@ -2887,339 +2310,16 @@ components:
       required:
       - FILE_SEARCH_INDEX
       title: FileSearchConfig
-    PopulateIndexResponse_2:
+    AgentAsToolConfig:
       properties:
-        job_id:
+        AGENT_ID:
           type: string
-          title: Job Id
-          description: Job ID for the index population task
-        status:
-          type: string
-          title: Status
-          description: Status of the index population task
-      type: object
-      required:
-      - job_id
-      - status
-      title: PopulateIndexResponse
-      description: Response model for populate index operation
-    SinceUpdateMetrics:
-      properties:
-        average:
-          type: integer
-          title: Average
-        maximum:
-          type: integer
-          title: Maximum
-        count:
-          type: integer
-          title: Count
-      type: object
-      required:
-      - average
-      - maximum
-      - count
-      title: SinceUpdateMetrics
-    FeedbackResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        user_id:
-          type: string
-          title: User Id
-        model_id:
-          type: string
-          title: Model Id
-        feedback:
-          additionalProperties: true
-          type: object
-          title: Feedback
-        timestamp:
-          type: string
-          format: date-time
-          title: Timestamp
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        version:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Version
-        tags:
-          items:
-            type: string
-          type: array
-          title: Tags
-        file_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: File Ids
-      type: object
-      required:
-      - id
-      - user_id
-      - model_id
-      - feedback
-      - timestamp
-      - updated_at
-      title: FeedbackResponse
-    UpdateCaseRequest:
-      properties:
-        question:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Question
-        ground_truth:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Ground Truth
-        case_metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Case Metadata
-        tags:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Tags
-      type: object
-      title: UpdateCaseRequest
-    HardwareType:
-      type: string
-      enum:
-      - Serverless
-      - Dedicated
-      title: HardwareType
-    NewDeploymentRequest:
-      properties:
-        model_type:
-          $ref: '#/components/schemas/DeploymentType'
-        model_id:
-          type: string
-          title: Model Id
-        name:
-          type: string
-          maxLength: 100
-          minLength: 5
-          title: Name
-        description:
-          type: string
-          maxLength: 1000
-          minLength: 5
-          title: Description
-        n_instances:
-          type: integer
-          maximum: 50
-          minimum: 1
-          title: N Instances
-        hardware:
-          anyOf:
-          - $ref: '#/components/schemas/AcceleratorType'
-          - type: 'null'
-      type: object
-      required:
-      - model_type
-      - model_id
-      - name
-      - description
-      - n_instances
-      title: NewDeploymentRequest
-    PricingEstimateFineTuningRequestModel:
-      properties:
-        deployment:
-          $ref: '#/components/schemas/NewDeploymentRequest'
-        num_of_epochs:
-          type: integer
-          maximum: 2000
-          minimum: 1
-          title: Num Of Epochs
-        file_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: File Ids
-      type: object
-      required:
-      - deployment
-      - num_of_epochs
-      title: PricingEstimateFineTuningRequestModel
-    StatusUpdate:
-      properties:
-        status:
-          type: string
-          enum:
-          - RUNNING
-          - COMPLETED
-          - FAILED
-          title: Status
-        checkpoint_path:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Checkpoint Path
-      type: object
-      required:
-      - status
-      title: StatusUpdate
-    CreateFeedbackRequest:
-      properties:
-        model_id:
-          type: string
-          title: Model Id
-          description: The name of a model (TinyLlama/TinyLlama-1.1B-Chat-v1.0) deployment id
-        feedback:
-          additionalProperties: true
-          type: object
-          title: Feedback
-          description: Json object
-        version:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Version
-          description: The version of feedback data
-          default: ''
-        tags:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Tags
-      type: object
-      required:
-      - model_id
-      - feedback
-      title: CreateFeedbackRequest
-    MLModelType:
-      type: string
-      enum:
-      - Base
-      - Instruct
-      - Embedding
-      title: MLModelType
-    CreateImageForm:
-      properties:
-        user_id:
-          type: string
-          title: User Id
-        team_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Team Id
-        files:
-          anyOf:
-          - items:
-              type: string
-              contentMediaType: application/octet-stream
-            type: array
-          - type: 'null'
-          title: Files
-      additionalProperties: true
-      type: object
-      required:
-      - user_id
-      title: CreateImageForm
-    BillingType:
-      type: string
-      enum:
-      - Fine-Tuning
-      - Training
-      - Inference
-      title: BillingType
-    llm_training__agents__tools__standalone__schemas__FileSearch:
-      properties:
-        id:
-          type: string
-          title: Id
-        name:
-          type: string
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        type:
-          type: string
-          const: file_search
-          title: Type
-          default: file_search
-        config:
-          $ref: '#/components/schemas/FileSearchConfig'
-      type: object
-      required:
-      - id
-      - name
-      - config
-      title: FileSearch
-      description: 'Configuration for the file search tool: semantic search and retrieval across the agent''s vector databases.'
-    DeploymentType:
-      type: string
-      enum:
-      - Fine-tuned Run
-      - Base Model
-      title: DeploymentType
-    AgentOutputFrequency:
-      type: string
-      enum:
-      - always
-      - never
-      - automatic
-      title: AgentOutputFrequency
-    GetMLModelHfRevision:
-      properties:
-        name:
-          type: string
-          title: Name
-        hf_revision:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Hf Revision
-      type: object
-      required:
-      - name
-      - hf_revision
-      title: GetMLModelHfRevision
-    MCPConnectorToolResponseConfig:
-      properties:
-        URL:
-          type: string
-          minLength: 1
-          title: Url
-        TRANSPORT:
-          type: string
-          enum:
-          - sse
-          - streamable-http
-          title: Transport
-          default: streamable-http
-        AUTHORIZATION_URL:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Authorization Url
+          title: Agent Id
       additionalProperties: false
       type: object
       required:
-      - URL
-      title: MCPConnectorToolResponseConfig
+      - AGENT_ID
+      title: AgentAsToolConfig
     AgentStatus_2:
       type: string
       enum:
@@ -3229,35 +2329,21 @@ components:
       - Updating
       - Failed
       title: AgentStatus
-    AgentOutputConfig:
+    AgentUpdateStatusRequest:
       properties:
-        frequency:
-          anyOf:
-          - $ref: '#/components/schemas/AgentOutputFrequency'
-          - type: 'null'
-          description: 'When the agent produces a written response: `always`, `automatic` (the agent decides), or `never`.'
-        instructions:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Instructions
-          description: Instructions for generating the agent's final response. When set, the top-level `instructions` guide only the agent's reasoning, and these guide the response.
-        model_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model Id
-          description: The model used to generate the agent's final response, overriding the top-level `model_id`. Can be a base model or fine-tuned model.
-        temperature:
-          anyOf:
-          - type: number
-            maximum: 2
-            minimum: 0
-          - type: 'null'
-          title: Temperature
-          description: Controls the predictability of the agent's final response. Accepts a value from `0` to `2`. Defaults to `0.6`.
+        new_status:
+          $ref: '#/components/schemas/AgentStatus_2'
+      additionalProperties: false
       type: object
-      title: AgentOutputConfig
+      required:
+      - new_status
+      title: AgentUpdateStatusRequest
+    TagStrategy:
+      type: string
+      enum:
+      - contains
+      - overlap
+      title: TagStrategy
     Body_upload_feedback_route_v1_flow_feedback_upload_post:
       properties:
         files:
@@ -3287,33 +2373,17 @@ components:
       - version
       - feedback
       title: Body_upload_feedback_route_v1_flow_feedback_upload_post
-    llm_training__agents__tools__standalone__schemas__RunPython:
+    GetDeploymentsResponse:
       properties:
-        id:
-          type: string
-          title: Id
-        name:
-          type: string
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        type:
-          type: string
-          const: run_python
-          title: Type
-          default: run_python
-        config:
-          $ref: '#/components/schemas/RunPythonConfig'
-          default: {}
+        data:
+          items:
+            $ref: '#/components/schemas/Deployment'
+          type: array
+          title: Data
       type: object
       required:
-      - id
-      - name
-      title: RunPython
-      description: Configuration for the run Python tool, which lets the agent execute developer-defined Python functions.
+      - data
+      title: GetDeploymentsResponse
     Deployment:
       properties:
         id:
@@ -3452,6 +2522,818 @@ components:
       - team_id
       - model_name
       title: Deployment
+    StatusUpdate:
+      properties:
+        status:
+          type: string
+          enum:
+          - RUNNING
+          - COMPLETED
+          - FAILED
+          title: Status
+        checkpoint_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Checkpoint Path
+      type: object
+      required:
+      - status
+      title: StatusUpdate
+    GetMLModelHfRevision:
+      properties:
+        name:
+          type: string
+          title: Name
+        hf_revision:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hf Revision
+      type: object
+      required:
+      - name
+      - hf_revision
+      title: GetMLModelHfRevision
+    PricingEstimateDedicatedInferenceRequestModel:
+      properties:
+        deployment:
+          $ref: '#/components/schemas/NewDeploymentRequest'
+        estimated_compute_hours:
+          anyOf:
+          - type: integer
+            maximum: 8760
+            minimum: 1
+          - type: 'null'
+          title: Estimated Compute Hours
+      type: object
+      required:
+      - deployment
+      - estimated_compute_hours
+      title: PricingEstimateDedicatedInferenceRequestModel
+    MLModel:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          type: string
+          maxLength: 100
+          minLength: 5
+          title: Name
+        source:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Source
+        description:
+          type: string
+          maxLength: 1000
+          minLength: 5
+          title: Description
+        size:
+          type: integer
+          title: Size
+        logo:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Logo
+        category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Category
+        model_type:
+          $ref: '#/components/schemas/MLModelType'
+        inference_available:
+          type: boolean
+          title: Inference Available
+        training_available:
+          type: boolean
+          title: Training Available
+        deployment_available:
+          type: boolean
+          title: Deployment Available
+        supports_lora:
+          type: boolean
+          title: Supports Lora
+        max_lora_rank:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0
+          - type: 'null'
+          title: Max Lora Rank
+        vision_model:
+          type: boolean
+          title: Vision Model
+        hf_revision:
+          anyOf:
+          - type: string
+            maxLength: 128
+            minLength: 1
+          - type: 'null'
+          title: Hf Revision
+        internal_only:
+          type: boolean
+          title: Internal Only
+      type: object
+      required:
+      - id
+      - name
+      - source
+      - description
+      - size
+      - model_type
+      - inference_available
+      - training_available
+      - deployment_available
+      - supports_lora
+      - vision_model
+      - internal_only
+      title: MLModel
+    GetMLModelInfoResponse:
+      properties:
+        name:
+          type: string
+          title: Name
+        size:
+          type: integer
+          title: Size
+        model_type:
+          anyOf:
+          - $ref: '#/components/schemas/MLModelType'
+          - type: 'null'
+      type: object
+      required:
+      - name
+      - size
+      - model_type
+      title: GetMLModelInfoResponse
+    MCPConnectorToolResponseConfig:
+      properties:
+        URL:
+          type: string
+          minLength: 1
+          title: Url
+        TRANSPORT:
+          type: string
+          enum:
+          - sse
+          - streamable-http
+          title: Transport
+          default: streamable-http
+        AUTHORIZATION_URL:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Authorization Url
+      additionalProperties: false
+      type: object
+      required:
+      - URL
+      title: MCPConnectorToolResponseConfig
+    UpdateCaseRequest:
+      properties:
+        question:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Question
+        ground_truth:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ground Truth
+        case_metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Case Metadata
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+      type: object
+      title: UpdateCaseRequest
+    DeploymentProcessor:
+      type: string
+      enum:
+      - GAUDI2
+      - GAUDI3
+      - A100
+      - A10
+      - AMD
+      - H100
+      - MI300X
+      title: DeploymentProcessor
+    HardwareType:
+      type: string
+      enum:
+      - Serverless
+      - Dedicated
+      title: HardwareType
+    PricingEstimateServerlessInferenceRequestModel:
+      properties:
+        deployment:
+          $ref: '#/components/schemas/NewDeploymentRequest'
+        file_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: File Ids
+      type: object
+      required:
+      - deployment
+      title: PricingEstimateServerlessInferenceRequestModel
+    FeedbackResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        user_id:
+          type: string
+          title: User Id
+        model_id:
+          type: string
+          title: Model Id
+        feedback:
+          additionalProperties: true
+          type: object
+          title: Feedback
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+        file_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: File Ids
+      type: object
+      required:
+      - id
+      - user_id
+      - model_id
+      - feedback
+      - timestamp
+      - updated_at
+      title: FeedbackResponse
+    CreateFeedbackRequest:
+      properties:
+        model_id:
+          type: string
+          title: Model Id
+          description: The name of a model (TinyLlama/TinyLlama-1.1B-Chat-v1.0) deployment id
+        feedback:
+          additionalProperties: true
+          type: object
+          title: Feedback
+          description: Json object
+        version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+          description: The version of feedback data
+          default: ''
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+      type: object
+      required:
+      - model_id
+      - feedback
+      title: CreateFeedbackRequest
+    BillingType:
+      type: string
+      enum:
+      - Fine-Tuning
+      - Training
+      - Inference
+      title: BillingType
+    PopulateIndexRequest_2:
+      properties:
+        index_name:
+          type: string
+          title: Index Name
+          description: Name of the vector database to use for population
+        user_id:
+          type: string
+          title: User Id
+          description: User ID
+        team_id:
+          type: string
+          title: Team Id
+          description: Team ID
+        file_ids:
+          items:
+            type: string
+          type: array
+          title: File Ids
+          description: List of training file IDs to create the index with
+      type: object
+      required:
+      - index_name
+      - user_id
+      - team_id
+      - file_ids
+      title: PopulateIndexRequest
+      description: Request model for populating explainability index
+    CalculationParameter:
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        value:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Value
+      type: object
+      required:
+      - name
+      - description
+      title: CalculationParameter
+    DeploymentType:
+      type: string
+      enum:
+      - Fine-tuned Run
+      - Base Model
+      title: DeploymentType
+    AgentUpdateStatusResponseV2:
+      properties:
+        id:
+          type: string
+          title: Id
+        old_status:
+          $ref: '#/components/schemas/AgentStatus_2'
+        new_status:
+          $ref: '#/components/schemas/AgentStatus_2'
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        agent:
+          $ref: '#/components/schemas/AgentSchemaV2'
+      type: object
+      required:
+      - id
+      - old_status
+      - new_status
+      - user_id
+      - team_id
+      - agent
+      title: AgentUpdateStatusResponseV2
+    WorkflowPhaseResponse:
+      properties:
+        phase:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phase
+      additionalProperties: true
+      type: object
+      title: WorkflowPhaseResponse
+      description: 'Internal: the Argo workflow phase backing a job.
+
+
+        ``phase`` is the raw Argo phase (e.g. Running, Succeeded, Failed, Error) or
+
+        ``None`` when the workflow no longer exists / was never started. Not part of
+
+        the public SDK — used to verify a cancelled job''s workflow actually
+
+        terminated.'
+    llm_training__agents__tools__standalone__schemas__MCPConnectorTool:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        type:
+          type: string
+          const: mcp_connector
+          title: Type
+          default: mcp_connector
+        config:
+          $ref: '#/components/schemas/MCPConnectorToolResponseConfig'
+      type: object
+      required:
+      - id
+      - name
+      - config
+      title: MCPConnectorTool
+      description: Configuration for the MCP connector tool, which connects the agent to external MCP providers through a secure gateway with OAuth-based authentication.
+    GetMLModelsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/MLModel'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: GetMLModelsResponse
+    PricingEstimateResponseModel:
+      properties:
+        status:
+          type: integer
+          title: Status
+        pricing_estimate:
+          type: number
+          title: Pricing Estimate
+        billing_type:
+          $ref: '#/components/schemas/BillingType'
+        resource_type:
+          $ref: '#/components/schemas/HardwareType'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        deployment:
+          $ref: '#/components/schemas/NewDeploymentRequest'
+        description:
+          type: string
+          title: Description
+        tokens_used:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Tokens Used
+        calculation_parameters:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/CalculationParameter'
+            type: array
+          - type: 'null'
+          title: Calculation Parameters
+      type: object
+      required:
+      - status
+      - pricing_estimate
+      - billing_type
+      - resource_type
+      - created_at
+      - deployment
+      - description
+      title: PricingEstimateResponseModel
+    AcceleratorType:
+      type: string
+      enum:
+      - GAUDI2
+      - GAUDI3
+      - A100
+      - A10
+      - H100
+      - MI300X
+      title: AcceleratorType
+    AgentSchemaV2:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        instructions:
+          type: string
+          title: Instructions
+        status:
+          $ref: '#/components/schemas/AgentStatus_2'
+        model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model Id
+        planner_model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Planner Model Id
+        tool_model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tool Model Id
+        output:
+          anyOf:
+          - $ref: '#/components/schemas/AgentOutputConfig'
+          - type: 'null'
+        temperature:
+          anyOf:
+          - type: number
+            maximum: 2
+            minimum: 0
+          - type: 'null'
+          title: Temperature
+        reasoning_effort:
+          $ref: '#/components/schemas/ReasoningEffort'
+        planner_temperature:
+          anyOf:
+          - type: number
+            maximum: 2
+            minimum: 0
+          - type: 'null'
+          title: Planner Temperature
+        user_id:
+          type: string
+          title: User Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        tools:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__FileSearch'
+            - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__RunPython'
+            - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__WebSearch'
+            - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__AgentAsTool'
+            - $ref: '#/components/schemas/llm_training__agents__tools__standalone__schemas__MCPConnectorTool'
+            discriminator:
+              propertyName: type
+              mapping:
+                agent_as_tool: '#/components/schemas/llm_training__agents__tools__standalone__schemas__AgentAsTool'
+                file_search: '#/components/schemas/llm_training__agents__tools__standalone__schemas__FileSearch'
+                mcp_connector: '#/components/schemas/llm_training__agents__tools__standalone__schemas__MCPConnectorTool'
+                run_python: '#/components/schemas/llm_training__agents__tools__standalone__schemas__RunPython'
+                web_search: '#/components/schemas/llm_training__agents__tools__standalone__schemas__WebSearch'
+          type: array
+          title: Tools
+          description: 'The tools available to the agent. Each item configures one tool and must match one of the supported tool types: file search, run Python, web search, agent-as-tool, or MCP connector.'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        last_deployed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Deployed At
+        active_duration:
+          type: integer
+          minimum: 0
+          title: Active Duration
+          default: 0
+      type: object
+      required:
+      - id
+      - name
+      - instructions
+      - status
+      - reasoning_effort
+      - user_id
+      - team_id
+      - created_at
+      - updated_at
+      title: AgentSchemaV2
+    NewDeploymentRequest:
+      properties:
+        model_type:
+          $ref: '#/components/schemas/DeploymentType'
+        model_id:
+          type: string
+          title: Model Id
+        name:
+          type: string
+          maxLength: 100
+          minLength: 5
+          title: Name
+        description:
+          type: string
+          maxLength: 1000
+          minLength: 5
+          title: Description
+        n_instances:
+          type: integer
+          maximum: 50
+          minimum: 1
+          title: N Instances
+        hardware:
+          anyOf:
+          - $ref: '#/components/schemas/AcceleratorType'
+          - type: 'null'
+      type: object
+      required:
+      - model_type
+      - model_id
+      - name
+      - description
+      - n_instances
+      title: NewDeploymentRequest
+    GetHealthResponse:
+      properties:
+        deployment_pending_average:
+          type: integer
+          title: Deployment Pending Average
+        deployment_pending_maximum:
+          type: integer
+          title: Deployment Pending Maximum
+        deployment_pending_count:
+          type: integer
+          title: Deployment Pending Count
+        deployment_pending_by_model_name:
+          additionalProperties:
+            $ref: '#/components/schemas/SinceUpdateMetrics'
+          type: object
+          title: Deployment Pending By Model Name
+        version:
+          type: string
+          title: Version
+        agent_pending_average:
+          type: integer
+          title: Agent Pending Average
+        agent_pending_maximum:
+          type: integer
+          title: Agent Pending Maximum
+        agent_pending_count:
+          type: integer
+          title: Agent Pending Count
+        agent_failed_count:
+          type: integer
+          title: Agent Failed Count
+        finetune_queued_average:
+          type: integer
+          title: Finetune Queued Average
+        finetune_queued_maximum:
+          type: integer
+          title: Finetune Queued Maximum
+        finetune_queued_count:
+          type: integer
+          title: Finetune Queued Count
+        finetune_queued_by_model_name:
+          additionalProperties:
+            $ref: '#/components/schemas/SinceUpdateMetrics'
+          type: object
+          title: Finetune Queued By Model Name
+        alignment_queued_average:
+          type: integer
+          title: Alignment Queued Average
+        alignment_queued_maximum:
+          type: integer
+          title: Alignment Queued Maximum
+        alignment_queued_count:
+          type: integer
+          title: Alignment Queued Count
+        environment_management_on:
+          type: string
+          title: Environment Management On
+      type: object
+      required:
+      - deployment_pending_average
+      - deployment_pending_maximum
+      - deployment_pending_count
+      - deployment_pending_by_model_name
+      - version
+      - agent_pending_average
+      - agent_pending_maximum
+      - agent_pending_count
+      - agent_failed_count
+      - finetune_queued_average
+      - finetune_queued_maximum
+      - finetune_queued_count
+      - finetune_queued_by_model_name
+      - alignment_queued_average
+      - alignment_queued_maximum
+      - alignment_queued_count
+      - environment_management_on
+      title: GetHealthResponse
+    llm_training__agents__tools__standalone__schemas__AgentAsTool:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        type:
+          type: string
+          const: agent_as_tool
+          title: Type
+          default: agent_as_tool
+        config:
+          $ref: '#/components/schemas/AgentAsToolConfig'
+      type: object
+      required:
+      - id
+      - name
+      - config
+      title: AgentAsTool
+      description: Configuration for an agent-as-tool, which delegates subtasks to another agent and returns the result to the supervisor.
+    CreateCaseForm:
+      properties:
+        question:
+          type: string
+          title: Question
+        ground_truth:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ground Truth
+        case_metadata:
+          additionalProperties: true
+          type: object
+          title: Case Metadata
+          default: {}
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+        files:
+          anyOf:
+          - items:
+              type: string
+              contentMediaType: application/octet-stream
+            type: array
+          - type: 'null'
+          title: Files
+      type: object
+      required:
+      - question
+      title: CreateCaseForm
+    llm_training__agents__tools__standalone__schemas__FileSearch:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        type:
+          type: string
+          const: file_search
+          title: Type
+          default: file_search
+        config:
+          $ref: '#/components/schemas/FileSearchConfig'
+      type: object
+      required:
+      - id
+      - name
+      - config
+      title: FileSearch
+      description: 'Configuration for the file search tool: semantic search and retrieval across the agent''s vector databases.'
     ImageResponse:
       properties:
         id:
@@ -3489,6 +3371,124 @@ components:
       - file_hash
       - algorithm
       title: ImageResponse
+    RunPythonConfig:
+      properties:
+        FUNCTION_IDS:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Function Ids
+      additionalProperties: false
+      type: object
+      title: RunPythonConfig
+    PricingEstimateFineTuningRequestModel:
+      properties:
+        deployment:
+          $ref: '#/components/schemas/NewDeploymentRequest'
+        num_of_epochs:
+          type: integer
+          maximum: 2000
+          minimum: 1
+          title: Num Of Epochs
+        file_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: File Ids
+      type: object
+      required:
+      - deployment
+      - num_of_epochs
+      title: PricingEstimateFineTuningRequestModel
+    llm_training__agents__tools__standalone__schemas__WebSearch:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        type:
+          type: string
+          const: web_search
+          title: Type
+          default: web_search
+      type: object
+      required:
+      - id
+      - name
+      title: WebSearch
+      description: 'Configuration for the web search tool: real-time information retrieval from web sources.'
+    llm_training__agents__tools__standalone__schemas__RunPython:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        type:
+          type: string
+          const: run_python
+          title: Type
+          default: run_python
+        config:
+          $ref: '#/components/schemas/RunPythonConfig'
+          default: {}
+      type: object
+      required:
+      - id
+      - name
+      title: RunPython
+      description: Configuration for the run Python tool, which lets the agent execute developer-defined Python functions.
+    AgentOutputFrequency:
+      type: string
+      enum:
+      - always
+      - never
+      - automatic
+      title: AgentOutputFrequency
+    SinceUpdateMetrics:
+      properties:
+        average:
+          type: integer
+          title: Average
+        maximum:
+          type: integer
+          title: Maximum
+        count:
+          type: integer
+          title: Count
+      type: object
+      required:
+      - average
+      - maximum
+      - count
+      title: SinceUpdateMetrics
+    DeploymentStatus:
+      type: string
+      enum:
+      - Inactive
+      - Pending
+      - Active
+      - Failed
+      - Started
+      - Success
+      title: DeploymentStatus
   securitySchemes:
     APIKeyHeader:
       type: apiKey

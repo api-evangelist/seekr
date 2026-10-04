@@ -97,22 +97,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    OrderEnum:
+    Kind:
       type: string
       enum:
-      - asc
-      - desc
-      title: OrderEnum
-      description: Options for order query param in list endpoints.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      - span
+      - pending_span
+      - log
+      - span_event
+      title: Kind
+      description: Indicates the type of record for a logfire record.
     ValidationError:
       properties:
         loc:
@@ -139,75 +132,22 @@ components:
       - msg
       - type
       title: ValidationError
-    SpanSummaryRequest:
+    HTTPValidationError:
       properties:
-        min_start_datetime:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Min Start Datetime
-        max_start_datetime:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Max Start Datetime
-        agent_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Agent Id
-        run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Id
-        trace_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Trace Id
-        thread_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Thread Id
-        group:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Group
-        metadata:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Metadata
-        limit:
-          type: integer
-          title: Limit
-          default: 100
-        order:
-          $ref: '#/components/schemas/OrderEnum'
-          default: desc
-        offset:
-          type: integer
-          title: Offset
-          default: 0
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      title: SpanSummaryRequest
-      description: Object to contain request data for retrieving spans in bulk.
-    Kind:
+      title: HTTPValidationError
+    OrderEnum:
       type: string
       enum:
-      - span
-      - pending_span
-      - log
-      - span_event
-      title: Kind
-      description: Indicates the type of record for a logfire record.
+      - asc
+      - desc
+      title: OrderEnum
+      description: Options for order query param in list endpoints.
     SpanSummaryResult:
       properties:
         run_id:
@@ -325,6 +265,66 @@ components:
       - message
       title: SpanSummaryResult
       description: Summary object of a span, meant to be retrieved in bulk and used to provide data on spans to be able to fetch more data.
+    SpanSummaryRequest:
+      properties:
+        min_start_datetime:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Min Start Datetime
+        max_start_datetime:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Max Start Datetime
+        agent_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agent Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        trace_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trace Id
+        thread_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Thread Id
+        group:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Group
+        metadata:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Metadata
+        limit:
+          type: integer
+          title: Limit
+          default: 100
+        order:
+          $ref: '#/components/schemas/OrderEnum'
+          default: desc
+        offset:
+          type: integer
+          title: Offset
+          default: 0
+      type: object
+      title: SpanSummaryRequest
+      description: Object to contain request data for retrieving spans in bulk.
   securitySchemes:
     APIKeyHeader:
       type: apiKey

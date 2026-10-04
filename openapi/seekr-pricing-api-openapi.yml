@@ -143,22 +143,127 @@ paths:
       x-excluded: true
 components:
   schemas:
-    PricingEstimateDedicatedInferenceRequestModel:
+    HardwareType:
+      type: string
+      enum:
+      - Serverless
+      - Dedicated
+      title: HardwareType
+    PricingEstimateServerlessInferenceRequestModel:
       properties:
         deployment:
           $ref: '#/components/schemas/NewDeploymentRequest'
-        estimated_compute_hours:
+        file_ids:
           anyOf:
-          - type: integer
-            maximum: 8760
-            minimum: 1
+          - items:
+              type: string
+            type: array
           - type: 'null'
-          title: Estimated Compute Hours
+          title: File Ids
       type: object
       required:
       - deployment
-      - estimated_compute_hours
-      title: PricingEstimateDedicatedInferenceRequestModel
+      title: PricingEstimateServerlessInferenceRequestModel
+    NewDeploymentRequest:
+      properties:
+        model_type:
+          $ref: '#/components/schemas/DeploymentType'
+        model_id:
+          type: string
+          title: Model Id
+        name:
+          type: string
+          maxLength: 100
+          minLength: 5
+          title: Name
+        description:
+          type: string
+          maxLength: 1000
+          minLength: 5
+          title: Description
+        n_instances:
+          type: integer
+          maximum: 50
+          minimum: 1
+          title: N Instances
+        hardware:
+          anyOf:
+          - $ref: '#/components/schemas/AcceleratorType'
+          - type: 'null'
+      type: object
+      required:
+      - model_type
+      - model_id
+      - name
+      - description
+      - n_instances
+      title: NewDeploymentRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    BillingType:
+      type: string
+      enum:
+      - Fine-Tuning
+      - Training
+      - Inference
+      title: BillingType
+    CalculationParameter:
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        value:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Value
+      type: object
+      required:
+      - name
+      - description
+      title: CalculationParameter
+    DeploymentType:
+      type: string
+      enum:
+      - Fine-tuned Run
+      - Base Model
+      title: DeploymentType
     PricingEstimateFineTuningRequestModel:
       properties:
         deployment:
@@ -180,21 +285,22 @@ components:
       - deployment
       - num_of_epochs
       title: PricingEstimateFineTuningRequestModel
-    PricingEstimateServerlessInferenceRequestModel:
+    PricingEstimateDedicatedInferenceRequestModel:
       properties:
         deployment:
           $ref: '#/components/schemas/NewDeploymentRequest'
-        file_ids:
+        estimated_compute_hours:
           anyOf:
-          - items:
-              type: string
-            type: array
+          - type: integer
+            maximum: 8760
+            minimum: 1
           - type: 'null'
-          title: File Ids
+          title: Estimated Compute Hours
       type: object
       required:
       - deployment
-      title: PricingEstimateServerlessInferenceRequestModel
+      - estimated_compute_hours
+      title: PricingEstimateDedicatedInferenceRequestModel
     PricingEstimateResponseModel:
       properties:
         status:
@@ -238,15 +344,6 @@ components:
       - deployment
       - description
       title: PricingEstimateResponseModel
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     AcceleratorType:
       type: string
       enum:
@@ -257,103 +354,6 @@ components:
       - H100
       - MI300X
       title: AcceleratorType
-    BillingType:
-      type: string
-      enum:
-      - Fine-Tuning
-      - Training
-      - Inference
-      title: BillingType
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    DeploymentType:
-      type: string
-      enum:
-      - Fine-tuned Run
-      - Base Model
-      title: DeploymentType
-    CalculationParameter:
-      properties:
-        name:
-          type: string
-          title: Name
-        description:
-          type: string
-          title: Description
-        value:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Value
-      type: object
-      required:
-      - name
-      - description
-      title: CalculationParameter
-    HardwareType:
-      type: string
-      enum:
-      - Serverless
-      - Dedicated
-      title: HardwareType
-    NewDeploymentRequest:
-      properties:
-        model_type:
-          $ref: '#/components/schemas/DeploymentType'
-        model_id:
-          type: string
-          title: Model Id
-        name:
-          type: string
-          maxLength: 100
-          minLength: 5
-          title: Name
-        description:
-          type: string
-          maxLength: 1000
-          minLength: 5
-          title: Description
-        n_instances:
-          type: integer
-          maximum: 50
-          minimum: 1
-          title: N Instances
-        hardware:
-          anyOf:
-          - $ref: '#/components/schemas/AcceleratorType'
-          - type: 'null'
-      type: object
-      required:
-      - model_type
-      - model_id
-      - name
-      - description
-      - n_instances
-      title: NewDeploymentRequest
   securitySchemes:
     APIKeyHeader:
       type: apiKey
