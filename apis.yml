@@ -54,7 +54,6 @@ tags:
 - Fine-Tuning
 - Inference
 - RAG
-- Vector Database
 - Explainability
 - AI Governance
 - Model Evaluation
@@ -74,7 +73,6 @@ tags_raw:
 - fine-tuning
 - inference
 - rag
-- vector-database
 - explainability
 - ai-governance
 - model-evaluation
@@ -1184,3 +1182,5 @@ x-a2a:
   grade: "conformant"
   protocol_version: "0.3"
   control: 404
+x-tags-removed:
+- Vector Database
