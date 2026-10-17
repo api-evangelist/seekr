@@ -383,32 +383,29 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    ValidationError:
+    LatestRun:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        agent_id:
           type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+          title: Agent Id
+        last_run_created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Run Created At
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - run_id
+      - agent_id
+      - last_run_created_at
+      title: LatestRun
+      description: A minimal Run model to be used for determining the latest run of an agent.
     RunResponse:
       properties:
         run_id:
@@ -560,6 +557,53 @@ components:
         the initial prompt to delivering the final response. Runs track
 
         execution status, timing, model parameters, and resource usage.'
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    RunUsage:
+      properties:
+        prompt_tokens:
+          type: integer
+          title: Prompt Tokens
+        completion_tokens:
+          type: integer
+          title: Completion Tokens
+        total_tokens:
+          type: integer
+          title: Total Tokens
+      type: object
+      required:
+      - prompt_tokens
+      - completion_tokens
+      - total_tokens
+      title: RunUsage
+      description: 'Aggregated usage metrics for a complete run execution.
+
+
+        Tracks token consumption for both prompts and completions.'
     RunRequest:
       properties:
         agent_id:
@@ -591,63 +635,6 @@ components:
       type: object
       title: RunRequest
       description: Request model for creating a run.
-    OrderEnum:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: OrderEnum
-      description: Options for order query param in list endpoints.
-    RunStatus:
-      type: string
-      enum:
-      - queued
-      - running
-      - completed
-      - failed
-      - canceled
-      - cancelled
-      title: RunStatus
-      description: Available status for a run.
-    ResponseFormat:
-      properties:
-        json_schema:
-          additionalProperties: true
-          type: object
-          title: Json Schema
-      type: object
-      required:
-      - json_schema
-      title: ResponseFormat
-      description: 'Specifies a JSON schema for structured output.
-
-
-        When provided, the LLM will be constrained to return a JSON response
-
-        that matches the specified schema.'
-    LatestRun:
-      properties:
-        run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Id
-        agent_id:
-          type: string
-          title: Agent Id
-        last_run_created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Last Run Created At
-      type: object
-      required:
-      - run_id
-      - agent_id
-      - last_run_created_at
-      title: LatestRun
-      description: A minimal Run model to be used for determining the latest run of an agent.
     ModelSettings:
       properties:
         temperature:
@@ -692,27 +679,40 @@ components:
         Not all models/providers support all of these parameters, so please check the API documentation
 
         for the specific model and provider you are using.'
-    RunUsage:
+    ResponseFormat:
       properties:
-        prompt_tokens:
-          type: integer
-          title: Prompt Tokens
-        completion_tokens:
-          type: integer
-          title: Completion Tokens
-        total_tokens:
-          type: integer
-          title: Total Tokens
+        json_schema:
+          additionalProperties: true
+          type: object
+          title: Json Schema
       type: object
       required:
-      - prompt_tokens
-      - completion_tokens
-      - total_tokens
-      title: RunUsage
-      description: 'Aggregated usage metrics for a complete run execution.
+      - json_schema
+      title: ResponseFormat
+      description: 'Specifies a JSON schema for structured output.
 
 
-        Tracks token consumption for both prompts and completions.'
+        When provided, the LLM will be constrained to return a JSON response
+
+        that matches the specified schema.'
+    RunStatus:
+      type: string
+      enum:
+      - queued
+      - running
+      - completed
+      - failed
+      - canceled
+      - cancelled
+      title: RunStatus
+      description: Available status for a run.
+    OrderEnum:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: OrderEnum
+      description: Options for order query param in list endpoints.
   securitySchemes:
     APIKeyHeader:
       type: apiKey

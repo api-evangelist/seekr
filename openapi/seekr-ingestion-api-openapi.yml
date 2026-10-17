@@ -88,6 +88,33 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    IngestionRequest:
+      properties:
+        files:
+          items:
+            type: string
+          type: array
+          title: Files
+          description: List of file ids to use for alignment
+        method:
+          type: string
+          title: Method
+          description: Method to use for ingestion
+          default: best
+      additionalProperties: true
+      type: object
+      required:
+      - files
+      title: IngestionRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     IngestionResponse:
       properties:
         id:
@@ -121,15 +148,14 @@ components:
       - status
       - output_files
       title: IngestionResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+    IngestionJobStatus:
+      type: string
+      enum:
+      - queued
+      - running
+      - completed
+      - failed
+      title: IngestionJobStatus
     ValidationError:
       properties:
         loc:
@@ -156,32 +182,6 @@ components:
       - msg
       - type
       title: ValidationError
-    IngestionRequest:
-      properties:
-        files:
-          items:
-            type: string
-          type: array
-          title: Files
-          description: List of file ids to use for alignment
-        method:
-          type: string
-          title: Method
-          description: Method to use for ingestion
-          default: best
-      additionalProperties: true
-      type: object
-      required:
-      - files
-      title: IngestionRequest
-    IngestionJobStatus:
-      type: string
-      enum:
-      - queued
-      - running
-      - completed
-      - failed
-      title: IngestionJobStatus
     IngestionFileRecord:
       properties:
         record_id:

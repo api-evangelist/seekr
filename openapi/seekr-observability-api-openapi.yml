@@ -97,15 +97,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    Kind:
-      type: string
-      enum:
-      - span
-      - pending_span
-      - log
-      - span_event
-      title: Kind
-      description: Indicates the type of record for a logfire record.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -132,22 +132,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    OrderEnum:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: OrderEnum
-      description: Options for order query param in list endpoints.
     SpanSummaryResult:
       properties:
         run_id:
@@ -265,6 +249,15 @@ components:
       - message
       title: SpanSummaryResult
       description: Summary object of a span, meant to be retrieved in bulk and used to provide data on spans to be able to fetch more data.
+    Kind:
+      type: string
+      enum:
+      - span
+      - pending_span
+      - log
+      - span_event
+      title: Kind
+      description: Indicates the type of record for a logfire record.
     SpanSummaryRequest:
       properties:
         min_start_datetime:
@@ -325,6 +318,13 @@ components:
       type: object
       title: SpanSummaryRequest
       description: Object to contain request data for retrieving spans in bulk.
+    OrderEnum:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: OrderEnum
+      description: Options for order query param in list endpoints.
   securitySchemes:
     APIKeyHeader:
       type: apiKey
