@@ -5,7 +5,7 @@
       "source": "https://www.seekr.com/feed/",
       "feed_url": "https://www.seekr.com/feed/",
       "title": "",
-      "saved": 5,
+      "saved": 0,
       "method": "feed"
     },
     {
@@ -16,6 +16,13 @@
       "method": "discovered"
     },
     {
+      "source": "https://www.seekr.com/resource-center/feed/",
+      "feed_url": "https://www.seekr.com/resource-center/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
       "source": "https://www.seekr.com/contact-us/feed/",
       "feed_url": "https://www.seekr.com/contact-us/feed/",
       "title": "",
@@ -23,6 +30,6 @@
       "method": "feed"
     }
   ],
-  "post_count": 5,
-  "fetched": "2026-10-10T13:15:00Z"
+  "post_count": 16,
+  "fetched": "2026-10-17T14:53:57Z"
 }
